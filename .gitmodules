@@ -1,0 +1,24 @@
+[submodule "vim/bundle/matchit"]
+	path = vim/bundle/matchit
+	url = http://github.com/edsono/vim-matchit.git
+[submodule "vim/bundle/surround"]
+	path = vim/bundle/surround
+	url = http://github.com/tpope/vim-surround.git
+[submodule "vim/bundle/ragtag"]
+	path = vim/bundle/ragtag
+	url = http://github.com/tpope/vim-ragtag.git
+[submodule "vim/bundle/rails"]
+	path = vim/bundle/rails
+	url = http://github.com/tpope/vim-rails.git
+[submodule "vim/bundle/fugitive"]
+	path = vim/bundle/fugitive
+	url = http://github.com/tpope/vim-fugitive.git
+[submodule "vim/bundle/nerdcommenter"]
+	path = vim/bundle/nerdcommenter
+	url = http://github.com/scrooloose/nerdcommenter.git
+[submodule "vim/bundle/nerdtree"]
+	path = vim/bundle/nerdtree
+	url = http://github.com/scrooloose/nerdtree.git
+[submodule "vim/bundle/snipmate"]
+	path = vim/bundle/snipmate
+	url = http://github.com/msanders/snipmate.vim.git

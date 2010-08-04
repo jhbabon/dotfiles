@@ -1,0 +1,171 @@
+" vimrc
+
+" tabs and spaces
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set backspace=indent,eol,start
+set expandtab
+set autoindent
+set smartindent
+set smarttab
+
+" misc
+set number
+set ruler
+set showcmd
+set showmatch
+set wildmenu
+set wrap
+set hidden
+set modeline
+set autoread       " auto-reload modified files (with no local changes)
+set nocompatible   " don't try to be compatible with vi
+set ignorecase     " ignore case in search
+set smartcase      " override ignorecase if uppercase is used in search string
+set report=0       " report all changes
+set cursorline     " highlight current line
+set textwidth=80
+set visualbell
+set encoding=utf-8
+set hidden         " buffers management
+set title
+set shortmess=atI  " modify the error and info messages
+
+" statusline"
+set statusline=%f\ %{fugitive#statusline()}\ %r%m%h\ %y\ %=%l/%L,%c
+set laststatus=2   " always show status-line
+
+" completion
+set wildmenu
+set wildmode=list:longest,full
+
+" scroll
+set scrolloff=3
+
+" commands
+set showcmd
+set showmatch
+
+" keep swap files in one of these 
+set directory=/tmp
+set backupdir=/tmp
+
+" better search
+set hlsearch
+set incsearch
+
+" plugin pathogen
+" link: http://www.vim.org/scripts/script.php?script_id=2332
+filetype off
+call pathogen#runtime_append_all_bundles()
+
+" file-type
+filetype on
+filetype plugin on
+filetype indent on
+autocmd FileType make	set noexpandtab
+" Markdown
+augroup mkd
+  autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:>
+augroup END
+
+" show trailing white-space
+let ruby_space_errors = 1
+let c_space_errors = 1
+let javascript_space_errors = 1
+let php_space_errors = 1
+
+" fix backspace key in xterm
+inoremap  <BS>
+
+" syntax coloring
+syntax enable
+
+" minimum window height = 0
+set wmh=0
+
+" better matchit
+" runtime macros/matchit.vim
+
+" mapleader
+let mapleader = ","
+
+" special characters
+nmap <leader>l :set list!<CR>
+set listchars=trail:~,tab:▸\ ,eol:¬
+set list
+
+" spell check
+nmap <leader>sp :set spell!<CR>
+nmap <leader>ses :set spelllang=es<CR>
+nmap <leader>sen :set spelllang=en<CR>
+
+" save with Ctrl-s"
+nmap <C-s> :w<CR>
+imap <C-s> <Esc>:w<CR>a
+
+" no highlighted search"
+nmap <leader>nh :nohl<CR>
+
+" folding
+" link: http://github.com/dcrec1/vimfiles/blob/master/vimrc
+nnoremap <space> za
+set foldmethod=indent   " fold based on indent
+set foldnestmax=3       " deepest fold is 3 levels
+set nofoldenable        " dont fold by default
+
+" moving
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+
+" brackets
+inoremap ( ()<Left>
+inoremap { {}<Left>
+inoremap [ []<Left>
+inoremap < <><Left>
+inoremap " ""<Left>
+inoremap ' ''<Left>
+
+" empty lines
+" link: http://vim.wikia.com/wiki/Quickly_adding_and_deleting_empty_lines
+" delete the empty line below and above
+nnoremap <Leader>dl m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <Leader>dL m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+" add an empty line below and above
+nnoremap <Leader>al :set paste<CR>m`o<Esc>``:set nopaste<CR>
+nnoremap <Leader>aL :set paste<CR>m`O<Esc>``:set nopaste<CR>
+
+" plugins
+" ragtag
+let g:ragtag_global_maps = 1
+
+" nerdcommenter
+let NERDSpaceDelims=1
+let NERDShutUp=1
+
+" nerdtree
+nmap <F5> :NERDTree<CR>
+nnoremap <Leader>nt :NERDTreeToggle<CR>
+
+" fuzzyfinder
+nnoremap <Leader>fb :FufBuffer<CR>
+nnoremap <Leader>ff :FufFile<CR>
+
+" gui
+if has("gui_running")
+  colorscheme railscasts2
+  if has("gui_gnome") || has("gui_gtk2")
+      set guifont=Inconsolata\ Medium\ 10
+  endif
+  if has("gui_mac") || has("gui_macvim")
+    set guifont=AnonymousPro:h14
+  else
+  endif
+else
+  set nocursorline
+  set t_Co=16
+  colorscheme textmate16
+endif
