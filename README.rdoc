@@ -1,0 +1,9 @@
+= Basic Config Files
+
+These are config files to set up a basic system.
+
+== Installation
+
+  git clone git@github.com:darth-howlett/config_files.git ~/.config_files
+  cd ~/.config_files
+  rake install
