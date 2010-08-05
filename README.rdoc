@@ -1,9 +1,21 @@
 = Basic Config Files
 
-These are config files to set up a basic system.
+These are configuration files to set up a basic system.
+
+These are tested in a Mac OS X 10.6.4 system.
 
 == Installation
 
   git clone git@github.com:darth-howlett/config_files.git ~/.config_files
   cd ~/.config_files
+  git submodule init
+  git submodule update
   rake install
+
+== Attributions
+
+All the configuration files are based on the following works:
+
+  ryanb / dotfiles: http://github.com/ryanb/dotfiles
+  cloudhead / dotfiles: http://github.com/cloudhead/dotfiles
+  robbyrussell / oh-my-zsh: http://github.com/robbyrussell/oh-my-zsh
