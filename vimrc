@@ -57,13 +57,16 @@ set incsearch
 
 " plugin pathogen
 " link: http://www.vim.org/scripts/script.php?script_id=2332
+
+filetype plugin indent on
+filetype plugin indent off
 filetype off
 call pathogen#runtime_append_all_bundles()
+" call pathogen#helptags()
 
 " file-type
 filetype on
-filetype plugin on
-filetype indent on
+filetype indent plugin on
 autocmd FileType make	set noexpandtab
 " Markdown
 augroup mkd
