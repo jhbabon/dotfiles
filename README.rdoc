@@ -2,14 +2,12 @@
 
 These are configuration files to set up a basic system.
 
-These are tested in a Mac OS X 10.6.4 system.
+These are tested in a Mac OS X 10.6 system.
 
 == Installation
 
   git clone git@github.com:darth-howlett/config_files.git ~/.config_files
   cd ~/.config_files
-  git submodule init
-  git submodule update
   rake install
 
 == Attributions
