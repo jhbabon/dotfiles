@@ -165,6 +165,7 @@ if has("gui_running")
   endif
   if has("gui_mac") || has("gui_macvim")
     set guifont=AnonymousPro:h14
+    set guioptions=aAce
   else
   endif
 else
