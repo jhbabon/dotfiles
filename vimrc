@@ -161,7 +161,7 @@ nnoremap <Leader>ff :FufFile<CR>
 if has("gui_running")
   colorscheme railscasts2
   if has("gui_gnome") || has("gui_gtk2")
-      set guifont=Consolas\ Regular\ 12
+    set guifont=Inconsolata\ Medium\ 11
   endif
   if has("gui_mac") || has("gui_macvim")
     set guifont=AnonymousPro:h14
