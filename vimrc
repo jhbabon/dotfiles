@@ -157,6 +157,9 @@ nnoremap <Leader>nt :NERDTreeToggle<CR>
 nnoremap <Leader>fb :FufBuffer<CR>
 nnoremap <Leader>ff :FufFile<CR>
 
+" snipmate
+let g:snips_author = "Juan Hernández Babón"
+
 " gui
 if has("gui_running")
   colorscheme railscasts2
