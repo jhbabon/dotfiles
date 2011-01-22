@@ -162,7 +162,7 @@ let g:snips_author = "Juan Hernández Babón"
 
 " gui
 if has("gui_running")
-  colorscheme railscasts2
+  colorscheme github
   if has("gui_gnome") || has("gui_gtk2")
     set guifont=Inconsolata\ Medium\ 11
   endif
