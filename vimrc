@@ -1,4 +1,5 @@
 " vimrc
+set nocompatible   " don't try to be compatible with vi
 
 " tabs and spaces
 set tabstop=2
@@ -7,6 +8,7 @@ set softtabstop=2
 set backspace=indent,eol,start
 set expandtab
 set autoindent
+set copyindent
 set smartindent
 set smarttab
 
@@ -20,7 +22,6 @@ set wrap
 set hidden
 set modeline
 set autoread       " auto-reload modified files (with no local changes)
-set nocompatible   " don't try to be compatible with vi
 set ignorecase     " ignore case in search
 set smartcase      " override ignorecase if uppercase is used in search string
 set report=0       " report all changes
@@ -28,7 +29,7 @@ set cursorline     " highlight current line
 set textwidth=80
 set visualbell
 set encoding=utf-8
-set hidden         " buffers management
+set hidden         " buffers management, don't close the buffers
 set title
 set shortmess=atI  " modify the error and info messages
 
@@ -47,9 +48,13 @@ set scrolloff=3
 set showcmd
 set showmatch
 
-" keep swap files in one of these 
-set directory=/tmp
-set backupdir=/tmp
+" keep swap files in one of these
+" set directory=/tmp
+" set backupdir=/tmp
+" no backup files
+set nobackup
+set noswapfile " warning: may cause problems if you load huge files or
+               " on terminal crash
 
 " better search
 set hlsearch
@@ -61,8 +66,8 @@ set incsearch
 filetype plugin indent on
 filetype plugin indent off
 filetype off
+call pathogen#helptags()
 call pathogen#runtime_append_all_bundles()
-" call pathogen#helptags()
 
 " file-type
 filetype on
@@ -123,6 +128,10 @@ nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
+
+" quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " brackets
 inoremap ( ()<Left>
