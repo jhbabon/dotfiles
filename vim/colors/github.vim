@@ -24,7 +24,7 @@ hi Normal       guifg=#000000 guibg=#F8F8FF
 
 " {{{ Cursor
 hi Cursor		guibg=#444454 guifg=#F8F8FF
-hi CursorLine	guibg=#D8D8DD
+hi CursorLine	guibg=#F1F1F1
 hi CursorColumn	guibg=#E8E8EE
 " }}}
 
