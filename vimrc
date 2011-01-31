@@ -12,6 +12,11 @@ set copyindent
 set smartindent
 set smarttab
 
+" Tabs for PHP files
+autocmd FileType php
+  \ setlocal shiftwidth=4 |
+  \ setlocal tabstop=4
+
 " misc
 set number
 set ruler
