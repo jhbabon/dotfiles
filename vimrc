@@ -17,6 +17,11 @@ autocmd FileType php
   \ setlocal shiftwidth=4 |
   \ setlocal tabstop=4
 
+" Tabs for JS files
+autocmd FileType js
+  \ setlocal shiftwidth=4 |
+  \ setlocal tabstop=4
+
 " misc
 set number
 set ruler
