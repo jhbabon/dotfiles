@@ -1,0 +1,50 @@
+snippet cphp
+	<?php ${1}; ?>
+# Class
+snippet cclass
+	/**
+	 * ${3:undocumented class}
+	 *
+	 * @packaged ${4:default}
+	 * @author ${5:`g:snips_author`}
+	 **/
+	${1:}class ${2:} {
+	${6}
+	} // END $1class $2
+# Function
+snippet cfun
+	/**
+	 * ${4:undocumented function}
+	 *
+	 * @return ${5:void}
+	 * @author ${6:`g:snips_author`}
+	 **/
+	${1}function ${2}(${3}) {
+	${7}
+	}
+snippet cif
+	if (${1}) {
+		${2}
+	}
+snippet cife
+	if (${1}) {
+		${2}
+	} else {
+		${3}
+	}
+snippet celse
+	else {
+		${1}
+	}
+snippet celseif
+	elseif (${1}) {
+		${2}
+	}
+snippet cfore
+	foreach ($${1:variable} as $${2:key}) {
+		${3}
+	}
+snippet car
+	array(${1})
+snippet ckey
+	'${1:key}' => ${2:value},${3: }
