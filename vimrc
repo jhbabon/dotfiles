@@ -12,15 +12,11 @@ set copyindent
 set smartindent
 set smarttab
 
-" Tabs for PHP files
-autocmd FileType php
-  \ setlocal shiftwidth=4 |
-  \ setlocal tabstop=4
-
-" Tabs for JS files
-autocmd FileType js
-  \ setlocal shiftwidth=4 |
-  \ setlocal tabstop=4
+" filetype options
+autocmd BufNewFile,BufRead *.php  set filetype=php.html shiftwidth=4 tabstop=4
+autocmd BufNewFile,BufRead *.html set shiftwidth=4 tabstop=4
+autocmd BufNewFile,BufRead *.js   set shiftwidth=4 tabstop=4
+autocmd BufNewFile,BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:>
 
 " misc
 set number
@@ -83,10 +79,6 @@ call pathogen#runtime_append_all_bundles()
 filetype on
 filetype indent plugin on
 autocmd FileType make	set noexpandtab
-" Markdown
-augroup mkd
-  autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:>
-augroup END
 
 " show trailing white-space
 let ruby_space_errors = 1
@@ -181,7 +173,7 @@ let g:snips_author = "Juan Hernández Babón"
 
 " gui
 if has("gui_running")
-  colorscheme vylight
+  colorscheme bclear
   if has("gui_gnome") || has("gui_gtk2")
     set guifont=Inconsolata\ Medium\ 11
   endif
