@@ -24,7 +24,7 @@ set ruler
 set showcmd
 set showmatch
 set wildmenu
-set wrap
+set nowrap
 set hidden
 set modeline
 set autoread       " auto-reload modified files (with no local changes)
