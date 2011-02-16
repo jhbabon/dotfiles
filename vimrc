@@ -167,9 +167,17 @@ nnoremap <Leader>nt :NERDTreeToggle<CR>
 " fuzzyfinder
 nnoremap <Leader>fb :FufBuffer<CR>
 nnoremap <Leader>ff :FufFile<CR>
+nnoremap <Leader>fv :FufCoverageFile<CR>
+nnoremap <Leader>fj :FufJumpList<CR>
+nnoremap <Leader>fc :FufChangeList<CR>
+nnoremap <Leader>fl :FufLine<CR>
+nnoremap <Leader>fr :FufRenewCache<CR>
 
 " snipmate
 let g:snips_author = "Juan Hernández Babón"
+
+" sparkup
+let g:sparkupNextMapping = '<c-x>'
 
 " gui
 if has("gui_running")
