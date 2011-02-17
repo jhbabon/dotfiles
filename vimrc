@@ -185,6 +185,11 @@ nnoremap <Leader>gc :Gcommit<CR>
 nnoremap <Leader>gl :Glog<CR>
 nnoremap <Leader>gd :Gdiff<CR>
 
+" ack
+if has("unix") && !has('macunix')
+  let g:ackprg = "ack-grep -H --nocolor --nogroup --column"
+endif
+
 " gui
 if has("gui_running")
   colorscheme bclear
