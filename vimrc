@@ -39,7 +39,7 @@ set hidden         " buffers management, don't close the buffers
 set title
 set shortmess=atI  " modify the error and info messages
 
-" statusline"
+" statusline
 set statusline=%f\ %{fugitive#statusline()}\ %r%m%h\ %y\ %=%l/%L,%c
 set laststatus=2   " always show status-line
 
@@ -178,6 +178,12 @@ let g:snips_author = "Juan Hernández Babón"
 
 " sparkup
 let g:sparkupNextMapping = '<c-x>'
+
+" fugitive
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gc :Gcommit<CR>
+nnoremap <Leader>gl :Glog<CR>
+nnoremap <Leader>gd :Gdiff<CR>
 
 " gui
 if has("gui_running")
