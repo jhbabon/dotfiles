@@ -194,13 +194,18 @@ endif
 " gui
 if has("gui_running")
   colorscheme bclear
+
+  " windows size
+  " link: http://effectif.com/vim/changing-window-size
+  nmap <leader>1 :set lines=40 columns=85<CR><C-w>o
+  nmap <leader>2 :set lines=50 columns=171<CR><C-w>v
+
   if has("gui_gnome") || has("gui_gtk2")
     set guifont=Inconsolata\ Medium\ 11
   endif
   if has("gui_mac") || has("gui_macvim")
     set guifont=AnonymousPro:h14
     set guioptions=aAce
-  else
   endif
 else
   set nocursorline
