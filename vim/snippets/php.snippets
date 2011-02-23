@@ -1,26 +1,40 @@
-snippet cphp
+snippet lphp
 	<?php ${1}; ?>
+snippet cphp
+	<?php
+	
+	${1}
 # Class
-snippet cclass
+snippet dcla
 	/**
 	 * ${3:undocumented class}
 	 *
-	 * @packaged ${4:default}
+	 * @package ${4:default}
 	 * @author ${5:`g:snips_author`}
 	 **/
 	${1:}class ${2:} {
 	${6}
-	} // END $1class $2
+	} // end $1class $2
+snippet scla
+	${1:}class ${2:} {
+	${3}
+	} // end $1class $2
 # Function
-snippet cfun
+snippet dfun
 	/**
 	 * ${4:undocumented function}
 	 *
 	 * @return ${5:void}
 	 * @author ${6:`g:snips_author`}
 	 **/
-	${1}function ${2}(${3}) {
+	${1}function ${2:}(${3:}) {
 	${7}
+	} // end function $2
+snippet fparam
+	@param ${1:mixed} $${2:foo} ${3:param description}
+snippet sfun
+	${1}function ${2}(${3}) {
+	${4}
 	}
 snippet cif
 	if (${1}) {
@@ -47,4 +61,4 @@ snippet cfore
 snippet car
 	array(${1})
 snippet ckey
-	'${1:key}' => ${2:value},${3: }
+	'${1:key}' => ${2:value},${3}

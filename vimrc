@@ -95,9 +95,6 @@ syntax enable
 " minimum window height = 0
 set wmh=0
 
-" better matchit
-" runtime macros/matchit.vim
-
 " mapleader
 let mapleader = ","
 
@@ -151,6 +148,10 @@ nnoremap <Leader>dL m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 " add an empty line below and above
 nnoremap <Leader>al :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <Leader>aL :set paste<CR>m`O<Esc>``:set nopaste<CR>
+
+" add ; or , to the end of the line, when missing
+noremap <buffer> <Leader>; :s/\([^;]\)$/\1;/<CR>:noh<CR>
+noremap <buffer> <Leader>, :s/\([^,]\)$/\1,/<CR>:noh<CR>
 
 " plugins
 " ragtag
