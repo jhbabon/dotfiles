@@ -150,8 +150,8 @@ nnoremap <Leader>al :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <Leader>aL :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
 " add ; or , to the end of the line, when missing
-noremap <buffer> <Leader>; :s/\([^;]\)$/\1;/<CR>:noh<CR>
-noremap <buffer> <Leader>, :s/\([^,]\)$/\1,/<CR>:noh<CR>
+nnoremap <Leader>; :s/\([^;]\)$/\1;/<CR>:noh<CR>
+nnoremap <Leader>, :s/\([^,]\)$/\1,/<CR>:noh<CR>
 
 " plugins
 " ragtag
