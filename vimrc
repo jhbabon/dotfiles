@@ -206,6 +206,16 @@ if has("unix") && !has('macunix')
   let g:ackprg = "ack-grep -H --nocolor --nogroup --column"
 endif
 
+" tabularize
+if exists(":Tabularize")
+  nmap <Leader>t> :Tabularize /=><CR>
+  vmap <Leader>t> :Tabularize /=><CR>
+  nmap <Leader>t= :Tabularize /=<CR>
+  vmap <Leader>t= :Tabularize /=<CR>
+  nmap <Leader>t: :Tabularize /:\zs<CR>
+  vmap <Leader>t: :Tabularize /:\zs<CR>
+endif
+
 " gui
 if has("gui_running")
   colorscheme bclear
