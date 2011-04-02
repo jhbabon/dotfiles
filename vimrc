@@ -12,12 +12,6 @@ set copyindent
 set smartindent
 set smarttab
 
-" filetype options
-" autocmd BufNewFile,BufRead *.php  set filetype=php.html shiftwidth=4 tabstop=4
-" autocmd BufNewFile,BufRead *.html set shiftwidth=4 tabstop=4
-" autocmd BufNewFile,BufRead *.js   set shiftwidth=4 tabstop=4
-autocmd BufNewFile,BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:>
-
 " misc
 set number
 set ruler
@@ -79,6 +73,7 @@ call pathogen#runtime_append_all_bundles()
 filetype on
 filetype indent plugin on
 autocmd FileType make	set noexpandtab
+autocmd BufNewFile,BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:>
 
 " show trailing white-space
 let ruby_space_errors = 1
@@ -216,8 +211,6 @@ vmap <Leader>t: :Tabularize /:\zs<CR>
 
 " gui
 if has("gui_running")
-  colorscheme bclear
-
   " windows size
   " link: http://effectif.com/vim/changing-window-size
   nmap <leader>1 :set lines=40 columns=85<CR><C-w>o
@@ -230,6 +223,7 @@ if has("gui_running")
     set guifont=AnonymousPro:h14
     set guioptions=aAce
   endif
-else
-  set nocursorline
 endif
+
+set background=dark
+colorscheme solarized
