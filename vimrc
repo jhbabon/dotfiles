@@ -13,9 +13,9 @@ set smartindent
 set smarttab
 
 " filetype options
-autocmd BufNewFile,BufRead *.php  set filetype=php.html shiftwidth=4 tabstop=4
-autocmd BufNewFile,BufRead *.html set shiftwidth=4 tabstop=4
-autocmd BufNewFile,BufRead *.js   set shiftwidth=4 tabstop=4
+" autocmd BufNewFile,BufRead *.php  set filetype=php.html shiftwidth=4 tabstop=4
+" autocmd BufNewFile,BufRead *.html set shiftwidth=4 tabstop=4
+" autocmd BufNewFile,BufRead *.js   set shiftwidth=4 tabstop=4
 autocmd BufNewFile,BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:>
 
 " misc
@@ -207,14 +207,12 @@ if has("unix") && !has('macunix')
 endif
 
 " tabularize
-if exists(":Tabularize")
-  nmap <Leader>t> :Tabularize /=><CR>
-  vmap <Leader>t> :Tabularize /=><CR>
-  nmap <Leader>t= :Tabularize /=<CR>
-  vmap <Leader>t= :Tabularize /=<CR>
-  nmap <Leader>t: :Tabularize /:\zs<CR>
-  vmap <Leader>t: :Tabularize /:\zs<CR>
-endif
+nmap <Leader>t> :Tabularize /=><CR>
+vmap <Leader>t> :Tabularize /=><CR>
+nmap <Leader>t= :Tabularize /=<CR>
+vmap <Leader>t= :Tabularize /=<CR>
+nmap <Leader>t: :Tabularize /:\zs<CR>
+vmap <Leader>t: :Tabularize /:\zs<CR>
 
 " gui
 if has("gui_running")
@@ -234,6 +232,4 @@ if has("gui_running")
   endif
 else
   set nocursorline
-  set t_Co=16
-  colorscheme textmate16
 endif
