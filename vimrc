@@ -73,7 +73,6 @@ call pathogen#runtime_append_all_bundles()
 filetype on
 filetype indent plugin on
 autocmd FileType make	set noexpandtab
-autocmd BufNewFile,BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:>
 
 " show trailing white-space
 let ruby_space_errors = 1
@@ -208,6 +207,18 @@ nmap <Leader>t= :Tabularize /=<CR>
 vmap <Leader>t= :Tabularize /=<CR>
 nmap <Leader>t: :Tabularize /:\zs<CR>
 vmap <Leader>t: :Tabularize /:\zs<CR>
+
+" markdown
+" FUNCTION: ConvertMarkdown()
+" description: Convert markdown file to an html file and open it
+" dependencies: markdown cli
+function! <SID>ConvertMarkdown()
+  let l:mkd_file = expand("%:p")
+  let l:html_file = expand("%:p:r") . ".html"
+  exe "!markdown --html4tags " . l:mkd_file . " > " . l:html_file
+  exe "drop " . l:html_file
+endfunction
+nmap <silent> <Leader>mk :call <SID>ConvertMarkdown()<CR>
 
 " gui
 if has("gui_running")
