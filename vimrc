@@ -18,7 +18,8 @@ set ruler
 set showcmd
 set showmatch
 set wildmenu
-set nowrap
+set wrap
+set linebreak
 set hidden
 set modeline
 set autoread       " auto-reload modified files (with no local changes)
@@ -26,7 +27,7 @@ set ignorecase     " ignore case in search
 set smartcase      " override ignorecase if uppercase is used in search string
 set report=0       " report all changes
 set cursorline     " highlight current line
-set textwidth=80
+set textwidth=0
 set visualbell
 set encoding=utf-8
 set hidden         " buffers management, don't close the buffers
@@ -43,10 +44,6 @@ set wildmode=list:longest,full
 
 " scroll
 set scrolloff=3
-
-" commands
-set showcmd
-set showmatch
 
 " keep swap files in one of these
 " set directory=/tmp
@@ -234,7 +231,13 @@ if has("gui_running")
     set guifont=AnonymousPro:h14
     set guioptions=aAce
   endif
+else
+  let g:solarized_termcolors=16
 endif
 
 set background=dark
 colorscheme solarized
+
+" highlight long lines
+" use Todo highlighted group
+match Todo /\%81v.*/
