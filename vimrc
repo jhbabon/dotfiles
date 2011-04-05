@@ -219,6 +219,7 @@ nmap <silent> <Leader>mk :call <SID>ConvertMarkdown()<CR>
 
 " gui
 if has("gui_running")
+  colorscheme railscasts2
   " windows size
   " link: http://effectif.com/vim/changing-window-size
   nmap <leader>1 :set lines=40 columns=85<CR><C-w>o
@@ -233,11 +234,9 @@ if has("gui_running")
   endif
 else
   let g:solarized_termcolors=16
+  set background=dark
+  colorscheme solarized
 endif
 
-set background=dark
-colorscheme solarized
-
 " highlight long lines
-" use Todo highlighted group
-match Todo /\%81v.*/
+match ColorColumn /\%81v.*/
