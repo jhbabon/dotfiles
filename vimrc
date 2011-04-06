@@ -239,4 +239,4 @@ else
 endif
 
 " highlight long lines
-match ColorColumn /\%81v.*/
+match CursorLine /\%81v.*/
