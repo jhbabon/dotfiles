@@ -10,8 +10,13 @@ alias mdp="mkdir -p"
 alias ping='ping -c 4 '
 alias pingg='ping www.google.com'
 
-# postgresql control
+# postgresql controls Mac OS X
 alias pg1='pg_ctl -D /usr/local/var/postgres start -l /usr/local/var/postgres/server.log'
 alias pg0='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
+
+# postgresql controls Linux Dev
+alias pgstart="/usr/local/bin/pg_ctl -D $HOME/Projects/db/pgsql/data -l $HOME/Projects/db/pgsql/data/psql.log start"
+alias pgstop="/usr/local/bin/pg_ctl -D $HOME/Projects/db/pgsql/data stop"
+alias psql='psql -h localhost'
 
 # vim:set ft=zsh:
