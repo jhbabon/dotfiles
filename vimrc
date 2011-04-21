@@ -46,11 +46,11 @@ set wildmode=list:longest,full
 set scrolloff=3
 
 " keep swap files in one of these
-" set directory=/tmp
-" set backupdir=/tmp
+set directory=/tmp
+set backupdir=/tmp
 " no backup files
-set nobackup
-set noswapfile " warning: may cause problems if you load huge files or
+" set nobackup
+" set noswapfile " warning: may cause problems if you load huge files or
                " on terminal crash
 
 " better search
