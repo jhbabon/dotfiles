@@ -2,7 +2,7 @@
 
 export EDITOR=vim
 export PAGER=/usr/bin/less
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export CLICOLOR="true"
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 # export LANG="es_ES.UTF-8"
