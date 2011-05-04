@@ -240,9 +240,7 @@ if has("gui_running")
     set guioptions=aAce
   endif
 else
-  let g:solarized_termcolors=16
-  set background=dark
-  colorscheme solarized
+  colorscheme vividchalk
 endif
 
 " highlight long lines
