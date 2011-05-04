@@ -205,9 +205,16 @@ vmap <Leader>t= :Tabularize /=<CR>
 nmap <Leader>t: :Tabularize /:\zs<CR>
 vmap <Leader>t: :Tabularize /:\zs<CR>
 
+" autocomplpop
+" let g:acp_enableAtStartup = 0
+nnoremap <Leader>pe :AcpEnable<CR>
+nnoremap <Leader>pd :AcpDisable<CR>
+nnoremap <Leader>pl :AcpLock<CR>
+nnoremap <Leader>pu :AcpUnlock<CR>
+
 " markdown
 " FUNCTION: ConvertMarkdown()
-" description: Convert markdown file to an html file and open it
+" description: Convert markdown file to a html file and open it
 " dependencies: markdown cli
 function! <SID>ConvertMarkdown()
   let l:mkd_file = expand("%:p")
