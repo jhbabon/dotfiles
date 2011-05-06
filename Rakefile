@@ -1,58 +1,66 @@
 # based on: http://github.com/ryanb/dotfiles
 
-Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 require 'rake'
 
+# helpers
+
+def identical(file)
+  puts "identical ~/.#{file}"
+end
+
+def backup(file)
+  puts "backup ~/.#{file}"
+  system %Q{mv "$HOME/.#{file}" "$HOME/.#{file}.back"}
+end
+
+def linking(file)
+  puts "linking ~/.#{file}"
+  system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
+end
+
+def git(cmd)
+  system %Q{git #{cmd}}
+end
+
+# tasks
+
 desc "install the dot files into user's home directory"
-task :install => 'git:modules:init' do
+task :install => 'git:submodules:init' do
   puts "Installing configuration files:"
   Dir['*'].each do |file|
     next if %w[Rakefile README.rdoc LICENSE lib].include? file
     if File.exist?(File.join(ENV['HOME'], ".#{file}"))
       if File.identical?(file, File.join(ENV['HOME'], ".#{file}"))
-        puts "identical ~/.#{file}"
+        identical file
         skip = true
       else
-        puts "backup ~/.#{file}"
-        system %Q{mv "$HOME/.#{file}" "$HOME/.#{file}.back"}
+        backup file
         skip = false
       end
     end
     unless skip
-      puts "linking ~/.#{file}"
-      system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
+      linking file
     end
   end
 end
 
 namespace :git do
-  namespace :modules do
+  namespace :submodules do
 
-    desc "initialize git modules"
+    desc "initialize git submodules"
     task :init do
-      puts "Initializing git modules:"
-      Git.submodule_init
-      Git.submodule_update
+      puts "Initializing git submodules:"
+      git "submodule init"
+      git "submodule update"
     end
 
-    desc "update git modules"
+    desc "update git submodules"
     task :update do
-      puts "Git modules:"
-      file = ".gitmodules"
-      if File.exist?(file)
-        paths = Git.extract_modules(file)
-
-        paths.each do |path|
-          puts "Updating #{path}:"
-          Git.update_module(path)
-          puts ""
-        end
-
-        puts "Committing changes:"
-        Git.commit
-      else
-        puts "There is no .gitmodules file"
-      end
+      puts "Updating git submodules:"
+      git "submodule foreach git pull origin master"
+      puts "Committing changes:"
+      git "add ."
+      git "commit -m 'Updated git submodules'"
     end
   end
 end

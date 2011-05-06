@@ -2,7 +2,8 @@
 
 These are configuration files to set up a basic system.
 
-These are tested in a Mac OS X 10.6 system.
+These are tested in a Mac OS X 10.6 system and Ubuntu Linux (10.04 and
+10.10 versions).
 
 == Installation
 
