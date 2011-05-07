@@ -1,5 +1,4 @@
 # based on: http://github.com/ryanb/dotfiles
-
 require 'rake'
 
 # helpers
@@ -28,19 +27,16 @@ desc "install the dot files into user's home directory"
 task :install => 'git:submodules:init' do
   puts "Installing configuration files:"
   Dir['*'].each do |file|
-    next if %w[Rakefile README.rdoc LICENSE lib].include? file
-    if File.exist?(File.join(ENV['HOME'], ".#{file}"))
-      if File.identical?(file, File.join(ENV['HOME'], ".#{file}"))
-        identical file
-        skip = true
-      else
-        backup file
-        skip = false
-      end
+    next if %w[Rakefile README.rdoc LICENSE lib].include?(file)
+
+    home_file = File.join(ENV['HOME'], ".#{file}")
+    skip = false
+    if File.exist?(home_file)
+      skip = File.identical?(file, home_file)
+      skip ? identical(file) : backup(file)
     end
-    unless skip
-      linking file
-    end
+
+    linking file unless skip
   end
 end
 
