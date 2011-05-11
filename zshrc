@@ -7,7 +7,7 @@
 export ZSH=$HOME/.zsh
 
 # add a function path
-fpath=($ZSH/functions $fpath)
+fpath=($ZSH/bundle/**/functions $fpath)
 typeset -U fpath
 
 # load all of the config files
