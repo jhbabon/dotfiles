@@ -226,7 +226,7 @@ nmap <silent> <Leader>mk :call <SID>ConvertMarkdown()<CR>
 
 " gui
 if has("gui_running")
-  set background=light
+  set background=dark
   colorscheme solarized
   " windows size
   " link: http://effectif.com/vim/changing-window-size
