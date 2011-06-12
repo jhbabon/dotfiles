@@ -225,8 +225,8 @@ endfunction
 nmap <silent> <Leader>mk :call <SID>ConvertMarkdown()<CR>
 
 " gui
+set background=dark
 if has("gui_running")
-  set background=dark
   colorscheme solarized
   " windows size
   " link: http://effectif.com/vim/changing-window-size
@@ -240,8 +240,6 @@ if has("gui_running")
     set guifont=AnonymousPro:h14
     set guioptions=aAce
   endif
-else
-  colorscheme vividchalk
 endif
 
 " highlight long lines
