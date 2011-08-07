@@ -55,3 +55,6 @@
 [submodule "vim/bundle/l9"]
 	path = vim/bundle/l9
 	url = https://github.com/vim-scripts/L9.git
+[submodule "oh-my-zsh"]
+	path = oh-my-zsh
+	url = git@github.com:jhbabon/oh-my-zsh.git
