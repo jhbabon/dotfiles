@@ -225,9 +225,9 @@ endfunction
 nmap <silent> <Leader>mk :call <SID>ConvertMarkdown()<CR>
 
 " gui
-set background=dark
+set background=light
 if has("gui_running")
-  colorscheme railscasts2
+  colorscheme solarized
   " windows size
   " link: http://effectif.com/vim/changing-window-size
   nmap <leader>1 :set lines=40 columns=85<CR><C-w>o
