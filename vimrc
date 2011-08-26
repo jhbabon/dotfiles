@@ -212,6 +212,9 @@ nnoremap <Leader>pd :AcpDisable<CR>
 nnoremap <Leader>pl :AcpLock<CR>
 nnoremap <Leader>pu :AcpUnlock<CR>
 
+" gundo
+nnoremap <Leader>ut :GundoToggle<CR>
+
 " markdown
 " FUNCTION: ConvertMarkdown()
 " description: Convert markdown file to a html file and open it
