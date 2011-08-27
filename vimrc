@@ -159,6 +159,10 @@ function! <SID>StripTrailingWhitespace()
 endfunction
 nmap <silent> <Leader><space> :call <SID>StripTrailingWhitespace()<CR>
 
+" change background
+nnoremap <Leader>bl :set background=light<CR>
+nnoremap <Leader>bd :set background=dark<CR>
+
 " plugins
 " ragtag
 let g:ragtag_global_maps = 1
@@ -228,7 +232,7 @@ endfunction
 nmap <silent> <Leader>mk :call <SID>ConvertMarkdown()<CR>
 
 " gui
-set background=light
+set background=dark
 if has("gui_running")
   colorscheme solarized
   " windows size
