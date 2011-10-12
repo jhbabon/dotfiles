@@ -1,3 +1,4 @@
+#! /bin/zsh
 # environment variables
 
 export EDITOR=vim
