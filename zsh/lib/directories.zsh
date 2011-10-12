@@ -15,8 +15,10 @@ alias cd...='cd ../..'
 alias cd....='cd ../../..'
 alias cd.....='cd ../../../..'
 alias cd/='cd /'
-
 alias mdp="mkdir -p"
+
+# frequent directories
+cdpath=($HOME/Code $HOME/Projects)
 
 # mkdir & cd to it
 function go() {
