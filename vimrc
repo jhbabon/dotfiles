@@ -197,9 +197,7 @@ nnoremap <Leader>gl :Glog<CR>
 nnoremap <Leader>gd :Gdiff<CR>
 
 " ack
-if has("unix") && !has('macunix')
-  let g:ackprg = "ack-grep -H --nocolor --nogroup --column"
-endif
+let g:ackprg = "ack -H --nocolor --nogroup --column"
 
 " tabularize
 nmap <Leader>t> :Tabularize /=><CR>

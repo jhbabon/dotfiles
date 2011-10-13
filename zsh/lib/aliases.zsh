@@ -16,6 +16,7 @@ alias lsa='ls -lah'
 alias sl=ls # often screw this up
 
 # ack
+which ack-grep &>/dev/null 2>&1 && alias ack='ack-grep'
 alias afind='ack-grep -il'
 
 # various
