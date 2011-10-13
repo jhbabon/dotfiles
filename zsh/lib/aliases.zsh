@@ -25,6 +25,7 @@ alias vi='vim'
 alias mdp="mkdir -p"
 alias ping='ping -c 4 '
 alias pingg='ping www.google.com'
+alias rld="echo 'reload!'; exec $SHELL" # reload shell environment
 
 # postgresql controls Linux Dev
 alias pgstart="/usr/local/bin/pg_ctl -D $HOME/Projects/db/pgsql/data -l $HOME/Projects/db/pgsql/data/psql.log start"
