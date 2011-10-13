@@ -67,3 +67,6 @@
 [submodule "vim/bundle/mustache"]
 	path = vim/bundle/mustache
 	url = https://github.com/juvenn/mustache.vim.git
+[submodule "rbenv"]
+	path = rbenv
+	url = git://github.com/sstephenson/rbenv.git
