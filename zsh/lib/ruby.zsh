@@ -11,4 +11,7 @@ elif [[ -s $HOME/.rvm/scripts/rvm ]] ; then
   source $HOME/.rvm/scripts/rvm
 fi
 
+# Rubinius options
+export RBXOPT='-Xrbc.db'
+
 # vim:set ft=zsh:
