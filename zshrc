@@ -15,4 +15,7 @@ typeset -U fpath
 for config_file ($ZSH/lib/*.zsh) source $config_file
 unset config_file
 
+# set terminal colors
+export TERM=xterm-256color
+
 # vim:set ft=zsh:
