@@ -230,6 +230,7 @@ endfunction
 nmap <silent> <Leader>mk :call <SID>ConvertMarkdown()<CR>
 
 " gui
+set t_Co=256
 set background=dark
 colorscheme solarized
 if has("gui_running")
