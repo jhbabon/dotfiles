@@ -1,4 +1,3 @@
-#! /bin/zsh
 # appearance
 
 # ls colors

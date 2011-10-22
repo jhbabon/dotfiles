@@ -1,4 +1,3 @@
-#! /bin/zsh
 # directories manipulation
 setopt autonamedirs
 setopt autocd

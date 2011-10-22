@@ -1,4 +1,3 @@
-#! /bin/zsh
 # spelling correction
 
 setopt correct_all

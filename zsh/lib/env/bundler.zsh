@@ -1,4 +1,3 @@
-#! /bin/zsh
 # original bundler plugin from oh-my-zsh
 
 alias be="bundle exec"

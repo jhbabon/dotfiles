@@ -1,4 +1,3 @@
-#! /bin/zsh
 # key bindings
 
 # vi mode

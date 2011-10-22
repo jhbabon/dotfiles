@@ -1,5 +1,3 @@
-#! /bin/zsh
-
 # Ruby version manager: rbenv or rvm, but not both
 
 ## rbenv: has preference over rvm

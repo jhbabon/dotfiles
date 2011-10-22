@@ -1,4 +1,3 @@
-#! /bin/zsh
 # aliases
 
 # Super user

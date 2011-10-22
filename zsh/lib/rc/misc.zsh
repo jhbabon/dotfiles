@@ -1,4 +1,3 @@
-#! /bin/zsh
 # misc options
 
 ## smart urls

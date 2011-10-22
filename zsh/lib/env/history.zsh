@@ -1,4 +1,3 @@
-#! /bin/zsh
 # history
 
 # ignore duplicate history entries

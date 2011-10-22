@@ -1,4 +1,3 @@
-#! /bin/zsh
 # rails aliases from oh-my-zsh rails3 plugin
 
 function _rails_command () {
