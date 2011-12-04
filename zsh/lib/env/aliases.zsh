@@ -26,7 +26,11 @@ alias ping='ping -c 4 '
 alias pingg='ping www.google.com'
 alias rld="echo 'reload!'; exec $SHELL" # reload shell environment
 
-# postgresql controls Linux Dev
+# postgresql controls on Mac OS machine
+alias pg1="pg_ctl -D $HOME/Code/db/postgres -l $HOME/Code/db/postgres/psql.log start"
+alias pg0="pg_ctl -D $HOME/Code/db/postgres stop"
+
+# postgresql controls Linux machine
 alias pgstart="/usr/local/bin/pg_ctl -D $HOME/Projects/db/pgsql/data -l $HOME/Projects/db/pgsql/data/psql.log start"
 alias pgstop="/usr/local/bin/pg_ctl -D $HOME/Projects/db/pgsql/data stop"
 alias psql='psql -h localhost'
