@@ -33,6 +33,7 @@ set encoding=utf-8
 set hidden         " buffers management, don't close the buffers
 set title
 set shortmess=atI  " modify the error and info messages
+set synmaxcol=120  " maximum column in which to search for syntax items
 
 " statusline
 set statusline=%f\ %{fugitive#statusline()}\ %r%m%h\ %y\ %=%l/%L,%c
