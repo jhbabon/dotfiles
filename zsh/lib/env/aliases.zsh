@@ -18,6 +18,9 @@ alias sl=ls # often screw this up
 which ack-grep &>/dev/null 2>&1 && alias ack='ack-grep'
 alias afind='ack-grep -il'
 
+# rake
+alias rake="noglob rake" # makes rake work nicely with zsh
+
 # various
 alias cl='clear'
 alias vi='vim'
