@@ -199,6 +199,10 @@ nnoremap <Leader>gd :Gdiff<CR>
 
 " ack
 let g:ackprg = "ack -H --nocolor --nogroup --column"
+" fast search for TODO, FIXME and NOTE labels
+command! -nargs=0 Todos exec "Ack TODO"
+command! -nargs=0 Fixmes exec "Ack FIXME"
+command! -nargs=0 Notes exec "Ack NOTE"
 
 " tabularize
 nmap <Leader>t> :Tabularize /=><CR>
@@ -254,6 +258,7 @@ match CursorLine /\%81v.*/
 
 " autosave
 " link: http://stackoverflow.com/questions/6991638/how-to-auto-save-a-file-every-1-second-in-vim
+" FIXME: doesn't work well with unsaved files and files outside the focus
 au BufRead,BufNewFile * let b:save_time = localtime()
 au CursorHold * call UpdateFile()
 let g:autosave_time = 1
@@ -299,3 +304,4 @@ augroup AutosaveSession
   au!
   au SessionLoadPost * if exists("g:AutosaveSessionFilePath") != 0|call AutosaveSessionOn(g:AutosaveSessionFilePath)|endif
 augroup end
+
