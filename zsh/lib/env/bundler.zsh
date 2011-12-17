@@ -25,14 +25,24 @@ _within-bundled-project() {
   false
 }
 
-_run-with-bundler() {
+_bundled() {
   if _bundler-installed && _within-bundled-project; then
+    return true
+  fi
+
+  false
+}
+
+_run-with-bundler() {
+  if _bundled; then
     bundle exec $@
   else
     $@
   fi
 }
 
+
+# rake
 ## Main program
 for cmd in $bundled_commands; do
   alias $cmd="_run-with-bundler $cmd"

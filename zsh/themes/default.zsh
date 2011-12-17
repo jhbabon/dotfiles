@@ -50,12 +50,21 @@ git_dirty() {
   fi
 }
 
+bundler_label() {
+  $($(which _bundled > /dev/null 2>&1) &&  _bundled) || return
+  local bundler_prompt
+  bundler_prompt="%{$fg[blue]%}b!%{$reset_color%} "
+
+  echo "$bundler_prompt"
+}
+
 function serenity() {
   local serenity_prompt
   serenity_prompt='\n'
   serenity_prompt+='%m: %2~'
   serenity_prompt+="$(git_status)"
   serenity_prompt+='\n'
+  serenity_prompt+="$(bundler_label)"
   serenity_prompt+="$(git_dirty)"
   serenity_prompt+='%# '
 

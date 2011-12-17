@@ -4,13 +4,13 @@
 #   @link: http://github.com/robbyrussell/oh-my-zsh
 
 # load rc files
-if [[ -n $ZSH ]]; then
+if [[ -n $ZSHDIR ]]; then
   # add a functions path
-  fpath=($ZSH/bundle/**/functions $fpath)
+  fpath=($ZSHDIR/bundle/**/functions $fpath)
   typeset -U fpath
 
   # load rc libs
-  loader "$ZSH/lib/rc"
+  loader "$ZSHDIR/lib/rc"
 fi
 
 # vim:set ft=zsh:

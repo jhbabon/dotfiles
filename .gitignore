@@ -4,3 +4,4 @@ zsh/zshistory
 vim/.netrwhist
 session.vim
 zsh/cache/*
+.rake_tasks

@@ -12,6 +12,7 @@ setopt extendedglob     # new features for pattern matching
 setopt completeinword   # not just at the end
 setopt alwaystoend      # when complete from middle, move cursor
 setopt printexitvalue   # alert me if something's failed
+setopt complete_aliases # make autocompletion to work with aliases
 
 WORDCHARS=''
 

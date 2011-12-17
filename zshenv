@@ -1,7 +1,7 @@
 # main zshenv file
 
 # path to the zsh configuration files
-export ZSH=$HOME/.zsh
+export ZSHDIR=$HOME/.zsh
 
 # loader function
 #   - load all of the config files from the path passed as an arugment
@@ -11,6 +11,6 @@ function loader() {
 }
 
 # load env libs
-loader "$ZSH/lib/env"
+if [[ -n $ZSHDIR ]] loader "$ZSHDIR/lib/env"
 
 # vim:set ft=zsh:
