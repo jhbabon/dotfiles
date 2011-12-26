@@ -13,4 +13,6 @@ if [[ -n $ZSHDIR ]]; then
   loader "$ZSHDIR/lib/rc"
 fi
 
+export ZSHTHEME=nostromo
+
 # vim:set ft=zsh:
