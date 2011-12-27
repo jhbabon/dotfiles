@@ -8,7 +8,7 @@ alias bp="bundle package"
 
 # The following is based on https://github.com/gma/bundler-exec
 
-bundled_commands=(cap capify cucumber guard heroku rackup rails rake rspec ruby shotgun spec spork thin unicorn unicorn_rails)
+bundled_commands=(cap capify cucumber guard heroku rackup rake rspec ruby shotgun spec spork thin unicorn unicorn_rails)
 
 ## Functions
 

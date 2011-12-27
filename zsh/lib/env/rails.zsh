@@ -4,7 +4,7 @@ function _rails_command () {
   if [ -e "script/server" ]; then
     ruby script/$@
   else
-    ruby script/rails $@
+    rails $@
   fi
 }
 
