@@ -222,6 +222,9 @@ nnoremap <Leader>pu :AcpUnlock<CR>
 " gundo
 nnoremap <Leader>ut :GundoToggle<CR>
 
+" matchit
+runtime macros/matchit.vim
+
 " markdown
 " FUNCTION: ConvertMarkdown()
 " description: Convert markdown file to a html file and open it

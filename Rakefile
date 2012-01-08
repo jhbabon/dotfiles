@@ -4,21 +4,23 @@ require 'rake'
 # helpers
 
 def identical(file)
-  puts "identical ~/.#{ file }"
+  puts "identical ~/.#{file}"
 end
 
 def backup(file)
-  puts "backup ~/.#{ file }"
-  system %Q{ mv "$HOME/.#{ file }" "$HOME/.#{ file }.back" }
+  puts "backup ~/.#{file}"
+
+  system %Q(mv "$HOME/.#{file}" "$HOME/.#{file}.back")
 end
 
 def linking(file)
-  puts "linking ~/.#{ file }"
-  system %Q{ ln -s "$PWD/#{ file }" "$HOME/.#{ file }" }
+  puts "linking ~/.#{file}"
+
+  system %Q(ln -s "$PWD/#{file}" "$HOME/.#{file}")
 end
 
 def git(cmd)
-  system %Q{ git #{ cmd } }
+  system %Q{git #{cmd}}
 end
 
 def continue?(msg = '')
