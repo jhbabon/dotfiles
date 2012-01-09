@@ -97,6 +97,7 @@ Bundle 'kana/vim-fakeclip'
 Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'itspriddle/vim-jquery'
 
 " file-type
 filetype on
@@ -258,6 +259,10 @@ nnoremap <Leader>ut :GundoToggle<CR>
 
 " matchit
 runtime macros/matchit.vim
+
+" jquery
+au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
+nnoremap <Leader>jq :set syntax=jquery<CR>
  
 
 " markdown
