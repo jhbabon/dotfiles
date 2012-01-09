@@ -99,7 +99,7 @@ Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 " file-type
 filetype on
-filetype indent plugin on
+filetype plugin on
 autocmd FileType make	set noexpandtab
 
 " show trailing white-space
