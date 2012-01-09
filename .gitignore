@@ -5,3 +5,5 @@ vim/.netrwhist
 session.vim
 zsh/cache/*
 .rake_tasks
+vim/bundle/**/
+!vim/bundle/vundle
