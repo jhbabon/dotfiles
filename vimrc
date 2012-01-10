@@ -85,9 +85,8 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'vim-scripts/AutoComplPop'
-" Bundle 'vim-scripts/L9'
-" Bundle 'vim-scripts/FuzzyFinder'
-Bundle 'kien/ctrlp.vim'
+Bundle 'vim-scripts/L9'
+Bundle 'vim-scripts/FuzzyFinder'
 Bundle 'othree/html5.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'kchmck/vim-coffee-script'
@@ -209,16 +208,13 @@ nmap <F5> :NERDTree<CR>
 nnoremap <Leader>nt :NERDTreeToggle<CR>
 
 " fuzzyfinder
-" nnoremap <Leader>fb :FufBuffer<CR>
-" nnoremap <Leader>ff :FufFile<CR>
-" nnoremap <Leader>fv :FufCoverageFile<CR>
-" nnoremap <Leader>fj :FufJumpList<CR>
-" nnoremap <Leader>fc :FufChangeList<CR>
-" nnoremap <Leader>fl :FufLine<CR>
-" nnoremap <Leader>fr :FufRenewCache<CR>
-" ctrlp
-let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files', 'find %s -type f']
-let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix']
+nnoremap <Leader>fb :FufBuffer<CR>
+nnoremap <Leader>ff :FufFile<CR>
+nnoremap <Leader>fv :FufCoverageFile<CR>
+nnoremap <Leader>fj :FufJumpList<CR>
+nnoremap <Leader>fc :FufChangeList<CR>
+nnoremap <Leader>fl :FufLine<CR>
+nnoremap <Leader>fr :FufRenewCache<CR>
 
 " snipmate
 let g:snips_author = "Juan Hernández Babón"
@@ -263,7 +259,6 @@ runtime macros/matchit.vim
 " jquery
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 nnoremap <Leader>jq :set syntax=jquery<CR>
- 
 
 " markdown
 " FUNCTION: ConvertMarkdown()
