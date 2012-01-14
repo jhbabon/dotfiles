@@ -100,7 +100,7 @@ Bundle 'itspriddle/vim-jquery'
 
 " file-type
 filetype on
-filetype plugin on
+filetype plugin indent on
 autocmd FileType make	set noexpandtab
 
 " show trailing white-space
@@ -308,3 +308,23 @@ function! UpdateFile()
   endif
 endfunction
 au BufWritePre * let b:save_time = localtime()
+
+" Privatize and Protectize ruby methods
+" link: http://robots.thoughtbot.com/post/1986730994/keep-your-privates-close
+function! Privatize(...)
+  let priorMethod = PriorMethodDefinition()
+  let scope = a:0 == 1 ? a:1 : "private"
+  exec "normal o". scope . " :" . priorMethod  . "\<Esc>=="
+endfunction
+
+function! PriorMethodDefinition()
+  let lineNumber = search('def', 'bn')
+  let line       = getline(lineNumber)
+  if line == 0
+    echo "No prior method definition found"
+  endif
+  return matchlist(line, 'def \(\w\+\).*')[1]
+endfunction
+
+map <Leader>rp :call Privatize()<CR>
+map <Leader>ro :call Privatize("protected")<CR>
