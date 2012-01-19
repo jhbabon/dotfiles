@@ -58,10 +58,10 @@ bundler_label() {
 
 function nostromo() {
   local nostromo_prompt=''
-  nostromo_prompt+="%{$fg[yellow]%}%2~ %{$reset_color%}"
+  nostromo_prompt+="%{$fg[white]%}%2~ %{$reset_color%}"
   nostromo_prompt+="$(bundler_label)"
   nostromo_prompt+="$(git_dirty)"
-  nostromo_prompt+='%# '
+  nostromo_prompt+="%{$fg[white]%}%# %{$reset_color%}"
 
 
   echo "$nostromo_prompt"
