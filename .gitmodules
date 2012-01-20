@@ -7,3 +7,6 @@
 [submodule "rbenv/core"]
 	path = rbenv/core
 	url = git://github.com/sstephenson/rbenv.git
+[submodule "rbenv/plugins/rbenv-gemset"]
+	path = rbenv/plugins/rbenv-gemset
+	url = git://github.com/jamis/rbenv-gemset.git
