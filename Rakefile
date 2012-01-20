@@ -1,52 +1,27 @@
 # based on: http://github.com/ryanb/dotfiles
 require 'rake'
-
-# helpers
-
-def identical(file)
-  puts "identical ~/.#{file}"
-end
-
-def backup(file)
-  puts "backup ~/.#{file}"
-
-  system %Q(mv "$HOME/.#{file}" "$HOME/.#{file}.back")
-end
-
-def linking(file)
-  puts "linking ~/.#{file}"
-
-  system %Q(ln -s "$PWD/#{file}" "$HOME/.#{file}")
-end
-
-def git(cmd)
-  system %Q{git #{cmd}}
-end
-
-def continue?(msg = '')
-  STDOUT.puts msg
-  answer = STDIN.gets.chomp.downcase
-
-  ['y', 'yes'].include?(answer)
-end
+require File.join(File.dirname(__FILE__), 'lib', 'helpers')
 
 # tasks
 
 desc "install the dot files into user's home directory"
 task :install => 'bundles:init' do
   puts "Installing configuration files:"
-  Dir['*'].each do |file|
-    next if %w(Rakefile README.rdoc LICENSE lib).include?(file)
+  # normal files
+  Dir['*'].reject { |f| _excluded? f }.map { |f| _install_lib f }
 
-    home_file = File.join(ENV['HOME'], ".#{file}")
-    skip      = false
-    if File.exist?(home_file)
-      skip = File.identical?(file, home_file)
-      skip ? identical(file) : backup(file)
-    end
+  # special libs
+  _rbenv
+end
 
-    linking file unless skip
-  end
+desc "removes the dot files from user's home directory"
+task :remove do
+  puts "Uninstalling configuration files:"
+  # normal files
+  Dir['*'].reject { |f| _excluded? f }.map { |f| _remove_lib f }
+
+  # special libs
+  _rbenv :remove
 end
 
 namespace :bundles do
@@ -54,18 +29,18 @@ namespace :bundles do
   desc "initialize bundle (all git submodules)"
   task :init do
     puts "Initializing git submodules:"
-    git "submodule init"
-    git "submodule update"
+    _git "submodule init"
+    _git "submodule update"
   end
 
   desc "update bundles (git submodules)"
   task :update do
     puts "Updating git submodules:"
-    git "submodule foreach git pull origin master"
-    if continue? 'Do you want to commit the changes (if any)? [N/y]: '
+    _git "submodule foreach git pull origin master"
+    if _continue? 'Do you want to commit the changes (if any)? [N/y]: '
       puts "Committing changes:"
-      git "add ."
-      git "commit -m 'Updated git submodules'"
+      _git "add ."
+      _git "commit -m 'Updated git submodules'"
     end
   end
 end
