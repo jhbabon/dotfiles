@@ -9,6 +9,10 @@ export ZSHTHEME=nostromo
 if [[ -n $ZSHDIR ]]; then
   # add a functions path
   fpath=($ZSHDIR/bundle/**/functions $fpath)
+
+  # add completions
+  fpath=($ZSHDIR/bundle/zsh-completions $fpath)
+
   typeset -U fpath
 
   # load rc libs
