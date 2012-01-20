@@ -1,9 +1,6 @@
 [submodule "zsh/bundle/zsh-git"]
 	path = zsh/bundle/zsh-git
 	url = git://github.com/jcorbin/zsh-git.git
-[submodule "rbenv"]
-	path = rbenv
-	url = git://github.com/sstephenson/rbenv.git
 [submodule "vim/bundle/vundle"]
 	path = vim/bundle/vundle
 	url = https://github.com/gmarik/vundle
