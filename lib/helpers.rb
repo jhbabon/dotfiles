@@ -54,7 +54,7 @@ def _install_lib(file, options = {})
   skip      = false
   if File.exist?(home_file)
     skip = File.identical?(file, home_file)
-    skip ? _identical(file) : _backup(home_file)
+    skip ? _identical(file) : _backup(file)
   end
 
   _linking file, :to => to_file unless skip
