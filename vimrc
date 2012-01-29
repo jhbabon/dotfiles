@@ -97,6 +97,7 @@ Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'itspriddle/vim-jquery'
+Bundle 'vim-scripts/YankRing.vim'
 
 " file-type
 filetype on
@@ -259,6 +260,9 @@ runtime macros/matchit.vim
 " jquery
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 nnoremap <Leader>jq :set syntax=jquery<CR>
+
+" yankring
+nnoremap <Leader>yr :YRShow<CR>
 
 " markdown
 " FUNCTION: ConvertMarkdown()
