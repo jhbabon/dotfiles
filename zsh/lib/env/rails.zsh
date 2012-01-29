@@ -17,5 +17,9 @@ alias rp='_rails_command plugin'
 alias rs='_rails_command server'
 alias rsd='_rails_command server --debugger'
 alias devlog='tail -f log/development.log'
+alias rt='rake test'
+alias rtu='rake test:units'
+alias rtf='rake test:functionals'
+alias rti='rake test:integration'
 
 # vim:set ft=zsh:
