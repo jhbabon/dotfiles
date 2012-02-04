@@ -99,6 +99,8 @@ Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'itspriddle/vim-jquery'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'groenewege/vim-less'
+Bundle 'eraserhd/vim-ios'
+Bundle 'msanders/cocoa.vim'
 
 " file-type
 filetype on
