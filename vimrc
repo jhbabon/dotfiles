@@ -113,6 +113,9 @@ let php_space_errors = 1
 " fix backspace key in xterm
 inoremap  <BS>
 
+" get out fast from insert mode
+inoremap kj <ESC>
+
 " syntax coloring
 syntax enable
 
