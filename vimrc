@@ -98,6 +98,7 @@ Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'itspriddle/vim-jquery'
 Bundle 'vim-scripts/YankRing.vim'
+Bundle 'groenewege/vim-less'
 
 " file-type
 filetype on
