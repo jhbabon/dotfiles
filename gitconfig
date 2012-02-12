@@ -13,7 +13,7 @@
   ui         = auto
 
 [alias]
-  st         = status
+  st         = status -s
   std        = diff --cached
   br         = branch
   brd        = branch -d
@@ -22,7 +22,7 @@
   cm         = commit -m
   ca         = commit --amend
   a          = add
-  aa         = !git add -u && git add . && git status
+  aa         = !git add -u && git add . && git status -s
   co         = checkout
   cob        = checkout -b
   rb         = rebase
@@ -36,3 +36,13 @@
   ir         = !git rebase -i origin/master
   done       = !git fetch && git rebase origin/master && git checkout master && git merge @{-1}
   deal       = rake && git push origin master
+
+  # GUM: https://github.com/saintsjd/gum
+  # tell git to ignore a file
+  ignore     = "!f() { [ -z "$@" ] && echo "git: usage git ignore [file]" || ( ([ ! -e .gitignore ] && touch .gitignore); echo $1 >>.gitignore && echo "Ignoring file $1" && git rm --cached "$@" > /dev/null 2>&1 && git status -s ); }; f"
+
+  #add files to the staging area
+  freeze     = "!f() { ( [ -z $@ ] && git add -A || git add -A "$@" ) && git status -s; }; f"
+
+  # remove files from the staging area
+  unfreeze   = "!f() { ([ -z "$@" ] && (git reset -q HEAD > /dev/null 2>&1 || echo "first commit must be unfrozen file by file. better error message coming soon") || (git reset -q HEAD -- $@ > /dev/null 2>&1 || git rm -q --cached $@ ) ) && git status -s ; }; f"
