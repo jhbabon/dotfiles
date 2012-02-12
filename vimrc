@@ -107,6 +107,8 @@ filetype on
 filetype plugin indent on
 autocmd FileType make	set noexpandtab
 
+" objective-c file type
+au BufRead,BufNewFile *.m set ft=objc
 " show trailing white-space
 let ruby_space_errors = 1
 let c_space_errors = 1
