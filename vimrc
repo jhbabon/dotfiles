@@ -309,17 +309,17 @@ match CursorLine /\%81v.*/
 " autosave
 " link: http://stackoverflow.com/questions/6991638/how-to-auto-save-a-file-every-1-second-in-vim
 " FIXME: doesn't work well with unsaved files and files outside the focus
-au BufRead,BufNewFile * let b:save_time = localtime()
-au CursorHold * call UpdateFile()
-let g:autosave_time = 1
+" au BufRead,BufNewFile * let b:save_time = localtime()
+" au CursorHold * call UpdateFile()
+" let g:autosave_time = 1
 
-function! UpdateFile()
-  if((localtime() - b:save_time) >= g:autosave_time)
-    update
-    let b:save_time = localtime()
-  endif
-endfunction
-au BufWritePre * let b:save_time = localtime()
+" function! UpdateFile()
+  " if((localtime() - b:save_time) >= g:autosave_time)
+    " update
+    " let b:save_time = localtime()
+  " endif
+" endfunction
+" au BufWritePre * let b:save_time = localtime()
 
 " Privatize and Protectize ruby methods
 " link: http://robots.thoughtbot.com/post/1986730994/keep-your-privates-close
