@@ -33,7 +33,7 @@ set encoding=utf-8
 set hidden         " buffers management, don't close the buffers
 set title
 set shortmess=atI  " modify the error and info messages
-set synmaxcol=120  " maximum column in which to search for syntax items
+" set synmaxcol=120  " maximum column in which to search for syntax items
 
 " statusline
 set statusline=%f\ %{fugitive#statusline()}\ %r%m%h\ %y\ %=%l/%L,%c
@@ -97,7 +97,6 @@ Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'itspriddle/vim-jquery'
-Bundle 'vim-scripts/YankRing.vim'
 Bundle 'groenewege/vim-less'
 Bundle 'eraserhd/vim-ios'
 Bundle 'msanders/cocoa.vim'
@@ -105,15 +104,16 @@ Bundle 'msanders/cocoa.vim'
 " file-type
 filetype on
 filetype plugin indent on
-autocmd FileType make	set noexpandtab
+autocmd FileType make set noexpandtab
 
 " objective-c file type
 au BufRead,BufNewFile *.m set ft=objc
+
 " show trailing white-space
-let ruby_space_errors = 1
-let c_space_errors = 1
+let ruby_space_errors       = 1
+let c_space_errors          = 1
 let javascript_space_errors = 1
-let php_space_errors = 1
+let php_space_errors        = 1
 
 " fix backspace key in xterm
 inoremap  <BS>
@@ -269,9 +269,6 @@ runtime macros/matchit.vim
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 nnoremap <Leader>jq :set syntax=jquery<CR>
 
-" yankring
-nnoremap <Leader>yr :YRShow<CR>
-
 " markdown
 " FUNCTION: ConvertMarkdown()
 " description: Convert markdown file to a html file and open it
@@ -289,14 +286,11 @@ set t_Co=256
 set background=dark
 colorscheme solarized
 if has("gui_running")
-  " windows size
-  " link: http://effectif.com/vim/changing-window-size
-  nmap <leader>1 :set lines=40 columns=85<CR><C-w>o
-  nmap <leader>2 :set lines=50 columns=171<CR><C-w>v
 
   if has("gui_gnome") || has("gui_gtk2")
     set guifont=Inconsolata\ Medium\ 11
   endif
+
   if has("gui_mac") || has("gui_macvim")
     set guifont=AnonymousPro:h14
     set guioptions=aAce
@@ -308,18 +302,17 @@ match CursorLine /\%81v.*/
 
 " autosave
 " link: http://stackoverflow.com/questions/6991638/how-to-auto-save-a-file-every-1-second-in-vim
-" FIXME: doesn't work well with unsaved files and files outside the focus
-" au BufRead,BufNewFile * let b:save_time = localtime()
-" au CursorHold * call UpdateFile()
-" let g:autosave_time = 1
+function! UpdateFile()
+  if((localtime() - b:save_time) >= g:autosave_time)
+    update
+    let b:save_time = localtime()
+  endif
+endfunction
 
-" function! UpdateFile()
-  " if((localtime() - b:save_time) >= g:autosave_time)
-    " update
-    " let b:save_time = localtime()
-  " endif
-" endfunction
-" au BufWritePre * let b:save_time = localtime()
+au BufRead,BufNewFile * silent! let b:save_time = localtime()
+au CursorHold * silent! call UpdateFile()
+silent! let g:autosave_time = 1
+au BufWritePre * silent! let b:save_time = localtime()
 
 " Privatize and Protectize ruby methods
 " link: http://robots.thoughtbot.com/post/1986730994/keep-your-privates-close
