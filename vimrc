@@ -1,3 +1,4 @@
+" TODO: split the file in different files
 " vimrc
 set nocompatible   " don't try to be compatible with vi
 
@@ -185,21 +186,6 @@ nnoremap <Leader>aL :set paste<CR>m`O<Esc>``:set nopaste<CR>
 nnoremap <Leader>; :s/\([^;]\)$/\1;/<CR>:noh<CR>
 nnoremap <Leader>, :s/\([^,]\)$/\1,/<CR>:noh<CR>
 
-" delete EOL whitespace
-" link: http://sartak.org/2011/03/end-of-line-whitespace-in-vim.html
-function! <SID>StripTrailingWhitespace()
-  " preparation: save last search, and cursor position.
-  let _s=@/
-  let l = line(".")
-  let c = col(".")
-  " Do the business:
-  %s/\s\+$//e
-  " clean up: restore previous search history, and cursor position
-  let @/=_s
-  call cursor(l, c)
-endfunction
-nmap <silent> <Leader><space> :call <SID>StripTrailingWhitespace()<CR>
-
 " change background
 nnoremap <Leader>bl :set background=light<CR>
 nnoremap <Leader>bd :set background=dark<CR>
@@ -269,18 +255,6 @@ runtime macros/matchit.vim
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 nnoremap <Leader>jq :set syntax=jquery<CR>
 
-" markdown
-" FUNCTION: ConvertMarkdown()
-" description: Convert markdown file to a html file and open it
-" dependencies: markdown cli
-function! <SID>ConvertMarkdown()
-  let l:mkd_file = expand("%:p")
-  let l:html_file = expand("%:p:r") . ".html"
-  exe "!markdown --html4tags " . l:mkd_file . " > " . l:html_file
-  exe "drop " . l:html_file
-endfunction
-nmap <silent> <Leader>mk :call <SID>ConvertMarkdown()<CR>
-
 " gui
 set t_Co=256
 set background=dark
@@ -300,6 +274,36 @@ endif
 " highlight long lines
 match CursorLine /\%81v.*/
 
+
+" functions
+
+" delete EOL whitespace
+" link: http://sartak.org/2011/03/end-of-line-whitespace-in-vim.html
+function! <SID>StripTrailingWhitespace()
+  " preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  %s/\s\+$//e
+  " clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+nmap <silent> <Leader><space> :call <SID>StripTrailingWhitespace()<CR>
+
+" markdown
+" FUNCTION: ConvertMarkdown()
+" description: Convert markdown file to a html file and open it
+" dependencies: markdown cli
+function! <SID>ConvertMarkdown()
+  let l:mkd_file = expand("%:p")
+  let l:html_file = expand("%:p:r") . ".html"
+  exe "!markdown --html4tags " . l:mkd_file . " > " . l:html_file
+  exe "drop " . l:html_file
+endfunction
+nmap <silent> <Leader>mk :call <SID>ConvertMarkdown()<CR>
+
 " autosave
 " link: http://stackoverflow.com/questions/6991638/how-to-auto-save-a-file-every-1-second-in-vim
 function! UpdateFile()
@@ -316,12 +320,6 @@ au BufWritePre * silent! let b:save_time = localtime()
 
 " Privatize and Protectize ruby methods
 " link: http://robots.thoughtbot.com/post/1986730994/keep-your-privates-close
-function! Privatize(...)
-  let priorMethod = PriorMethodDefinition()
-  let scope = a:0 == 1 ? a:1 : "private"
-  exec "normal o". scope . " :" . priorMethod  . "\<Esc>=="
-endfunction
-
 function! PriorMethodDefinition()
   let lineNumber = search('def', 'bn')
   let line       = getline(lineNumber)
@@ -331,5 +329,33 @@ function! PriorMethodDefinition()
   return matchlist(line, 'def \(\w\+\).*')[1]
 endfunction
 
+function! Privatize(...)
+  let priorMethod = PriorMethodDefinition()
+  let scope = a:0 == 1 ? a:1 : "private"
+  exec "normal o". scope . " :" . priorMethod  . "\<Esc>=="
+endfunction
+
 map <Leader>rp :call Privatize()<CR>
 map <Leader>ro :call Privatize("protected")<CR>
+
+
+" Converting variables to or from CamelCase
+" link: http://vim.wikia.com/wiki/Converting_variables_to_or_from_camel_case
+
+" Convert under_score to CamelCase in current line
+function! <SID>FromUnderScoreToCamel(...)
+  let firstLetter = a:0 == 1 ? a:1 : "lower"
+  if firstLetter == 'upper'
+    silent! s#\(\%(\<\l\+\)\%(_\)\@=\)\|_\(\l\)#\u\1\2#g
+  else
+    silent! s#_\(\l\)#\u\1#g
+  endif
+endfunction
+nmap <silent> <Leader>uc :call <SID>FromUnderScoreToCamel()<CR>
+nmap <silent> <Leader>uC :call <SID>FromUnderScoreToCamel("upper")<CR>
+
+" Convert CamelCase to under_score in current line
+function! <SID>FromCamelToUnderScore()
+  silent! s#\C\(\<\u[a-z0-9]\+\|[a-z0-9]\+\)\(\u\)#\l\1_\l\2#g
+endfunction
+nmap <silent> <Leader>Cu :call <SID>FromCamelToUnderScore()<CR>
