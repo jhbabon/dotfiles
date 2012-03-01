@@ -120,7 +120,7 @@ let php_space_errors        = 1
 inoremap  <BS>
 
 " get out fast from insert mode
-inoremap kj <ESC>
+inoremap jj <ESC>
 
 " syntax coloring
 syntax enable
