@@ -46,4 +46,20 @@ fk() {
   unset IFS
 }
 
+# randompass:
+#   * description: small random password generator.
+#   * params: a integer with the length of the password (default: 8).
+#   * link: http://blog.leenix.co.uk/2010/04/bashsh-random-stringpassword-generator.html
+randompass() {
+  local _length
+  if [ $1 ]; then
+    _length=$1
+  else
+    _length=8
+  fi
+
+  pass=</dev/urandom tr -dc A-Za-z0-9 | head -c $_length
+  echo $pass
+}
+
 # vim:set ft=zsh:
