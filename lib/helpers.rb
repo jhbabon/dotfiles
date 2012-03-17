@@ -45,7 +45,7 @@ def _continue?(msg = '')
   STDOUT.puts msg
   answer = STDIN.gets.chomp.downcase
 
-  ['y', 'yes'].include?(answer)
+  ['y', 'yes'].include? answer
 end
 
 def _install_lib(file, options = {})
@@ -65,7 +65,7 @@ def _remove_lib(file, options = {})
   home_file  = File.join(ENV['HOME'], ".#{from_file}")
 
   if File.exist?(home_file) && File.identical?(file, home_file)
-     _remove home_file
+    _remove  home_file
     _recover home_file
   else
     _skipping file
@@ -73,14 +73,17 @@ def _remove_lib(file, options = {})
 end
 
 def _rbenv(action = :install)
+  plugins = Dir['rbenv/plugins/*'].reject { |d| %w(. ..).include? d }
+  core    = 'rbenv/core'
+
   case action
   when :remove
-    _remove_lib 'rbenv/plugins/rbenv-gemset'
-    _remove_lib 'rbenv/core', :from => 'rbenv'
+    plugins.map { |plugin| _remove_lib plugin }
+    _remove_lib core, :from => 'rbenv'
   when :install
-    _install_lib 'rbenv/core', :to => 'rbenv'
+    _install_lib core, :to => 'rbenv'
     system %Q(mkdir -p "$HOME"/.rbenv/plugins)
-    _install_lib 'rbenv/plugins/rbenv-gemset'
+    plugins.map { |plugin| _install_lib plugin }
   else
     puts "WTF!!"
   end
@@ -88,4 +91,11 @@ end
 
 def _excluded?(file)
   %w(Rakefile README.rdoc LICENSE lib rbenv).include? file
+end
+
+def _basic_files(&block)
+  files = Dir['*'].reject { |f| _excluded? f }
+  files.each(&block) if block
+
+  files
 end

@@ -7,8 +7,8 @@ require File.join(File.dirname(__FILE__), 'lib', 'helpers')
 desc "install the dot files into user's home directory"
 task :install => 'bundles:init' do
   puts "Installing configuration files:"
-  # normal files
-  Dir['*'].reject { |f| _excluded? f }.map { |f| _install_lib f }
+  # basic files
+  _basic_files { |f| _install_lib f }
 
   # special libs
   _rbenv
@@ -17,8 +17,8 @@ end
 desc "removes the dot files from user's home directory"
 task :remove do
   puts "Uninstalling configuration files:"
-  # normal files
-  Dir['*'].reject { |f| _excluded? f }.map { |f| _remove_lib f }
+  # basic files
+  _basic_files { |f| _remove_lib f }
 
   # special libs
   _rbenv :remove
