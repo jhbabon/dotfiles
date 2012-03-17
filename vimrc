@@ -37,7 +37,7 @@ set shortmess=atI  " modify the error and info messages
 " set synmaxcol=120  " maximum column in which to search for syntax items
 
 " statusline
-set statusline=%f\ %{fugitive#statusline()}\ %r%m%h\ %y\ %=%l/%L,%c
+" set statusline=%f\ %{fugitive#statusline()}\ %r%m%h\ %y\ %=%l/%L,%c
 set laststatus=2   " always show status-line
 
 " completion
@@ -101,6 +101,7 @@ Bundle 'itspriddle/vim-jquery'
 Bundle 'groenewege/vim-less'
 Bundle 'eraserhd/vim-ios'
 Bundle 'msanders/cocoa.vim'
+Bundle 'Lokaltog/vim-powerline'
 
 " file-type
 filetype on
@@ -359,3 +360,5 @@ function! <SID>FromCamelToUnderScore()
   silent! s#\C\(\<\u[a-z0-9]\+\|[a-z0-9]\+\)\(\u\)#\l\1_\l\2#g
 endfunction
 nmap <silent> <Leader>Cu :call <SID>FromCamelToUnderScore()<CR>
+
+let g:Powerline_cache_enabled = 1
