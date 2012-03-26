@@ -8,12 +8,26 @@ These are configuration files to set up a basic UNIX system with:
 * rbenv
 * git
 
-## Installation
+## Usage
+
+Basic installation:
 
 ```sh
-$ git clone git@github.com:jhbabon/dotfiles.git ~/.dotfiles
+$ git clone git://github.com/jhbabon/dotfiles.git ~/.dotfiles
 $ cd ~/.dotfiles
 $ rake install
+```
+
+You can remove it and restore the previous files:
+
+```sh
+$ rake remove
+```
+
+Finally, you can update the git submodules easily:
+
+```sh
+$ rake bundles:update
 ```
 
 ## Attributions
