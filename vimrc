@@ -169,12 +169,12 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 " * ======================================================================== *
 " * brackets completions                                                     *
 " * ======================================================================== *
-inoremap ( ()<Left>
-inoremap { {}<Left>
-inoremap [ []<Left>
-inoremap < <><Left>
-inoremap " ""<Left>
-inoremap ' ''<Left>
+" inoremap ( ()<Left>
+" inoremap { {}<Left>
+" inoremap [ []<Left>
+" inoremap < <><Left>
+" inoremap " ""<Left>
+" inoremap ' ''<Left>
 
 
 " * ======================================================================== *
@@ -272,6 +272,7 @@ Bundle 'groenewege/vim-less'
 Bundle 'eraserhd/vim-ios'
 Bundle 'msanders/cocoa.vim'
 Bundle 'Lokaltog/vim-powerline'
+Bundle 'kana/vim-smartinput'
 
 " ragtag
 " -----------------------------------------------------------------------------
