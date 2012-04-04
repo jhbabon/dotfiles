@@ -30,6 +30,14 @@ Finally, you can update the git submodules easily:
 $ rake bundles:update
 ```
 
+## Vim
+
+My Vim configuration file uses [vundle](https://github.com/gmarik/vundle 'Vundle plugin') to manage the plugins. To install all the plugins, run inside vim in normal mode the following command:
+
+```
+:BundleInstall
+```
+
 ## Attributions
 
 All the configuration files are based on the following works:
