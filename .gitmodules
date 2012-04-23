@@ -3,7 +3,7 @@
 	url = git://github.com/jcorbin/zsh-git.git
 [submodule "vim/bundle/vundle"]
 	path = vim/bundle/vundle
-	url = https://github.com/gmarik/vundle
+	url = git://github.com/gmarik/vundle.git
 [submodule "rbenv/core"]
 	path = rbenv/core
 	url = git://github.com/sstephenson/rbenv.git
