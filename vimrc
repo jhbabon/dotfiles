@@ -19,7 +19,6 @@ set number         " you need line numbers
 set ruler          " see where you are
 set showcmd        " see what are you doing
 set showmatch      " see mathing brackets
-set showbreak=↪    " see the start of lines that have been wrapped
 set wrap           " wrap long lines without changing it
 set linebreak      " wrap the lines by words
 set hidden         " buffers management, don't close the buffers
@@ -77,7 +76,7 @@ set wildignore+=*.orig                           " Merge resolution files
 
 " special characters
 " -----------------------------------------------------------------------------
-set listchars=trail:~,tab:▸\ ,eol:¬,extends:❯,precedes:❮
+set listchars=trail:~,tab:▸\ ,eol:¬
 set list
 " show or not the list
 nmap <leader>l :set list!<CR>
