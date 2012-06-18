@@ -90,7 +90,7 @@ def _rbenv(action = :install)
 end
 
 def _excluded?(file)
-  %w(Rakefile README.rdoc LICENSE lib rbenv).include? file
+  %w(Rakefile README.rdoc README.markdown LICENSE lib rbenv).include? file
 end
 
 def _basic_files(&block)
