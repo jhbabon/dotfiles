@@ -272,6 +272,7 @@ Bundle 'eraserhd/vim-ios'
 Bundle 'msanders/cocoa.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'kana/vim-smartinput'
+Bundle 'jgdavey/vim-blockle'
 
 " ragtag
 " -----------------------------------------------------------------------------
@@ -511,3 +512,16 @@ function! <SID>FromCamelToUnderScore()
   silent! s#\C\(\<\u[a-z0-9]\+\|[a-z0-9]\+\)\(\u\)#\l\1_\l\2#g
 endfunction
 nmap <silent> <Leader>Cu :call <SID>FromCamelToUnderScore()<CR>
+
+" promote variable to rspec let
+" link: http://coderwall.com/p/th43aw?i=16&p=1&q=&t=code-vim-ruby-rspec-minitest
+" -----------------------------------------------------------------------------
+function! PromoteToLet()
+  :normal! dd
+  " :exec '?^\s*it\>'
+  :normal! P
+  :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
+  :normal ==
+endfunction
+command! PromoteToLet :call PromoteToLet()
+nmap <silent> <Leader>pl :call PromoteToLet()<CR>
