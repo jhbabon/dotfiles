@@ -272,7 +272,7 @@ Bundle 'eraserhd/vim-ios'
 Bundle 'msanders/cocoa.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'kana/vim-smartinput'
-Bundle 'jgdavey/vim-blockle'
+Bundle 'myusuf3/numbers.vim'
 
 " ragtag
 " -----------------------------------------------------------------------------
@@ -359,6 +359,9 @@ nnoremap <Leader>nx :set ft=nginx<CR>
 let g:Powerline_cache_enabled    = 1
 let g:Powerline_symbols_override = { 'BRANCH': [0x26A1] }
 
+" numbers.vim
+" -----------------------------------------------------------------------------
+nnoremap <Leader>nv :NumbersToggle<CR>
 
 
 " * ======================================================================== *
