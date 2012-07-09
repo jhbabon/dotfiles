@@ -62,3 +62,5 @@ pickle-email-*.html
 ###############
 /.rbenv-version
 /.rbenv-gemsets
+**/*/.rbenv-version
+**/*/.rbenv-gemsets
