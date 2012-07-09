@@ -22,7 +22,7 @@ end
 
 def _linking(file, options = {})
   to_file = options[:to] || file
-  puts "linking ~/.#{to_file}"
+  puts "linking #{ENV['HOME']}/.#{to_file}"
 
   system %Q(ln -s "$PWD/#{file}" "$HOME/.#{to_file}")
 end
@@ -72,6 +72,24 @@ def _remove_lib(file, options = {})
   end
 end
 
+def _create_dir_in_home(dir)
+  path = "#{ENV['HOME']}/.#{dir}"
+  puts "creating #{path}"
+
+  system %Q(mkdir -p #{path})
+end
+
+def _remove_dir_in_home(dir)
+  path = "#{ENV['HOME']}/.#{dir}"
+  puts "removing #{path}"
+
+  system %Q(rm -fr #{path})
+end
+
+def wtf
+  puts "WTF!! I don't know what to do!"
+end
+
 def _rbenv(action = :install)
   plugins = Dir['rbenv/plugins/*'].reject { |d| %w(. ..).include? d }
   core    = 'rbenv/core'
@@ -82,10 +100,24 @@ def _rbenv(action = :install)
     _remove_lib core, :from => 'rbenv'
   when :install
     _install_lib core, :to => 'rbenv'
-    system %Q(mkdir -p "$HOME"/.rbenv/plugins)
+    _create_dir_in_home 'rbenv/plugins'
     plugins.map { |plugin| _install_lib plugin }
   else
-    puts "WTF!!"
+    wtf
+  end
+end
+
+def _vim(action = :install)
+  tmp_dirs = %w(undo backup swap)
+  path = "vim/tmp/{#{tmp_dirs.join(',')}}"
+
+  case action
+  when :install
+    _create_dir_in_home path
+  when :remove
+    _remove_dir_in_home path
+  else
+    wtf
   end
 end
 

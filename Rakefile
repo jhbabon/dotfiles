@@ -12,6 +12,7 @@ task :install => 'bundles:init' do
 
   # special libs
   _rbenv
+  _vim
 end
 
 desc "removes the dot files from user's home directory"
@@ -22,6 +23,7 @@ task :remove do
 
   # special libs
   _rbenv :remove
+  _vim :remove
 end
 
 namespace :bundles do
