@@ -32,9 +32,10 @@
   sm         = submodule
   who        = shortlog -n -s --no-merges
   lg         = log --graph --pretty=format:'%Cred%h%Creset | %Cgreen%an%Creset | %s | %Cblue%cr%Creset'
-  up         = !git fetch origin && git rebase origin/master
-  ir         = !git rebase -i origin/master
-  done       = !git fetch && git rebase origin/master && git checkout master && git merge @{-1}
+  ft         = "!zsh -c 'autoload _git_ft && _git_ft $1' $1"
+  up         = "!zsh -c 'autoload _git_up && _git_up $1' $1"
+  ir         = "!zsh -c 'autoload _git_ir && _git_ir $1' $1"
+  done       = "!zsh -c 'autoload _git_done && _git_done $1' $1"
   deal       = rake && git push origin master
 
   # GUM: https://github.com/saintsjd/gum
