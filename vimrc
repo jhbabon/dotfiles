@@ -374,7 +374,7 @@ filetype plugin indent on
 au BufRead,BufNewFile *.m set ft=objc
 
 " ruby files
-au BufRead,BufNewFile {Capfile,Gemfile,Rakefile,Thorfile,config.ru,.caprc,.irbrc,irb_tempfile*} set ft=ruby
+au BufRead,BufNewFile {Capfile,Gemfile,Rakefile,Thorfile,config.ru,.caprc,.irbrc,irb_tempfile*,*.god} set ft=ruby
 
 " css, less and scss
 " Use <leader>S to sort properties.  Turns this:
