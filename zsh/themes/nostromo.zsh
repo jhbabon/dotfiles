@@ -16,7 +16,7 @@ git_status() {
 
   local git_info=""
   git_info+="%{$fg[cyan]%}$(zgit_branch)%{$reset_color%}"
-  git_info+="(%{$fg[yellow]%}$(git_sha)%{$reset_color%}) | "
+  git_info+="(%{$fg[yellow]%}$(git_sha)%{$reset_color%})"
 
   echo "$git_info"
 }
@@ -71,7 +71,7 @@ function nostromo_right() {
   local nostromo_rprompt
   nostromo_rprompt=''
   nostromo_rprompt+="$(git_status)"
-  nostromo_rprompt+="%{$fg[green]%}%m%{$reset_color%}"
+  #nostromo_rprompt+="%{$fg[green]%}%m%{$reset_color%}"
 
   echo "$nostromo_rprompt"
 }
