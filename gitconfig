@@ -12,6 +12,9 @@
 [color]
   ui         = auto
 
+[credential]
+  helper     = osxkeychain
+
 [alias]
   st         = status -s
   std        = diff --cached
