@@ -46,4 +46,4 @@ zstyle ':completion:*:options' auto-description '%d'
 zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion::complete:*' cache-path ~/.zsh/cache/
 
-# vim:set ft=zsh:
+# # vim:set ft=zsh:

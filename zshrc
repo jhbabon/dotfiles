@@ -11,7 +11,7 @@ if [[ -n $ZSHDIR ]]; then
   fpath=($ZSHDIR/bundle/**/functions $fpath)
 
   # add completions
-  fpath=($ZSHDIR/bundle/zsh-completions $fpath)
+  fpath=($ZSHDIR/bundle/zsh-completions/src $fpath)
 
   typeset -U fpath
 
