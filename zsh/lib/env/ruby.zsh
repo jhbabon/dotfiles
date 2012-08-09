@@ -5,7 +5,8 @@ if [[ -s $HOME/.rbenv ]] ; then
   export PATH="$HOME/.rbenv/bin:$PATH"
   eval "$(rbenv init -)"
 ## rvm
-elif [[ -s $HOME/.rvm/scripts/rvm ]] ; then
+elif [[ -s $HOME/.rvm/bin ]] ; then
+  export PATH=$HOME/.rvm/bin:$PATH
   source $HOME/.rvm/scripts/rvm
 fi
 
