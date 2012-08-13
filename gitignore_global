@@ -4,6 +4,22 @@
 *.un~
 Session.vim
 session.vim
+.netrwhist
+
+# EMACS
+###############
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+.\#*
+
+# Org-mode
+.org-id-locations
+*_archive
 
 # OSX
 ###############
