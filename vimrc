@@ -254,7 +254,6 @@ Bundle 'godlygeek/tabular'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'vim-scripts/taglist.vim'
-Bundle 'vim-scripts/AutoComplPop'
 Bundle 'vim-scripts/L9'
 Bundle 'vim-scripts/FuzzyFinder'
 Bundle 'othree/html5.vim'
@@ -268,8 +267,8 @@ Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'rstacruz/sparkup', { 'rtp': 'vim/' }
 Bundle 'itspriddle/vim-jquery'
 Bundle 'groenewege/vim-less'
-Bundle 'eraserhd/vim-ios'
-Bundle 'msanders/cocoa.vim'
+" Bundle 'eraserhd/vim-ios'
+" Bundle 'msanders/cocoa.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'kana/vim-smartinput'
 Bundle 'myusuf3/numbers.vim'
@@ -329,13 +328,6 @@ nmap <Leader>t= :Tabularize /=<CR>
 vmap <Leader>t= :Tabularize /=<CR>
 nmap <Leader>t: :Tabularize /:\zs<CR>
 vmap <Leader>t: :Tabularize /:\zs<CR>
-
-" autocomplpop
-" -----------------------------------------------------------------------------
-nnoremap <Leader>pe :AcpEnable<CR>
-nnoremap <Leader>pd :AcpDisable<CR>
-nnoremap <Leader>pl :AcpLock<CR>
-nnoremap <Leader>pu :AcpUnlock<CR>
 
 " gundo
 " -----------------------------------------------------------------------------
