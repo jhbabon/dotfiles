@@ -530,3 +530,7 @@ function! PromoteToLet()
 endfunction
 command! PromoteToLet :call PromoteToLet()
 nmap <silent> <Leader>pl :call PromoteToLet()<CR>
+
+" convert ruby 1.8 hash syntax to 1.9
+" -----------------------------------------------------------------------------
+nmap <silent> <Leader>rh :%s/:\(\w\+\)\(\s\?\)=> /\1:\2/g<CR>
