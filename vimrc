@@ -273,6 +273,7 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'kana/vim-smartinput'
 Bundle 'myusuf3/numbers.vim'
 Bundle 'vim-scripts/VimClojure'
+Bundle 'kchmck/vim-coffee-script'
 
 " ragtag
 " -----------------------------------------------------------------------------
