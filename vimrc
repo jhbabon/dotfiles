@@ -273,6 +273,7 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'kana/vim-smartinput'
 Bundle 'vim-scripts/VimClojure'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'jgdavey/vim-blockle'
 
 " ragtag
 " -----------------------------------------------------------------------------
