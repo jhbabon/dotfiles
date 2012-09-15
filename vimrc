@@ -375,6 +375,11 @@ au BufRead,BufNewFile *.m set ft=objc
 " ruby files
 au BufRead,BufNewFile {Capfile,Gemfile,Rakefile,Thorfile,config.ru,.caprc,.irbrc,irb_tempfile*,*.god} set ft=ruby
 
+" mustache files
+au BufRead,BufNewFile {*.html.mustache} set ft=html.mustache
+au BufRead,BufNewFile {*.json.mustache} set ft=json.mustache
+au BufRead,BufNewFile {*.js.mustache} set ft=js.mustache
+
 " css, less and scss
 " Use <leader>S to sort properties.  Turns this:
 "
