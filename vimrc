@@ -274,6 +274,7 @@ Bundle 'kana/vim-smartinput'
 Bundle 'vim-scripts/VimClojure'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'jgdavey/vim-blockle'
+Bundle 'epmatsw/ag.vim'
 
 " ragtag
 " -----------------------------------------------------------------------------
@@ -318,9 +319,16 @@ nnoremap <Leader>gd :Gdiff<CR>
 " -----------------------------------------------------------------------------
 let g:ackprg = "ack -H --nocolor --nogroup --column"
 " fast search for TODO, FIXME and NOTE labels
-command! -nargs=0 Todos exec "Ack TODO"
-command! -nargs=0 Fixmes exec "Ack FIXME"
-command! -nargs=0 Notes exec "Ack NOTE"
+" command! -nargs=0 Todos exec "Ack TODO"
+" command! -nargs=0 Fixmes exec "Ack FIXME"
+" command! -nargs=0 Notes exec "Ack NOTE"
+
+" ag
+" -----------------------------------------------------------------------------
+" fast search for TODO, FIXME and NOTE labels
+command! -nargs=0 Todos exec "Ag TODO"
+command! -nargs=0 Fixmes exec "Ag FIXME"
+command! -nargs=0 Notes exec "Ag NOTE"
 
 " tabularize
 " -----------------------------------------------------------------------------
