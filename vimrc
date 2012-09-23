@@ -275,6 +275,8 @@ Bundle 'vim-scripts/VimClojure'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'jgdavey/vim-blockle'
 Bundle 'epmatsw/ag.vim'
+Bundle 'sunaku/vim-ruby-minitest'
+Bundle 'vim-ruby/vim-ruby'
 
 " ragtag
 " -----------------------------------------------------------------------------
@@ -369,6 +371,10 @@ let vimclojure#HighlightContrib    = 1
 let vimclojure#DynamicHighlighting = 1
 let vimclojure#ParenRainbow        = 1
 let vimclojure#WantNailgun         = 1
+
+" vim-ruby-minitest
+" -----------------------------------------------------------------------------
+set completefunc=syntaxcomplete#Complete
 
 
 " * ======================================================================== *
