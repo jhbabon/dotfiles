@@ -7,9 +7,6 @@
 [submodule "rbenv/core"]
 	path = rbenv/core
 	url = git://github.com/sstephenson/rbenv.git
-[submodule "rbenv/plugins/rbenv-gemset"]
-	path = rbenv/plugins/rbenv-gemset
-	url = git://github.com/jamis/rbenv-gemset.git
 [submodule "zsh/bundle/zsh-completions"]
 	path = zsh/bundle/zsh-completions
 	url = git://github.com/zsh-users/zsh-completions.git
