@@ -276,6 +276,7 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'jgdavey/vim-blockle'
 Bundle 'epmatsw/ag.vim'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'rodjek/vim-puppet'
 
 " ragtag
 " -----------------------------------------------------------------------------
