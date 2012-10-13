@@ -7,8 +7,8 @@ zgitinit
 git_sha() {
   zgit_isgit || return
 
-  git describe --always $1 2>/dev/null ||
-  git rev-parse --short $1 2>/dev/null
+  git describe --tags --always $1 2>/dev/null ||
+  git log --pretty=format:'%h' -n 1 2> /dev/null
 }
 
 git_status() {
@@ -48,20 +48,11 @@ git_dirty() {
   fi
 }
 
-bundler_label() {
-  $($(which _bundled > /dev/null 2>&1) && _bundled) || return
-  local bundler_prompt
-  bundler_prompt="%{$fg[blue]%}b!%{$reset_color%} "
-
-  echo "$bundler_prompt"
-}
-
 function nostromo() {
   local nostromo_prompt=''
-  nostromo_prompt+="%{$fg[white]%}%2~ %{$reset_color%}"
+  nostromo_prompt+="%{$fg[white]%}%20>...>%2~%<< %{$reset_color%}"
   nostromo_prompt+="$(git_dirty)"
   nostromo_prompt+="%{$fg[white]%}%# %{$reset_color%}"
-
 
   echo "$nostromo_prompt"
 }
