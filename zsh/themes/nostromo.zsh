@@ -50,7 +50,7 @@ git_dirty() {
 
 function nostromo() {
   local nostromo_prompt=''
-  nostromo_prompt+="%{$fg[white]%}%20>...>%2~%<< %{$reset_color%}"
+  nostromo_prompt+="%{$fg[white]%}%30>...>%2~%<< %{$reset_color%}"
   nostromo_prompt+="$(git_dirty)"
   nostromo_prompt+="%{$fg[white]%}%# %{$reset_color%}"
 
