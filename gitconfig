@@ -60,3 +60,6 @@
 
 [url "https://github.com/"]
   insteadOf = gh:
+
+[push]
+  default = simple
