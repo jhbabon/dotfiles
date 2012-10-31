@@ -383,7 +383,7 @@ filetype plugin indent on
 au BufRead,BufNewFile *.m set ft=objc
 
 " ruby files
-au BufRead,BufNewFile {Capfile,Gemfile,Rakefile,Thorfile,config.ru,.caprc,.irbrc,irb_tempfile*,*.god} set ft=ruby
+au BufRead,BufNewFile {Vagrantfile,Strikefile,Capfile,Gemfile,Rakefile,Thorfile,config.ru,.caprc,.irbrc,irb_tempfile*,*.god} set ft=ruby
 
 " mustache files
 au BufRead,BufNewFile {*.html.mustache} set ft=html.mustache
@@ -546,3 +546,12 @@ nmap <silent> <Leader>pl :call PromoteToLet()<CR>
 " convert ruby 1.8 hash syntax to 1.9
 " -----------------------------------------------------------------------------
 nmap <silent> <Leader>rh :%s/:\(\w\+\)\(\s\?\)=> /\1:\2/g<CR>
+
+" ctags for ruby: get tags for a ruby project
+" dependencies: bundler gem, ctags
+" link: http://coderwall.com/p/4pvjla
+" -----------------------------------------------------------------------------
+function! <SID>RubyCtags()
+  exe "!bundle list --paths=true | xargs ctags --extra=+f --exclude=.git --exclude=log --exclude=tmp -R *"
+endfunction
+nmap <silent> <Leader>rt :call <SID>RubyCtags()<CR>
