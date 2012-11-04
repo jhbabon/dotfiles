@@ -5,6 +5,6 @@
 #   % mmv '(*).json' '$1.rb'
 
 autoload -U zmv
-alias mmv='noglob zmv -w'
+alias mmv='noglob zmv -W'
 
 # vim:set ft=zsh:
