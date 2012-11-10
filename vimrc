@@ -214,7 +214,7 @@ cnoremap w!! w !sudo tee % >/dev/null
 " * ======================================================================== *
 command! -bang E e<bang>
 command! -bang Q q<bang>
-command! -bang W w<bang>
+" command! -bang W w<bang>
 command! -bang QA qa<bang>
 command! -bang Qa qa<bang>
 command! -bang Wa wa<bang>
@@ -277,6 +277,8 @@ Bundle 'jgdavey/vim-blockle'
 Bundle 'epmatsw/ag.vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'rodjek/vim-puppet'
+Bundle 'tpope/vim-rake'
+Bundle 'tpope/vim-eunuch'
 
 " ragtag
 " -----------------------------------------------------------------------------
