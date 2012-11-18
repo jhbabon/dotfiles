@@ -279,6 +279,7 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'rodjek/vim-puppet'
 Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-eunuch'
+Bundle 'pangloss/vim-javascript'
 
 " ragtag
 " -----------------------------------------------------------------------------
