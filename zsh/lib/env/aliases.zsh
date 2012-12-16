@@ -27,8 +27,11 @@ alias vi='vim'
 alias mdp="mkdir -p"
 alias ping='ping -c 4 '
 alias pingg='ping www.google.com'
-alias rld="echo 'shell: reload'; exec $SHELL"       # reload shell environment
-alias fld="echo 'rbenv: rehash'; rbenv rehash; rld" # full reload with rbenv rehash
+
+# reload shell environment
+alias rld="echo '---> shell: reload'; exec $SHELL"
+# full reload with rbenv rehash
+alias fld="echo '---> rbenv: rehash'; rbenv rehash; rld"
 
 # postgresql controls on Mac OS machine
 alias pg1="pg_ctl -D $HOME/Code/db/postgres -l $HOME/Code/db/postgres/psql.log start"
