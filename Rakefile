@@ -42,7 +42,7 @@ namespace :bundles do
     if _continue? 'Do you want to commit the changes (if any)? [N/y]: '
       puts "Committing changes:"
       _git "add ."
-      _git "commit -m 'Updated git submodules'"
+      _git "commit -m 'Update git submodules'"
     end
   end
 end
