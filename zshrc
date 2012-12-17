@@ -19,4 +19,7 @@ if [[ -n $ZSHDIR ]]; then
   loader "$ZSHDIR/lib/rc"
 fi
 
+# Trust the bin dir in safe git repositories
+export PATH=".git/safe/../../bin:$PATH"
+
 # vim:set ft=zsh:

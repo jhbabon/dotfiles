@@ -33,6 +33,9 @@ alias rld="echo '---> shell: reload'; exec $SHELL"
 # full reload with rbenv rehash
 alias fld="echo '---> rbenv: rehash'; rbenv rehash; rld"
 
+# add safe dir
+alias _safe="[ -s $PWD/.git ] && (mkdir -p $PWD/.git/safe && echo '---> safe: done')"
+
 # postgresql controls on Mac OS machine
 alias pg1="pg_ctl -D $HOME/Code/db/postgres -l $HOME/Code/db/postgres/psql.log start"
 alias pg0="pg_ctl -D $HOME/Code/db/postgres stop"
