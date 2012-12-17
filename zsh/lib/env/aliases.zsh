@@ -29,7 +29,7 @@ alias ping='ping -c 4 '
 alias pingg='ping www.google.com'
 
 # reload shell environment
-alias rld="echo '---> shell: reload'; exec $SHELL"
+alias rld="echo '---> shell: reload'; exec $SHELL -l"
 # full reload with rbenv rehash
 alias fld="echo '---> rbenv: rehash'; rbenv rehash; rld"
 
