@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+# TODO: better arguments check
+[ -z $1 ] && branch="master" || branch=$1
+[ -z $2 ] && option="" || option=$2
+
+git fetch && git rebase $option origin/"$branch"
+
+# vim:set ft=sh:

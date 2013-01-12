@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# GUM: https://github.com/saintsjd/gum
+
+if [ -z "$@" ]; then
+  git reset -q HEAD > /dev/null 2>&1 || echo "first commit must be unfrozen file by file. better error message coming soon"
+else
+  git reset -q HEAD -- $@ > /dev/null 2>&1 || git rm -q --cached $@
+fi
+
+git status -s
+
+# vim:set ft=sh:
