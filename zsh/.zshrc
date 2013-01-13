@@ -186,44 +186,8 @@ autoload -U colors
 colors
 setopt prompt_subst
 
-PROMPT='
-%30>...>%2~%<< %# %{$reset_color%}'
+PROMPT="%{$fg[white]%}%2~ %# %{$reset_color%}"
 
-# TODO: use local vars
-# TODO: clean up a bit
-GIT_REPO_PATH=`git rev-parse --git-dir 2>/dev/null`
-if [[ $GIT_REPO_PATH != '' ]]; then
-
-  GIT_BRANCH=`git symbolic-ref -q HEAD | sed 's/refs\/heads\///'`
-  GIT_COMMIT_ID=`git rev-parse --short HEAD 2>/dev/null`
-
-  GIT_MODE=""
-  if [[ -e "$GIT_REPO_PATH/BISECT_LOG" ]]; then
-    GIT_MODE=" +bisect"
-  elif [[ -e "$GIT_REPO_PATH/MERGE_HEAD" ]]; then
-    GIT_MODE=" +merge"
-  elif [[ -e "$GIT_REPO_PATH/rebase" || -e "$GIT_REPO_PATH/rebase-apply" || -e "$GIT_REPO_PATH/rebase-merge" || -e "$GIT_REPO_PATH/../.dotest" ]]; then
-    GIT_MODE=" +rebase"
-  fi
-
-  GIT_STATUS=""
-  if ! git diff --quiet --cached 2>/dev/null; then
-    GIT_STATUS="$GIT_STATUS+"
-  fi
-
-  if [[ `git ls-files -u` != "" ]]; then
-    GIT_STATUS="$GIT_STATUS*"
-  fi
-
-  if [[ `git ls-files -m` != "" ]]; then
-    GIT_STATUS="$GIT_STATUS!"
-  fi
-
-  if [[ `git ls-files --others --exclude-standard` != "" ]]; then
-    GIT_STATUS="$GIT_STATUS?"
-  fi
-
-  RPROMPT=" %{[37m%}$GIT_BRANCH %{[37m%}$GIT_COMMIT_ID%{[37m%}$GIT_MODE $GIT_STATUS%{$reset_color%}"
-fi
+RPROMPT='$(~/.bin/git-cwd-info)'
 
 # vim:set ft=zsh:
