@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+
+function _error() {
+  echo "---> [31mError: $1 was not found in the system[0m"
+}
+
+if which git &>/dev/null 2>&1; then
+  echo "---> Initializing git submodules"
+  git submodule init
+  git submodule update
+else
+  _error 'git'
+  exit 1
+fi
+
+if which stow &>/dev/null 2>&1; then
+  for package (`ls -d */`); do
+    if [[ $package != 'scripts/' ]]; then
+      echo "---> Installing $package"
+      stow $package
+    fi
+  done
+  unset package
+else
+  _error 'stow'
+  exit 1
+fi
+
+exit 0
+
+# vim:set ft=zsh:

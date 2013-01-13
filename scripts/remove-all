@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+
+if which stow &>/dev/null 2>&1; then
+  for package (`ls -d */`); do
+    if [[ $package != 'scripts/' ]]; then
+      echo "---> removing $package"
+      stow -D $package
+    fi
+  done
+  unset package
+else
+  echo "---> [31mError: stow was not found in the system[0m"
+  exit 1
+fi
+
+exit 0
+
+# vim:set ft=zsh:

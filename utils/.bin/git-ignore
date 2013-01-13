@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+# GUM: https://github.com/saintsjd/gum
+
+if [ -z "$@" ]; then
+  echo "git: usage git ignore [file]"
+else
+  [ ! -e .gitignore ] && touch .gitignore
+  echo $1 >>.gitignore
+  echo "Ignoring file $1"
+  git rm --cached "$@" > /dev/null 2>&1
+  git status -s
+fi
+
+# vim:set ft=sh:
