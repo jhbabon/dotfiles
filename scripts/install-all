@@ -7,6 +7,7 @@ function _error() {
 if which git &>/dev/null 2>&1; then
   echo "---> Initializing git submodules"
   git submodule init
+  git submodule update
 else
   _error 'git'
   exit 1
