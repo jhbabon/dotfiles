@@ -41,3 +41,5 @@ if [[ $GIT_REPO_PATH != '' ]]; then
 
   echo "$GIT_STATUS %{[36m%}$GIT_BRANCH %{[33m%}$GIT_COMMIT_ID%{[31m%}$GIT_MODE%{[0m%}"
 fi
+
+# vim:set ft=zsh:
