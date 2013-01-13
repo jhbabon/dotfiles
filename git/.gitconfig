@@ -1,0 +1,50 @@
+[user]
+  name       = Juan Hernández Babón
+  email      = juan.hernandez.babon@gmail.com
+  editor     = vim
+
+[apply]
+  whitespace = strip
+
+[diff]
+  color      = auto
+
+[color]
+  ui         = auto
+
+[credential]
+  helper     = osxkeychain
+
+[alias]
+  st         = status -s
+  std        = diff --cached
+  br         = branch
+  brd        = branch -d
+  brD        = branch -D
+  c          = commit
+  cm         = commit -m
+  ca         = commit --amend
+  a          = add
+  aa         = !git add -u && git add . && git status -s
+  co         = checkout
+  cob        = checkout -b
+  rb         = rebase
+  rbc        = rebase --continue
+  rbs        = rebase --skip
+  ri         = rebase -i
+  sm         = submodule
+  who        = shortlog -n -s --no-merges
+  lg         = log --graph --pretty=format:'%Cred%h%Creset | %Cgreen%an%Creset | %s | %Cblue%cr%Creset'
+
+  # exclude: http://coderwall.com/p/n1d-na
+  exclude    = !sh -c 'echo "$1" >> .git/info/exclude' -
+
+[core]
+  excludesfile = ~/.gitignore_global
+  quotepath    = false
+
+[merge]
+  tool = vimdiff
+
+; [push]
+  ; default = simple

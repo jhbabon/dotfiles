@@ -1,15 +1,9 @@
-[submodule "zsh/bundle/zsh-git"]
-	path = zsh/bundle/zsh-git
-	url = git://github.com/jcorbin/zsh-git.git
-[submodule "vim/bundle/vundle"]
-	path = vim/bundle/vundle
-	url = git://github.com/gmarik/vundle.git
-[submodule "rbenv/core"]
-	path = rbenv/core
+[submodule "ruby/.rbenv"]
+	path = ruby/.rbenv
 	url = git://github.com/sstephenson/rbenv.git
-[submodule "zsh/bundle/zsh-completions"]
-	path = zsh/bundle/zsh-completions
-	url = git://github.com/zsh-users/zsh-completions.git
-[submodule "rbenv/plugins/ruby-build"]
-	path = rbenv/plugins/ruby-build
+[submodule "ruby/.ruby-build"]
+	path = ruby/.ruby-build
 	url = git://github.com/sstephenson/ruby-build.git
+[submodule "vim/.vim/bundle/vundle"]
+	path = vim/.vim/bundle/vundle
+	url = git://github.com/gmarik/vundle.git
