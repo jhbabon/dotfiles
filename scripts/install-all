@@ -17,7 +17,7 @@ if which stow &>/dev/null 2>&1; then
   for package (`ls -d */`); do
     if [[ $package != 'scripts/' ]]; then
       echo "---> Installing $package"
-      stow $package
+      stow -t ~ $package
     fi
   done
   unset package
