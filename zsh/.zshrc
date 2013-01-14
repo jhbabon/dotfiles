@@ -192,6 +192,6 @@ setopt prompt_subst
 
 PROMPT="%{$fg[white]%}%2~ %# %{$reset_color%}"
 
-RPROMPT='$(~/.bin/git-cwd-info)'
+RPROMPT='$(~/.bin/git-cwd-info 2>/dev/null)'
 
 # vim:set ft=zsh:
