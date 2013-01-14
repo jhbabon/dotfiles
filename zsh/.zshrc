@@ -160,7 +160,7 @@ function prj() {
   else
     echo "Nav to project's source code."
     echo "Each project should be under: $HOME/Code/projects"
-    echo "Usage: src project_dir_name"
+    echo "Usage: $0 project_dir_name"
   fi
 }
 
