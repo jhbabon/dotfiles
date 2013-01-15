@@ -172,7 +172,7 @@ function prj() {
 #   * description: create a .safe dir in $PWD to indicate
 #                  that the bin dir in $PWD is secure to use.
 function sf() {
-  [[ -s $PWD/.safe ]] && (mkdir -p $PWD/.safe && echo '---> safe: done')
+  [[ -d $PWD/.safe ]] || (mkdir -p $PWD/.safe && echo '---> safe: done')
 }
 
 # zmv: zsh renaming tool
