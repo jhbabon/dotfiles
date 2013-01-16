@@ -184,7 +184,7 @@ autoload -U zmv
 alias mmv='noglob zmv -W'
 
 
-# TODO: Theme
+# Theme
 # -----------------------------------------------
 autoload -U colors
 colors
