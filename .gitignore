@@ -9,3 +9,4 @@ vim/.vim/tmp/**/*
 !vim/.vim/tmp/backup/.gitkeep
 !vim/.vim/tmp/undo/.gitkeep
 !vim/.vim/tmp/swap/.gitkeep
+!ruby/.bundle
