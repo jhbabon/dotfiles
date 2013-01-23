@@ -280,6 +280,7 @@ Bundle 'rodjek/vim-puppet'
 Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-eunuch'
 Bundle 'pangloss/vim-javascript'
+Bundle 'noprompt/vim-yardoc'
 
 " ragtag
 " -----------------------------------------------------------------------------
@@ -374,6 +375,12 @@ let vimclojure#HighlightContrib    = 1
 let vimclojure#DynamicHighlighting = 1
 let vimclojure#ParenRainbow        = 1
 let vimclojure#WantNailgun         = 1
+
+" vim-yardoc
+" -----------------------------------------------------------------------------
+hi link yardType rubyConstant
+hi link yardDuckType rubyMethod
+hi link yardLiteral rubyString
 
 
 " * ======================================================================== *
