@@ -37,8 +37,6 @@ set scrolloff=3    " number of screen lines to keep above and below the cursor
 set virtualedit+=block " the cursor can be positioned where there is
                        " no actual character
 
-set laststatus=2   " always show status-line
-
 set foldmethod=indent " fold based on indent
 set foldnestmax=3     " deepest fold is 3 levels
 set nofoldenable      " don't fold by default
@@ -267,15 +265,13 @@ Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'rstacruz/sparkup', { 'rtp': 'vim/' }
 Bundle 'itspriddle/vim-jquery'
 Bundle 'groenewege/vim-less'
-" Bundle 'eraserhd/vim-ios'
-" Bundle 'msanders/cocoa.vim'
-Bundle 'Lokaltog/vim-powerline'
 Bundle 'kana/vim-smartinput'
 Bundle 'jgdavey/vim-blockle'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'rodjek/vim-puppet'
 Bundle 'pangloss/vim-javascript'
 Bundle 'noprompt/vim-yardoc'
+Bundle ''
 
 " ragtag
 " -----------------------------------------------------------------------------
@@ -350,11 +346,6 @@ nnoremap <Leader>jq :set syntax=jquery<CR>
 " -----------------------------------------------------------------------------
 nnoremap <Leader>nx :set ft=nginx<CR>
 
-" powerline
-" -----------------------------------------------------------------------------
-let g:Powerline_cache_enabled    = 1
-let g:Powerline_symbols_override = { 'BRANCH': 'g' }
-
 " vim-yardoc
 " -----------------------------------------------------------------------------
 hi link yardType rubyConstant
@@ -403,8 +394,23 @@ au BufNewFile,BufRead *.less,*.css,*.scss nnoremap <buffer> <localleader>al ?{<C
 
 
 " * ======================================================================== *
-" * colors and gui                                                           *
+" * statusline, colors and gui                                               *
 " * ======================================================================== *
+
+set laststatus=2                            " always show statusline
+set statusline=                             " cleanup statusline after reload
+set statusline+=%n                          " buffer number
+set statusline+=\ %{&ff}                    " file format
+set statusline+=%y                          " file type
+set statusline+=\ %{fugitive#statusline()}  " fugitive info
+set statusline+=\ %<%f                      " relative path
+set statusline+=%m                          " modified flag
+set statusline+=%r                          " readonly flag
+set statusline+=%w                          " preview flag
+set statusline+=%q                          " quicklist flag
+set statusline+=%=%5l/%L                    " current line/total lines
+set statusline+=%4v                         " virtual column number
+
 syntax on
 set t_Co=256
 set background=dark
