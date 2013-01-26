@@ -271,14 +271,9 @@ Bundle 'groenewege/vim-less'
 " Bundle 'msanders/cocoa.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'kana/vim-smartinput'
-Bundle 'vim-scripts/VimClojure'
-Bundle 'kchmck/vim-coffee-script'
 Bundle 'jgdavey/vim-blockle'
-Bundle 'epmatsw/ag.vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'rodjek/vim-puppet'
-Bundle 'tpope/vim-rake'
-Bundle 'tpope/vim-eunuch'
 Bundle 'pangloss/vim-javascript'
 Bundle 'noprompt/vim-yardoc'
 
@@ -325,16 +320,9 @@ nnoremap <Leader>gd :Gdiff<CR>
 " -----------------------------------------------------------------------------
 let g:ackprg = "ack -H --nocolor --nogroup --column"
 " fast search for TODO, FIXME and NOTE labels
-" command! -nargs=0 Todos exec "Ack TODO"
-" command! -nargs=0 Fixmes exec "Ack FIXME"
-" command! -nargs=0 Notes exec "Ack NOTE"
-
-" ag
-" -----------------------------------------------------------------------------
-" fast search for TODO, FIXME and NOTE labels
-command! -nargs=0 Todos exec "Ag TODO"
-command! -nargs=0 Fixmes exec "Ag FIXME"
-command! -nargs=0 Notes exec "Ag NOTE"
+command! -nargs=0 Todos exec "Ack TODO"
+command! -nargs=0 Fixmes exec "Ack FIXME"
+command! -nargs=0 Notes exec "Ack NOTE"
 
 " tabularize
 " -----------------------------------------------------------------------------
@@ -366,15 +354,6 @@ nnoremap <Leader>nx :set ft=nginx<CR>
 " -----------------------------------------------------------------------------
 let g:Powerline_cache_enabled    = 1
 let g:Powerline_symbols_override = { 'BRANCH': 'g' }
-
-" vimclojure
-" -----------------------------------------------------------------------------
-let vimclojure#FuzzyIndent         = 1
-let vimclojure#HighlightBuiltins   = 1
-let vimclojure#HighlightContrib    = 1
-let vimclojure#DynamicHighlighting = 1
-let vimclojure#ParenRainbow        = 1
-let vimclojure#WantNailgun         = 1
 
 " vim-yardoc
 " -----------------------------------------------------------------------------
