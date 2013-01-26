@@ -271,7 +271,10 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'rodjek/vim-puppet'
 Bundle 'pangloss/vim-javascript'
 Bundle 'noprompt/vim-yardoc'
-Bundle ''
+" clojure plugins
+Bundle 'guns/vim-clojure-static'
+Bundle 'tpope/vim-classpath'
+Bundle 'tpope/vim-foreplay'
 
 " ragtag
 " -----------------------------------------------------------------------------
@@ -351,6 +354,11 @@ nnoremap <Leader>nx :set ft=nginx<CR>
 hi link yardType rubyConstant
 hi link yardDuckType rubyMethod
 hi link yardLiteral rubyString
+
+" vim-classpath
+" -----------------------------------------------------------------------------
+" save the classpath cache in .viminfo
+set viminfo+=!
 
 
 " * ======================================================================== *
