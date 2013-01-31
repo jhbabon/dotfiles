@@ -241,7 +241,6 @@ Bundle 'edsono/vim-matchit'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-markdown'
 Bundle 'scrooloose/nerdcommenter'
@@ -275,6 +274,9 @@ Bundle 'noprompt/vim-yardoc'
 Bundle 'guns/vim-clojure-static'
 Bundle 'tpope/vim-classpath'
 Bundle 'tpope/vim-foreplay'
+" git plugins
+Bundle 'tpope/vim-fugitive'
+Bundle 'gregsexton/gitv'
 
 " ragtag
 " -----------------------------------------------------------------------------
