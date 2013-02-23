@@ -36,6 +36,7 @@ alias mkdir='nocorrect mkdir'
 alias cp='nocorrect cp'
 alias cap='nocorrect cap'
 alias rm='nocorrect rm -i'
+alias rspec='nocorrect rspec'
 
 alias bi='bundle install'
 alias bu='bundle update'
