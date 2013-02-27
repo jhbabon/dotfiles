@@ -250,8 +250,7 @@ Bundle 'godlygeek/tabular'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'vim-scripts/taglist.vim'
-Bundle 'vim-scripts/L9'
-Bundle 'vim-scripts/FuzzyFinder'
+Bundle 'kien/ctrlp.vim'
 Bundle 'othree/html5.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'kchmck/vim-coffee-script'
@@ -291,15 +290,12 @@ let NERDShutUp=1
 nmap <F5> :NERDTree<CR>
 nnoremap <Leader>nt :NERDTreeToggle<CR>
 
-" fuzzyfinder
+" ctrlp
 " -----------------------------------------------------------------------------
-nnoremap <Leader>fb :FufBuffer<CR>
-nnoremap <Leader>ff :FufFile<CR>
-nnoremap <Leader>fv :FufCoverageFile<CR>
-nnoremap <Leader>fj :FufJumpList<CR>
-nnoremap <Leader>fc :FufChangeList<CR>
-nnoremap <Leader>fl :FufLine<CR>
-nnoremap <Leader>fr :FufRenewCache<CR>
+nnoremap <Leader>pb :CtrlPBuffer<CR>
+nnoremap <Leader>pp :CtrlP<CR>
+nnoremap <Leader>pm :CtrlPMRU<CR>
+nnoremap <Leader>pa :CtrlPMixed<CR>
 
 " snipmate
 " -----------------------------------------------------------------------------
