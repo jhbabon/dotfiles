@@ -13,7 +13,9 @@
   ui         = auto
 
 [credential]
-  helper     = osxkeychain
+  helper     = /opt/boxen/bin/boxen-git-credential
+
+[core]
 
 [alias]
   st         = status -s
@@ -40,7 +42,8 @@
   exclude    = !sh -c 'echo "$1" >> .git/info/exclude' -
 
 [core]
-  excludesfile = ~/.gitignore_global
+  ; excludesfile = ~/.gitignore_global
+  excludesfile = /opt/boxen/config/git/gitignore
   quotepath    = false
 
 [merge]
