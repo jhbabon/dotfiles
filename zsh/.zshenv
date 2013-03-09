@@ -20,15 +20,6 @@ if [[ -d "/usr/local/texlive/2011/bin/x86_64-darwin" ]]; then
   export PATH="/usr/local/texlive/2011/bin/x86_64-darwin:$PATH"
 fi
 
-# config rbenv:
-if [[ -d "$HOME/.ruby-build" ]]; then
-  export PATH="$HOME/.ruby-build/bin:$PATH"
-fi
-if [[ -d "$HOME/.rbenv" ]]; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init -)"
-fi
-
 # load bin from safe dirs
 export PATH=".safe/../bin:$HOME/.bin:$PATH"
 

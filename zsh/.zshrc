@@ -195,4 +195,8 @@ PROMPT="%{$fg[white]%}%2~ %# %{$reset_color%}"
 
 RPROMPT='$(~/.bin/git-cwd-info 2>/dev/null)'
 
+# Boxen
+# -----------------------------------------------
+[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
+
 # vim:set ft=zsh:
