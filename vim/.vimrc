@@ -225,56 +225,9 @@ command! -bang WQ wq<bang>
 " * plugins                                                                  *
 " * ======================================================================== *
 
-" vundle
+" pathogen
 " -----------------------------------------------------------------------------
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/vundle'
-
-" All Bundles here:
-" github
-Bundle 'edsono/vim-matchit'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-ragtag'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-markdown'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
-Bundle 'msanders/snipmate.vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'godlygeek/tabular'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'cakebaker/scss-syntax.vim'
-Bundle 'vim-scripts/taglist.vim'
-Bundle 'kien/ctrlp.vim'
-Bundle 'othree/html5.vim'
-Bundle 'sjl/gundo.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'juvenn/mustache.vim'
-Bundle 'vim-scripts/nginx.vim'
-Bundle 'kana/vim-fakeclip'
-Bundle 'kana/vim-textobj-user'
-Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle 'rstacruz/sparkup', { 'rtp': 'vim/' }
-Bundle 'itspriddle/vim-jquery'
-Bundle 'groenewege/vim-less'
-Bundle 'kana/vim-smartinput'
-Bundle 'jgdavey/vim-blockle'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'rodjek/vim-puppet'
-Bundle 'pangloss/vim-javascript'
-Bundle 'noprompt/vim-yardoc'
-" clojure plugins
-Bundle 'guns/vim-clojure-static'
-Bundle 'tpope/vim-classpath'
-Bundle 'tpope/vim-foreplay'
-" git plugins
-Bundle 'tpope/vim-fugitive'
-Bundle 'gregsexton/gitv'
+execute pathogen#infect()
 
 " ragtag
 " -----------------------------------------------------------------------------
