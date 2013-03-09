@@ -1,18 +1,23 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env ruby
 
-if which stow &>/dev/null 2>&1; then
-  for package (`ls -d */`); do
-    if [[ $package != 'scripts/' ]]; then
-      echo "---> removing $package"
-      stow -t ~ -D $package
-    fi
-  done
-  unset package
+require 'pathname'
+
+def _error(msg)
+  $stderr.puts "---> [31mError: #{msg} was not found in the system[0m"
+end
+
+if system("which stow &>/dev/null 2>&1")
+  Pathname.glob('*/').each do |package|
+    unless package == 'scripts/'
+      $stdout.puts "---> Removing #{package}"
+      `stow -t ~ -D #{package}`
+    end
+  end
 else
-  echo "---> [31mError: stow was not found in the system[0m"
-  exit 1
-fi
+  _error 'stow'
+  exit false
+end
 
-exit 0
+exit
 
-# vim:set ft=zsh:
+# vim:set ft=ruby:

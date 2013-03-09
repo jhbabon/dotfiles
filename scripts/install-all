@@ -1,31 +1,32 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env ruby
 
-function _error() {
-  echo "---> [31mError: $1 was not found in the system[0m"
-}
+require 'pathname'
 
-if which git &>/dev/null 2>&1; then
-  echo "---> Initializing git submodules"
-  git submodule init
-  git submodule update
+def _error(msg)
+  $stderr.puts "---> [31mError: #{msg} was not found in the system[0m"
+end
+
+if system("which git &>/dev/null 2>&1")
+  $stdout.puts "---> Initializing git submodules"
+  `git submodule init`
+  `git submodule update`
 else
   _error 'git'
-  exit 1
-fi
+  exit false
+end
 
-if which stow &>/dev/null 2>&1; then
-  for package (`ls -d */`); do
-    if [[ $package != 'scripts/' ]]; then
-      echo "---> Installing $package"
-      stow -t ~ $package
-    fi
-  done
-  unset package
+if system("which stow &>/dev/null 2>&1")
+  Pathname.glob('*/').each do |package|
+    unless package == 'scripts/'
+      $stdout.puts "---> Installing #{package}"
+      `stow -t ~ #{package}`
+    end
+  end
 else
   _error 'stow'
-  exit 1
-fi
+  exit false
+end
 
-exit 0
+exit
 
-# vim:set ft=zsh:
+# vim:set ft=ruby:
