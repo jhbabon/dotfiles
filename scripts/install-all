@@ -16,8 +16,8 @@ else
 end
 
 if system("which stow &>/dev/null 2>&1")
-  Pathname.glob('*/').each do |package|
-    unless package == 'scripts/'
+  Pathname.glob('*/').map(&:to_s).each do |package|
+    unless package =~ /scripts/
       $stdout.puts "---> Installing #{package}"
       `stow -t ~ #{package}`
     end
