@@ -23,4 +23,8 @@ fi
 # load bin from safe dirs
 export PATH=".safe/../bin:$HOME/.bin:$PATH"
 
+# Boxen
+# -----------------------------------------------
+[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
+
 # vim:set ft=zsh:
