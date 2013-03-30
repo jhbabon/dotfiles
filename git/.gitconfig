@@ -1,5 +1,5 @@
 [user]
-  name       = Juan Hernández Babón
+  name       = Juan Hernández
   email      = juan.hernandez.babon@gmail.com
   editor     = vim
 
@@ -36,7 +36,6 @@
   ri         = rebase -i
   sm         = submodule
   who        = shortlog -n -s --no-merges
-  lg         = log --graph --pretty=format:'%Cred%h%Creset | %Cgreen%an%Creset | %s | %Cblue%cr%Creset'
 
   # exclude: http://coderwall.com/p/n1d-na
   exclude    = !sh -c 'echo "$1" >> .git/info/exclude' -
