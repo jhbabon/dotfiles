@@ -369,10 +369,10 @@ set statusline+=%q                          " quicklist flag
 set statusline+=%=%5l/%L                    " current line/total lines
 set statusline+=%4v                         " virtual column number
 
-syntax on
 set t_Co=256
 set background=dark
 colorscheme solarized
+syntax on
 
 " highlight long lines
 match CursorLine /\%81v.*/

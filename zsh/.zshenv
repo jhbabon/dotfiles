@@ -5,10 +5,10 @@ export BACKUP_PATH=$PATH
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin"
 
 export EDITOR=vim
-export PAGER=/usr/bin/less
-export CLICOLOR="true"
-export LSCOLORS="Gxfxcxdxbxegedabagacad"
-export TERM=xterm-256color # set terminal colors
+export PAGER=less
+# export CLICOLOR="true"
+# export LSCOLORS="Gxfxcxdxbxegedabagacad"
+# export TERM=xterm-256color # set terminal colors
 
 # Heroku Toolbelt
 if [[ -d "/usr/local/heroku/bin" ]] ; then
