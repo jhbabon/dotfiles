@@ -16,8 +16,8 @@ if [[ -d "/usr/local/heroku/bin" ]] ; then
 fi
 
 # add texlive to PATH
-if [[ -d "/usr/local/texlive/2011/bin/x86_64-darwin" ]]; then
-  export PATH="/usr/local/texlive/2011/bin/x86_64-darwin:$PATH"
+if [[ -d "/usr/local/texlive/2012basic/bin/universal-darwin" ]]; then
+  export PATH="/usr/local/texlive/2012basic/bin/universal-darwin:$PATH"
 fi
 
 # load bin from safe dirs
