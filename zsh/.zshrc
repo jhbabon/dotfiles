@@ -52,7 +52,11 @@ which ack-grep &>/dev/null 2>&1 && alias ack='ack-grep'
 # reload shell environment
 alias rld="echo '---> shell: reload'; exec $SHELL -l"
 # full reload with rbenv rehash
-alias fld="echo '---> rbenv: rehash'; rbenv rehash; rld"
+alias fld="echo '---> rbenv: rehash'; rbenv rehash; rld
+
+# higher-order function: map
+# link: https://coderwall.com/p/4tkkpq
+alias map="xargs -n1"
 
 # Bindkeys
 # -----------------------------------------------
