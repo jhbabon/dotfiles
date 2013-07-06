@@ -225,9 +225,62 @@ command! -bang WQ wq<bang>
 " * plugins                                                                  *
 " * ======================================================================== *
 
-" pathogen
+" neobundle
 " -----------------------------------------------------------------------------
-execute pathogen#infect()
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#rc(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'edsono/vim-matchit'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-ragtag'
+NeoBundle 'tpope/vim-haml'
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'SirVer/ultisnips'
+NeoBundle 'godlygeek/tabular'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'cakebaker/scss-syntax.vim'
+NeoBundle 'vim-scripts/taglist.vim'
+NeoBundle 'othree/html5.vim'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'juvenn/mustache.vim'
+NeoBundle 'vim-scripts/nginx.vim'
+NeoBundle 'kana/vim-fakeclip'
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'nelstrom/vim-textobj-rubyblock'
+NeoBundle 'rstacruz/sparkup', { 'rtp': 'vim/' }
+NeoBundle 'itspriddle/vim-jquery'
+NeoBundle 'groenewege/vim-less'
+NeoBundle 'kana/vim-smartinput'
+NeoBundle 'jgdavey/vim-blockle'
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'rodjek/vim-puppet'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'noprompt/vim-yardoc'
+NeoBundle 'guns/vim-clojure-static'
+NeoBundle 'tpope/vim-classpath'
+NeoBundle 'tpope/vim-fireplace'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'gregsexton/gitv'
+NeoBundle 'klen/python-mode'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimproc.vim', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \     'android' : 'make -f make_android.mak',
+      \    },
+      \ }
+" NeoBundle 'https://bitbucket.org/larsyencken/vim-drake-syntax.git'
 
 " ragtag
 " -----------------------------------------------------------------------------
@@ -243,12 +296,29 @@ let NERDShutUp=1
 nmap <F5> :NERDTree<CR>
 nnoremap <Leader>nt :NERDTreeToggle<CR>
 
-" ctrlp
+" unite
+" @link: http://bling.github.io/blog/2013/06/02/unite-dot-vim-the-plugin-you-didnt-know-you-need/
 " -----------------------------------------------------------------------------
-nnoremap <Leader>pb :CtrlPBuffer<CR>
-nnoremap <Leader>pp :CtrlP<CR>
-nnoremap <Leader>pm :CtrlPMRU<CR>
-nnoremap <Leader>pa :CtrlPMixed<CR>
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
+nnoremap <leader>f :Unite -start-insert buffer file_rec/async:!<CR>
+nnoremap <leader>m :Unite -start-insert file_mru<CR>
+
+let g:unite_source_history_yank_enable = 1
+nnoremap <leader>y :<C-u>Unite history/yank<CR>
+
+" like ctrlp.vim settings
+let g:unite_winheight = 10
+let g:unite_split_rule = 'botright'
+
+" for ack
+let g:unite_source_grep_command = 'ack'
+let g:unite_source_grep_default_opts = '--nocolor --noheading --nogroup --column'
+let g:unite_source_grep_recursive_opt = ''
+nnoremap <leader>/ :Unite -no-quit -buffer-name=search grep:.<cr>
+
+" change the buffer quickly
+nnoremap <space>s :Unite -quick-match buffer<cr>
 
 " snipmate
 " -----------------------------------------------------------------------------
@@ -264,14 +334,6 @@ nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 nnoremap <Leader>gl :Glog<CR>
 nnoremap <Leader>gd :Gdiff<CR>
-
-" ack
-" -----------------------------------------------------------------------------
-let g:ackprg = "ack -H --nocolor --nogroup --column"
-" fast search for TODO, FIXME and NOTE labels
-command! -nargs=0 Todos exec "Ack TODO"
-command! -nargs=0 Fixmes exec "Ack FIXME"
-command! -nargs=0 Notes exec "Ack NOTE"
 
 " tabularize
 " -----------------------------------------------------------------------------
@@ -418,7 +480,7 @@ function! <SID>ConvertMarkdown()
   exe "!markdown --html4tags " . l:mkd_file . " > " . l:html_file
   exe "drop " . l:html_file
 endfunction
-nmap <silent> <Leader>mk :call <SID>ConvertMarkdown()<CR>
+nmap <silent> <Leader>cmk :call <SID>ConvertMarkdown()<CR>
 
 " autosave
 " link: http://stackoverflow.com/questions/6991638/how-to-auto-save-a-file-every-1-second-in-vim
