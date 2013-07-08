@@ -301,7 +301,7 @@ nnoremap <Leader>nt :NERDTreeToggle<CR>
 " -----------------------------------------------------------------------------
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
-nnoremap <leader>f :Unite -start-insert buffer file_rec/async:!<CR>
+nnoremap <leader>f :Unite -start-insert buffer file<CR>
 nnoremap <leader>m :Unite -start-insert file_mru<CR>
 
 let g:unite_source_history_yank_enable = 1
