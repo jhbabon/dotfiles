@@ -281,6 +281,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \    },
       \ }
 " NeoBundle 'https://bitbucket.org/larsyencken/vim-drake-syntax.git'
+NeoBundle 'bling/vim-airline'
 
 " ragtag
 " -----------------------------------------------------------------------------
@@ -372,6 +373,11 @@ hi link yardLiteral rubyString
 " save the classpath cache in .viminfo
 set viminfo+=!
 
+" vim-airline
+" -----------------------------------------------------------------------------
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_theme='solarized'
 
 " * ======================================================================== *
 " * file-types                                                               *
@@ -417,19 +423,7 @@ au BufNewFile,BufRead *.less,*.css,*.scss nnoremap <buffer> <localleader>al ?{<C
 " * statusline, colors and gui                                               *
 " * ======================================================================== *
 
-set laststatus=2                            " always show statusline
-set statusline=                             " cleanup statusline after reload
-set statusline+=%n                          " buffer number
-set statusline+=\ %{&ff}                    " file format
-set statusline+=%y                          " file type
-set statusline+=\ %{fugitive#statusline()}  " fugitive info
-set statusline+=\ %<%f                      " relative path
-set statusline+=%m                          " modified flag
-set statusline+=%r                          " readonly flag
-set statusline+=%w                          " preview flag
-set statusline+=%q                          " quicklist flag
-set statusline+=%=%5l/%L                    " current line/total lines
-set statusline+=%4v                         " virtual column number
+set laststatus=2  " always show statusline
 
 set t_Co=256
 set background=dark
