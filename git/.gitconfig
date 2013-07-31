@@ -36,6 +36,7 @@
   ri         = rebase -i
   sm         = submodule
   who        = shortlog -n -s --no-merges
+  up         = pull --rebase
 
   # exclude: http://coderwall.com/p/n1d-na
   exclude    = !sh -c 'echo "$1" >> .git/info/exclude' -
