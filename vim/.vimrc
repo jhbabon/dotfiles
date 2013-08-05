@@ -182,13 +182,6 @@ nnoremap <Leader>, :s/\([^,]\)$/\1,/<CR>:noh<CR>
 
 
 " * ======================================================================== *
-" * change background                                                        *
-" * ======================================================================== *
-nnoremap <Leader>bl :set background=light<CR>
-nnoremap <Leader>bd :set background=dark<CR>
-
-
-" * ======================================================================== *
 " * manage empty lines                                                       *
 " * link: http://vim.wikia.com/wiki/Quickly_adding_and_deleting_empty_lines  *
 " * ======================================================================== *
@@ -302,7 +295,11 @@ nnoremap <Leader>nt :NERDTreeToggle<CR>
 " -----------------------------------------------------------------------------
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
-nnoremap <leader>f :Unite -start-insert buffer file<CR>
+nnoremap <leader>ff :Unite -start-insert file<CR>
+nnoremap <leader>fr :Unite -start-insert file_rec/async<CR>
+nnoremap <leader>fn :Unite -start-insert file/new<CR>
+
+nnoremap <leader>b :Unite -start-insert buffer<CR>
 nnoremap <leader>m :Unite -start-insert file_mru<CR>
 
 let g:unite_source_history_yank_enable = 1
