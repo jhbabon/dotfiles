@@ -332,6 +332,8 @@ nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 nnoremap <Leader>gl :Glog<CR>
 nnoremap <Leader>gd :Gdiff<CR>
+" link: http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
+autocmd BufReadPost fugitive://* set bufhidden=delete
 
 " tabularize
 " -----------------------------------------------------------------------------
