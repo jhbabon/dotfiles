@@ -311,7 +311,7 @@ let g:unite_split_rule = 'botright'
 
 " for ack
 let g:unite_source_grep_command = 'ack'
-let g:unite_source_grep_default_opts = '--nocolor --noheading --nogroup --column'
+let g:unite_source_grep_default_opts = '--type=nolog --nocolor --noheading --nogroup --column'
 let g:unite_source_grep_recursive_opt = ''
 nnoremap <leader>/ :Unite -no-quit -buffer-name=search grep:.<cr>
 
