@@ -158,17 +158,17 @@ function randompass() {
 #   * description: go to the source dir of a project
 #                  the project should be in:
 #
-#                  $HOME/Code/projects/[project-name]{/src}
+#                  $HOME/src/[project-name]{/src}
 #
 #   * params: a string with the name of the project.
 function prj() {
   if [ $# -eq 1 ]; then
-    cd "$HOME/Code/projects/$1/src" 2>/dev/null ||
-      cd "$HOME/Code/projects/$1"  2>/dev/null ||
-      echo "---> no such file or directory: $HOME/Code/projects/$1{/src}"
+    cd "$HOME/src/$1/src" 2>/dev/null ||
+      cd "$HOME/src/$1"  2>/dev/null ||
+      echo "---> no such file or directory: $HOME/src/$1{/src}"
   else
     echo "Nav to project's source code."
-    echo "Each project should be under: $HOME/Code/projects"
+    echo "Each project should be under: $HOME/src"
     echo "Usage: $0 project_dir_name"
   fi
 }
