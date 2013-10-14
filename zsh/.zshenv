@@ -23,8 +23,8 @@ fi
 # load bin from safe dirs
 export PATH=".safe/../bin:$HOME/.bin:$PATH"
 
-# Boxen
+# rbenv
 # -----------------------------------------------
-[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
+command -v rbenv > /dev/null && eval "$(rbenv init -)"
 
 # vim:set ft=zsh:

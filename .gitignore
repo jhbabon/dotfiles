@@ -10,3 +10,5 @@ vim/.vim/tmp/**/*
 !vim/.vim/tmp/undo/.gitkeep
 !vim/.vim/tmp/swap/.gitkeep
 !ruby/.bundle
+ssh/.ssh/id_rsa
+ssh/.ssh/id_rsa.pub
