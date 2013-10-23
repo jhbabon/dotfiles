@@ -298,9 +298,8 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 nnoremap <leader>ff :Unite -start-insert file<CR>
 nnoremap <leader>fr :Unite -start-insert file_rec/async<CR>
 nnoremap <leader>fn :Unite -start-insert file/new<CR>
-
-nnoremap <leader>b :Unite -start-insert buffer<CR>
-nnoremap <leader>m :Unite -start-insert file_mru<CR>
+nnoremap <leader>fb :Unite -start-insert buffer<CR>
+nnoremap <leader>fm :Unite -start-insert file_mru<CR>
 
 let g:unite_source_history_yank_enable = 1
 nnoremap <leader>y :<C-u>Unite history/yank<CR>
