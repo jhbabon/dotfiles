@@ -39,6 +39,9 @@
   up         = pull --rebase
   lg         = log --graph --pretty=format:'%Cred%h%Creset | %Cgreen%an%Creset | %s | %Cblue%cr%Creset'
 
+  # branch name
+  bm         = rev-parse --abbrev-ref HEAD
+
   # exclude: http://coderwall.com/p/n1d-na
   exclude    = !sh -c 'echo "$1" >> .git/info/exclude' -
 
