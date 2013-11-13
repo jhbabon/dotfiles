@@ -180,6 +180,27 @@ function sf() {
   [[ -d $PWD/.safe ]] || (mkdir -p $PWD/.safe && echo '---> safe: done')
 }
 
+# explain:
+#   * description: use the remote service explain.com from the terminal.
+#   * link: https://github.com/schneems/explain_shell#without-rubygems
+function explain() {
+  # base url with first command already injected
+  # $ explain tar
+  #   => http://explainshel.com/explain/tar?args=
+  url="http://explainshell.com/explain/$1?args="
+
+  # removes $1 (tar) from arguments ($@)
+  shift;
+
+  # iterates over remaining args and adds builds the rest of the url
+  for i in "$@"; do
+    url=$url"$i""+"
+  done
+
+  # opens url in browser
+  open $url
+}
+
 # zmv: zsh renaming tool
 # @link: http://www.mfasold.net/blog/2008/11/moving-or-renaming-multiple-files/
 #
