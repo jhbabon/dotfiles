@@ -79,11 +79,17 @@ set list
 " show or not the list
 nmap <leader>l :set list!<CR>
 
-" timeout on key codes but not mappings.
+" timeout on key codes but not mappings
 " -----------------------------------------------------------------------------
 set notimeout
 set ttimeout
 set ttimeoutlen=10
+
+
+" clipboard
+" -----------------------------------------------------------------------------
+" use the system clipboard as the default register
+set clipboard=unnamed,unnamedplus
 
 
 " * ======================================================================== *
