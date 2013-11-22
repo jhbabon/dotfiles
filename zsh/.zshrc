@@ -116,9 +116,9 @@ export DIRSTACKSIZE=50
 # Helpers
 # -----------------------------------------------
 
-# go:
-#   * description: creates a dir and goes to it.
-function go() {
+# get:
+#   * description: creates a dir and gets to it.
+function get() {
   mkdir -p "$1" && cd "$1";
 }
 
