@@ -185,8 +185,8 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 " * ======================================================================== *
 " * add ; or , to the end of the line, when missing                          *
 " * ======================================================================== *
-nnoremap <Leader>; :s/\([^;]\)$/\1;/<CR>:noh<CR>
-nnoremap <Leader>, :s/\([^,]\)$/\1,/<CR>:noh<CR>
+nnoremap <leader>; :s/\([^;]\)$/\1;/<CR>:noh<CR>
+nnoremap <leader>, :s/\([^,]\)$/\1,/<CR>:noh<CR>
 
 
 " * ======================================================================== *
@@ -195,11 +195,11 @@ nnoremap <Leader>, :s/\([^,]\)$/\1,/<CR>:noh<CR>
 " * ======================================================================== *
 
 " delete the empty line below and above
-nnoremap <Leader>dl m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
-nnoremap <Leader>dL m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <leader>dl m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
+nnoremap <leader>dL m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 " add an empty line below and above
-nnoremap <Leader>al :set paste<CR>m`o<Esc>``:set nopaste<CR>
-nnoremap <Leader>aL :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <leader>al :set paste<CR>m`o<Esc>``:set nopaste<CR>
+nnoremap <leader>aL :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
 
 " * ======================================================================== *
@@ -296,7 +296,7 @@ let NERDShutUp=1
 " nerdtree
 " -----------------------------------------------------------------------------
 nmap <F5> :NERDTree<CR>
-nnoremap <Leader>nt :NERDTreeToggle<CR>
+nnoremap <leader>nt :NERDTreeToggle<CR>
 
 " unite
 " @link: http://bling.github.io/blog/2013/06/02/unite-dot-vim-the-plugin-you-didnt-know-you-need/
@@ -335,25 +335,25 @@ let g:sparkupNextMapping = '<c-x>'
 
 " fugitive
 " -----------------------------------------------------------------------------
-nnoremap <Leader>gs :Gstatus<CR>
-nnoremap <Leader>gc :Gcommit<CR>
-nnoremap <Leader>gl :Glog<CR>
-nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gl :Glog<CR>
+nnoremap <leader>gd :Gdiff<CR>
 " link: http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
 " tabularize
 " -----------------------------------------------------------------------------
-nmap <Leader>t> :Tabularize /=><CR>
-vmap <Leader>t> :Tabularize /=><CR>
-nmap <Leader>t= :Tabularize /=<CR>
-vmap <Leader>t= :Tabularize /=<CR>
-nmap <Leader>t: :Tabularize /:\zs<CR>
-vmap <Leader>t: :Tabularize /:\zs<CR>
+nmap <leader>t> :Tabularize /=><CR>
+vmap <leader>t> :Tabularize /=><CR>
+nmap <leader>t= :Tabularize /=<CR>
+vmap <leader>t= :Tabularize /=<CR>
+nmap <leader>t: :Tabularize /:\zs<CR>
+vmap <leader>t: :Tabularize /:\zs<CR>
 
 " gundo
 " -----------------------------------------------------------------------------
-nnoremap <Leader>ut :GundoToggle<CR>
+nnoremap <leader>ut :GundoToggle<CR>
 
 " matchit
 " -----------------------------------------------------------------------------
@@ -362,11 +362,11 @@ runtime macros/matchit.vim
 " jquery
 " -----------------------------------------------------------------------------
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
-nnoremap <Leader>jq :set syntax=jquery<CR>
+nnoremap <leader>jq :set syntax=jquery<CR>
 
 " nginx
 " -----------------------------------------------------------------------------
-nnoremap <Leader>nx :set ft=nginx<CR>
+nnoremap <leader>nx :set ft=nginx<CR>
 
 " vim-yardoc
 " -----------------------------------------------------------------------------
@@ -469,7 +469,7 @@ function! <SID>StripTrailingWhitespace()
   let @/=_s
   call cursor(l, c)
 endfunction
-nmap <silent> <Leader><space> :call <SID>StripTrailingWhitespace()<CR>
+nmap <silent> <leader><space> :call <SID>StripTrailingWhitespace()<CR>
 
 " markdown:     convert markdown file to a html file and open it
 " dependencies: markdown cli
@@ -480,7 +480,7 @@ function! <SID>ConvertMarkdown()
   exe "!markdown --html4tags " . l:mkd_file . " > " . l:html_file
   exe "drop " . l:html_file
 endfunction
-nmap <silent> <Leader>cmk :call <SID>ConvertMarkdown()<CR>
+nmap <silent> <leader>cmk :call <SID>ConvertMarkdown()<CR>
 
 " autosave
 " link: http://stackoverflow.com/questions/6991638/how-to-auto-save-a-file-every-1-second-in-vim
@@ -517,8 +517,8 @@ function! PrivatizeRubyMethod(...)
   exec "normal o". scope . " :" . priorMethod  . "\<Esc>=="
 endfunction
 
-map <Leader>rp :call PrivatizeRubyMethod()<CR>
-map <Leader>ro :call PrivatizeRubyMethod("protected")<CR>
+map <leader>rp :call PrivatizeRubyMethod()<CR>
+map <leader>ro :call PrivatizeRubyMethod("protected")<CR>
 
 
 " converting variables to or from CamelCase
@@ -536,14 +536,14 @@ function! <SID>FromUnderScoreToCamel(...)
     silent! s#_\(\l\)#\u\1#g
   endif
 endfunction
-nmap <silent> <Leader>uc :call <SID>FromUnderScoreToCamel()<CR>
-nmap <silent> <Leader>uC :call <SID>FromUnderScoreToCamel("upper")<CR>
+nmap <silent> <leader>uc :call <SID>FromUnderScoreToCamel()<CR>
+nmap <silent> <leader>uC :call <SID>FromUnderScoreToCamel("upper")<CR>
 
 " convert CamelCase to under_score in current line
 function! <SID>FromCamelToUnderScore()
   silent! s#\C\(\<\u[a-z0-9]\+\|[a-z0-9]\+\)\(\u\)#\l\1_\l\2#g
 endfunction
-nmap <silent> <Leader>Cu :call <SID>FromCamelToUnderScore()<CR>
+nmap <silent> <leader>Cu :call <SID>FromCamelToUnderScore()<CR>
 
 " promote variable to rspec let
 " link: http://coderwall.com/p/th43aw?i=16&p=1&q=&t=code-vim-ruby-rspec-minitest
@@ -556,11 +556,11 @@ function! PromoteToLet()
   :normal ==
 endfunction
 command! PromoteToLet :call PromoteToLet()
-nmap <silent> <Leader>pl :call PromoteToLet()<CR>
+nmap <silent> <leader>pl :call PromoteToLet()<CR>
 
 " convert ruby 1.8 hash syntax to 1.9
 " -----------------------------------------------------------------------------
-nmap <silent> <Leader>rh :%s/:\(\w\+\)\(\s\?\)=> /\1:\2/g<CR>
+nmap <silent> <leader>rh :%s/:\(\w\+\)\(\s\?\)=> /\1:\2/g<CR>
 
 " ctags for ruby: get tags for a ruby project
 " dependencies: bundler gem, ctags
@@ -569,4 +569,4 @@ nmap <silent> <Leader>rh :%s/:\(\w\+\)\(\s\?\)=> /\1:\2/g<CR>
 function! <SID>RubyCtags()
   exe "!bundle list --paths=true | xargs ctags --extra=+f --exclude=.git --exclude=log --exclude=tmp -R *"
 endfunction
-nmap <silent> <Leader>rt :call <SID>RubyCtags()<CR>
+nmap <silent> <leader>rt :call <SID>RubyCtags()<CR>
