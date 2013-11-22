@@ -90,6 +90,8 @@ set ttimeoutlen=10
 " -----------------------------------------------------------------------------
 " use the system clipboard as the default register
 set clipboard=unnamed,unnamedplus
+" copy file path to clipboard
+map <leader>% :let @* = expand("%")<cr>
 
 
 " * ======================================================================== *
