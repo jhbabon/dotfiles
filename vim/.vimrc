@@ -27,8 +27,7 @@ set autoread       " auto-reload modified files (with no local changes)
 set report=0       " report all changes
 set textwidth=0    " don't break long lines
 set visualbell     " use visual bell, not sound
-set title          " set the terminal title
-set titlelen=20    " use a title of 20 characters
+set notitle        " don't set the terminal title
 set shortmess=atI  " modify the error and info messages
 set ttyfast        " fast terminal connection
 
