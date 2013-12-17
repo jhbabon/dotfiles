@@ -569,3 +569,11 @@ function! <SID>RubyCtags()
   exe "!bundle list --paths=true | xargs ctags --extra=+f --exclude=.git --exclude=log --exclude=tmp -R *"
 endfunction
 nmap <silent> <leader>rt :call <SID>RubyCtags()<CR>
+
+" remove current file from the system and also remove its buffer.
+" -----------------------------------------------------------------------------
+function! Rm()
+  call delete(expand("%")) | bdelete!
+endfunction
+nnoremap <leader>rm :call Rm()<cr>
+
