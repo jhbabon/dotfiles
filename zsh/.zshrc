@@ -19,14 +19,12 @@ zle -N self-insert url-quote-magic
 # Aliases
 # -----------------------------------------------
 alias _='sudo'
-alias hs='fc -l 1' # show history
 alias cl='clear'
 alias vi='vim'
 alias mdp="mkdir -p"
 alias ping='ping -c 4 '
 alias pingg='ping www.google.com'
 alias rake="noglob rake" # makes rake work nicely with zsh
-alias -- -='cd -'
 alias ..='cd ..'
 alias ...='cd ../..'
 
@@ -41,6 +39,13 @@ alias rspec='nocorrect rspec'
 alias bi='bundle install'
 alias bu='bundle update'
 alias be='bundle exec'
+
+# History
+# show full history
+alias hs='fc -l 1'
+# search command in history
+# @link: http://viget.com/extend/level-up-your-shell-game#history-expansions
+alias h?="history | grep"
 
 # find the option for using colors in ls, depending on the version: Linux or BSD
 ls --color -d . &>/dev/null 2>&1 && alias ls='ls --color=tty' || alias ls='ls -G'
