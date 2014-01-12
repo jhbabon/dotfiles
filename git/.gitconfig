@@ -1,3 +1,5 @@
+[init]
+  templatedir = /Users/jhbabon/src/git-template
 [user]
   name       = Juan Hernández
   email      = juan.hernandez.babon@gmail.com
