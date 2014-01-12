@@ -252,7 +252,6 @@ NeoBundle 'sjl/gundo.vim'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'juvenn/mustache.vim'
 NeoBundle 'vim-scripts/nginx.vim'
-NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'nelstrom/vim-textobj-rubyblock'
 NeoBundle 'rstacruz/sparkup', { 'rtp': 'vim/' }
