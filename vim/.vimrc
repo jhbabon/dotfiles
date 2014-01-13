@@ -282,6 +282,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \ }
 " NeoBundle 'https://bitbucket.org/larsyencken/vim-drake-syntax.git'
 NeoBundle 'bling/vim-airline'
+NeoBundle 'jnwhiteh/vim-golang'
 
 " ragtag
 " -----------------------------------------------------------------------------
@@ -383,6 +384,10 @@ set viminfo+=!
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_theme='solarized'
+
+" go
+" -----------------------------------------------------------------------------
+autocmd FileType go autocmd BufWritePre <buffer> Fmt
 
 " * ======================================================================== *
 " * file-types                                                               *
