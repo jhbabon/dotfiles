@@ -282,7 +282,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \ }
 " NeoBundle 'https://bitbucket.org/larsyencken/vim-drake-syntax.git'
 NeoBundle 'bling/vim-airline'
-NeoBundle 'jnwhiteh/vim-golang'
+NeoBundle 'Blackrush/vim-gocode'
 
 " ragtag
 " -----------------------------------------------------------------------------

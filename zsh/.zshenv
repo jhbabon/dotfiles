@@ -20,11 +20,16 @@ if [[ -d "/usr/local/texlive/2012basic/bin/universal-darwin" ]]; then
   export PATH="/usr/local/texlive/2012basic/bin/universal-darwin:$PATH"
 fi
 
+# rbenv
+command -v rbenv > /dev/null && eval "$(rbenv init -)"
+
+# golang
+if [[ -d "$HOME/src/go" ]] ; then
+  export GOPATH="$HOME/src/go"
+  export PATH="$PATH:$GOPATH/bin"
+fi
+
 # load bin from safe dirs
 export PATH=".safe/../bin:$HOME/.bin:$PATH"
-
-# rbenv
-# -----------------------------------------------
-command -v rbenv > /dev/null && eval "$(rbenv init -)"
 
 # vim:set ft=zsh:
