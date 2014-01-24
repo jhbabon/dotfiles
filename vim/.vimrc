@@ -68,8 +68,9 @@ set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " vim swap files
 set wildignore+=*.DS_Store                       " osx bullshit
-set wildignore+=*.pyc                            " Python byte code
-set wildignore+=*.orig                           " Merge resolution files
+set wildignore+=*.pyc                            " python byte code
+set wildignore+=*.orig                           " merge resolution files
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip         " tmp files
 
 " special characters
 " -----------------------------------------------------------------------------
@@ -270,19 +271,10 @@ NeoBundle 'tpope/vim-fireplace'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'klen/python-mode'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \     'android' : 'make -f make_android.mak',
-      \    },
-      \ }
 " NeoBundle 'https://bitbucket.org/larsyencken/vim-drake-syntax.git'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'Blackrush/vim-gocode'
+NeoBundle 'kien/ctrlp.vim'
 
 " ragtag
 " -----------------------------------------------------------------------------
@@ -298,32 +290,24 @@ let NERDShutUp=1
 nmap <F5> :NERDTree<CR>
 nnoremap <leader>nt :NERDTreeToggle<CR>
 
-" unite
-" @link: http://bling.github.io/blog/2013/06/02/unite-dot-vim-the-plugin-you-didnt-know-you-need/
+" ag && ctrlp
+" @link: http://robots.thoughtbot.com/faster-grepping-in-vim
 " -----------------------------------------------------------------------------
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
 
-nnoremap <leader>ff :Unite -start-insert file<CR>
-nnoremap <leader>fr :Unite -start-insert file_rec/async<CR>
-nnoremap <leader>fn :Unite -start-insert file/new<CR>
-nnoremap <leader>fb :Unite -start-insert buffer<CR>
-nnoremap <leader>fm :Unite -start-insert file_mru<CR>
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
-let g:unite_source_history_yank_enable = 1
-nnoremap <leader>y :<C-u>Unite history/yank<CR>
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
 
-" like ctrlp.vim settings
-let g:unite_winheight = 10
-let g:unite_split_rule = 'botright'
-
-" for ack
-let g:unite_source_grep_command = 'ack'
-let g:unite_source_grep_default_opts = '--type=nolog --nocolor --noheading --nogroup --column'
-let g:unite_source_grep_recursive_opt = ''
-nnoremap <leader>/ :Unite -no-quit -buffer-name=search grep:.<cr>
-
-" change the buffer quickly
-nnoremap <space>s :Unite -quick-match buffer<cr>
+nnoremap K :grep! "\b<C-R><C-W>\b"<cr>:cw<cr> " bind K to grep word under cursor
+command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+nnoremap \ :Ag<space>
 
 " snipmate
 " -----------------------------------------------------------------------------
