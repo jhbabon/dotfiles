@@ -290,24 +290,29 @@ let NERDShutUp=1
 nmap <F5> :NERDTree<CR>
 nnoremap <leader>nt :NERDTreeToggle<CR>
 
-" ag && ctrlp
+" ag
 " @link: http://robots.thoughtbot.com/faster-grepping-in-vim
 " -----------------------------------------------------------------------------
-" The Silver Searcher
 if executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
 endif
 
 nnoremap K :grep! "\b<C-R><C-W>\b"<cr>:cw<cr> " bind K to grep word under cursor
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 nnoremap \ :Ag<space>
+
+" ctrlp
+" -----------------------------------------------------------------------------
+if executable('ag')
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+nnoremap <C-F> :CtrlPBuffer<cr>
+nnoremap <C-M> :CtrlPMRUFiles<cr>
 
 " snipmate
 " -----------------------------------------------------------------------------
