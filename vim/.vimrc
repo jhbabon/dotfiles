@@ -311,8 +311,9 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
-nnoremap <C-F> :CtrlPBuffer<cr>
-nnoremap <C-M> :CtrlPMRUFiles<cr>
+nnoremap <localleader>p :CtrlP<cr>
+nnoremap <localleader>b :CtrlPBuffer<cr>
+nnoremap <localleader>m :CtrlPMRUFiles<cr>
 
 " snipmate
 " -----------------------------------------------------------------------------
