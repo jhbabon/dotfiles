@@ -36,9 +36,11 @@ set scrolloff=3    " number of screen lines to keep above and below the cursor
 set virtualedit+=block " the cursor can be positioned where there is
                        " no actual character
 
-set foldmethod=indent " fold based on indent
-set foldnestmax=3     " deepest fold is 3 levels
+set foldmethod=manual " don't fold anyway
 set nofoldenable      " don't fold by default
+
+set nojoinspaces " insert only one space when joining lines that
+                 " contain sentence-terminating punctuation like `.`.
 
 " get out fast from insert mode
 inoremap jj <ESC>
