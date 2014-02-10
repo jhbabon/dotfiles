@@ -174,17 +174,6 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 
 " * ======================================================================== *
-" * brackets completions                                                     *
-" * ======================================================================== *
-" inoremap ( ()<Left>
-" inoremap { {}<Left>
-" inoremap [ []<Left>
-" inoremap < <><Left>
-" inoremap " ""<Left>
-" inoremap ' ''<Left>
-
-
-" * ======================================================================== *
 " * add ; or , to the end of the line, when missing                          *
 " * ======================================================================== *
 nnoremap <leader>; :s/\([^;]\)$/\1;/<CR>:noh<CR>
@@ -245,6 +234,7 @@ NeoBundle 'tpope/vim-haml'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'scrooloose/syntastic'
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'altercation/vim-colors-solarized'
@@ -380,6 +370,11 @@ let g:airline_theme='solarized'
 " go
 " -----------------------------------------------------------------------------
 autocmd FileType go autocmd BufWritePre <buffer> Fmt
+
+" syntastic
+" -----------------------------------------------------------------------------
+let g:syntastic_check_on_open = 1
+let g:syntastic_always_populate_loc_list = 1
 
 " * ======================================================================== *
 " * file-types                                                               *
