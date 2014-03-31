@@ -230,28 +230,43 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'edsono/vim-matchit'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-ragtag'
+NeoBundle 'tpope/vim-haml'
+NeoBundle 'tpope/vim-markdown'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'cakebaker/scss-syntax.vim'
 NeoBundle 'vim-scripts/taglist.vim'
+NeoBundle 'othree/html5.vim'
 NeoBundle 'sjl/gundo.vim'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'juvenn/mustache.vim'
+NeoBundle 'vim-scripts/nginx.vim'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'nelstrom/vim-textobj-rubyblock'
 NeoBundle 'rstacruz/sparkup', { 'rtp': 'vim/' }
+NeoBundle 'itspriddle/vim-jquery'
+NeoBundle 'groenewege/vim-less'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'jgdavey/vim-blockle'
-" NeoBundle 'guns/vim-clojure-static'
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'rodjek/vim-puppet'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'noprompt/vim-yardoc'
+NeoBundle 'guns/vim-clojure-static'
 NeoBundle 'tpope/vim-classpath'
 NeoBundle 'tpope/vim-fireplace'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
+NeoBundle 'klen/python-mode'
+" NeoBundle 'https://bitbucket.org/larsyencken/vim-drake-syntax.git'
 NeoBundle 'bling/vim-airline'
+NeoBundle 'Blackrush/vim-gocode'
 NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'sheerun/vim-polyglot'
 
 " ragtag
 " -----------------------------------------------------------------------------
@@ -292,6 +307,10 @@ nnoremap <localleader>p :CtrlP<cr>
 nnoremap <localleader>b :CtrlPBuffer<cr>
 nnoremap <localleader>m :CtrlPMRUFiles<cr>
 
+" snipmate
+" -----------------------------------------------------------------------------
+let g:snips_author = "Juan Hernández Babón"
+
 " sparkup
 " -----------------------------------------------------------------------------
 let g:sparkupNextMapping = '<c-x>'
@@ -321,6 +340,21 @@ nnoremap <leader>ut :GundoToggle<CR>
 " matchit
 " -----------------------------------------------------------------------------
 runtime macros/matchit.vim
+
+" jquery
+" -----------------------------------------------------------------------------
+au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
+nnoremap <leader>jq :set syntax=jquery<CR>
+
+" nginx
+" -----------------------------------------------------------------------------
+nnoremap <leader>nx :set ft=nginx<CR>
+
+" vim-yardoc
+" -----------------------------------------------------------------------------
+hi link yardType rubyConstant
+hi link yardDuckType rubyMethod
+hi link yardLiteral rubyString
 
 " vim-classpath
 " -----------------------------------------------------------------------------
