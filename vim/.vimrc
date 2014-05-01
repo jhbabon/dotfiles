@@ -239,7 +239,6 @@ NeoBundle 'SirVer/ultisnips'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'cakebaker/scss-syntax.vim'
-NeoBundle 'vim-scripts/taglist.vim'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'kchmck/vim-coffee-script'
@@ -306,6 +305,7 @@ endif
 nnoremap <localleader>p :CtrlP<cr>
 nnoremap <localleader>b :CtrlPBuffer<cr>
 nnoremap <localleader>m :CtrlPMRUFiles<cr>
+nnoremap <localleader>t :CtrlPTag<cr>
 
 " snipmate
 " -----------------------------------------------------------------------------
