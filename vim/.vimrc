@@ -1,65 +1,100 @@
-" .vimrc
 " Author: Juan Hernández Babón <juan.hernandez.babon@gmail.com>
 " Source: https://github.com/jhbabon/dotfiles
-"
-" some code is borrowed from: http://github.com/sjl/dotfiles.git
 
-
-" * ======================================================================== *
-" * basic options                                                            *
-" * ======================================================================== *
+" Basic options {{{1
 set nocompatible " be iMproved!
-
-let mapleader      = ","
-let maplocalleader = "-"
 
 set encoding=utf-8 " default character encoding
 set modeline       " be able to use modelines when a file is loaded
-set number         " you need line numbers
-set ruler          " see where you are
-set showcmd        " see what are you doing
-set showmatch      " see mathing brackets
-set wrap           " wrap long lines without changing it
-set linebreak      " wrap the lines by words
+set notitle        " don't set the terminal title
+set ttyfast        " fast terminal connection
 set hidden         " buffers management, don't close the buffers
-                   " TODO: consider to use autowriteall instead
 set autoread       " auto-reload modified files (with no local changes)
 set report=0       " report all changes
+
+" wait 4 seconds on key codes
+set notimeout
+set ttimeout
+set ttimeoutlen=4
+" }}}1
+
+" Leader & shortcuts {{{1
+let mapleader      = ","
+let maplocalleader = "-"
+
+inoremap jj <ESC>
+" }}}1
+
+" UI & layout {{{1
+set laststatus=2   " always show statusline
+set number         " you need line numbers
+set ruler          " see where you are
+set wrap           " wrap long lines without changing it
+set linebreak      " wrap the lines by words
 set textwidth=0    " don't break long lines
 set visualbell     " use visual bell, not sound
-set notitle        " don't set the terminal title
 set shortmess=atI  " modify the error and info messages
-set ttyfast        " fast terminal connection
-
 set scrolloff=3    " number of screen lines to keep above and below the cursor
 
 set virtualedit+=block " the cursor can be positioned where there is
                        " no actual character
 
-set foldmethod=manual " don't fold anyway
-set nofoldenable      " don't fold by default
-
 set nojoinspaces " insert only one space when joining lines that
                  " contain sentence-terminating punctuation like `.`.
 
-" get out fast from insert mode
-inoremap jj <ESC>
+set lazyredraw " redraw only when we need to.
 
-" tabs and spaces
-" -----------------------------------------------------------------------------
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set listchars=trail:~,tab:▸\ ,eol:¬ " show special characters
+set list
+" show or not the list
+nmap <leader>l :set list!<CR>
+
+" only show cursorline in the current window and in normal mode.
+augroup cursorline
+  autocmd!
+  autocmd WinLeave * set nocursorline
+  autocmd WinEnter * set cursorline
+  autocmd InsertEnter * set nocursorline
+  autocmd InsertLeave * set cursorline
+augroup END
+
+" make sure vim returns to the same line when you reopen a file.
+augroup line_return
+  autocmd!
+  autocmd BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \     execute 'normal! g`"zvzz' |
+        \ endif
+augroup END
+
+" highlight long lines
+match CursorLine /\%81v.*/
+
+" highlight last inserted text
+nnoremap gV `[v`]
+" }}}1
+
+" Folding {{{1
+set foldenable        " fold by default
+set foldlevelstart=10 " open most folds by default
+set foldnestmax=10    " 10 nested fold max
+set foldmethod=indent " fold based on indent level
+" }}}1
+
+" Tabs & spaces {{{1
+set tabstop=2      " number of visual spaces per TAB.
+set shiftwidth=2   " number of spaces to use for each step of (auto)indent.
+set softtabstop=2  " number of spaces in tab when editing.
+set shiftround     " round indent to multiple of 'shiftwidth'
+set expandtab      " tabs are spaces
 set backspace=indent,eol,start
-set shiftround " round indent to multiple of 'shiftwidth'
-set expandtab
 set smarttab
 set autoindent
 set copyindent
 set smartindent
+" }}}1
 
-" menu completions
-" -----------------------------------------------------------------------------
+" Menu completions {{{1
 set wildmenu
 set wildmode=list:longest,full
 
@@ -73,159 +108,73 @@ set wildignore+=*.DS_Store                       " osx bullshit
 set wildignore+=*.pyc                            " python byte code
 set wildignore+=*.orig                           " merge resolution files
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip         " tmp files
+" }}}1
 
-" special characters
-" -----------------------------------------------------------------------------
-set listchars=trail:~,tab:▸\ ,eol:¬
-set list
-" show or not the list
-nmap <leader>l :set list!<CR>
-
-" timeout on key codes but not mappings
-" -----------------------------------------------------------------------------
-set notimeout
-set ttimeout
-set ttimeoutlen=10
-
-
-" clipboard
-" -----------------------------------------------------------------------------
+" Clipboard {{{1
 " use the system clipboard as the default register
 set clipboard=unnamed,unnamedplus
 " copy file path to clipboard
 map <leader>% :let @* = expand("%")<cr>
+" }}}1
 
-
-" * ======================================================================== *
-" * search options                                                           *
-" * ======================================================================== *
+" Search {{{1
 set ignorecase  " ignore case in search
 set smartcase   " override ignorecase if uppercase is used in search
 set hlsearch    " highlight search
-set incsearch   " While typing a search command, show where the pattern,
-                " as it was typed so far, matches.
+set incsearch   " search as characters are entered
+
 " clear highlighted search
 nmap <leader>nh :nohl<CR>
 
-" Keep search matches in the middle of the window.
+" keep search matches in the middle of the window.
 nnoremap n nzzzv
 nnoremap N Nzzzv
+" }}}1
 
+" Backups {{{1
+set backup                                    " enable backups
+set undodir=~/.vim/tmp/undo,/var/tmp,/tmp     " undo files
+set backupdir=~/.vim/tmp/backup,/var/tmp,/tmp " backups
+set directory=~/.vim/tmp/swap,/var/tmp,/tmp   " swap files
+set writebackup
+" }}}1
 
-" * ======================================================================== *
-" * cursorline                                                               *
-" * ======================================================================== *
-" only show cursorline in the current window and in normal mode.
-augroup cline
-  au!
-  au WinLeave * set nocursorline
-  au WinEnter * set cursorline
-  au InsertEnter * set nocursorline
-  au InsertLeave * set cursorline
-augroup END
-
-
-" * ======================================================================== *
-" * line return                                                              *
-" * ======================================================================== *
-" make sure vim returns to the same line when you reopen a file.
-augroup line_return
-  au!
-  au BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \     execute 'normal! g`"zvzz' |
-        \ endif
-augroup END
-
-
-" * ======================================================================== *
-" * backups                                                                  *
-" * ======================================================================== *
-set undodir=~/.vim/tmp/undo//     " undo files
-set backupdir=~/.vim/tmp/backup// " backups
-set directory=~/.vim/tmp/swap//   " swap files
-set backup                  " enable backups
-set noswapfile
-
-
-" * ======================================================================== *
-" * spell check                                                              *
-" * ======================================================================== *
-nmap <leader>sp :set spell!<CR>
-nmap <leader>ses :set spelllang=es<CR>
-nmap <leader>sen :set spelllang=en<CR>
-
-
-" * ======================================================================== *
-" * motions                                                                  *
-" * ======================================================================== *
+" Motions {{{1
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 noremap <leader>v <C-w>v
+" }}}1
 
-
-" * ======================================================================== *
-" * quickly edit/reload the vimrc file                                       *
-" * ======================================================================== *
+" Misc {{{1
+" quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
-
-" * ======================================================================== *
-" * add ; or , to the end of the line, when missing                          *
-" * ======================================================================== *
+" add ; or , to the end of the line, when missing
 nnoremap <leader>; :s/\([^;]\)$/\1;/<CR>:noh<CR>
 nnoremap <leader>, :s/\([^,]\)$/\1,/<CR>:noh<CR>
 
-
-" * ======================================================================== *
-" * manage empty lines                                                       *
-" * link: http://vim.wikia.com/wiki/Quickly_adding_and_deleting_empty_lines  *
-" * ======================================================================== *
-
+" manage empty lines
+" link: http://vim.wikia.com/wiki/Quickly_adding_and_deleting_empty_lines
 " delete the empty line below and above
 nnoremap <leader>dl m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
 nnoremap <leader>dL m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 " add an empty line below and above
 nnoremap <leader>al :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <leader>aL :set paste<CR>m`O<Esc>``:set nopaste<CR>
+" }}}1
 
-
-" * ======================================================================== *
-" * sudo to write                                                            *
-" * ======================================================================== *
-cnoremap w!! w !sudo tee % >/dev/null
-
-
-" * ======================================================================== *
-" * typos                                                                    *
-" * ======================================================================== *
-command! -bang E e<bang>
-command! -bang Q q<bang>
-" command! -bang W w<bang>
-command! -bang QA qa<bang>
-command! -bang Qa qa<bang>
-command! -bang Wa wa<bang>
-command! -bang WA wa<bang>
-command! -bang Wq wq<bang>
-command! -bang WQ wq<bang>
-
-
-" * ======================================================================== *
-" * plugins                                                                  *
-" * ======================================================================== *
-
-" neobundle
-" -----------------------------------------------------------------------------
+" Plugins {{{1
+" Neobundle {{{2
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 call neobundle#rc(expand('~/.vim/bundle/'))
 
-" Let NeoBundle manage NeoBundle
+" let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'edsono/vim-matchit'
 NeoBundle 'tpope/vim-surround'
@@ -267,23 +216,19 @@ NeoBundle 'bling/vim-airline'
 NeoBundle 'Blackrush/vim-gocode'
 NeoBundle 'kien/ctrlp.vim'
 
-" ragtag
-" -----------------------------------------------------------------------------
+" Ragtag {{{2
 let g:ragtag_global_maps = 1
 
-" nerdcommenter
-" -----------------------------------------------------------------------------
+" Nerdcommenter {{{2
 let NERDSpaceDelims=1
 let NERDShutUp=1
 
-" nerdtree
-" -----------------------------------------------------------------------------
+" Nerdtree {{{2
 nmap <F5> :NERDTree<CR>
 nnoremap <leader>nt :NERDTreeToggle<CR>
 
-" ag
+" Ag {{{2
 " @link: http://robots.thoughtbot.com/faster-grepping-in-vim
-" -----------------------------------------------------------------------------
 if executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
@@ -293,8 +238,7 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<cr>:cw<cr> " bind K to grep word under cursor
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 nnoremap \ :Ag<space>
 
-" ctrlp
-" -----------------------------------------------------------------------------
+" CtrlP {{{2
 if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -307,16 +251,10 @@ nnoremap <localleader>b :CtrlPBuffer<cr>
 nnoremap <localleader>m :CtrlPMRUFiles<cr>
 nnoremap <localleader>t :CtrlPTag<cr>
 
-" snipmate
-" -----------------------------------------------------------------------------
-let g:snips_author = "Juan Hernández Babón"
-
-" sparkup
-" -----------------------------------------------------------------------------
+" Sparkup {{{2
 let g:sparkupNextMapping = '<c-x>'
 
-" fugitive
-" -----------------------------------------------------------------------------
+" Fugitive {{{2
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gl :Glog<CR>
@@ -324,8 +262,7 @@ nnoremap <leader>gd :Gdiff<CR>
 " link: http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
-" tabularize
-" -----------------------------------------------------------------------------
+" Tabularize {{{2
 nmap <leader>t> :Tabularize /=><CR>
 vmap <leader>t> :Tabularize /=><CR>
 nmap <leader>t= :Tabularize /=<CR>
@@ -333,120 +270,68 @@ vmap <leader>t= :Tabularize /=<CR>
 nmap <leader>t: :Tabularize /:\zs<CR>
 vmap <leader>t: :Tabularize /:\zs<CR>
 
-" gundo
-" -----------------------------------------------------------------------------
+" Gundo {{{2
 nnoremap <leader>ut :GundoToggle<CR>
 
-" matchit
-" -----------------------------------------------------------------------------
+" Matchit {{{2
 runtime macros/matchit.vim
 
-" jquery
-" -----------------------------------------------------------------------------
+" jQuery {{{2
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 nnoremap <leader>jq :set syntax=jquery<CR>
 
-" nginx
-" -----------------------------------------------------------------------------
+" Nginx {{{2
 nnoremap <leader>nx :set ft=nginx<CR>
 
-" vim-yardoc
-" -----------------------------------------------------------------------------
-hi link yardType rubyConstant
-hi link yardDuckType rubyMethod
-hi link yardLiteral rubyString
-
-" vim-classpath
-" -----------------------------------------------------------------------------
+" vim-classpath {{{2
 " save the classpath cache in .viminfo
 set viminfo+=!
 
-" vim-airline
-" -----------------------------------------------------------------------------
+" vim-airline {{{2
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_theme='solarized'
 
-" go
-" -----------------------------------------------------------------------------
-autocmd FileType go autocmd BufWritePre <buffer> Fmt
-
-" syntastic
-" -----------------------------------------------------------------------------
+" Syntastic {{{2
 let g:syntastic_check_on_open = 1
 let g:syntastic_always_populate_loc_list = 1
+" }}}1
 
-" * ======================================================================== *
-" * file-types                                                               *
-" * ======================================================================== *
+" Filetypes {{{1
 filetype on
 filetype plugin indent on
 
-" objective-c file type
-au BufRead,BufNewFile *.m set ft=objc
+" objective-c file type {{{2
+augroup objcfiles
+  autocmd!
+  autocmd BufRead,BufNewFile *.m set ft=objc
+augroup END
+" }}}2
 
-" ruby files
-au BufRead,BufNewFile {Vagrantfile,Strikefile,Capfile,Gemfile,Rakefile,Thorfile,config.ru,.caprc,.irbrc,irb_tempfile*,*.god} set ft=ruby
+" ruby {{{2
+augroup rubyfiles
+  autocmd!
+  autocmd BufRead,BufNewFile {Vagrantfile,Strikefile,Capfile,Gemfile,Rakefile,Thorfile,config.ru,.caprc,.irbrc,irb_tempfile*,*.god} set ft=ruby
+augroup END
+" }}}2
 
-" mustache files
-au BufRead,BufNewFile {*.html.mustache} set ft=html.mustache
-au BufRead,BufNewFile {*.json.mustache} set ft=json.mustache
-au BufRead,BufNewFile {*.js.mustache} set ft=js.mustache
+" go {{{2
+augroup gofiles
+  autocmd!
+  autocmd FileType go autocmd BufWritePre <buffer> Fmt
+augroup END
+" }}}2
+" }}}1
 
-" css, less and scss
-" Use <leader>S to sort properties.  Turns this:
-"
-"     p {
-"         width: 200px;
-"         height: 100px;
-"         background: red;
-"
-"         ...
-"     }
-"
-" into this:
-
-"     p {
-"         background: red;
-"         height: 100px;
-"         width: 200px;
-"
-"         ...
-"     }
-au BufNewFile,BufRead *.less,*.css,*.scss nnoremap <buffer> <localleader>al ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
-
-
-" * ======================================================================== *
-" * statusline, colors and gui                                               *
-" * ======================================================================== *
-
-set laststatus=2  " always show statusline
-
+" Colors {{{1
 set t_Co=256
 set background=dark
 colorscheme solarized
-syntax on
+syntax enable
+" }}}1
 
-" highlight long lines
-match CursorLine /\%81v.*/
-
-if has("gui_running")
-  if has("gui_gnome") || has("gui_gtk2")
-    set guifont=Inconsolata\ Medium\ 11
-  endif
-
-  if has("gui_mac") || has("gui_macvim")
-    set guifont=Inconsolata:h14
-    set guioptions=aAce
-  endif
-endif
-
-
-" * ======================================================================== *
-" * functions                                                                *
-" * ======================================================================== *
-
-" delete EOL whitespace
+" Functions {{{1
+" Delete EOL whitespace {{{2
 " link: http://sartak.org/2011/03/end-of-line-whitespace-in-vim.html
 " -----------------------------------------------------------------------------
 function! <SID>StripTrailingWhitespace()
@@ -461,8 +346,10 @@ function! <SID>StripTrailingWhitespace()
   call cursor(l, c)
 endfunction
 nmap <silent> <leader><space> :call <SID>StripTrailingWhitespace()<CR>
+" }}}2
 
-" markdown:     convert markdown file to a html file and open it
+" Markdown {{{2
+" description:  convert markdown file to a html file and open it
 " dependencies: markdown cli
 " -----------------------------------------------------------------------------
 function! <SID>ConvertMarkdown()
@@ -472,8 +359,9 @@ function! <SID>ConvertMarkdown()
   exe "drop " . l:html_file
 endfunction
 nmap <silent> <leader>cmk :call <SID>ConvertMarkdown()<CR>
+" }}}2
 
-" autosave
+" Autosave {{{2
 " link: http://stackoverflow.com/questions/6991638/how-to-auto-save-a-file-every-1-second-in-vim
 " -----------------------------------------------------------------------------
 function! UpdateFile()
@@ -487,8 +375,9 @@ au BufRead,BufNewFile * silent! let b:save_time = localtime()
 au CursorHold * silent! call UpdateFile()
 silent! let g:autosave_time = 1
 au BufWritePre * silent! let b:save_time = localtime()
+" }}}2
 
-" privatize and protectize ruby methods
+" Privatize and protectize ruby methods {{{2
 " link: http://robots.thoughtbot.com/post/1986730994/keep-your-privates-close
 " -----------------------------------------------------------------------------
 function! PriorRubyMethodDefinition()
@@ -510,9 +399,9 @@ endfunction
 
 map <leader>rp :call PrivatizeRubyMethod()<CR>
 map <leader>ro :call PrivatizeRubyMethod("protected")<CR>
+" }}}2
 
-
-" converting variables to or from CamelCase
+" Converting variables to or from CamelCase {{{2
 " link: http://vim.wikia.com/wiki/Converting_variables_to_or_from_camel_case
 " -----------------------------------------------------------------------------
 
@@ -535,37 +424,18 @@ function! <SID>FromCamelToUnderScore()
   silent! s#\C\(\<\u[a-z0-9]\+\|[a-z0-9]\+\)\(\u\)#\l\1_\l\2#g
 endfunction
 nmap <silent> <leader>Cu :call <SID>FromCamelToUnderScore()<CR>
+" }}}2
 
-" promote variable to rspec let
-" link: http://coderwall.com/p/th43aw?i=16&p=1&q=&t=code-vim-ruby-rspec-minitest
-" -----------------------------------------------------------------------------
-function! PromoteToLet()
-  :normal! dd
-  " :exec '?^\s*it\>'
-  :normal! P
-  :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
-  :normal ==
-endfunction
-command! PromoteToLet :call PromoteToLet()
-nmap <silent> <leader>pl :call PromoteToLet()<CR>
+" Convert ruby 1.8 hash syntax to 1.9 {{{2
+nmap <silent> <leader>rh :%s/:\([^ ]*\)\(\s*\)=>/\1:/g<CR>
+" }}}2
 
-" convert ruby 1.8 hash syntax to 1.9
-" -----------------------------------------------------------------------------
-nmap <silent> <leader>rh :%s/:\(\w\+\)\(\s\?\)=> /\1:\2/g<CR>
-
-" ctags for ruby: get tags for a ruby project
-" dependencies: bundler gem, ctags
-" link: http://coderwall.com/p/4pvjla
-" -----------------------------------------------------------------------------
-function! <SID>RubyCtags()
-  exe "!bundle list --paths=true | xargs ctags --extra=+f --exclude=.git --exclude=log --exclude=tmp -R *"
-endfunction
-nmap <silent> <leader>rt :call <SID>RubyCtags()<CR>
-
-" remove current file from the system and also remove its buffer.
-" -----------------------------------------------------------------------------
+" Remove current file and its buffer {{{2
 function! Rm()
   call delete(expand("%")) | bdelete!
 endfunction
 nnoremap <leader>rm :call Rm()<cr>
+" }}}2
+" }}}1
 
+" vim:foldmethod=marker:foldlevel=0
