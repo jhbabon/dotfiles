@@ -184,48 +184,50 @@ NeoBundle 'tpope/vim-markdown'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
+" TODO: review ultisnips plugin. How to use it better?
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'cakebaker/scss-syntax.vim'
 NeoBundle 'othree/html5.vim'
+" TODO: review gundo. How to use it better?
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'juvenn/mustache.vim'
+NeoBundle 'mustache/vim-mustache-handlebars'
 NeoBundle 'vim-scripts/nginx.vim'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'nelstrom/vim-textobj-rubyblock'
 NeoBundle 'rstacruz/sparkup', { 'rtp': 'vim/' }
-NeoBundle 'itspriddle/vim-jquery'
 NeoBundle 'groenewege/vim-less'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'jgdavey/vim-blockle'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'rodjek/vim-puppet'
 NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'noprompt/vim-yardoc'
 NeoBundle 'guns/vim-clojure-static'
 NeoBundle 'tpope/vim-classpath'
 NeoBundle 'tpope/vim-fireplace'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
-NeoBundle 'klen/python-mode'
 " NeoBundle 'https://bitbucket.org/larsyencken/vim-drake-syntax.git'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'Blackrush/vim-gocode'
 NeoBundle 'kien/ctrlp.vim'
+" }}}2
 
 " Ragtag {{{2
 let g:ragtag_global_maps = 1
+" }}}2
 
 " Nerdcommenter {{{2
 let NERDSpaceDelims=1
 let NERDShutUp=1
+" }}}2
 
 " Nerdtree {{{2
 nmap <F5> :NERDTree<CR>
 nnoremap <leader>nt :NERDTreeToggle<CR>
+" }}}2
 
 " Ag {{{2
 " @link: http://robots.thoughtbot.com/faster-grepping-in-vim
@@ -237,6 +239,7 @@ endif
 nnoremap K :grep! "\b<C-R><C-W>\b"<cr>:cw<cr> " bind K to grep word under cursor
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 nnoremap \ :Ag<space>
+" }}}2
 
 " CtrlP {{{2
 if executable('ag')
@@ -250,9 +253,11 @@ nnoremap <localleader>p :CtrlP<cr>
 nnoremap <localleader>b :CtrlPBuffer<cr>
 nnoremap <localleader>m :CtrlPMRUFiles<cr>
 nnoremap <localleader>t :CtrlPTag<cr>
+" }}}2
 
 " Sparkup {{{2
 let g:sparkupNextMapping = '<c-x>'
+" }}}2
 
 " Fugitive {{{2
 nnoremap <leader>gs :Gstatus<CR>
@@ -261,6 +266,7 @@ nnoremap <leader>gl :Glog<CR>
 nnoremap <leader>gd :Gdiff<CR>
 " link: http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
 autocmd BufReadPost fugitive://* set bufhidden=delete
+" }}}2
 
 " Tabularize {{{2
 nmap <leader>t> :Tabularize /=><CR>
@@ -269,32 +275,40 @@ nmap <leader>t= :Tabularize /=<CR>
 vmap <leader>t= :Tabularize /=<CR>
 nmap <leader>t: :Tabularize /:\zs<CR>
 vmap <leader>t: :Tabularize /:\zs<CR>
+" }}}2
 
 " Gundo {{{2
 nnoremap <leader>ut :GundoToggle<CR>
+" }}}2
 
 " Matchit {{{2
 runtime macros/matchit.vim
+" }}}2
 
 " jQuery {{{2
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 nnoremap <leader>jq :set syntax=jquery<CR>
+" }}}2
 
 " Nginx {{{2
 nnoremap <leader>nx :set ft=nginx<CR>
+" }}}2
 
 " vim-classpath {{{2
 " save the classpath cache in .viminfo
 set viminfo+=!
+" }}}2
 
 " vim-airline {{{2
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_theme='solarized'
+" }}}2
 
 " Syntastic {{{2
 let g:syntastic_check_on_open = 1
 let g:syntastic_always_populate_loc_list = 1
+" }}}2
 " }}}1
 
 " Filetypes {{{1
