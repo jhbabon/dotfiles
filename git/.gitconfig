@@ -1,51 +1,47 @@
 [init]
   templatedir = /Users/jhbabon/src/git-template
+
 [user]
-  name       = Juan Hernández
-  email      = juan.hernandez.babon@gmail.com
-  editor     = vim
+  name   = Juan Hernández
+  email  = juan.hernandez.babon@gmail.com
+  editor = vim
 
 [apply]
   whitespace = strip
 
 [diff]
-  color      = auto
+  color = auto
 
 [color]
-  ui         = auto
-
-[credential]
-  helper     = /opt/boxen/bin/boxen-git-credential
-
-[core]
+  ui = auto
 
 [alias]
-  st         = status -s
-  std        = diff --cached
-  br         = branch
-  brd        = branch -d
-  brD        = branch -D
-  c          = commit
-  cm         = commit -m
-  ca         = commit --amend
-  a          = add
-  aa         = !git add -u && git add . && git status -s
-  co         = checkout
-  cob        = checkout -b
-  rb         = rebase
-  rbc        = rebase --continue
-  rbs        = rebase --skip
-  ri         = rebase -i
-  sm         = submodule
-  who        = shortlog -n -s --no-merges
-  up         = pull --rebase
-  lg         = log --graph --pretty=format:'%Cred%h%Creset | %Cgreen%an%Creset | %s | %Cblue%cr%Creset'
-
-  # branch name
-  bm         = rev-parse --abbrev-ref HEAD
+  s   = status --short --branch
+  d   = diff
+  dc  = diff --cached
+  br  = branch
+  brd = branch -d
+  brD = branch -D
+  c   = commit
+  cm  = commit -m
+  ca  = commit --amend
+  a   = add
+  aa  = !git add -u && git add . && git status -s
+  co  = checkout
+  cob = checkout -b
+  rb  = rebase
+  rbc = rebase --continue
+  rbs = rebase --skip
+  ri  = rebase -i
+  sm  = submodule
+  who = shortlog -n -s --no-merges
+  up  = pull --rebase
+  l   = log --graph --pretty=format:'%C(auto)%h%d%Creset | %Cgreen%an%Creset | %s | %Cblue%cr%Creset'
+  bn  = rev-parse --abbrev-ref HEAD # branch name
 
   # exclude: http://coderwall.com/p/n1d-na
-  exclude    = !sh -c 'echo "$1" >> .git/info/exclude' -
+  exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
+  ex      = !git exclude
 
 [core]
   ; excludesfile = ~/.gitignore_global
