@@ -1,0 +1,723 @@
+snippet #! "#!"
+#!/usr/bin/env ruby${1: -wKU}
+endsnippet
+
+snippet =b "=b"
+=begin rdoc
+	${1}
+=end
+endsnippet
+
+snippet y "y"
+yield ${1:arguments}
+endsnippet
+
+snippet beg "beg"
+begin
+	${3}
+rescue ${1:StandardError} => ${2:e}
+end
+endsnippet
+
+snippet res "res"
+rescue ${1:StandardError} => ${2:e}
+	${3:# TODO}
+endsnippet
+
+snippet req "require"
+require "${1}"${2}
+endsnippet
+
+snippet reqr "reqr"
+require_relative "${1}"${2}
+endsnippet
+
+snippet # "#"
+# =>
+endsnippet
+
+snippet case "case"
+case ${1:object}
+when ${2:condition}
+	${3}
+end
+endsnippet
+
+snippet when "when"
+when ${1:condition}
+	${2}
+endsnippet
+
+snippet def "def"
+def ${1:method_name}
+	${2}
+end
+endsnippet
+
+snippet defs "defs"
+def self.${1:class_method_name}
+	${2}
+end
+endsnippet
+
+snippet if "if"
+if ${1:condition}
+	${2}
+end
+endsnippet
+
+snippet ife "ife"
+if ${1:condition}
+	${2}
+else
+	${3}
+end
+endsnippet
+
+snippet elsif "elsif"
+elsif ${1:condition}
+	${2}
+endsnippet
+
+snippet unless "unless"
+unless ${1:condition}
+	${2}
+end
+endsnippet
+
+snippet while "while"
+while ${1:condition}
+	${2}
+end
+endsnippet
+
+snippet for "for"
+for ${1:e} in ${2:c}
+	${3}
+end
+endsnippet
+
+snippet until "until"
+until ${1:condition}
+	${2}
+end
+endsnippet
+
+snippet cla "class .. end"
+class ${1:`!v substitute(Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`}
+	${2}
+end
+endsnippet
+
+snippet cla "class .. initialize .. end"
+class ${1:`!v substitute(Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`}
+	def initialize(${2:args})
+		${3}
+	end
+end
+endsnippet
+
+snippet cla "class .. < ParentClass .. initialize .. end"
+class ${1:`!v substitute(Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`} < ${2:ParentClass}
+	def initialize(${3:args})
+		${4}
+	end
+end
+endsnippet
+
+snippet cla "class ClassName < Struct .. end"
+class ${1:`!v substitute(Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`} < Struct.new(:${2:attr_names})
+	def ${3:method_name}
+		${4}
+	end
+end
+endsnippet
+
+snippet cla "class << self .. end"
+class << ${1:self}
+	${2}
+end
+endsnippet
+
+snippet cla- "cla-"
+class ${1:`!v substitute(Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`} < DelegateClass(${2:ParentClass})
+	def initialize(${3:args})
+		super(${4:del_obj})
+		${5}
+	end
+end
+endsnippet
+
+snippet mod "module .. end"
+module ${1:`!v substitute(Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`}
+	${2}
+end
+endsnippet
+
+snippet definc "def self.included .. end"
+def self.included(${1:target})
+	${2}
+end
+endsnippet
+
+snippet defext "def self.extended .. end"
+def self.extended(${1:target})
+	${2}
+end
+endsnippet
+
+snippet r "r"
+attr_reader :${1:attr_names}
+endsnippet
+
+snippet w "w"
+attr_writer :${1:attr_names}
+endsnippet
+
+snippet rw "rw"
+attr_accessor :${1:attr_names}
+endsnippet
+
+snippet atp "atp"
+attr_protected :${1:attr_names}
+endsnippet
+
+snippet ata "ata"
+attr_accessible :${1:attr_names}
+endsnippet
+
+snippet Enum "Enum"
+include Enumerable
+def each(&block)
+	${1}
+end
+endsnippet
+
+snippet Comp "Comp"
+include Comparable
+def <=>(other)
+	${1}
+end
+endsnippet
+
+snippet Forw- "Forw-"
+extend Forwardable
+endsnippet
+
+snippet defmm "defmm"
+def method_missing(meth, *args, &blk)
+	${1}
+end
+endsnippet
+
+snippet defd "defd"
+def_delegator :${1:@del_obj}, :${2:del_meth}, :${3:new_name}
+endsnippet
+
+snippet defds "defds"
+def_delegators :${1:@del_obj}, :${2:del_methods}
+endsnippet
+
+snippet am "am"
+alias_method :${1:new_name}, :${2:old_name}
+endsnippet
+
+snippet array "array"
+Array.new(${1:10}) { |${2:i}| ${3} }
+endsnippet
+
+snippet hash "hash"
+Hash.new { |${1:hash}, ${2:key}| $1[$2] = ${3} }
+endsnippet
+
+snippet file "File.foreach() { |line| .. }"
+File.open(${1:"path/to/file"}) do |${2:file}|
+	${3}
+end
+endsnippet
+
+snippet file "File.read()"
+File.read(${1:"path/to/file"})${2}
+endsnippet
+
+snippet Dir "Dir.global() { |file| .. }"
+Dir.glob(${1:"dir/glob/*"}) do |${2:file}|
+	${3}
+end
+endsnippet
+
+snippet Dir "Dir['..']"
+Dir[${1:"glob/**/*.rb"}]${2}
+endsnippet
+
+snippet dir "__dir__"
+__dir__
+endsnippet
+
+snippet dir "dir"
+Filename.dirname(__FILE__)
+endsnippet
+
+snippet deli "deli"
+delete_if do${1}
+endsnippet
+
+snippet fil "fill(range) {}"
+fill(${1:range}) do${2}
+endsnippet
+
+snippet red "reduce"
+reduce(${1:[]}) do${2}
+endsnippet
+
+snippet tim "tim"
+times { |${1:n}| ${2} }
+endsnippet
+
+snippet upt "upt"
+upto(${1:1.0/0.0}) { |${2:n}| ${3} }
+endsnippet
+
+snippet loo "loo"
+loop do${1}
+endsnippet
+
+snippet ea "each do |value| .. end"
+each do${1}
+endsnippet
+
+snippet map "map do |value| .. end"
+map do${1}
+endsnippet
+
+snippet mp "map(&:method)"
+map(&:${1:method})
+endsnippet
+
+snippet sor "sort do |a, b| .. end"
+sort do |a, b|
+	${1}
+end
+endsnippet
+
+snippet sorb "sort_by do |value| .. end"
+sort do |${1:value}|
+	${2}
+end
+endsnippet
+
+snippet all "all?"
+all? do${1}
+endsnippet
+
+snippet all& "all?(&:method)"
+all?(&:${1:method})
+endsnippet
+
+snippet any "any?"
+any? do${1}
+endsnippet
+
+snippet any& "any?(&:method)"
+any?(&:${1:method})
+endsnippet
+
+snippet sel "select do .. end"
+select do${1}
+endsnippet
+
+snippet sel "reject do .. end"
+reject do${1}
+endsnippet
+
+snippet fet "fetch"
+fetch(${1:key}, ${2:default})
+endsnippet
+
+snippet fin "find do .. end"
+find do${1}
+endsnippet
+
+snippet sub "sub"
+${1:g}sub(${2:/pattern/}, ${3:replacement})
+endsnippet
+
+snippet lam "->(args) do .. end"
+->(${1:args}) do${2}
+endsnippet
+
+snippet do "do .. end"
+do
+	${1}
+end
+endsnippet
+
+snippet dov "do |variable| .. end"
+do |${1:variable}|
+	${2}
+end
+endsnippet
+
+snippet dos "{ .. }"
+{ ${1} }
+endsnippet
+
+snippet dosv "{ |variable| .. }"
+{ |${1:variable}| ${2} }
+endsnippet
+
+snippet : ":"
+${1:key}: ${2:"value"}${3}
+endsnippet
+
+snippet fpath "fpath"
+File.join(File.dirname(__FILE__), *%2[${1:rel path here}])${2}
+endsnippet
+
+snippet as "assert test"
+assert ${1:test}, "${2:Failure message.}"${3}
+endsnippet
+
+snippet ase "asssert_equal expected, actual"
+assert_equal ${1:expected}, ${2:actual}${3}
+endsnippet
+
+snippet asne "assert_not_equal unexpected, actual"
+assert_not_equal ${1:unexpected}, ${2:actual}${3}
+endsnippet
+
+snippet asio "assert_instance_of ExpectedClass, instance"
+assert_instance_of ${1:ExpectedClass}, ${2:actual_instance}${3}
+endsnippet
+
+snippet asko "assert_kind_of ExpectedKind, instance"
+assert_kind_of ${1:ExpectedKind}, ${2:actual_instance}${3}
+endsnippet
+
+snippet asn "assert_nil test"
+assert_nil ${1:instance}${2}
+endsnippet
+
+snippet asnn "assert_not_nil test"
+assert_not_nil ${1:instance}${2}
+endsnippet
+
+snippet asm "assert_match(pattern, test)"
+assert_match(/${1:expected_pattern}/, ${2:actual_string}${3})
+endsnippet
+
+snippet asnm "assert_not_match(patter, test)"
+assert_not_match(/${1:unexpected_pattern}/, ${2:actual_string}${3})
+endsnippet
+
+snippet asr "assert_raise Exception do .. end"
+assert_raise ${1:Exception} do${2}
+endsnippet
+
+snippet asrt "assert_respond_to test, method"
+assert_respond_to ${1:object}, :${2:method}${3}
+endsnippet
+
+snippet ass "assert_same expected, actual"
+assert_same ${1:expected}, ${2:actual}${3}
+endsnippet
+
+snippet ass "assert_send object, message, args"
+assert_send [${1:object}, :${2:message}, ${3:args}]${4}
+endsnippet
+
+snippet asns "assert_not_same unexpected, actual"
+assert_not_same ${1:unexpected}, ${2:actual}${3}
+endsnippet
+
+snippet ast "assert_throws :expected do .. end"
+assert_throws :${1:expected} do${2}
+endsnippet
+
+snippet fl "fl"
+flunk "${1:Failure message.}"${2}
+endsnippet
+
+snippet bm- "Benchmark.bmbm"
+number = ${1:10_000}
+Benchmark.bmbm do |x|
+	${2}
+end
+endsnippet
+
+snippet bips "Benchmark.ips"
+require "benchmark/ips"
+Benchmark.ips do |x|
+	${1}
+end
+endsnippet
+
+snippet xrep "x.report"
+${1:x}.report("${2:name}:") do${3}
+endsnippet
+
+snippet nam "nam"
+namespace :${1:`!v Filename()`} do
+	${2}
+end
+endsnippet
+
+snippet tas "tas"
+desc "${1:Task description}"
+task :${2:task_name => [:dependent, :tasks]} do
+	${3}
+end
+endsnippet
+
+#############################################
+# Rails snippets - for pure Ruby, see above #
+#############################################
+
+snippet art "assert_redirected_to action"
+assert_redirected_to ${1:action: "${2:index}"}
+endsnippet
+
+snippet asd "assert_difference"
+assert_difference "${1:Model}.${2:count}", ${3:1} do
+	${4}
+end
+endsnippet
+
+snippet asnd "assert_no_difference"
+assert_no_difference "${1:Model}.${2:count}" do
+	${3}
+end
+endsnippet
+
+snippet asre "assert_response"
+assert_response :${1:success}, @response.body${2}
+endsnippet
+
+snippet ba "before_action"
+before_action :${1:method}
+endsnippet
+
+snippet bt "bt"
+belongs_to :${1:association}
+endsnippet
+
+snippet dele "delegate .. to"
+delegate :${1:methods}, to: :${2:object}
+endsnippet
+
+snippet dele "delegate .. to .. prefix .. allow_nil"
+delegate :${1:methods}, to: :${2:object}, prefix: :${3:prefix}, allow_nil: ${4:allow_nil}
+endsnippet
+
+snippet flash "flash"
+flash[:${1:notice}] = "${2}"
+endsnippet
+
+snippet hm "hm"
+has_many :${1:object}
+endsnippet
+
+snippet hmd "hmd"
+has_many :${1:other}s, class_name: "${2:$1}", foreign_key: "${3:$1}_id", dependent: :destroy${4}
+endsnippet
+
+snippet hmt "hmt"
+has_many :${1:object}, through: :${2:object}
+endsnippet
+
+snippet ho "ho"
+has_one :${1:object}
+endsnippet
+
+snippet i18 "i18"
+I18n.t("${1:type.key}")${2}
+endsnippet
+
+snippet log "log"
+Rails.logger.${1:debug} ${2}
+endsnippet
+
+snippet log2 "log2"
+RAILS_DEFAULT_LOGGER.${1:debug} ${2}
+endsnippet
+
+snippet bs "bs"
+before_save :${1:method}
+endsnippet
+
+snippet mcht "mcht"
+change_table :${1:table_name} do |t|
+	${2}
+end
+endsnippet
+
+snippet oa "oa"
+order("${1:field}")
+endsnippet
+
+snippet od "od"
+order("${1:field} DESC")
+endsnippet
+
+snippet pa "pa"
+params[:${1:id}]${2}
+endsnippet
+
+snippet ren "render :view"
+render ${1::${2:view}}
+endsnippet
+
+snippet rest "rest"
+respond_to do |format|
+	format.${1:html} do${2}
+end
+endsnippet
+
+snippet sc "scope :name, ->() {}"
+scope :${1:name}, lam${2}
+endsnippet
+
+snippet sha1 "sha1"
+Digest::SHA1.hexdigest(${1:string})
+endsnippet
+
+snippet tcb "tcb"
+t.boolean :${1:title}
+${2}
+endsnippet
+
+snippet tcbi "tcbi"
+t.binary :${1:title}, limit: ${2:2}.megabytes
+${3}
+endsnippet
+
+snippet tcd "tcd"
+t.decimal :${1:title}, precision: ${2:10}, scale: ${3:2}
+${4}
+endsnippet
+
+snippet tcda "tcda"
+t.date :${1:title}
+${2}
+endsnippet
+
+snippet tcdt "tcdt"
+t.datetime :${1:title}
+${2}
+endsnippet
+
+snippet tcf "tcf"
+t.float :${1:title}
+${2}
+endsnippet
+
+snippet tch "tch"
+t.change :${1:name}, :${2:string}, ${3:limit}: ${4:80}
+${5}
+endsnippet
+
+snippet tci "tci"
+t.integer :${1:title}
+${2}
+endsnippet
+
+snippet tcl "tcl"
+t.integer :lock_version, null: false, default: 0
+${1}
+endsnippet
+
+snippet tcr "tcr"
+t.references :${1:taggable}, polymorphic: { default: "${2:Photo}" }
+${3}
+endsnippet
+
+snippet tcs "tcs"
+t.string :${1:title}
+${2}
+endsnippet
+
+snippet tct "tct"
+t.text :${1:title}
+${2}
+endsnippet
+
+snippet tcti "tcti"
+t.time :${1:title}
+${2}
+endsnippet
+
+snippet tcts "tcts"
+t.timestamp :${1:title}
+${2}
+endsnippet
+
+snippet tctss "tctss"
+t.timestamps
+${1}
+endsnippet
+
+snippet wh "where('conditions')"
+where(${1:"conditions"})
+endsnippet
+
+snippet test "test"
+test "${1:do something}" do
+	${2}
+end
+endsnippet
+
+snippet mac "mac"
+add_column :${1:table_name}, :${2:column_name}, :${3:data_type}
+endsnippet
+
+snippet mrc "mrc"
+remove_column :${1:table_name}, :${2:column_name}
+endsnippet
+
+snippet mrnc "mrnc"
+rename_column :${1:table_name}, :${2:old_column_name}, :${3:new_column_name}
+endsnippet
+
+snippet mcc "mcc"
+change_column :${1:table}, :${2:column}, :${3:type}
+endsnippet
+
+snippet mccc "mccc"
+t.column :${1:title}, :${2:string}
+endsnippet
+
+snippet mct "mct"
+create_table :${1:table_name} do |t|
+	t.column :${2:name}, :${3:type}
+end
+endsnippet
+
+snippet migration "migration"
+class ${1:class_name} < ActiveRecord::Migration
+	def self.up
+		${2}
+	end
+
+	def self.down
+	end
+end
+endsnippet
+
+snippet trc "trc"
+t.remove :${1:column}
+endsnippet
+
+snippet tre "tre"
+t.rename :${1:old_column_name}, :${2:new_column_name}
+${3}
+endsnippet
+
+snippet tref "tref"
+t.references :${1:model}
+endsnippet
+
+snippet it "it"
+it "${1:spec_name}" do
+	${2}
+end
+endsnippet

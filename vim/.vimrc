@@ -184,7 +184,6 @@ NeoBundle 'tpope/vim-markdown'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
-" TODO: review ultisnips plugin. How to use it better?
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'altercation/vim-colors-solarized'
@@ -308,6 +307,10 @@ let g:airline_theme='solarized'
 " Syntastic {{{2
 let g:syntastic_check_on_open = 1
 let g:syntastic_always_populate_loc_list = 1
+" }}}2
+
+" UltiSnips {{{2
+let g:UltiSnipsSnippetDirectories=["mysnippets"]
 " }}}2
 " }}}1
 
