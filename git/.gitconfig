@@ -26,7 +26,7 @@
   cm  = commit -m
   ca  = commit --amend
   a   = add
-  aa  = !git add -u && git add . && git status -s
+  aa  = !git add --all && git status -s --branch
   co  = checkout
   cob = checkout -b
   rb  = rebase

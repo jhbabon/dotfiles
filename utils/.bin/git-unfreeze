@@ -8,6 +8,6 @@ else
   git reset -q HEAD -- $@ > /dev/null 2>&1 || git rm -q --cached $@
 fi
 
-git status -s
+git status -s --branch
 
 # vim:set ft=sh:
