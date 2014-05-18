@@ -149,8 +149,8 @@ noremap <leader>v <C-w>v
 
 " Misc {{{1
 " quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+nmap <silent> <leader>ve :e $MYVIMRC<CR>
+nmap <silent> <leader>vs :so $MYVIMRC<CR>
 
 " add ; or , to the end of the line, when missing
 nnoremap <leader>; :s/\([^;]\)$/\1;/<CR>:noh<CR>
@@ -158,9 +158,6 @@ nnoremap <leader>, :s/\([^,]\)$/\1,/<CR>:noh<CR>
 
 " manage empty lines
 " link: http://vim.wikia.com/wiki/Quickly_adding_and_deleting_empty_lines
-" delete the empty line below and above
-nnoremap <leader>dl m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
-nnoremap <leader>dL m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 " add an empty line below and above
 nnoremap <leader>al :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <leader>aL :set paste<CR>m`O<Esc>``:set nopaste<CR>
@@ -212,6 +209,7 @@ NeoBundle 'gregsexton/gitv'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'Blackrush/vim-gocode'
 NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'tpope/vim-dispatch'
 " }}}2
 
 " Ragtag {{{2
@@ -311,6 +309,16 @@ let g:syntastic_always_populate_loc_list = 1
 
 " UltiSnips {{{2
 let g:UltiSnipsSnippetDirectories=["mysnippets"]
+" }}}2
+
+" Dispatch {{{2
+autocmd FileType ruby let b:dispatch = 'ruby %'
+nmap <leader>d :Dispatch<cr>
+nmap <leader>D :Dispatch!<cr>
+nmap <leader>s :Start<space>
+nmap <leader>S :Start!<space>
+nmap <localleader>d :Dispatch<space>
+nmap <localleader>D :Dispatch!<space>
 " }}}2
 " }}}1
 
