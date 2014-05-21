@@ -21,3 +21,4 @@ install leiningen
 install go
 install mit-scheme
 install imagemagick
+install zsh-syntax-highlighting

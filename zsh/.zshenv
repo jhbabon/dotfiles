@@ -32,4 +32,9 @@ fi
 # load bin from safe dirs
 export PATH=".safe/../bin:$HOME/.bin:$PATH"
 
+# zsh syntax highlighting
+if [[ -d "/usr/local/share/zsh-syntax-highlighting" ]] ; then
+  export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR="/usr/local/share/zsh-syntax-highlighting/highlighters"
+fi
+
 # vim:set ft=zsh:

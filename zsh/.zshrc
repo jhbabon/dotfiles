@@ -214,6 +214,11 @@ function explain() {
 autoload -U zmv
 alias mmv='noglob zmv -W'
 
+# zsh syntax highlighting
+if [[ -d "/usr/local/share/zsh-syntax-highlighting" ]] ; then
+  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
 
 # Theme
 # -----------------------------------------------
