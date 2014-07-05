@@ -185,8 +185,6 @@ NeoBundle 'SirVer/ultisnips'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'othree/html5.vim'
-" TODO: review gundo. How to use it better?
-NeoBundle 'sjl/gundo.vim'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'mustache/vim-mustache-handlebars'
 NeoBundle 'vim-scripts/nginx.vim'
@@ -272,10 +270,6 @@ nmap <leader>t= :Tabularize /=<CR>
 vmap <leader>t= :Tabularize /=<CR>
 nmap <leader>t: :Tabularize /:\zs<CR>
 vmap <leader>t: :Tabularize /:\zs<CR>
-" }}}2
-
-" Gundo {{{2
-nnoremap <leader>ut :GundoToggle<CR>
 " }}}2
 
 " Matchit {{{2
