@@ -40,6 +40,9 @@ alias bi='bundle install'
 alias bu='bundle update'
 alias be='bundle exec'
 
+alias g="git"
+alias v="vim"
+
 # History
 # show full history
 alias hs='fc -l 1'
