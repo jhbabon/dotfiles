@@ -5,8 +5,11 @@ These are configuration files to set up a basic UNIX system with:
 * vim
 * tmux
 * zsh
-* rbenv
 * git
+* ctags
+* homebrew
+* ruby
+* ack
 
 All the files are managed with the [stow](http://www.gnu.org/software/stow/ 'Stow program') program.
 
@@ -18,22 +21,18 @@ Basic installation:
 $ git clone git://github.com/jhbabon/dotfiles.git ~/.dotfiles
 $ cd ~/.dotfiles
 $ scripts/check # verifies if the system has the needed packages
-$ scripts/install-all
+$ scripts/install # symlinks config files and setup Vim plugins.
 ```
 
-You can remove them:
+You can remove them with:
 
 ```sh
-$ scripts/remove-all
+$ scripts/remove
 ```
 
 ## Vim
 
-My Vim configuration file uses [vundle](https://github.com/gmarik/vundle 'Vundle plugin') to manage the plugins. To install all the plugins, run the following command:
-
-```sh
-$ vim -c BundleInstall
-```
+My Vim configuration file uses [Vundle](https://github.com/gmarik/Vundle.vim 'Vundle plugin') to manage the plugins.
 
 ## Attributions
 
