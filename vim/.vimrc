@@ -164,50 +164,51 @@ nnoremap <leader>aL :set paste<CR>m`O<Esc>``:set nopaste<CR>
 " }}}1
 
 " Plugins {{{1
-" Neobundle {{{2
-if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
+" Vundle {{{2
+filetype off
+set runtimepath+=~/.vim/bundle/Vundle.vim/
 
-call neobundle#rc(expand('~/.vim/bundle/'))
+call vundle#begin(expand('~/.vim/bundle/'))
 
-" let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'edsono/vim-matchit'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-ragtag'
-NeoBundle 'tpope/vim-haml'
-NeoBundle 'tpope/vim-markdown'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'SirVer/ultisnips'
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'othree/html5.vim'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'mustache/vim-mustache-handlebars'
-NeoBundle 'vim-scripts/nginx.vim'
-NeoBundle 'kana/vim-fakeclip'
-NeoBundle 'kana/vim-textobj-user'
-NeoBundle 'nelstrom/vim-textobj-rubyblock'
-NeoBundle 'rstacruz/sparkup', { 'rtp': 'vim/' }
-NeoBundle 'groenewege/vim-less'
-NeoBundle 'kana/vim-smartinput'
-NeoBundle 'jgdavey/vim-blockle'
-NeoBundle 'vim-ruby/vim-ruby'
-NeoBundle 'rodjek/vim-puppet'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'guns/vim-clojure-static'
-NeoBundle 'tpope/vim-classpath'
-NeoBundle 'tpope/vim-fireplace'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'gregsexton/gitv'
-" NeoBundle 'https://bitbucket.org/larsyencken/vim-drake-syntax.git'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'Blackrush/vim-gocode'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'tpope/vim-dispatch'
+" let Vundle manage Vundle
+Plugin 'gmarik/Vundle.vim'
+Plugin 'edsono/vim-matchit'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-ragtag'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-markdown'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'SirVer/ultisnips'
+Plugin 'godlygeek/tabular'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'othree/html5.vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'vim-scripts/nginx.vim'
+Plugin 'kana/vim-fakeclip'
+Plugin 'kana/vim-textobj-user'
+Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'rstacruz/sparkup', { 'rtp': 'vim/' }
+Plugin 'groenewege/vim-less'
+Plugin 'kana/vim-smartinput'
+Plugin 'jgdavey/vim-blockle'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'rodjek/vim-puppet'
+Plugin 'pangloss/vim-javascript'
+Plugin 'guns/vim-clojure-static'
+Plugin 'tpope/vim-classpath'
+Plugin 'tpope/vim-fireplace'
+Plugin 'tpope/vim-fugitive'
+Plugin 'gregsexton/gitv'
+" Plugin 'https://bitbucket.org/larsyencken/vim-drake-syntax.git'
+Plugin 'bling/vim-airline'
+Plugin 'Blackrush/vim-gocode'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-dispatch'
+
+call vundle#end()
 " }}}2
 
 " Ragtag {{{2
