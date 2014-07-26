@@ -209,6 +209,19 @@ function explain() {
   open $url
 }
 
+# dash:
+#   * description: search in dash documentation tool.
+#   * usage:
+#     $ dash ruby:Hash
+#     # => Opens Dash with the search ruby: Hash
+#     $ dash Array
+#     # => Opens Dash with the search Array
+function dash() {
+  query="dash://$1"
+
+  open $query
+}
+
 # zmv: zsh renaming tool
 # @link: http://www.mfasold.net/blog/2008/11/moving-or-renaming-multiple-files/
 #
