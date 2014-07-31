@@ -73,6 +73,17 @@ match CursorLine /\%81v.*/
 
 " highlight last inserted text
 nnoremap gV `[v`]
+
+" only show relative numbers in normal mode.
+augroup numberline
+  autocmd!
+  autocmd FocusLost * set norelativenumber
+  autocmd FocusGained * set relativenumber
+  autocmd WinLeave * set norelativenumber
+  autocmd WinEnter * set relativenumber
+  autocmd InsertEnter * set norelativenumber
+  autocmd InsertLeave * set relativenumber
+augroup END
 " }}}1
 
 " Folding {{{1
@@ -203,7 +214,6 @@ Plugin 'tpope/vim-classpath'
 Plugin 'tpope/vim-fireplace'
 Plugin 'tpope/vim-fugitive'
 Plugin 'gregsexton/gitv'
-" Plugin 'https://bitbucket.org/larsyencken/vim-drake-syntax.git'
 Plugin 'bling/vim-airline'
 Plugin 'Blackrush/vim-gocode'
 Plugin 'kien/ctrlp.vim'
