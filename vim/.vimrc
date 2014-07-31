@@ -28,6 +28,7 @@ inoremap jj <ESC>
 " UI & layout {{{1
 set laststatus=2   " always show statusline
 set number         " you need line numbers
+set relativenumber " it helps you count lines
 set ruler          " see where you are
 set wrap           " wrap long lines without changing it
 set linebreak      " wrap the lines by words
