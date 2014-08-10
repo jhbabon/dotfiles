@@ -74,18 +74,6 @@ match CursorLine /\%81v.*/
 " highlight last inserted text
 nnoremap gV `[v`]
 
-" only show relative numbers in normal mode.
-augroup numberline
-  autocmd!
-  autocmd FocusLost * set norelativenumber
-  autocmd FocusGained * set relativenumber
-  autocmd WinLeave * set norelativenumber
-  autocmd WinEnter * set relativenumber
-  autocmd InsertEnter * set norelativenumber
-  autocmd InsertLeave * set relativenumber
-augroup END
-" }}}1
-
 " Folding {{{1
 set foldenable        " fold by default
 set foldlevelstart=10 " open most folds by default
