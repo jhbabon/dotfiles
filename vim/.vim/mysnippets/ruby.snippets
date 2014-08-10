@@ -2,6 +2,14 @@ snippet #! "#!"
 #!/usr/bin/env ruby${1: -wKU}
 endsnippet
 
+snippet @| "@variable ||= "
+@${1:variable} ||= ${2}
+endsnippet
+
+snippet @= "@variable = "
+@${1:variable} = ${2}
+endsnippet
+
 snippet =b "=b"
 =begin rdoc
 	${1}
