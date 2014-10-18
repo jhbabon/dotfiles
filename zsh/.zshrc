@@ -66,6 +66,9 @@ alias fld="echo '---> rbenv: rehash'; rbenv rehash; rld"
 # link: https://coderwall.com/p/4tkkpq
 alias map="xargs -n1"
 
+# disk space
+alias dus="du -Psckx * | sort -nr"
+
 # Bindkeys
 # -----------------------------------------------
 bindkey -v # vi mode
