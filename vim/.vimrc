@@ -201,11 +201,11 @@ Plugin 'guns/vim-clojure-static'
 Plugin 'tpope/vim-classpath'
 Plugin 'tpope/vim-fireplace'
 Plugin 'tpope/vim-fugitive'
-Plugin 'gregsexton/gitv'
 Plugin 'bling/vim-airline'
 Plugin 'Blackrush/vim-gocode'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-dispatch'
+Plugin 'AndrewRadev/splitjoin.vim'
 
 call vundle#end()
 " }}}2
