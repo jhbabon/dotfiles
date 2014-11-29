@@ -27,6 +27,8 @@
   ca  = commit --amend
   a   = add
   aa  = !git add --all && git status -s --branch
+  ai  = add --all --intent-to-add
+  ap  = add --patch
   co  = checkout
   cob = checkout -b
   rb  = rebase
@@ -38,6 +40,8 @@
   up  = pull --rebase
   l   = log --graph --pretty=format:'%C(auto)%h%d%Creset | %Cgreen%an%Creset | %s | %Cblue%cr%Creset'
   bn  = rev-parse --abbrev-ref HEAD # branch name
+
+  publish = !git push -u origin $(git bn)
 
   # exclude: http://coderwall.com/p/n1d-na
   exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
