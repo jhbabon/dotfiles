@@ -206,6 +206,7 @@ Plugin 'Blackrush/vim-gocode'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-dispatch'
 Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'tpope/vim-endwise'
 
 call vundle#end()
 " }}}2
