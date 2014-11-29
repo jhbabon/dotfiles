@@ -207,6 +207,7 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-eunuch'
 
 call vundle#end()
 " }}}2
@@ -450,12 +451,6 @@ nmap <silent> <leader>Cu :call <SID>FromCamelToUnderScore()<CR>
 nmap <silent> <leader>rh :%s/:\([^ ]*\)\(\s*\)=>/\1:/g<CR>
 " }}}2
 
-" Remove current file and its buffer {{{2
-function! Rm()
-  call delete(expand("%")) | bdelete!
-endfunction
-nnoremap <leader>rm :call Rm()<cr>
-" }}}2
 " }}}1
 
 " vim:foldmethod=marker:foldlevel=0
