@@ -44,8 +44,13 @@
   publish = !git push -u origin $(git bn)
 
   # exclude: http://coderwall.com/p/n1d-na
-  exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
+  exclude = !sh -c 'mkdir -p .git/info && echo "$1" >> .git/info/exclude' -
   ex      = !git exclude
+
+  # select a branch from a menu thanks to selecta script.
+  sl = !git branch | cut -c 3- | selecta | xargs git checkout
+  # and delete a branch from.
+  sd = !git branch | cut -c 3- | selecta | xargs git branch -d
 
 [core]
   ; excludesfile = ~/.gitignore_global
