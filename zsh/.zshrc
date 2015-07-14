@@ -245,8 +245,22 @@ autoload -U colors
 colors
 setopt prompt_subst
 
-PROMPT="%{$fg[white]%}%2~ %# %{$reset_color%}"
+PROMPT="%F{blue}%2~ %# %f"
 
 RPROMPT='$(~/.bin/git-cwd-info 2>/dev/null)'
+
+# Plugins
+# -----------------------------------------------
+
+# When the current working directory changes, run a method that checks for a .env file, then sources it. Happy days.
+# @link: https://github.com/johnhamelink/env-zsh
+autoload -U add-zsh-hook
+load-local-conf() {
+  # check file exists, is regular file and is readable:
+  if [[ -f .env && -r .env ]]; then
+    source .env
+  fi
+}
+add-zsh-hook chpwd load-local-conf
 
 # vim:set ft=zsh:
