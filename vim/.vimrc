@@ -179,7 +179,7 @@ Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'SirVer/ultisnips'
+Plugin 'drmingdrmer/xptemplate'
 Plugin 'godlygeek/tabular'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'othree/html5.vim'
@@ -204,7 +204,6 @@ Plugin 'bling/vim-airline'
 Plugin 'Blackrush/vim-gocode'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-dispatch'
-Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-eunuch'
@@ -303,16 +302,16 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_always_populate_loc_list = 1
 " }}}2
 
-" UltiSnips {{{2
-let g:UltiSnipsSnippetDirectories=["mysnippets"]
-" }}}2
+" xtemplate {{{2
+let g:xptemplate_key = '<Tab>'
+" }}}
 
 " Dispatch {{{2
 autocmd FileType ruby let b:dispatch = 'ruby %'
 nmap <leader>d :Dispatch<cr>
 nmap <leader>D :Dispatch!<cr>
-nmap <leader>s :Start<space>
-nmap <leader>S :Start!<space>
+nmap <leader>st :Start<space>
+nmap <leader>St :Start!<space>
 nmap <localleader>d :Dispatch<space>
 nmap <localleader>D :Dispatch!<space>
 " }}}2
