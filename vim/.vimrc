@@ -164,51 +164,47 @@ nnoremap <leader>aL :set paste<CR>m`O<Esc>``:set nopaste<CR>
 " }}}1
 
 " Plugins {{{1
-" Vundle {{{2
+" Plug {{{2
 filetype off
-set runtimepath+=~/.vim/bundle/Vundle.vim/
 
-call vundle#begin(expand('~/.vim/bundle/'))
+call plug#begin('~/.vim/plugged/')
 
-" let Vundle manage Vundle
-Plugin 'gmarik/Vundle.vim'
-Plugin 'edsono/vim-matchit'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-ragtag'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-markdown'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'drmingdrmer/xptemplate'
-Plugin 'godlygeek/tabular'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'othree/html5.vim'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'vim-scripts/nginx.vim'
-Plugin 'kana/vim-fakeclip'
-Plugin 'kana/vim-textobj-user'
-Plugin 'nelstrom/vim-textobj-rubyblock'
-Plugin 'rstacruz/sparkup', { 'rtp': 'vim/' }
-Plugin 'groenewege/vim-less'
-Plugin 'kana/vim-smartinput'
-Plugin 'jgdavey/vim-blockle'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'rodjek/vim-puppet'
-Plugin 'pangloss/vim-javascript'
-Plugin 'guns/vim-clojure-static'
-Plugin 'tpope/vim-classpath'
-Plugin 'tpope/vim-fireplace'
-Plugin 'tpope/vim-fugitive'
-Plugin 'bling/vim-airline'
-Plugin 'Blackrush/vim-gocode'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-eunuch'
+Plug 'edsono/vim-matchit'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-ragtag'
+Plug 'tpope/vim-haml', { 'for': 'haml' }
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/syntastic'
+Plug 'drmingdrmer/xptemplate'
+Plug 'godlygeek/tabular'
+Plug 'altercation/vim-colors-solarized'
+Plug 'othree/html5.vim', { 'for': 'html' }
+Plug 'kchmck/vim-coffee-script'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'vim-scripts/nginx.vim'
+Plug 'kana/vim-fakeclip'
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
+Plug 'rstacruz/sparkup', { 'rtp': 'vim' }
+Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'kana/vim-smartinput'
+Plug 'jgdavey/vim-blockle'
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
+Plug 'tpope/vim-classpath', { 'for': 'clojure' }
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'tpope/vim-fugitive'
+Plug 'bling/vim-airline'
+Plug 'Blackrush/vim-gocode', { 'for': 'go' }
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-eunuch'
 
-call vundle#end()
+call plug#end()
 " }}}2
 
 " Ragtag {{{2

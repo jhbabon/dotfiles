@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require File.join(File.dirname(__FILE__), "common")
+require File.join(File.expand_path(File.dirname(__FILE__)), "common")
 
 with_stow do |package|
   _say "Removing #{package}"
@@ -8,7 +8,7 @@ with_stow do |package|
 end
 
 _say "Removing vim dependencies"
-`rm -fr vim/.vim/bundle/*`
+`rm -fr vim/.vim/plugged/*`
 
 exit
 

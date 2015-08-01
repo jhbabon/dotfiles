@@ -4,6 +4,8 @@ vim/.vim/.netrwhist
 session.vim
 .rake_tasks
 vim/.vim/bundle/**/
+vim/.vim/plugged/**/
+vim/.vim/autoload/plug.vim
 !vim/.vim/bundle/vundle
 vim/.vim/tmp/**/*
 !vim/.vim/tmp/backup/.gitkeep

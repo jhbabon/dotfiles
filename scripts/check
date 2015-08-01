@@ -1,6 +1,6 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
-function _validate() {
+_validate() {
   if which $1 &>/dev/null 2>&1; then
     echo "---> $1: [32mOK[0m"
   else
@@ -11,5 +11,6 @@ function _validate() {
 echo "-> Checking needed packages"
 _validate 'stow'
 _validate 'git'
+_validate 'curl'
 
-# vim:set ft=zsh:
+# vim:set ft=sh:
