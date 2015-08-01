@@ -69,6 +69,13 @@ alias map="xargs -n1"
 # disk space
 alias dus="du -Psckx * | sort -nr"
 
+# Format JSON text with python
+alias pyson="python -m json.tool"
+
+# most used tools
+alias g="git"
+alias v="vim"
+
 # Bindkeys
 # -----------------------------------------------
 bindkey -v # vi mode
