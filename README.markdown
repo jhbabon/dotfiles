@@ -9,9 +9,9 @@ These are configuration files to set up a basic UNIX system with:
 * ctags
 * homebrew
 * ruby
-* ack
+* ag
 
-All the files are managed with the [stow](http://www.gnu.org/software/stow/ 'Stow program') program.
+All the files are managed with the [stow] program.
 
 ## Usage
 
@@ -32,7 +32,7 @@ $ scripts/remove
 
 ## Vim
 
-My Vim configuration file uses [Vundle](https://github.com/gmarik/Vundle.vim 'Vundle plugin') to manage the plugins.
+The `.vimrc` file uses [vim-plug] to manage plugins.
 
 ## Attributions
 
@@ -44,3 +44,6 @@ All the configuration files are based on the following works:
 * sjl / dotfiles: https://github.com/sjl/dotfiles
 * topfunky / zsh-simple: https://github.com/topfunky/zsh-simple/
 * Post in One Thing Well blog: http://onethingwell.org/post/39744163899
+
+[stow]: http://www.gnu.org/software/stow/
+[vim-plug]: https://github.com/junegunn/vim-plug
