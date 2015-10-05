@@ -53,8 +53,7 @@
   sd = !git branch | cut -c 3- | selecta | xargs git branch -d
 
 [core]
-  ; excludesfile = ~/.gitignore_global
-  excludesfile = /opt/boxen/config/git/gitignore
+  excludesfile = ~/.gitignore_global
   quotepath    = false
 
 [merge]
