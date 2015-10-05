@@ -1,8 +1,14 @@
 # .zshenv: sets the search path and env variables
 
-# clear PATH
-export BACKUP_PATH=$PATH
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin"
+# Mac OS X uses path_helper to preload PATH, clear it out first
+# This file is executed in /etc/zprofile, which is loaded after
+# zshenv if zsh is executed as a login shell. This means that
+# the PATH will be redefined by /etc/zprofile. You should be aware
+# of this problem.
+if [ -x /usr/libexec/path_helper ]; then
+  export PATH=''
+  eval `/usr/libexec/path_helper -s`
+fi
 
 export EDITOR=vim
 export PAGER=less
