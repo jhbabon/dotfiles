@@ -26,8 +26,16 @@ if [[ -d "/usr/local/texlive/2012basic/bin/universal-darwin" ]]; then
   export PATH="/usr/local/texlive/2012basic/bin/universal-darwin:$PATH"
 fi
 
+# Postgres.app
+if [[ -d "/Applications/Postgres.app" ]]; then
+  export PATH="/Applications/Postgres.app/Contents/Versions/9.4/bin:$PATH"
+fi
+
 # rbenv
 command -v rbenv > /dev/null && eval "$(rbenv init -)"
+
+# direnv
+command -v direnv > /dev/null && eval "$(direnv hook zsh)"
 
 # golang
 if [[ -d "$HOME/src/go" ]] ; then
@@ -35,12 +43,19 @@ if [[ -d "$HOME/src/go" ]] ; then
   export PATH="$PATH:$GOPATH/bin"
 fi
 
-# load bin from safe dirs
-export PATH=".safe/../bin:$HOME/.bin:$PATH"
-
 # zsh syntax highlighting
 if [[ -d "/usr/local/share/zsh-syntax-highlighting" ]] ; then
   export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR="/usr/local/share/zsh-syntax-highlighting/highlighters"
 fi
+
+# Use NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# Use extra .gemrc configuration
+[[ -f "$HOME/.gemrc_local" ]] && export GEMRC="$HOME/.gemrc_local"
+
+# load bin from safe dirs
+export PATH=".safe/../bin:$HOME/.bin:$PATH"
 
 # vim:set ft=zsh:
