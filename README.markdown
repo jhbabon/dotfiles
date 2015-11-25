@@ -32,7 +32,7 @@ $ scripts/remove
 
 ## Vim
 
-The `.vimrc` file uses [vim-plug] to manage plugins.
+The `.vimrc` file uses [vundle.vim] to manage plugins.
 
 ## Attributions
 
@@ -46,4 +46,4 @@ All the configuration files are based on the following works:
 * Post in One Thing Well blog: http://onethingwell.org/post/39744163899
 
 [stow]: http://www.gnu.org/software/stow/
-[vim-plug]: https://github.com/junegunn/vim-plug
+[vundle.vim]: https://github.com/VundleVim/Vundle.vim
