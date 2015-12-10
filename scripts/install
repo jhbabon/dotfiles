@@ -7,15 +7,15 @@ with_stow do |package|
   `stow -t ~ #{package}`
 end
 
-with "curl" do
+with "git" do
   _say "Installing vim dependencies"
-  `mkdir -p vim/.vim/autoload`
-  `curl -fLo vim/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
+  `mkdir -p vim/.vim/bundle`
+  `git clone https://github.com/VundleVim/Vundle.vim.git vim/.vim/bundle/Vundle.vim`
 end
 
 with "vim" do
   _say "Launching Vim to install plugins (this may take a while)"
-  pid = fork { exec "vim +PlugInstall +qall" }
+  pid = fork { exec "vim +PluginInstall +qall" }
   Process.wait pid
 end
 
