@@ -9,6 +9,7 @@ end
 
 _say "Removing vim dependencies"
 `rm -fr vim/.vim/bundle/*`
+`rm vim/.vim/init.vim` # this is a link to vim/.vimrc
 
 exit
 
