@@ -4,7 +4,6 @@
 " Constants {{{1
 let $MYVIMRUNTIMEPATH=split(&runtimepath, ',')[0]
 " }}}1
-"
 
 " Basic options {{{1
 set nocompatible " be iMproved!
