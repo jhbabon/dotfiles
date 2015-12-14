@@ -2,21 +2,28 @@
 
 require File.join(File.expand_path(File.dirname(__FILE__)), "common")
 
-with_stow do |package|
-  _say "Installing #{package}"
-  `stow -t ~ #{package}`
-end
-
-with "git" do
+with! "git" do
   _say "Installing vim dependencies"
   `mkdir -p vim/.vim/bundle`
   `git clone https://github.com/VundleVim/Vundle.vim.git vim/.vim/bundle/Vundle.vim`
 end
 
-with "vim" do
+with_stow! do |package|
+  _say "Installing #{package}"
+  `stow -t ~ #{package}`
+end
+
+with! "vim" do
   _say "Launching Vim to install plugins (this may take a while)"
-  pid = fork { exec "vim +PluginInstall +qall" }
-  Process.wait pid
+  defer "vim +PluginInstall +qall"
+end
+
+with "nvim" do
+  _say "Configure Neovim with Vim files"
+  `mkdir -p ~/.config`
+  `ln -s $PWD/vim/.vim ~/.config/nvim`
+  `ln -s $PWD/vim/.vimrc ~/.config/nvim/init.vim`
+  defer "nvim +PluginInstall +qall"
 end
 
 _say "All done!"

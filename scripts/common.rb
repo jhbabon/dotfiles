@@ -8,7 +8,7 @@ def _error(msg)
   $stderr.puts "---> [31mError: #{msg} was not found in the system[0m"
 end
 
-def with(cmd)
+def with!(cmd)
   if command?(cmd)
     yield
   else
@@ -17,8 +17,17 @@ def with(cmd)
   end
 end
 
-def with_stow
-  with "stow" do
+def with(cmd)
+  if command?(cmd)
+    yield
+  else
+    _error cmd
+    nil # don't stop
+  end
+end
+
+def with_stow!
+  with! "stow" do
     Pathname.glob("*/").map(&:to_s).each do |package|
       unless package =~ /scripts/
         yield package
@@ -29,4 +38,9 @@ end
 
 def command?(cmd)
   system("which #{cmd} &>/dev/null 2>&1")
+end
+
+def defer(cmd)
+  pid = fork { exec cmd }
+  Process.wait pid
 end

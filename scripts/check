@@ -11,6 +11,5 @@ _validate() {
 echo "-> Checking needed packages"
 _validate 'stow'
 _validate 'git'
-_validate 'curl'
 
 # vim:set ft=sh:

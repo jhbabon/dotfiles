@@ -14,3 +14,4 @@ vim/.vim/tmp/**/*
 !ruby/.bundle
 ssh/.ssh/id_rsa
 ssh/.ssh/id_rsa.pub
+vim/.vim/init.vim

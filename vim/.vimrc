@@ -1,6 +1,11 @@
 " Author: Juan Hernández Babón <juan.hernandez.babon@gmail.com>
 " Source: https://github.com/jhbabon/dotfiles
 
+" Constants {{{1
+let $MYVIMRUNTIMEPATH=split(&runtimepath, ',')[0]
+" }}}1
+"
+
 " Basic options {{{1
 set nocompatible " be iMproved!
 
@@ -133,18 +138,10 @@ nnoremap N Nzzzv
 
 " Backups {{{1
 set backup                                    " enable backups
-set undodir=~/.vim/tmp/undo,/var/tmp,/tmp     " undo files
-set backupdir=~/.vim/tmp/backup,/var/tmp,/tmp " backups
-set directory=~/.vim/tmp/swap,/var/tmp,/tmp   " swap files
+set undodir=$MYVIMRUNTIMEPATH/tmp/undo,/var/tmp,/tmp     " undo files
+set backupdir=$MYVIMRUNTIMEPATH/tmp/backup,/var/tmp,/tmp " backups
+set directory=$MYVIMRUNTIMEPATH/tmp/swap,/var/tmp,/tmp   " swap files
 set writebackup
-" }}}1
-
-" Motions {{{1
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
-noremap <leader>v <C-w>v
 " }}}1
 
 " Misc {{{1
@@ -167,7 +164,7 @@ nnoremap <leader>aL :set paste<CR>m`O<Esc>``:set nopaste<CR>
 " Plug {{{2
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=$MYVIMRUNTIMEPATH/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
@@ -203,6 +200,9 @@ Plugin 'bling/vim-airline'
 " Plugin 'Blackrush/vim-gocode'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-dispatch'
+if has('nvim')
+  Plugin 'radenling/vim-dispatch-neovim'
+endif
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-eunuch'
