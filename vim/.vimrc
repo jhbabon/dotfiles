@@ -160,7 +160,7 @@ nnoremap <leader>aL :set paste<CR>m`O<Esc>``:set nopaste<CR>
 " }}}1
 
 " Plugins {{{1
-" Plug {{{2
+" Vundle {{{2
 filetype off
 
 set rtp+=$MYVIMRUNTIMEPATH/bundle/Vundle.vim
@@ -205,6 +205,7 @@ endif
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-eunuch'
+Plugin 'rust-lang/rust.vim'
 
 call vundle#end()
 " }}}2
