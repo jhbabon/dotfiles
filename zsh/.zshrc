@@ -21,10 +21,10 @@ zle -N self-insert url-quote-magic
 alias _='sudo'
 alias cl='clear'
 alias vi='vim'
-alias mdp="mkdir -p"
 alias ping='ping -c 4 '
 alias pingg='ping www.google.com'
 alias rake="noglob rake" # makes rake work nicely with zsh
+alias bundle="nocorrect bundle" # makes bundle work nicely with zsh
 alias ..='cd ..'
 alias ...='cd ../..'
 
@@ -255,19 +255,5 @@ setopt prompt_subst
 PROMPT="%F{blue}%2~ %# %f"
 
 RPROMPT='$(~/.bin/git-cwd-info 2>/dev/null)'
-
-# Plugins
-# -----------------------------------------------
-
-# When the current working directory changes, run a method that checks for a .env file, then sources it. Happy days.
-# @link: https://github.com/johnhamelink/env-zsh
-autoload -U add-zsh-hook
-load-local-conf() {
-  # check file exists, is regular file and is readable:
-  if [[ -f .env && -r .env ]]; then
-    source .env
-  fi
-}
-add-zsh-hook chpwd load-local-conf
 
 # vim:set ft=zsh:

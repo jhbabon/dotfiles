@@ -32,7 +32,6 @@ inoremap jj <ESC>
 " UI & layout {{{1
 set laststatus=2   " always show statusline
 set number         " you need line numbers
-set relativenumber " it helps you count lines
 set ruler          " see where you are
 set wrap           " wrap long lines without changing it
 set linebreak      " wrap the lines by words
@@ -54,14 +53,7 @@ set list
 " show or not the list
 nmap <leader>l :set list!<CR>
 
-" only show cursorline in the current window and in normal mode.
-augroup cursorline
-  autocmd!
-  autocmd WinLeave * set nocursorline
-  autocmd WinEnter * set cursorline
-  autocmd InsertEnter * set nocursorline
-  autocmd InsertLeave * set cursorline
-augroup END
+set cursorline
 
 " make sure vim returns to the same line when you reopen a file.
 augroup line_return
@@ -178,6 +170,8 @@ Plugin 'scrooloose/syntastic'
 Plugin 'drmingdrmer/xptemplate'
 Plugin 'godlygeek/tabular'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'joshdick/onedark.vim'
+Plugin 'joshdick/airline-onedark.vim'
 Plugin 'othree/html5.vim'
 Plugin 'kchmck/vim-coffee-script'
 " Plugin 'mustache/vim-mustache-handlebars'
@@ -195,9 +189,9 @@ Plugin 'pangloss/vim-javascript'
 " Plugin 'tpope/vim-classpath'
 " Plugin 'tpope/vim-fireplace'
 Plugin 'tpope/vim-fugitive'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
 " Plugin 'Blackrush/vim-gocode'
-Plugin 'ctrlpvim/ctrlp.vim'
+" Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-dispatch'
 if has('nvim')
   Plugin 'radenling/vim-dispatch-neovim'
@@ -206,8 +200,15 @@ Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-eunuch'
 Plugin 'rust-lang/rust.vim'
+if executable('fzf')
+  Plugin 'junegunn/fzf.vim'
+endif
 
 call vundle#end()
+
+if executable('fzf')
+  set rtp+=/usr/local/opt/fzf
+endif
 " }}}2
 
 " Ragtag {{{2
@@ -231,24 +232,18 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 endif
 
-nnoremap K :grep! "\b<C-R><C-W>\b"<cr>:cw<cr> " bind K to grep word under cursor
-command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-nnoremap \ :Ag<space>
+nnoremap \ :FZFAg<space>
+" bind K to grep word under cursor
+nnoremap K :FZFAg <C-R><C-W><cr>:cw<cr>
 " }}}2
 
-" CtrlP {{{2
-if executable('ag')
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
+" FZF {{{2
+if executable('fzf')
+  let g:fzf_command_prefix = 'FZF'
+  nnoremap <localleader>p :FZFFiles<cr>
+  nnoremap <localleader>b :FZFBuffers<cr>
+  nnoremap <localleader>t :FZFTags<cr>
 endif
-
-nnoremap <localleader>p :CtrlP<cr>
-nnoremap <localleader>b :CtrlPBuffer<cr>
-nnoremap <localleader>m :CtrlPMRUFiles<cr>
-nnoremap <localleader>t :CtrlPTag<cr>
-" }}}2
 
 " Sparkup {{{2
 let g:sparkupNextMapping = '<c-x>'
@@ -293,7 +288,7 @@ set viminfo+=!
 " vim-airline {{{2
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-let g:airline_theme='solarized'
+let g:airline_theme='onedark'
 " }}}2
 
 " Syntastic {{{2
@@ -344,10 +339,8 @@ augroup END
 " }}}1
 
 " Colors {{{1
-set t_Co=256
-set background=dark
-colorscheme solarized
 syntax enable
+colorscheme onedark
 " }}}1
 
 " Functions {{{1
