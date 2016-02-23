@@ -69,6 +69,7 @@ match CursorLine /\%81v.*/
 
 " highlight last inserted text
 nnoremap gV `[v`]
+" }}}1
 
 " Folding {{{1
 set foldenable        " fold by default
@@ -244,6 +245,7 @@ if executable('fzf')
   nnoremap <localleader>b :FZFBuffers<cr>
   nnoremap <localleader>t :FZFTags<cr>
 endif
+" }}}2
 
 " Sparkup {{{2
 let g:sparkupNextMapping = '<c-x>'
