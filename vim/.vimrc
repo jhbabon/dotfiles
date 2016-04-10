@@ -162,7 +162,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'edsono/vim-matchit'
-Plugin 'tpope/vim-surround'
+" Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-ragtag'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
@@ -204,6 +204,8 @@ Plugin 'rust-lang/rust.vim'
 if executable('fzf')
   Plugin 'junegunn/fzf.vim'
 endif
+Plugin 'wellle/targets.vim'
+Plugin 'elixir-lang/vim-elixir'
 
 call vundle#end()
 
@@ -231,6 +233,8 @@ nnoremap <leader>nt :NERDTreeToggle<CR>
 if executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
+
+  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 endif
 
 nnoremap \ :FZFAg<space>
@@ -244,6 +248,7 @@ if executable('fzf')
   nnoremap <localleader>p :FZFFiles<cr>
   nnoremap <localleader>b :FZFBuffers<cr>
   nnoremap <localleader>t :FZFTags<cr>
+  nnoremap <localleader>m :FZFHistory<cr>
 endif
 " }}}2
 
@@ -304,6 +309,7 @@ let g:xptemplate_key = '<Tab>'
 
 " Dispatch {{{2
 autocmd FileType ruby let b:dispatch = '/usr/bin/env ruby %'
+autocmd FileType rust let b:dispatch = 'cargo build'
 nmap <leader>d :Dispatch<cr>
 nmap <leader>D :Dispatch!<cr>
 nmap <leader>st :Start<space>
@@ -311,6 +317,11 @@ nmap <leader>St :Start!<space>
 nmap <localleader>d :Dispatch<space>
 nmap <localleader>D :Dispatch!<space>
 nmap <leader>sp :Dispatch bundle exec rspec %<cr>
+
+function! <SID>RSpecLine()
+  execute 'Dispatch bundle exec rspec %:' . line(".")
+endfunction
+nmap <leader>sl :call <SID>RSpecLine()<cr>
 " }}}2
 " }}}1
 
