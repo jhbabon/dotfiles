@@ -1,84 +1,35 @@
 " Author: Juan Hernández Babón <juan.hernandez.babon@gmail.com>
 " Source: https://github.com/jhbabon/dotfiles
 
-" Constants {{{1
-let $MYVIMRUNTIMEPATH=split(&runtimepath, ',')[0]
-" }}}1
-
-" Basic options {{{1
-set nocompatible " be iMproved!
-
+" Vim settings {{{
+set nocompatible   " be iMproved!
 set encoding=utf-8 " default character encoding
 set modeline       " be able to use modelines when a file is loaded
 set notitle        " don't set the terminal title
-set ttyfast        " fast terminal connection
 set hidden         " buffers management, don't close the buffers
 set autoread       " auto-reload modified files (with no local changes)
 set report=0       " report all changes
 
-" wait 4 seconds on key codes
-set notimeout
+" wait X seconds on key codes
+set timeout
 set ttimeout
-set ttimeoutlen=4
-" }}}1
+set ttimeoutlen=5
 
-" Leader & shortcuts {{{1
-let mapleader      = ","
-let maplocalleader = "-"
-
-inoremap jj <ESC>
-" }}}1
-
-" UI & layout {{{1
-set laststatus=2   " always show statusline
-set number         " you need line numbers
-set ruler          " see where you are
-set wrap           " wrap long lines without changing it
-set linebreak      " wrap the lines by words
-set textwidth=0    " don't break long lines
-set visualbell     " use visual bell, not sound
-set shortmess=atI  " modify the error and info messages
-set scrolloff=3    " number of screen lines to keep above and below the cursor
-
-set virtualedit+=block " the cursor can be positioned where there is
-                       " no actual character
-
-set nojoinspaces " insert only one space when joining lines that
-                 " contain sentence-terminating punctuation like `.`.
-
-set lazyredraw " redraw only when we need to.
+set laststatus=2       " always show statusline
+set number             " you need line numbers
+set ruler              " see where you are
+set wrap               " wrap long lines without changing it
+set visualbell         " use visual bell, not sound
+set shortmess=aI       " modify the error and info messages
+set scrolloff=3        " screen lines to keep above and below the cursor
+set virtualedit+=block " put the cursor anywhere in visual blocks
+set nojoinspaces       " put only one space after joining.
 
 set listchars=trail:~,tab:▸\ ,eol:¬ " show special characters
 set list
-" show or not the list
-nmap <leader>l :set list!<CR>
 
-set cursorline
+set cursorline     " show where you are
 
-" make sure vim returns to the same line when you reopen a file.
-augroup line_return
-  autocmd!
-  autocmd BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \     execute 'normal! g`"zvzz' |
-        \ endif
-augroup END
-
-" highlight long lines
-match CursorLine /\%81v.*/
-
-" highlight last inserted text
-nnoremap gV `[v`]
-" }}}1
-
-" Folding {{{1
-set foldenable        " fold by default
-set foldlevelstart=10 " open most folds by default
-set foldnestmax=10    " 10 nested fold max
-set foldmethod=indent " fold based on indent level
-" }}}1
-
-" Tabs & spaces {{{1
 set tabstop=2      " number of visual spaces per TAB.
 set shiftwidth=2   " number of spaces to use for each step of (auto)indent.
 set softtabstop=2  " number of spaces in tab when editing.
@@ -89,9 +40,7 @@ set smarttab
 set autoindent
 set copyindent
 set smartindent
-" }}}1
 
-" Menu completions {{{1
 set wildmenu
 set wildmode=list:longest,full
 
@@ -105,197 +54,70 @@ set wildignore+=*.DS_Store                       " osx bullshit
 set wildignore+=*.pyc                            " python byte code
 set wildignore+=*.orig                           " merge resolution files
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip         " tmp files
-" }}}1
 
-" Clipboard {{{1
 " use the system clipboard as the default register
 set clipboard=unnamed,unnamedplus
-" copy file path to clipboard
-map <leader>% :let @* = expand("%")<cr>
-" }}}1
 
-" Search {{{1
 set ignorecase  " ignore case in search
 set smartcase   " override ignorecase if uppercase is used in search
 set hlsearch    " highlight search
 set incsearch   " search as characters are entered
 
-" clear highlighted search
-nmap <leader>nh :nohl<CR>
+set nobackup    " No backup
+set noswapfile  " No swap files
 
-" keep search matches in the middle of the window.
-nnoremap n nzzzv
-nnoremap N Nzzzv
-" }}}1
+set lazyredraw
+" }}}
 
-" Backups {{{1
-set backup                                    " enable backups
-set undodir=$MYVIMRUNTIMEPATH/tmp/undo,/var/tmp,/tmp     " undo files
-set backupdir=$MYVIMRUNTIMEPATH/tmp/backup,/var/tmp,/tmp " backups
-set directory=$MYVIMRUNTIMEPATH/tmp/swap,/var/tmp,/tmp   " swap files
-set writebackup
-" }}}1
-
-" Misc {{{1
-" quickly edit/reload the vimrc file
-nmap <silent> <leader>ve :e $MYVIMRC<CR>
-nmap <silent> <leader>vs :so $MYVIMRC<CR>
-
-" add ; or , to the end of the line, when missing
-nnoremap <leader>; :s/\([^;]\)$/\1;/<CR>:noh<CR>
-nnoremap <leader>, :s/\([^,]\)$/\1,/<CR>:noh<CR>
-
-" manage empty lines
-" link: http://vim.wikia.com/wiki/Quickly_adding_and_deleting_empty_lines
-" add an empty line below and above
-nnoremap <leader>al :set paste<CR>m`o<Esc>``:set nopaste<CR>
-nnoremap <leader>aL :set paste<CR>m`O<Esc>``:set nopaste<CR>
-" }}}1
-
-" Plugins {{{1
-" Vundle {{{2
+" Plugins {{{
 filetype off
+call plug#begin()
+Plug 'edsono/vim-matchit'
+Plug 'scrooloose/syntastic'
+Plug 'drmingdrmer/xptemplate'
+Plug 'sheerun/vim-polyglot'
+Plug 'kana/vim-smartinput'
+Plug 'jgdavey/vim-blockle'
+Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-ragtag'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-eunuch'
+Plug 'wellle/targets.vim'
 
-set rtp+=$MYVIMRUNTIMEPATH/bundle/Vundle.vim
-call vundle#begin()
+Plug 'tpope/vim-projectionist'
 
-Plugin 'VundleVim/Vundle.vim'
+Plug 'joshdick/onedark.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'NLKNguyen/papercolor-theme'
 
-Plugin 'edsono/vim-matchit'
-" Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-ragtag'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-markdown'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'drmingdrmer/xptemplate'
-Plugin 'godlygeek/tabular'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'joshdick/onedark.vim'
-Plugin 'joshdick/airline-onedark.vim'
-Plugin 'othree/html5.vim'
-Plugin 'kchmck/vim-coffee-script'
-" Plugin 'mustache/vim-mustache-handlebars'
-" Plugin 'vim-scripts/nginx.vim'
-Plugin 'kana/vim-fakeclip'
-Plugin 'kana/vim-textobj-user'
-Plugin 'nelstrom/vim-textobj-rubyblock'
-Plugin 'rstacruz/sparkup', { 'rtp': 'vim' }
-" Plugin 'groenewege/vim-less'
-Plugin 'kana/vim-smartinput'
-Plugin 'jgdavey/vim-blockle'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'pangloss/vim-javascript'
-" Plugin 'guns/vim-clojure-static'
-" Plugin 'tpope/vim-classpath'
-" Plugin 'tpope/vim-fireplace'
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-airline/vim-airline'
-" Plugin 'Blackrush/vim-gocode'
-" Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'tpope/vim-dispatch'
+Plug 'racer-rust/vim-racer'
+
 if has('nvim')
-  Plugin 'radenling/vim-dispatch-neovim'
+  Plug 'radenling/vim-dispatch-neovim'
 endif
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-eunuch'
-Plugin 'rust-lang/rust.vim'
-if executable('fzf')
-  Plugin 'junegunn/fzf.vim'
-endif
-Plugin 'wellle/targets.vim'
-Plugin 'elixir-lang/vim-elixir'
-
-call vundle#end()
 
 if executable('fzf')
+  Plug 'junegunn/fzf.vim'
   set rtp+=/usr/local/opt/fzf
 endif
+call plug#end()
+
+" Matchit {{{2
+runtime macros/matchit.vim
 " }}}2
 
 " Ragtag {{{2
 let g:ragtag_global_maps = 1
 " }}}2
 
-" Nerdcommenter {{{2
-let NERDSpaceDelims=1
-let NERDShutUp=1
-" }}}2
-
-" Nerdtree {{{2
-nmap <F5> :NERDTree<CR>
-nnoremap <leader>nt :NERDTreeToggle<CR>
-" }}}2
-
-" Ag {{{2
-" @link: http://robots.thoughtbot.com/faster-grepping-in-vim
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-endif
-
-nnoremap \ :FZFAg<space>
-" bind K to grep word under cursor
-nnoremap K :FZFAg <C-R><C-W><cr>:cw<cr>
-" }}}2
-
-" FZF {{{2
-if executable('fzf')
-  let g:fzf_command_prefix = 'FZF'
-  nnoremap <localleader>p :FZFFiles<cr>
-  nnoremap <localleader>b :FZFBuffers<cr>
-  nnoremap <localleader>t :FZFTags<cr>
-  nnoremap <localleader>m :FZFHistory<cr>
-endif
-" }}}2
-
-" Sparkup {{{2
-let g:sparkupNextMapping = '<c-x>'
-" }}}2
-
-" Fugitive {{{2
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>gl :Glog<CR>
-nnoremap <leader>gd :Gdiff<CR>
-" link: http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
-autocmd BufReadPost fugitive://* set bufhidden=delete
-" }}}2
-
-" Tabularize {{{2
-nmap <leader>t> :Tabularize /=><CR>
-vmap <leader>t> :Tabularize /=><CR>
-nmap <leader>t= :Tabularize /=<CR>
-vmap <leader>t= :Tabularize /=<CR>
-nmap <leader>t: :Tabularize /:\zs<CR>
-vmap <leader>t: :Tabularize /:\zs<CR>
-" }}}2
-
-" Matchit {{{2
-runtime macros/matchit.vim
-" }}}2
-
-" jQuery {{{2
-au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
-nnoremap <leader>jq :set syntax=jquery<CR>
-" }}}2
-
-" Nginx {{{2
-nnoremap <leader>nx :set ft=nginx<CR>
-" }}}2
-
-" vim-classpath {{{2
-" save the classpath cache in .viminfo
-set viminfo+=!
-" }}}2
-
-" vim-airline {{{2
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline_theme='onedark'
+" Lightline {{{2
+let g:lightline = {
+      \ 'colorscheme': 'PaperColor',
+      \ }
 " }}}2
 
 " Syntastic {{{2
@@ -303,38 +125,67 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_always_populate_loc_list = 1
 " }}}2
 
-" xtemplate {{{2
+" xptemplate {{{2
 let g:xptemplate_key = '<Tab>'
 " }}}
 
 " Dispatch {{{2
 autocmd FileType ruby let b:dispatch = '/usr/bin/env ruby %'
 autocmd FileType rust let b:dispatch = 'cargo build'
-nmap <leader>d :Dispatch<cr>
-nmap <leader>D :Dispatch!<cr>
-nmap <leader>st :Start<space>
-nmap <leader>St :Start!<space>
-nmap <localleader>d :Dispatch<space>
-nmap <localleader>D :Dispatch!<space>
-nmap <leader>sp :Dispatch bundle exec rspec %<cr>
-
-function! <SID>RSpecLine()
-  execute 'Dispatch bundle exec rspec %:' . line(".")
-endfunction
-nmap <leader>sl :call <SID>RSpecLine()<cr>
 " }}}2
-" }}}1
+
+" Fugitive {{{2
+" link: http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
+autocmd BufReadPost fugitive://* set bufhidden=delete
+" }}}2
+
+" Projectionist{{{2
+if !exists('g:projectionist_transformations')
+  let g:projectionist_transformations = {}
+endif
+
+" Custom transformations
+
+" rspec
+"
+" Use it to generate the correct name of the module in the spec
+" Is intended to be used after camelcase and colons
+"
+" @example
+"   Given the template
+"   describe {camelcase|colons|rspec} do
+"
+"   Input => describe engines/spec/lib/fancy/awesome do
+"   Output => describe Fancy::Awesome do
+function! g:projectionist_transformations.rspec(input, o) abort
+  return substitute(a:input, '.*Spec::\(\w\+\)::\(.\+\)$', '\2', 'g')
+endfunction
+
+let g:projectionist_heuristics = {
+      \   "Gemfile|*.gemspec": {
+      \     "*_spec.rb": {
+      \       "dispatch": "bundle exec rspec {file}",
+      \       "type": "spec",
+      \       "template": [
+      \         "require 'spec_helper'",
+      \         "",
+      \         "describe {camelcase|colons|rspec} do",
+      \         "end"
+      \       ]
+      \     }
+      \   }
+      \ }
+" }}}2
+
+" Nvim Python {{{2
+if has('nvim')
+  let g:python_host_prog = '/usr/local/Cellar/python/2.7.11/bin/python'
+endif
+" }}}2
+" }}}
 
 " Filetypes {{{1
-filetype on
 filetype plugin indent on
-
-" objective-c file type {{{2
-augroup objcfiles
-  autocmd!
-  autocmd BufRead,BufNewFile *.m set ft=objc
-augroup END
-" }}}2
 
 " ruby {{{2
 augroup rubyfiles
@@ -343,18 +194,20 @@ augroup rubyfiles
 augroup END
 " }}}2
 
-" go {{{2
-augroup gofiles
+" markdown {{{2
+augroup markdownfiles
   autocmd!
-  autocmd FileType go autocmd BufWritePre <buffer> Fmt
+  autocmd BufRead,BufNewFile *.md set ft=markdown
 augroup END
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'ruby']
 " }}}2
 " }}}1
 
-" Colors {{{1
+" Colors {{{
 syntax enable
-colorscheme onedark
-" }}}1
+set background=light
+colorscheme PaperColor
+" }}}
 
 " Functions {{{1
 " Delete EOL whitespace {{{2
@@ -371,91 +224,90 @@ function! <SID>StripTrailingWhitespace()
   let @/=_s
   call cursor(l, c)
 endfunction
-nmap <silent> <leader><space> :call <SID>StripTrailingWhitespace()<CR>
 " }}}2
-
-" Markdown {{{2
-" description:  convert markdown file to a html file and open it
-" dependencies: markdown cli
-" -----------------------------------------------------------------------------
-function! <SID>ConvertMarkdown()
-  let l:mkd_file = expand("%:p")
-  let l:html_file = expand("%:p:r") . ".html"
-  exe "!markdown --html4tags " . l:mkd_file . " > " . l:html_file
-  exe "drop " . l:html_file
-endfunction
-nmap <silent> <leader>cmk :call <SID>ConvertMarkdown()<CR>
-" }}}2
-
-" Autosave {{{2
-" link: http://stackoverflow.com/questions/6991638/how-to-auto-save-a-file-every-1-second-in-vim
-" -----------------------------------------------------------------------------
-function! UpdateFile()
-  if((localtime() - b:save_time) >= g:autosave_time)
-    update
-    let b:save_time = localtime()
-  endif
-endfunction
-
-au BufRead,BufNewFile * silent! let b:save_time = localtime()
-au CursorHold * silent! call UpdateFile()
-silent! let g:autosave_time = 1
-au BufWritePre * silent! let b:save_time = localtime()
-" }}}2
-
-" Privatize and protectize ruby methods {{{2
-" link: http://robots.thoughtbot.com/post/1986730994/keep-your-privates-close
-" -----------------------------------------------------------------------------
-function! PriorRubyMethodDefinition()
-  let lineNumber = search('def', 'bn')
-  let line       = getline(lineNumber)
-  if line == 0
-    echo "No prior method definition found"
-  endif
-  return matchlist(line, 'def \(\w\+\).*')[1]
-endfunction
-
-" param: the string with the kind of scope to apply to the method
-"        (default: "privatize")
-function! PrivatizeRubyMethod(...)
-  let priorMethod = PriorRubyMethodDefinition()
-  let scope = a:0 == 1 ? a:1 : "private"
-  exec "normal o". scope . " :" . priorMethod  . "\<Esc>=="
-endfunction
-
-map <leader>rp :call PrivatizeRubyMethod()<CR>
-map <leader>ro :call PrivatizeRubyMethod("protected")<CR>
-" }}}2
-
-" Converting variables to or from CamelCase {{{2
-" link: http://vim.wikia.com/wiki/Converting_variables_to_or_from_camel_case
-" -----------------------------------------------------------------------------
-
-" convert under_score to CamelCase in current line
-" param: the string that indicates if the first letter should be uppercase or
-"        lowercase (default: "lower").
-function! <SID>FromUnderScoreToCamel(...)
-  let firstLetter = a:0 == 1 ? a:1 : "lower"
-  if firstLetter == 'upper'
-    silent! s#\(\%(\<\l\+\)\%(_\)\@=\)\|_\(\l\)#\u\1\2#g
-  else
-    silent! s#_\(\l\)#\u\1#g
-  endif
-endfunction
-nmap <silent> <leader>uc :call <SID>FromUnderScoreToCamel()<CR>
-nmap <silent> <leader>uC :call <SID>FromUnderScoreToCamel("upper")<CR>
-
-" convert CamelCase to under_score in current line
-function! <SID>FromCamelToUnderScore()
-  silent! s#\C\(\<\u[a-z0-9]\+\|[a-z0-9]\+\)\(\u\)#\l\1_\l\2#g
-endfunction
-nmap <silent> <leader>Cu :call <SID>FromCamelToUnderScore()<CR>
-" }}}2
-
-" Convert ruby 1.8 hash syntax to 1.9 {{{2
-nmap <silent> <leader>rh :%s/:\([^ ]*\)\(\s*\)=>/\1:/g<CR>
-" }}}2
-
 " }}}1
+
+" Mappings {{{
+let mapleader      = " "
+let maplocalleader = ","
+
+" Go to Normal mode fast
+imap jj <ESC>
+
+" copy file path to clipboard
+map <leader>% :let @* = expand("%")<cr>
+
+" add ; or , to the end of the line, when missing
+nnoremap <leader>; :s/\([^;]\)$/\1;/<CR>:noh<CR>
+nnoremap <leader>, :s/\([^,]\)$/\1,/<CR>:noh<CR>
+
+" manage empty lines
+" link: http://vim.wikia.com/wiki/Quickly_adding_and_deleting_empty_lines
+" add an empty line below and above
+nnoremap <leader>plu :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <leader>pld :set paste<CR>m`o<Esc>``:set nopaste<CR>
+
+" clear highlighted search
+map <leader>nh :nohl<CR>
+
+" Map trailing whitespace method
+nmap <silent> <leader><space> :call <SID>StripTrailingWhitespace()<CR>
+
+" Files {{{2
+if executable('fzf')
+  let g:fzf_command_prefix = 'FZF'
+  nnoremap <leader>ff :FZFFiles<cr>
+  nnoremap <leader>fb :FZFBuffers<cr>
+  nnoremap <leader>ft :FZFTags<cr>
+  nnoremap <leader>fh :FZFHistory<cr>
+  nnoremap \ :FZFAg<space>
+  " bind K to grep word under cursor
+  nnoremap K :FZFAg <C-R><C-W><cr>:cw<cr>
+
+  nnoremap <leader>fe :Explore<cr>
+endif
+" }}}2
+
+" Dispatch {{{2
+nmap <leader>d :Dispatch<cr>
+nmap <leader>D :Dispatch!<cr>
+nmap <leader>st :Start<space>
+nmap <leader>St :Start!<space>
+nmap <localleader>d :Dispatch<space>
+nmap <localleader>D :Dispatch!<space>
+" }}}2
+
+" Fugitive {{{2
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gl :Glog<CR>
+nnoremap <leader>gd :Gdiff<CR>
+" }}}2
+
+" ruby {{{2
+" Convert ruby 1.8 hash syntax to 1.9 TODO: review
+nmap <silent> <leader>rh :%s/:\([^ ]*\)\(\s*\)=>/\1:/g<CR>
+
+nmap <leader>rs :Dispatch bundle exec rspec %<cr>
+
+function! <SID>RSpecLine()
+  execute 'Dispatch bundle exec rspec %:' . line(".")
+endfunction
+nmap <leader>rsl :call <SID>RSpecLine()<cr>
+
+let g:blockle_mapping = '<leader>rb'
+" }}}2
+
+" Ag {{{2
+" @link: http://robots.thoughtbot.com/faster-grepping-in-vim
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+endif
+" }}}2
+
+" }}}
 
 " vim:foldmethod=marker:foldlevel=0
