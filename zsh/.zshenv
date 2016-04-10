@@ -22,13 +22,13 @@ if [[ -d "/usr/local/heroku/bin" ]] ; then
 fi
 
 # add texlive to PATH
-if [[ -d "/usr/local/texlive/2012basic/bin/universal-darwin" ]]; then
-  export PATH="/usr/local/texlive/2012basic/bin/universal-darwin:$PATH"
+if [[ -d "/usr/local/texlive/2015basic" ]]; then
+  export PATH="/usr/local/texlive/2015basic/bin/x86_64-darwin:$PATH"
 fi
 
 # Postgres.app
 if [[ -d "/Applications/Postgres.app" ]]; then
-  export PATH="/Applications/Postgres.app/Contents/Versions/9.4/bin:$PATH"
+  export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 fi
 
 # rbenv
@@ -38,8 +38,8 @@ command -v rbenv > /dev/null && eval "$(rbenv init -)"
 command -v direnv > /dev/null && eval "$(direnv hook zsh)"
 
 # golang
-if [[ -d "$HOME/src/go" ]] ; then
-  export GOPATH="$HOME/src/go"
+if [[ -d "$HOME/src/golang" ]] ; then
+  export GOPATH="$HOME/src/golang"
   export PATH="$PATH:$GOPATH/bin"
 fi
 

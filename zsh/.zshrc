@@ -252,8 +252,7 @@ autoload -U colors
 colors
 setopt prompt_subst
 
-PROMPT="%F{blue}%2~ %# %f"
-
-RPROMPT='$(~/.bin/git-cwd-info 2>/dev/null)'
+local return_code="%(?..%F{red}[%?] %f)"
+PROMPT='%F{blue}%2~%f$(~/.bin/git-cwd-info 2>/dev/null) ${return_code}%F{blue}%#%f '
 
 # vim:set ft=zsh:
