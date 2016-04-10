@@ -5,6 +5,7 @@
   name   = Juan Hernández
   email  = juan.hernandez.babon@gmail.com
   editor = vim
+  useconfigonly = true
 
 [apply]
   whitespace = strip
@@ -51,6 +52,9 @@
   sl = !git branch | cut -c 3- | fzf | xargs git checkout
   # and delete a branch from.
   sd = !git branch | cut -c 3- | fzf | xargs git branch -d
+
+  # force push with care
+  pf = push --force-with-lease
 
 [core]
   quotepath = false
