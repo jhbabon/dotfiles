@@ -227,9 +227,25 @@ function explain() {
 #     $ dash Array
 #     # => Opens Dash with the search Array
 function dash() {
-  query="dash://$1"
+  local query="dash://$1"
 
   open $query
+}
+
+# weather:
+#   * description: print the weather in the terminal using http://wttr.in
+#   * usage:
+#     weather [city]
+#
+#     $ weather
+#     # => Prints Barcelona weather
+#     $ weather Berlin
+#     # => Prints Berlin weather
+function weather() {
+  local city="$1"
+  [[ -z $city ]] && city="Barcelona"
+
+  curl "http://wttr.in/$city"
 }
 
 # zmv: zsh renaming tool
