@@ -4,8 +4,8 @@ require File.join(File.expand_path(File.dirname(__FILE__)), "common")
 
 with! "git" do
   _say "Installing vim dependencies"
-  `mkdir -p vim/.vim/bundle`
-  `git clone https://github.com/VundleVim/Vundle.vim.git vim/.vim/bundle/Vundle.vim`
+  `mkdir -p vim/.vim/autoload`
+  `curl -fLo vim/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
 end
 
 with_stow! do |package|
@@ -15,7 +15,7 @@ end
 
 with! "vim" do
   _say "Launching Vim to install plugins (this may take a while)"
-  defer "vim +PluginInstall +qall"
+  defer "vim +PlugInstall +qall"
 end
 
 with "nvim" do
@@ -23,7 +23,7 @@ with "nvim" do
   `mkdir -p ~/.config`
   `ln -s $PWD/vim/.vim ~/.config/nvim`
   `ln -s $PWD/vim/.vimrc ~/.config/nvim/init.vim`
-  defer "nvim +PluginInstall +qall"
+  defer "nvim +PlugInstall +qall"
 end
 
 _say "All done!"

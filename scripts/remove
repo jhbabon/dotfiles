@@ -8,7 +8,7 @@ with_stow! do |package|
 end
 
 _say "Removing vim dependencies"
-`rm -fr vim/.vim/bundle/*`
+`rm -fr vim/.vim/plugged/*`
 `rm vim/.vim/init.vim` # this is a link to vim/.vimrc
 
 exit
