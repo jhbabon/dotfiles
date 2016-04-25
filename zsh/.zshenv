@@ -55,6 +55,12 @@ export NVM_DIR="$HOME/.nvm"
 # Use extra .gemrc configuration
 [[ -f "$HOME/.gemrc_local" ]] && export GEMRC="$HOME/.gemrc_local"
 
+# cargo (rust)
+[[ -d "$HOME/.cargo/bin" ]] && export PATH="$HOME/.cargo/bin:$PATH"
+if [[ -d "$HOME/src/vendor/rustc/src" ]] ; then
+  export RUST_SRC_PATH="$HOME/src/vendor/rustc/src"
+fi
+
 # load bin from safe dirs
 export PATH=".safe/../bin:$HOME/.bin:$PATH"
 
