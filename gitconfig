@@ -1,0 +1,27 @@
+[init]
+  templatedir = ~/.config/git/template
+
+[user]
+  email = juan.hernandez.babon@gmail.com
+  name = Juan Hernández
+  editor = vim
+  useconfigonly = true
+
+[apply]
+  whitespace = strip
+
+[diff]
+  color = auto
+
+[color]
+  ui = auto
+
+[core]
+  quotepath = false
+
+[merge]
+  tool = vimdiff
+
+; only for git ~> 1.8
+[push]
+  default = simple
