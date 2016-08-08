@@ -71,7 +71,7 @@ ifdef TMUX
 	${LINK} ${TMUX_DIR} ${TARGET}/.tmux
 	${LINK} ${TMUXCONF} ${TARGET}/.tmux.conf
 	[ -d ${TPM_DIR} ] || ${CLONE} ${TPM_REPO} ${TPM_DIR}
-	@echo "--> Post install: install TMUX plugins run in a session 'prefix + I'"
+	@echo "--> Post install: To install TMUX plugins run in a session 'prefix + I'"
 endif
 
 .PHONY: git
