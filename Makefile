@@ -1,4 +1,4 @@
-# Makefile to install all dotifles
+# Makefile to install all dotfiles
 #
 # $ make # install all dotfiles
 # $ make vim # install vim dotfiles
