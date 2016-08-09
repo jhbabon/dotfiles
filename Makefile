@@ -10,7 +10,7 @@ DOTFILES := ${PWD}
 TARGET   := ${HOME}
 CONFIG   := ${TARGET}/.config
 
-LINK  := ln -bs
+LINK  := ln -s
 MKDIR := mkdir -p
 CLONE := git clone
 RM    := rm
@@ -45,8 +45,11 @@ IRBRC := ${DOTFILES}/irbrc
 BUNDLER_DIR := ${DOTFILES}/bundle
 
 # FISH options
-FISH     := $(shell which fish)
-FISH_DIR := ${DOTFILES}/fish
+FISH              := $(shell which fish)
+FISH_DIR          := ${DOTFILES}/fish
+# terminal coloring
+BASE16_SHELL_REPO := https://github.com/chriskempson/base16-shell.git
+BASE16_SHELL_DIR  := ${CONFIG}/base16-shell
 
 .PHONY: install
 install: vim tmux git ctags ruby fish
@@ -105,6 +108,7 @@ fish: ${FISH_DIR}
 ifdef FISH
 	@echo ""
 	@echo "==> Installing fish files"
+	[ -d ${BASE16_SHELL_DIR} ] || ${CLONE} ${BASE16_SHELL_REPO} ${BASE16_SHELL_DIR}
 	${MKDIR} ${CONFIG}/fish
 	${LINK} ${FISH_DIR}/conf.d ${CONFIG}/fish/conf.d
 	${LINK} ${FISH_DIR}/functions ${CONFIG}/fish/functions
@@ -153,5 +157,6 @@ clean_ruby:
 clean_fish:
 	@echo ""
 	@echo "==> Removing fish files"
+	${RM} -fr ${BASE16_SHELL_DIR}
 	${RM} ${CONFIG}/fish/conf.d
 	${RM} ${CONFIG}/fish/functions
