@@ -25,3 +25,47 @@
 ; only for git ~> 1.8
 [push]
   default = simple
+
+[alias]
+  s     = status --short --branch
+  d     = diff
+  dc    = diff --cached
+  br    = branch
+  erase = branch -d
+
+  c     = commit
+  amend = commit --amend
+
+  a   = add
+  aa  = !git add --all && git status -s --branch
+  intent = add --all --intent-to-add
+  sum  = add --patch
+
+  co  = checkout
+  cob = checkout -b
+
+  rb  = rebase
+  rbc = rebase --continue
+  rbs = rebase --skip
+  ri  = rebase -i
+
+  who = shortlog -n -s --no-merges
+  up  = pull --rebase
+  l   = log --graph --pretty=format:'%C(auto)%h%d%Creset | %Cgreen%an%Creset | %s | %Cblue%cr%Creset'
+
+  name = rev-parse --abbrev-ref HEAD # branch name
+
+  publish = !git push -u origin $(git name)
+
+  draft = stash save -u
+
+  # exclude: http://coderwall.com/p/n1d-na
+  exclude = !sh -c 'mkdir -p .git/info && echo "$1" >> .git/info/exclude' -
+  ex      = !git exclude
+
+  # select a branch from a menu thanks to fzf script.
+  select = !git branch | cut -c 3- | fzf | xargs git checkout
+  sl     = !git select
+
+  # force push with care
+  shift = push --force-with-lease
