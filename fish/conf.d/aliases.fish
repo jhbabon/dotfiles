@@ -4,3 +4,5 @@ alias g "git"
 
 alias bi "bundle install"
 alias be "bundle exec"
+
+alias ... "cd ../../"
