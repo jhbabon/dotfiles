@@ -41,18 +41,19 @@ CTAGS       := $(shell which ctags)
 CTAGSCONFIG := ${DOTFILES}/ctags
 
 # RUBY options
-IRBRC := ${DOTFILES}/irbrc
+IRBRC       := ${DOTFILES}/irbrc
 BUNDLER_DIR := ${DOTFILES}/bundle
 
 # FISH options
-FISH              := $(shell which fish)
-FISH_DIR          := ${DOTFILES}/fish
-# terminal coloring
-BASE16_SHELL_REPO := https://github.com/chriskempson/base16-shell.git
-BASE16_SHELL_DIR  := ${CONFIG}/base16-shell
+FISH     := $(shell which fish)
+FISH_DIR := ${DOTFILES}/fish
+
+# TERMITE
+TERMITE     := $(shell which termite)
+TERMITE_DIR := ${DOTFILES}/termite
 
 .PHONY: install
-install: vim tmux git ctags ruby fish
+install: vim tmux git ctags ruby fish termite
 
 .PHONY: vim
 vim: ${VIMRC} ${VIM_DIR}
@@ -108,15 +109,22 @@ fish: ${FISH_DIR}
 ifdef FISH
 	@echo ""
 	@echo "==> Installing fish files"
-	[ -d ${BASE16_SHELL_DIR} ] || ${CLONE} ${BASE16_SHELL_REPO} ${BASE16_SHELL_DIR}
 	${MKDIR} ${CONFIG}/fish
 	${LINK} ${FISH_DIR}/conf.d ${CONFIG}/fish/conf.d
 	${LINK} ${FISH_DIR}/functions ${CONFIG}/fish/functions
 endif
 
+.PHONY: termite
+termite: ${TERMITE_DIR}
+ifdef TERMITE
+	@echo ""
+	@echo "==> Installing termite files"
+	${LINK} ${TERMITE_DIR} ${CONFIG}/termite
+endif
+
 .PHONY: clean
 clean: clean_vim clean_tmux clean_git clean_ctags\
-	clean_ruby clean_fish
+	clean_ruby clean_fish clean_termite
 
 .PHONY: clean_vim
 clean_vim:
@@ -160,3 +168,9 @@ clean_fish:
 	${RM} -fr ${BASE16_SHELL_DIR}
 	${RM} ${CONFIG}/fish/conf.d
 	${RM} ${CONFIG}/fish/functions
+
+.PHONY: clean_termite
+clean_termite:
+	@echo ""
+	@echo "==> Removing termite files"
+	${RM} ${CONFIG}/termite
