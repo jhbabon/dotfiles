@@ -23,6 +23,7 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-projectionist'
+Plug 'ElmCast/elm-vim'
 
 Plug 'itchyny/landscape.vim'
 Plug 'NLKNguyen/papercolor-theme'
