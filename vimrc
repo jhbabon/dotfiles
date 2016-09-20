@@ -1,6 +1,8 @@
 " Don't try to support vi
 set nocompatible
 
+set encoding=utf-8 " default character encoding
+
 " Set leader keys before anything else
 let mapleader      = " "
 let maplocalleader = ","
