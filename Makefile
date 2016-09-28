@@ -17,7 +17,7 @@ CONFIG ?= $(TARGET)/.config
 LINK  := ln -s
 MKDIR := mkdir -p
 CLONE := git clone
-RM    := rm
+RM    := rm -fr
 
 # VIM options
 VIM      := $(shell which vim)
@@ -69,7 +69,8 @@ ifdef VIM
 	@echo "==> Installing vim files"
 	$(LINK) $(VIMRC) $(TARGET)/.vimrc
 	$(LINK) $(VIM_DIR) $(TARGET)/.vim
-	curl -fLo $(PLUG) --create-dirs $(PLUG_URL)
+	$(MKDIR) $(TARGET)/.vim/autoload
+	curl -fLo $(PLUG) $(PLUG_URL)
 	vim +PlugInstall +qa
 endif
 
