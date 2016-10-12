@@ -3,3 +3,5 @@ set -x EDITOR vim
 set -x VISUAL vim
 
 set -x PATH $HOME/.local/bin $PATH
+
+set -x FZF_DEFAULT_COMMAND 'ag -g ""'
