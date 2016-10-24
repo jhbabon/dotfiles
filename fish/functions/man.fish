@@ -1,4 +1,4 @@
-function man --description "wrap the 'man' manual page opener to use color in formatting"
+function man --description "Wrap the 'man' manual page opener to use color in formatting"
   # based on this group of settings and explanation for them:
   # http://boredzo.org/blog/archives/2016-08-15/colorized-man-pages-understood-and-customized
   # converted to fish shell syntax thanks to this page:
