@@ -1,0 +1,7 @@
+# ~/.zshenv: This file is executed in second place after /etc/zshenv
+
+export EDITOR=vim
+export VISUAL=$EDITOR
+export PAGER=less
+
+# vim:set ft=zsh:

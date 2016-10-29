@@ -1,0 +1,32 @@
+# ~/.zshrc: This file is executed after /etc/zshrc, and it is executed
+# in any situation. Put here any customization.
+
+local config_dir="$HOME/.config/zsh"
+
+if [[ -n $XDG_CONFIG_HOME ]] ; then
+  config_dir=$XDG_CONFIG_HOME
+fi
+
+# Plugins
+# -----------------------------------------------
+source "$config_dir/antigen/bin/antigen.zsh"
+
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-history-substring-search
+antigen bundle zsh-users/zsh-autosuggestions
+
+export MODE_INDICATOR="%F{yellow}N%f"
+antigen bundle vi-mode
+
+antigen apply
+
+# Load files from $HOME/.config/zsh/rc.d/
+local rc_d=$config_dir/rc.d
+if test -d $rc_d; then
+  for rc in $rc_d/*.zsh; do
+    test -r $rc && source $rc
+  done
+  unset rc
+fi
+
+# vim:set ft=zsh:

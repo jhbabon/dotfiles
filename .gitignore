@@ -1,9 +1,9 @@
 sandbox
-vim/plugged
-vim/view
-vim/autoload/plug.vim*
-vim/.netrwhist
+vim/vim/plugged
+vim/vim/view
+vim/vim/autoload/plug.vim*
+vim/vim/.netrwhist
+vim/vim/init.vim
 tmux/plugins
 git/template
 bundle/cache
-vim/init.vim

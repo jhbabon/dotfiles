@@ -33,6 +33,8 @@ function fish_prompt --description "Write out the prompt"
       set -qU __fish_git_prompt_char_untrackedfiles; or set -U __fish_git_prompt_char_untrackedfiles "?"
 
       set -qU fish_color_status; or set -U fish_color_status red
+      set -U fish_color_command green
+
       set -U __my_git_prompt_initialized
     end
   end
