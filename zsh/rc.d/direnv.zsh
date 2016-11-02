@@ -1,2 +1,2 @@
 # Load direnv hooks
-command -v direnv > /dev/null && eval "$(direnv hook zsh)"
+(( $+commands[direnv] )) && eval "$(direnv hook zsh)"
