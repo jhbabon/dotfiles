@@ -4,6 +4,10 @@
 # /etc/zprofile can set the PATH, so is better to do any PATH manipulation
 # here, after it
 
+if [[ -d $HOME/.cargo/bin ]] ; then
+  export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
 export PATH=".safe/../bin:$HOME/.local/bin:$PATH"
 
 # vim:set ft=zsh:
