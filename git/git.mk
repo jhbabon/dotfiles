@@ -1,4 +1,4 @@
-GIT := $(shell which git 2>/dev/null)
+GIT := $(shell command -v git 2>/dev/null)
 
 ifdef GIT
 INSTALLERS += git

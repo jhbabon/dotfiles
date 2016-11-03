@@ -1,5 +1,5 @@
 # Disable fish shell
-# FISH := $(shell which fish 2>/dev/null)
+# FISH := $(shell command -v fish 2>/dev/null)
 
 ifdef FISH
 INSTALLERS += fish

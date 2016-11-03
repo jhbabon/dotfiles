@@ -1,4 +1,4 @@
-TMUX := $(shell which tmux 2>/dev/null)
+TMUX := $(shell command -v tmux 2>/dev/null)
 
 ifdef TMUX
 INSTALLERS += tmux

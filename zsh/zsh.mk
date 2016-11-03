@@ -1,4 +1,4 @@
-ZSH := $(shell which zsh 2>/dev/null)
+ZSH := $(shell command -v zsh 2>/dev/null)
 
 ifdef ZSH
 INSTALLERS += zsh

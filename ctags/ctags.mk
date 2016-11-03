@@ -1,4 +1,4 @@
-CTAGS := $(shell which ctags 2>/dev/null)
+CTAGS := $(shell command -v ctags 2>/dev/null)
 
 ifdef CTAGS
 INSTALLERS += ctags

@@ -1,4 +1,4 @@
-TERMITE := $(shell which termite 2>/dev/null)
+TERMITE := $(shell command -v termite 2>/dev/null)
 
 ifdef TERMITE
 INSTALLERS += termite

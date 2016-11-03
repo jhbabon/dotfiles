@@ -1,4 +1,4 @@
-I3 := $(shell which i3 2>/dev/null)
+I3 := $(shell command -v i3 2>/dev/null)
 
 ifdef I3
 INSTALLERS += i3

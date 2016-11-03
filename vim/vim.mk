@@ -1,4 +1,4 @@
-VIM := $(shell which vim 2>/dev/null)
+VIM := $(shell command -v vim 2>/dev/null)
 
 ifdef VIM
 INSTALLERS += vim

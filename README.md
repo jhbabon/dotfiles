@@ -39,7 +39,7 @@ The dotfiles for each app/module are in their own directory (e.g: `vim` or `zsh`
 Each of these `.mk` files is a new `Makefile` with the rules to install that module. In order to make these `.mk` files to work with the main `Makefile`, they need to be created with a structure. This could be a template for a new module:
 
 ```make
-MODULE := $(shell which module 2>/dev/null)
+MODULE := $(shell command -v module 2>/dev/null)
 
 ifdef MODULE
 INSTALLERS += module
