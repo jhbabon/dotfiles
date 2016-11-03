@@ -1,7 +1,7 @@
-# ~/.zprofile: This file is executed in fourth place after /etc/zprofile
+# ~/.zprofile: This file is executed in fourth place after /etc/zsh/zprofile
 # for interactive login sessions.
 #
-# /etc/zprofile can set the PATH, so is better to do any PATH manipulation
+# /etc/zsh/zprofile can set the PATH, so is better to do any PATH manipulation
 # here, after it
 
 if [[ -d $HOME/.cargo/bin ]] ; then

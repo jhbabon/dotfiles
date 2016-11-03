@@ -1,7 +1,18 @@
 # ~/.zshenv: This file is executed in second place after /etc/zshenv
 
-export EDITOR=vim
-export VISUAL=$EDITOR
-export PAGER=less
+local config_dir="$HOME/.config/zsh"
+
+if [[ -n $XDG_CONFIG_HOME ]] ; then
+  config_dir=$XDG_CONFIG_HOME
+fi
+
+# Load files from $HOME/.config/zsh/env.d/
+local env_d=$config_dir/env.d
+if test -d $env_d; then
+  for env in $env_d/*.zsh; do
+    test -r $env && source $env
+  done
+  unset env
+fi
 
 # vim:set ft=zsh:
