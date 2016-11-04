@@ -6,4 +6,4 @@ vim/vim/.netrwhist
 vim/vim/init.vim
 tmux/plugins
 git/template
-bundle/cache
+ruby/bundle/cache
