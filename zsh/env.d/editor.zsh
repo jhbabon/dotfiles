@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-export EDITOR=vim
+export EDITOR=nvim
 export VISUAL=$EDITOR
 export PAGER=less
 

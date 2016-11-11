@@ -4,7 +4,7 @@
 [user]
   email = juan.hernandez.babon@gmail.com
   name = Juan Hernández
-  editor = vim
+  editor = nvim
   useconfigonly = true
 
 [apply]
