@@ -33,6 +33,7 @@ filter_unmatched_urls = true
 # emit escape sequences for extra modified keys
 #modify_other_keys = false
 
+# Flat theme
 [colors]
 
 # special
