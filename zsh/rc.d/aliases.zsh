@@ -4,6 +4,7 @@ alias pingg='ping -c 4 www.duckduckgo.com'
 alias rake='noglob rake' # makes rake work nicely with zsh
 alias ..='cd ..'
 alias ...='cd ../..'
+alias rm='rm -i'
 
 alias bi='bundle install'
 alias bu='bundle update'
