@@ -13,8 +13,8 @@ zstyle ':vcs_info:*' get-revision true
 zstyle ':vcs_info:*' stagedstr '%F{green}+%f'
 zstyle ':vcs_info:*' unstagedstr '%F{red}!%f'
 # zstyle ':vcs_info:*' branchformat '%F{green}%b%f'
-zstyle ':vcs_info:*' formats ' %F{yellow}%6.6i%f %F{green}%b%f%c%u%m'
-zstyle ':vcs_info:*' actionformats ' %F{yellow}%6.6i%f %F{green}%b%f %F{red}%a%f%c%u'
+zstyle ':vcs_info:*' formats ' %F{yellow}%8.8i%f %F{green}%b%f%c%u%m'
+zstyle ':vcs_info:*' actionformats ' %F{yellow}%8.8i%f %F{green}%b%f %F{red}%a%f%c%u'
 
 # Hooks!
 # zstyle ':vcs_info:*+*:*' debug true # enable to debug hooks
