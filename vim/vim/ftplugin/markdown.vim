@@ -7,3 +7,5 @@ let g:markdown_fenced_languages = [
       \'javascript',
       \'yaml'
     \]
+
+setlocal textwidth=80
