@@ -74,6 +74,10 @@ set cursorline         " show where you are
 set report=0           " report all changes
 set lazyredraw
 
+if has('nvim')
+  set inccommand=split
+endif
+
 " Plugins
 " =============================================================================
 filetype off
