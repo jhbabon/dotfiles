@@ -109,6 +109,7 @@ Plug 'ElmCast/elm-vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'joshdick/onedark.vim'
 Plug 'tomasr/molokai'
+Plug 'mhartington/oceanic-next'
 
 Plug 'PotatoesMaster/i3-vim-syntax'
 
@@ -209,12 +210,16 @@ let g:projectionist_heuristics = {
 let g:ragtag_global_maps = 1
 
 " Colors
+
+if (has("termguicolors"))
+ set termguicolors
+endif
+
 syntax enable
-set background=dark
-colorscheme molokai
+colorscheme onedark
 
 " Lightline
-let g:lightline = { 'colorscheme': 'landscape' }
+let g:lightline = { 'colorscheme': 'one' }
 
 filetype plugin indent on
 
