@@ -16,6 +16,9 @@ alias hs='fc -l 1'
 # search command in history
 # @link: http://viget.com/extend/level-up-your-shell-game#history-expansions
 alias 'h?'='history | grep'
+# don't save current history in the global history file.
+# history will be lost once the session is closed.
+alias hide='fc -pa' 
 
 # find the option for using colors in ls, depending on the version: Linux or BSD
 ls --color -d . &>/dev/null 2>&1 && alias ls='ls --color=tty' || alias ls='ls -G'
