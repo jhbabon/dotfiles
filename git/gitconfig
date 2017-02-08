@@ -1,6 +1,3 @@
-[init]
-  templatedir = ~/.config/git/template
-
 [user]
   email = juan.hernandez.babon@gmail.com
   name = Juan Hernández
