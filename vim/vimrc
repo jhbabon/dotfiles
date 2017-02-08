@@ -87,11 +87,11 @@ if has('nvim')
   Plug 'kassio/neoterm'
 else
   Plug 'tpope/vim-dispatch'
+  Plug 'scrooloose/syntastic'
 endif
 
 Plug 'mhinz/vim-grepper'
 Plug 'vim-scripts/matchit.zip'
-Plug 'scrooloose/syntastic'
 Plug 'sheerun/vim-polyglot'
 Plug 'rust-lang/rust.vim'
 Plug 'kana/vim-smartinput'
