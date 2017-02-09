@@ -10,11 +10,11 @@ desktop() {
 
 case $1 in
   lock)
-    i3lock -n -i ~/.lock.png
+    xautolock -locknow
     ;;
   suspend)
     killall -SIGUSR1 dunst # pause notifications
-    i3lock -n -i ~/.lock.png
+    xautolock -locknow
     desktop UPower UPower Suspend
     killall -SIGUSR2 dunst # resume notifications
     ;;
