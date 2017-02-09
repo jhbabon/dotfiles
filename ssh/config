@@ -1,0 +1,26 @@
+# Main SSH config file
+#
+# This file has the basic config options for SSH.
+#
+# If you want to add more concrete options for different
+# SSH connections it is better if you add a different
+# config file in ~/.ssh/ with the extension .conf. That new
+# file will be loaded automatically by this main config file.
+#
+# Example:
+#
+#   % cat ~/.ssh/work.conf
+#   Host work
+#     HostName working.com
+#     User me
+#
+#   % ssh work # will log as me@working.com
+
+# If there is an ssh-agent running,
+# make sure the key is added to it
+AddKeysToAgent yes
+
+# Load custom config files ending by .conf
+Include *.conf
+
+# vim:set ft=sshconfig:

@@ -32,8 +32,6 @@ $(ZSHRC):
 $(ZENV_DIR) $(ZRC_DIR): $(ZCONFIG_DIR)
 	$(LINK) $(Z_SRC_DIR)/$(@F) $@
 
-# TODO: clone the repo so we can update it later
-# TODO: Add a make update/upgrade system for cloned dependencies
 $(ANTIGEN_DIR): $(ZCONFIG_DIR)
 	$(CLONE) $(ANTIGEN_REPO) $@
 
