@@ -3,6 +3,6 @@
 # Start xautolock daemon. It will use i3lock as the locking mechanism.
 
 xautolock -detectsleep \
-  -time 5 -locker "i3lock -i $HOME/.lock.png" \
+  -time 5 -locker "i3lock -e -i $HOME/.lock.png" \
   -notify 30 \
   -notifier "notify-send -u critical -t 10000 -- 'LOCKING screen in 30 seconds'"
