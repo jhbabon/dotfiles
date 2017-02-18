@@ -19,6 +19,9 @@
 [merge]
   tool = vimdiff
 
+[mergetool "vimdiff"]
+  cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
 ; only for git ~> 1.8
 [push]
   default = simple
