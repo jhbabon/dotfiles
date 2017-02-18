@@ -247,7 +247,7 @@ endfunction
 imap jj <ESC>
 
 " copy file path to clipboard
-map <leader>% :let @* = expand("%")<cr>
+map <leader>% :let @+ = expand("%")<cr>
 
 " add ; or , to the end of the line, when missing
 nnoremap <leader>; :s/\([^;]\)$/\1;/<CR>:noh<CR>
