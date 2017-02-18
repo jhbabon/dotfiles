@@ -1,5 +1,6 @@
 sandbox
 vim/vim/plugged
+vim/vim/plugin/local.vim
 vim/vim/view
 vim/vim/autoload/plug.vim*
 vim/vim/.netrwhist

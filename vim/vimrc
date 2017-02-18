@@ -1,5 +1,17 @@
 " VIM/NEOVIM config file
 
+" NOTES:
+"
+" If you want to do custom configuration you can use the file:
+"
+"     " vim runtime path
+"     $HOME/.vim/plugin/local.vim
+"     " neovim runtime path
+"     $XDG_CONFIG_HOME/nvim/plugin/local.vim
+"
+" This file is not tracked by this repository and it will be loaded
+" by default by (neo)vim.
+
 " Main settings
 " =============================================================================
 
