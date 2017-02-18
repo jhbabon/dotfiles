@@ -90,6 +90,7 @@ else
   Plug 'scrooloose/syntastic'
 endif
 
+Plug 'janko-m/vim-test'
 Plug 'mhinz/vim-grepper'
 Plug 'vim-scripts/matchit.zip'
 Plug 'sheerun/vim-polyglot'
@@ -126,8 +127,11 @@ if has('nvim')
 
   " Neoterm
   let g:neoterm_size = '15%'
-  nmap <leader>rs :call neoterm#test#run("file")<cr>
-  nmap <leader>rl :call neoterm#test#run("current")<cr>
+
+  " vim-test
+  let g:test#strategy = "neoterm"
+  nmap <leader>rs :TestFile<cr>
+  nmap <leader>rl :TestNearest<cr>
 else
   " Dispatch
   autocmd FileType ruby let b:dispatch = '/usr/bin/env ruby %'
