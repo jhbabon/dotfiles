@@ -38,3 +38,10 @@ alias pyson='python -m json.tool'
 # most used tools
 alias g='git'
 alias nv='nvim'
+
+# mimic macOS pbcopy and pbpaste
+cmd_exists 'pbcopy' || alias pbcopy='xclip -i -selection clipboard'
+cmd_exists 'pbpaste' || alias pbpaste='xclip -o -selection clipboard'
+
+# ssh with a valid TERM
+alias tssh='TERM=xterm-256color ssh'

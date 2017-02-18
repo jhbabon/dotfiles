@@ -7,6 +7,17 @@ if [[ -n $XDG_CONFIG_HOME ]] ; then
   config_dir=$XDG_CONFIG_HOME
 fi
 
+# cmd_exists:
+#   * description: Utiliy function to check if a command exists.
+#                  It is used inside these zsh config files.
+#
+#   * example:
+#
+#       cmd_exists 'echo' && alias hi="echo 'hello $USER'"
+function cmd_exists() {
+  command -v $1 > /dev/null 2>&1
+}
+
 # Plugins
 # -----------------------------------------------
 source "$config_dir/antigen/bin/antigen.zsh"

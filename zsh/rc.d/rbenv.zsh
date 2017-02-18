@@ -1,2 +1,2 @@
 # Load rbenv hooks
-command -v rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
+cmd_exists rbenv && eval "$(rbenv init -)"
