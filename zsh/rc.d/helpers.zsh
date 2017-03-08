@@ -1,9 +1,9 @@
 # Helpers
 # -----------------------------------------------
 
-# get:
-#   * description: creates a dir and gets to it.
-function get() {
+# mkcd:
+#   * description: creates a dir and goes to it.
+function mkcd() {
   mkdir -p "$1" && cd "$1";
 }
 
