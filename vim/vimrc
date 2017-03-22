@@ -215,7 +215,7 @@ let g:projectionist_heuristics = {
       \       "template": [
       \         "require 'spec_helper'",
       \         "",
-      \         "describe {camelcase|colons|rspec} do",
+      \         "describe {camelcase|capitalize|colons|rspec} do",
       \         "end"
       \       ]
       \     }
