@@ -126,6 +126,8 @@ Plug 'mhartington/oceanic-next'
 
 Plug 'PotatoesMaster/i3-vim-syntax'
 
+Plug 'MarcWeber/vim-addon-local-vimrc'
+
 if executable('fzf')
   Plug 'junegunn/fzf' " Don't do any post installation
   Plug 'junegunn/fzf.vim'
