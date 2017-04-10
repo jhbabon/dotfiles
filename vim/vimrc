@@ -128,6 +128,9 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 
 Plug 'MarcWeber/vim-addon-local-vimrc'
 
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
 if executable('fzf')
   Plug 'junegunn/fzf' " Don't do any post installation
   Plug 'junegunn/fzf.vim'
@@ -226,6 +229,14 @@ let g:projectionist_heuristics = {
 
 " Ragtag
 let g:ragtag_global_maps = 1
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
 
 " Colors
 
