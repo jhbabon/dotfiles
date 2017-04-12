@@ -26,8 +26,8 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle zsh-users/zsh-autosuggestions
 
-export MODE_INDICATOR="%F{yellow}N%f"
-antigen bundle vi-mode
+# export MODE_INDICATOR="%F{yellow}N%f"
+# antigen bundle vi-mode
 
 antigen apply
 
