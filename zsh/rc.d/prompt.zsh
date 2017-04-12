@@ -5,6 +5,7 @@ autoload -U colors
 colors
 setopt prompt_subst
 
+## Git info
 autoload -Uz vcs_info
 
 zstyle ':vcs_info:*' enable git
@@ -31,10 +32,25 @@ function +vi-git-unmerged() {
   fi
 }
 
-precmd() {
-  vcs_info
+## Vi mode
+export INSERT_MODE='%F{blue}%#%f'
+export NORMAL_MODE='%F{yellow}>%f'
+export SYMBOL=$INSERT_MODE
+
+function zle-line-init zle-keymap-select {
+  if [ $KEYMAP = vicmd ]; then
+    SYMBOL=$NORMAL_MODE
+  else
+    SYMBOL=$INSERT_MODE
+  fi
+
+  zle reset-prompt
 }
 
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+## Fish like CWD
 function _fish_cwd() {
   if [[ $PWD == $HOME ]] ; then
     echo "~"
@@ -45,5 +61,9 @@ function _fish_cwd() {
   fi
 }
 
+function precmd() {
+  vcs_info
+}
+
 local return_code="%(?..%F{red}[%?] %f)"
-PROMPT='%F{blue}$(_fish_cwd)%f${vcs_info_msg_0_} ${return_code}%F{blue}%#%f '
+PROMPT='%F{blue}$(_fish_cwd)%f${vcs_info_msg_0_} ${return_code}${SYMBOL} '
