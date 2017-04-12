@@ -33,22 +33,21 @@ function +vi-git-unmerged() {
 }
 
 ## Vi mode
-export INSERT_MODE='%F{blue}%#%f'
-export NORMAL_MODE='%F{yellow}>%f'
-export SYMBOL=$INSERT_MODE
+export VI_INSERT_SYMBOL='%F{blue}%#%f'
+export VI_NORMAL_SYMBOL='%F{yellow}>%f'
 
 function zle-line-init zle-keymap-select {
-  if [ $KEYMAP = vicmd ]; then
-    SYMBOL=$NORMAL_MODE
-  else
-    SYMBOL=$INSERT_MODE
-  fi
-
   zle reset-prompt
+  zle -R
 }
 
 zle -N zle-line-init
 zle -N zle-keymap-select
+
+### Set the prompt symbol based on the current VI mode
+function _prompt_symbol() {
+  echo "${${KEYMAP/vicmd/$VI_NORMAL_SYMBOL}/(main|viins)/$VI_INSERT_SYMBOL}"
+}
 
 ## Fish like CWD
 function _fish_cwd() {
@@ -66,4 +65,4 @@ function precmd() {
 }
 
 local return_code="%(?..%F{red}[%?] %f)"
-PROMPT='%F{blue}$(_fish_cwd)%f${vcs_info_msg_0_} ${return_code}${SYMBOL} '
+PROMPT='%F{blue}$(_fish_cwd)%f${vcs_info_msg_0_} ${return_code}$(_prompt_symbol) '
