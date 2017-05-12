@@ -35,8 +35,22 @@ function +vi-git-unmerged() {
 ## Vi mode
 export VI_INSERT_SYMBOL='%F{blue}%#%f'
 export VI_NORMAL_SYMBOL='%F{yellow}>%f'
+export CURRENT_KEYMAP='main'
 
 function zle-line-init zle-keymap-select {
+  # In some scenarios, like when resizing the terminal
+  # (WINCH Signal), the KEYMAP could be empty, and I don't know why.
+  #
+  # If is empty we will not be able to print the correct prompt symbol.
+  # That's why we save the KEYMAP in another variable, CURRENT_KEYMAP,
+  # and we don't overwrite it in case we lose the original KEYMAP.
+  #
+  # This way we can keep printing the right prompt symbol even if
+  # we resize the terminal.
+  if [[ -n $KEYMAP ]]; then
+    export CURRENT_KEYMAP=$KEYMAP
+  fi
+
   zle reset-prompt
   zle -R
 }
@@ -46,7 +60,7 @@ zle -N zle-keymap-select
 
 ### Set the prompt symbol based on the current VI mode
 function _prompt_symbol() {
-  echo "${${KEYMAP/vicmd/$VI_NORMAL_SYMBOL}/(main|viins)/$VI_INSERT_SYMBOL}"
+  echo "${${CURRENT_KEYMAP/vicmd/$VI_NORMAL_SYMBOL}/(main|viins)/$VI_INSERT_SYMBOL}"
 }
 
 ## Fish like CWD
