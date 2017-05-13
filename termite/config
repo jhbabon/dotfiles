@@ -8,7 +8,7 @@ dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
 
-font = Input Mono Narrow 10
+font = Hack Regular 10
 
 scrollback_lines = 10000
 search_wrap = true
