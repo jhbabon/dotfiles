@@ -63,7 +63,7 @@
   exclude = !sh -c 'mkdir -p .git/info && echo "$1" >> .git/info/exclude' -
   ex      = !git exclude
 
-  # select a branch from a menu thanks to fzf script.
+  # select a branch from a menu thanks to scout.
   select = !git branch | cut -c 3- | scout | xargs git checkout
   sl     = !git select
 
