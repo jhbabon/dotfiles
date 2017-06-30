@@ -181,7 +181,9 @@ nnoremap <leader>gd :Gdiff<CR>
 
 " Scout
 if executable('scout')
-  let g:scout_find_files_command = 'rg --files --hidden --follow --glob "!.git/*" 2>/dev/null'
+  if executable('rg')
+    let g:scout_find_files_command = 'rg --files --hidden --follow --glob "!.git/*" 2>/dev/null'
+  endif
 
   nnoremap <leader>ff :ScoutFiles<cr>
   nnoremap <leader>fb :ScoutBuffers<cr>
