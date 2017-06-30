@@ -83,7 +83,6 @@ set shortmess=aI       " modify the error and info messages
 set scrolloff=3        " screen lines to keep above and below the cursor
 set virtualedit+=block " put the cursor anywhere in visual blocks
 set cursorline         " show where you are
-set report=0           " report all changes
 set lazyredraw
 
 if has('nvim')
@@ -131,9 +130,8 @@ Plug 'MarcWeber/vim-addon-local-vimrc'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
-if executable('fzf')
-  Plug 'junegunn/fzf' " Don't do any post installation
-  Plug 'junegunn/fzf.vim'
+if executable('scout')
+  Plug 'jhbabon/scout.vim'
 endif
 call plug#end()
 
@@ -181,13 +179,12 @@ nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gl :Glog<CR>
 nnoremap <leader>gd :Gdiff<CR>
 
-" FZF
-if executable('fzf')
-  let g:fzf_command_prefix = 'FZF'
-  nnoremap <leader>ff :FZFFiles<cr>
-  nnoremap <leader>fb :FZFBuffers<cr>
-  nnoremap <leader>ft :FZFTags<cr>
-  nnoremap <leader>fh :FZFHistory<cr>
+" Scout
+if executable('scout')
+  let g:scout_find_files_command = 'rg --files --hidden --follow --glob "!.git/*" 2>/dev/null'
+
+  nnoremap <leader>ff :ScoutFiles<cr>
+  nnoremap <leader>fb :ScoutBuffers<cr>
 endif
 
 nnoremap <leader>fe :Explore<cr>
