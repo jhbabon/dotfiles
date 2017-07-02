@@ -120,8 +120,9 @@ Plug 'ElmCast/elm-vim'
 
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'joshdick/onedark.vim'
-Plug 'tomasr/molokai'
-Plug 'mhartington/oceanic-next'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'ayu-theme/ayu-vim'
+Plug 'jdsimcoe/panic.vim'
 
 Plug 'PotatoesMaster/i3-vim-syntax'
 
@@ -246,7 +247,8 @@ if (has("termguicolors"))
 endif
 
 syntax enable
-colorscheme onedark
+set background=dark
+colorscheme palenight
 
 " Lightline
 let g:lightline = { 'colorscheme': 'one' }
