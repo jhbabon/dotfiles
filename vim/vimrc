@@ -143,6 +143,7 @@ if has('nvim')
 
   " Neoterm
   let g:neoterm_size = '15%'
+  let g:neoterm_fixedsize = 1
   let g:neoterm_autoscroll = 1
 
   " vim-test
