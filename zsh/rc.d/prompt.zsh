@@ -79,4 +79,5 @@ function precmd() {
 }
 
 local return_code="%(?..%F{red}[%?] %f)"
-PROMPT='%F{blue}$(_fish_cwd)%f${vcs_info_msg_0_} ${return_code}$(_prompt_symbol) '
+local jobs_running="%(1j.%F{green}[jobs: %j] .)"
+PROMPT='%F{blue}$(_fish_cwd)%f${vcs_info_msg_0_} ${jobs_running}${return_code}$(_prompt_symbol) '
