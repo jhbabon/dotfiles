@@ -331,10 +331,14 @@ nnoremap <Plug>(list-location-close) :lclose<cr>
 
 " Leader Guide mappings
 let g:lmap =  {}
-let g:lmap.m = { 'name': '(misc)' }
-nmap <silent> <leader>m; <Plug>(misc-semicolon-eol)
-nmap <silent> <leader>m, <Plug>(misc-comma-eol)
-nmap <silent> <leader>m<space> <Plug>(misc-strip-trailing-whitespace)
+
+let g:lmap.b = { 'name': '(buffers)' }
+nmap <leader>bb <Plug>(buffers-open-buffer)
+
+let g:lmap.f = { 'name': '(files)' }
+nmap <leader>ff <Plug>(files-open-file)
+nmap <leader>ft <Plug>(files-tree-explorer)
+nmap <leader>fp <Plug>(files-copy-path)
 
 let g:lmap.g = { 'name': '(git)' }
 nmap <leader>gs <Plug>(git-status)
@@ -342,22 +346,18 @@ nmap <leader>gc <Plug>(git-commit)
 nmap <leader>gl <Plug>(git-log)
 nmap <leader>gd <Plug>(git-diff)
 
-let g:lmap.f = { 'name': '(files)' }
-nmap <leader>ff <Plug>(files-open-file)
-nmap <leader>ft <Plug>(files-tree-explorer)
-nmap <leader>fp <Plug>(files-copy-path)
+let g:lmap.l = { 'name': '(lists)' }
+let g:lmap.l.l = { 'name': '(location-list)' }
+nmap <leader>llo <Plug>(list-location-open)
+nmap <leader>llc <Plug>(list-location-close)
+let g:lmap.l.q = { 'name': '(quick-list)' }
+nmap <leader>lqo <Plug>(list-quick-open)
+nmap <leader>lqc <Plug>(list-quick-close)
 
-let g:lmap.b = { 'name': '(buffers)' }
-nmap <leader>bb <Plug>(buffers-open-buffer)
-
-let g:lmap.t = { 'name': '(terminal-window)' }
-nmap <leader>tr <Plug>(terminal-run-command)
-nmap <leader>to <Plug>(terminal-open)
-nmap <leader>tc <Plug>(terminal-close)
-
-let g:lmap.t.t = { 'name': '(tests)' }
-nmap <leader>ttf <Plug>(terminal-test-file)
-nmap <leader>ttn <Plug>(terminal-test-nearest)
+let g:lmap.m = { 'name': '(misc)' }
+nmap <silent> <leader>m; <Plug>(misc-semicolon-eol)
+nmap <silent> <leader>m, <Plug>(misc-comma-eol)
+nmap <silent> <leader>m<space> <Plug>(misc-strip-trailing-whitespace)
 
 let g:lmap.s = { 'name': '(search)' }
 nmap <leader>sw <Plug>(search-current-word)
@@ -383,3 +383,12 @@ nmap <leader>skq <Plug>(search-ack-query)
 let g:lmap.s.g = { 'name': '(search-with-grep)' }
 nmap <leader>sgw <Plug>(search-grep-current-word)
 nmap <leader>sgq <Plug>(search-grep-query)
+
+let g:lmap.t = { 'name': '(terminal-window)' }
+nmap <leader>tr <Plug>(terminal-run-command)
+nmap <leader>to <Plug>(terminal-open)
+nmap <leader>tc <Plug>(terminal-close)
+
+let g:lmap.t.t = { 'name': '(tests)' }
+nmap <leader>ttf <Plug>(terminal-test-file)
+nmap <leader>ttn <Plug>(terminal-test-nearest)
