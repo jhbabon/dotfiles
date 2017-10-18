@@ -134,6 +134,8 @@ Plug 'honza/vim-snippets'
 if executable('scout')
   Plug 'jhbabon/scout.vim'
 endif
+
+Plug 'hecal3/vim-leader-guide'
 call plug#end()
 
 if has('nvim')
@@ -146,28 +148,41 @@ if has('nvim')
   let g:neoterm_fixedsize = 1
   let g:neoterm_autoscroll = 1
 
+  nnoremap <Plug>(terminal-run-command) :T<space>
+  nnoremap <Plug>(terminal-open) :Topen<cr>
+  nnoremap <Plug>(terminal-close) :Tclose<cr>
+
   " vim-test
   let g:test#strategy = "neoterm"
-  nmap <leader>rs :TestFile<cr>
-  nmap <leader>rl :TestNearest<cr>
+
+  nnoremap <Plug>(terminal-test-file) :TestFile<cr>
+  nnoremap <Plug>(terminal-test-nearest) :TestNearest<cr>
 else
   " Dispatch
   autocmd FileType ruby let b:dispatch = '/usr/bin/env ruby %'
   autocmd FileType rust let b:dispatch = 'cargo build'
-  nmap <leader>d :Dispatch<cr>
-  nmap <leader>D :Dispatch!<cr>
-  nmap <leader>st :Start<space>
-  nmap <leader>St :Start!<space>
-  nmap <localleader>d :Dispatch<space>
-  nmap <localleader>D :Dispatch!<space>
 endif
 
 " Grepper
-let g:grepper = { 'tools': ['rg', 'git', 'ag'] }
-nnoremap \ :Grepper -query<space>
-" bind K to grep word under cursor
-nnoremap K :Grepper -noprompt -cword<CR>
-nnoremap <leader>s :Grepper<CR>
+let g:grepper = { 'tools': ['rg', 'git', 'ag', 'ack', 'grep'] }
+
+nnoremap <Plug>(search-current-word) :Grepper -noprompt -cword<cr>
+nnoremap <Plug>(search-query) :Grepper -query<space>
+
+nnoremap <Plug>(search-rg-current-word) :Grepper -tool rg -noprompt -cword<cr>
+nnoremap <Plug>(search-rg-query) :Grepper -tool rg -query<space>
+
+nnoremap <Plug>(search-git-current-word) :Grepper -tool git -noprompt -cword<cr>
+nnoremap <Plug>(search-git-query) :Grepper -tool git -query<space>
+
+nnoremap <Plug>(search-ag-current-word) :Grepper -tool ag -noprompt -cword<cr>
+nnoremap <Plug>(search-ag-query) :Grepper -tool ag -query<space>
+
+nnoremap <Plug>(search-ack-current-word) :Grepper -tool ack -noprompt -cword<cr>
+nnoremap <Plug>(search-ack-query) :Grepper -tool ack -query<space>
+
+nnoremap <Plug>(search-grep-current-word) :Grepper -tool grep -noprompt -cword<cr>
+nnoremap <Plug>(search-grep-query) :Grepper -tool grep -query<space>
 
 " Blocke
 let g:blockle_mapping = '<leader>rb'
@@ -176,10 +191,10 @@ let g:blockle_mapping = '<leader>rb'
 let g:elm_setup_keybindings = 0
 
 " Fugitive
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>gl :Glog<CR>
-nnoremap <leader>gd :Gdiff<CR>
+nnoremap <Plug>(git-status) :Gstatus<cr>
+nnoremap <Plug>(git-commit) :Gcommit<cr>
+nnoremap <Plug>(git-log) :Glog<cr>
+nnoremap <Plug>(git-diff) :Gdiff<cr>
 
 " Scout
 if executable('scout')
@@ -187,11 +202,11 @@ if executable('scout')
     let g:scout_find_files_command = 'rg --files --hidden --follow --glob "!.git/*" 2>/dev/null'
   endif
 
-  nnoremap <leader>ff :ScoutFiles<cr>
-  nnoremap <leader>fb :ScoutBuffers<cr>
+  nnoremap <Plug>(files-open-file) :ScoutFiles<cr>
+  nnoremap <Plug>(buffers-open-buffer) :ScoutBuffers<cr>
 endif
 
-nnoremap <leader>fe :Explore<cr>
+nnoremap <Plug>(files-tree-explorer) :Explore<cr>
 
 " Projectionist
 if !exists('g:projectionist_transformations')
@@ -254,6 +269,22 @@ colorscheme palenight
 " Lightline
 let g:lightline = { 'colorscheme': 'one' }
 
+" LeaderGuide
+" Init the main leaderGuide dictionary
+let g:lmap =  {}
+
+function! s:my_displayfunc()
+  let g:leaderGuide#displayname =
+        \ substitute(g:leaderGuide#displayname, '\c<cr>$', '', '')
+  let g:leaderGuide#displayname =
+        \ substitute(g:leaderGuide#displayname, '^<Plug>', '', '')
+endfunction
+let g:leaderGuide_displayfunc = [function("s:my_displayfunc")]
+
+call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
+nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<cr>
+vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<cr>
+
 filetype plugin indent on
 
 " Functions
@@ -280,21 +311,75 @@ endfunction
 imap jj <ESC>
 
 " copy file path to clipboard
-map <leader>% :let @+ = expand("%")<cr>
+map <Plug>(files-copy-path) :let @+ = expand("%")<cr>
 
 " add ; or , to the end of the line, when missing
-nnoremap <leader>; :s/\([^;]\)$/\1;/<CR>:noh<CR>
-nnoremap <leader>, :s/\([^,]\)$/\1,/<CR>:noh<CR>
+nnoremap <Plug>(misc-semicolon-eol) :s/\([^;]\)$/\1;/<cr>:noh<cr>
+nnoremap <Plug>(misc-comma-eol) :s/\([^,]\)$/\1,/<cr>:noh<cr>
 
 " clear highlighted search
-map <leader>nh :nohl<CR>
+nnoremap <Plug>(search-clear-highlighted) :nohl<cr>
 
 " Map trailing whitespace method
-nmap <silent> <leader><space> :call StripTrailingWhitespace()<CR>
+nnoremap <Plug>(misc-strip-trailing-whitespace) :call StripTrailingWhitespace()<cr>
 
 " quick list and location list
-map <leader>qo :copen<CR>
-map <leader>lo :lopen<CR>
+nnoremap <Plug>(list-quick-open) :copen<cr>
+nnoremap <Plug>(list-location-open) :lopen<cr>
+nnoremap <Plug>(list-quick-close) :cclose<cr>
+nnoremap <Plug>(list-location-close) :lclose<cr>
 
-map <leader>qc :cclose<CR>
-map <leader>lc :lclose<CR>
+" Leader Guide mappings
+let g:lmap =  {}
+let g:lmap.m = { 'name': '(misc)' }
+nmap <silent> <leader>m; <Plug>(misc-semicolon-eol)
+nmap <silent> <leader>m, <Plug>(misc-comma-eol)
+nmap <silent> <leader>m<space> <Plug>(misc-strip-trailing-whitespace)
+
+let g:lmap.g = { 'name': '(git)' }
+nmap <leader>gs <Plug>(git-status)
+nmap <leader>gc <Plug>(git-commit)
+nmap <leader>gl <Plug>(git-log)
+nmap <leader>gd <Plug>(git-diff)
+
+let g:lmap.f = { 'name': '(files)' }
+nmap <leader>ff <Plug>(files-open-file)
+nmap <leader>ft <Plug>(files-tree-explorer)
+nmap <leader>fp <Plug>(files-copy-path)
+
+let g:lmap.b = { 'name': '(buffers)' }
+nmap <leader>bb <Plug>(buffers-open-buffer)
+
+let g:lmap.t = { 'name': '(terminal-window)' }
+nmap <leader>tr <Plug>(terminal-run-command)
+nmap <leader>to <Plug>(terminal-open)
+nmap <leader>tc <Plug>(terminal-close)
+
+let g:lmap.t.t = { 'name': '(tests)' }
+nmap <leader>ttf <Plug>(terminal-test-file)
+nmap <leader>ttn <Plug>(terminal-test-nearest)
+
+let g:lmap.s = { 'name': '(search)' }
+nmap <leader>sw <Plug>(search-current-word)
+nmap <leader>sq <Plug>(search-query)
+nmap <leader>sc <Plug>(search-clear-highlighted)
+
+let g:lmap.s.r = { 'name': '(search-with-rg)' }
+nmap <leader>srw <Plug>(search-rg-current-word)
+nmap <leader>srq <Plug>(search-rg-query)
+
+let g:lmap.s.i = { 'name': '(search-with-git)' }
+nmap <leader>siw <Plug>(search-git-current-word)
+nmap <leader>siq <Plug>(search-git-query)
+
+let g:lmap.s.a = { 'name': '(search-with-ag)' }
+nmap <leader>saw <Plug>(search-ag-current-word)
+nmap <leader>saq <Plug>(search-ag-query)
+
+let g:lmap.s.k = { 'name': '(search-with-ack)' }
+nmap <leader>skw <Plug>(search-ack-current-word)
+nmap <leader>skq <Plug>(search-ack-query)
+
+let g:lmap.s.g = { 'name': '(search-with-grep)' }
+nmap <leader>sgw <Plug>(search-grep-current-word)
+nmap <leader>sgq <Plug>(search-grep-query)
