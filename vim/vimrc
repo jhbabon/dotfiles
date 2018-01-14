@@ -123,6 +123,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'jdsimcoe/panic.vim'
+Plug 'fxn/vim-monochrome'
 
 Plug 'PotatoesMaster/i3-vim-syntax'
 
@@ -263,11 +264,12 @@ if (has("termguicolors"))
 endif
 
 syntax enable
-set background=dark
-colorscheme palenight
+set background=light
+let ayucolor="light"
+colorscheme ayu
 
 " Lightline
-let g:lightline = { 'colorscheme': 'one' }
+let g:lightline = { 'colorscheme': 'PaperColor' }
 
 " LeaderGuide
 " Init the main leaderGuide dictionary
