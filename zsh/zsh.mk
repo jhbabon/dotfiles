@@ -9,16 +9,24 @@ ZCONFIG_DIR  := $(CONFIG_DIR)/zsh
 ANTIGEN_DIR  := $(ZCONFIG_DIR)/antigen
 ANTIGEN_REPO := https://github.com/zsh-users/antigen.git
 ZDOT_DIR     := $(DST_DIR)
-ZRC_DIR      := $(ZCONFIG_DIR)/rc.d
-ZENV_DIR     := $(ZCONFIG_DIR)/env.d
 ZSHRC        := $(ZDOT_DIR)/.zshrc
 ZSHENV       := $(ZDOT_DIR)/.zshenv
 ZPROFILE     := $(ZDOT_DIR)/.zprofile
 ZCACHE_DIR   := $(DST_DIR)/.cache/zsh
 
+ZRC_SRC_DIR  := $(Z_SRC_DIR)/rc.d
+ZENV_SRC_DIR := $(Z_SRC_DIR)/env.d
+ZRC_DST_DIR  := $(ZCONFIG_DIR)/rc.d
+ZENV_DST_DIR := $(ZCONFIG_DIR)/env.d
+
+ZRC_SRC_FILES := $(wildcard $(ZRC_SRC_DIR)/*)
+ZRC_DST_FILES := $(patsubst $(ZRC_SRC_DIR)/%, $(ZRC_DST_DIR)/%, $(ZRC_SRC_FILES))
+ZENV_SRC_FILES := $(wildcard $(ZENV_SRC_DIR)/*)
+ZENV_DST_FILES := $(patsubst $(ZENV_SRC_DIR)/%, $(ZENV_DST_DIR)/%, $(ZENV_SRC_FILES))
+
 .PHONY: zsh clean_zsh
 
-zsh: banner_install_zsh $(ZCACHE_DIR) $(ZENV_DIR) $(ZRC_DIR) $(ANTIGEN_DIR) $(ZSHENV) $(ZSHRC) $(ZPROFILE)
+zsh: banner_install_zsh $(ZCACHE_DIR) $(ZENV_DST_FILES) $(ZRC_DST_FILES) $(ANTIGEN_DIR) $(ZSHENV) $(ZSHRC) $(ZPROFILE)
 
 $(ZPROFILE):
 	$(LINK) $(Z_SRC_DIR)/zprofile $@
@@ -29,8 +37,14 @@ $(ZSHENV):
 $(ZSHRC):
 	$(LINK) $(Z_SRC_DIR)/zshrc $@
 
-$(ZENV_DIR) $(ZRC_DIR): $(ZCONFIG_DIR)
-	$(LINK) $(Z_SRC_DIR)/$(@F) $@
+$(ZENV_DST_FILES): $(ZENV_DST_DIR)
+	$(LINK) $(ZENV_SRC_DIR)/$(@F) $@
+
+$(ZRC_DST_FILES): $(ZRC_DST_DIR)
+	$(LINK) $(ZRC_SRC_DIR)/$(@F) $@
+
+$(ZENV_DST_DIR) $(ZRC_DST_DIR): $(ZCONFIG_DIR)
+	$(MKDIR) $@
 
 $(ANTIGEN_DIR): $(ZCONFIG_DIR)
 	$(CLONE) $(ANTIGEN_REPO) $@
