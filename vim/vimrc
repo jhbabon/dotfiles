@@ -124,6 +124,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'jdsimcoe/panic.vim'
 Plug 'fxn/vim-monochrome'
+Plug 'dracula/vim'
 
 Plug 'PotatoesMaster/i3-vim-syntax'
 
@@ -261,9 +262,8 @@ if (has("termguicolors"))
 endif
 
 syntax enable
-set background=light
-let ayucolor="light"
-colorscheme ayu
+set background=dark
+colorscheme dracula
 
 " Lightline
 let g:lightline = { 'colorscheme': 'one' }
