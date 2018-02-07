@@ -9,7 +9,7 @@ setopt inc_append_history
 setopt share_history
 
 # keep more history
-export HISTFILE=$HOME/.zshistory
+export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=10000
 export SAVEHIST=10000
 export DIRSTACKSIZE=50
