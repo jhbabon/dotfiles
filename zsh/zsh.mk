@@ -11,7 +11,6 @@ ANTIGEN_REPO := https://github.com/zsh-users/antigen.git
 ZDOT_DIR     := $(DST_DIR)
 ZSHRC        := $(ZDOT_DIR)/.zshrc
 ZSHENV       := $(ZDOT_DIR)/.zshenv
-ZPROFILE     := $(ZDOT_DIR)/.zprofile
 ZCACHE_DIR   := $(DST_DIR)/.cache/zsh
 
 ZRC_SRC_DIR  := $(Z_SRC_DIR)/rc.d
@@ -26,10 +25,7 @@ ZENV_DST_FILES := $(patsubst $(ZENV_SRC_DIR)/%, $(ZENV_DST_DIR)/%, $(ZENV_SRC_FI
 
 .PHONY: zsh clean_zsh
 
-zsh: banner_install_zsh $(ZCACHE_DIR) $(ZENV_DST_FILES) $(ZRC_DST_FILES) $(ANTIGEN_DIR) $(ZSHENV) $(ZSHRC) $(ZPROFILE)
-
-$(ZPROFILE):
-	$(LINK) $(Z_SRC_DIR)/zprofile $@
+zsh: banner_install_zsh $(ZCACHE_DIR) $(ZENV_DST_FILES) $(ZRC_DST_FILES) $(ANTIGEN_DIR) $(ZSHENV) $(ZSHRC)
 
 $(ZSHENV):
 	$(LINK) $(Z_SRC_DIR)/zshenv $@
