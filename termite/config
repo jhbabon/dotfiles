@@ -34,42 +34,88 @@ filter_unmatched_urls = true
 #modify_other_keys = false
 
 # Flat theme
+# [colors]
+#
+# # special
+# foreground    = #e0e0e0
+# reground_bold = #e0e0e0
+# rsor          = #e0e0e0
+# background    = #2c3e50
+#
+# # black
+# color0  = #2c3e50
+# color8  = #95a5a6
+#
+# # red
+# color1  = #e74c3c
+# color9  = #e74c3c
+#
+# # green
+# color2  = #2ecc71
+# color10 = #2ecc71
+#
+# # yellow
+# color3  = #f1c40f
+# color11 = #f1c40f
+#
+# # blue
+# color4  = #3498db
+# color12 = #3498db
+#
+# # magenta
+# color5  = #9b59b6
+# color13 = #9b59b6
+#
+# # cyan
+# color6  = #1abc9c
+# color14 = #1abc9c
+#
+# # white
+# color7  = #e0e0e0
+# color15 = #ecf0f1
+
+# Dracula theme for termite
+# https://github.com/dracula/termite
+# Copyright 2013-present, All rights reserved
+# Code licensed under the MIT license
+
 [colors]
 
 # special
-foreground    = #e0e0e0
-reground_bold = #e0e0e0
-rsor          = #e0e0e0
-background    = #2c3e50
+foreground      = #f8f8f2
+foreground_bold = #f8f8f2
+cursor          = #f8f8f2
+background      = #282a36
 
 # black
-color0  = #2c3e50
-color8  = #95a5a6
+color0  = #000000
+color8  = #4d4d4d
 
 # red
-color1  = #e74c3c
-color9  = #e74c3c
+color1  = #ff5555
+color9  = #ff6e67
 
 # green
-color2  = #2ecc71
-color10 = #2ecc71
+color2  = #50fa7b
+color10 = #5af78e
 
 # yellow
-color3  = #f1c40f
-color11 = #f1c40f
+color3  = #f1fa8c
+color11 = #f4f99d
 
 # blue
-color4  = #3498db
-color12 = #3498db
+color4  = #bd93f9
+color12 = #caa9fa
 
 # magenta
-color5  = #9b59b6
-color13 = #9b59b6
+color5  = #ff79c6
+color13 = #ff92d0
 
 # cyan
-color6  = #1abc9c
-color14 = #1abc9c
+color6  = #8be9fd
+color14 = #9aedfe
 
 # white
-color7  = #e0e0e0
-color15 = #ecf0f1
+color7  = #bfbfbf
+color15 = #e6e6e6
+
