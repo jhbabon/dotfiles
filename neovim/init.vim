@@ -1,16 +1,14 @@
-" VIM/NEOVIM config file
+" NEOVIM config file
 
 " NOTES:
 "
 " If you want to do custom configuration you can use the file:
 "
-"     " vim runtime path
-"     $HOME/.vim/plugin/local.vim
 "     " neovim runtime path
 "     $XDG_CONFIG_HOME/nvim/plugin/local.vim
 "
 " This file is not tracked by this repository and it will be loaded
-" by default by (neo)vim.
+" by default by neovim.
 
 " Main settings
 " =============================================================================
@@ -85,21 +83,14 @@ set virtualedit+=block " put the cursor anywhere in visual blocks
 set cursorline         " show where you are
 set lazyredraw
 
-if has('nvim')
-  set inccommand=split
-endif
+set inccommand=split
 
 " Plugins
 " =============================================================================
 filetype off
 call plug#begin()
-if has('nvim')
-  Plug 'neomake/neomake'
-  Plug 'kassio/neoterm'
-else
-  Plug 'tpope/vim-dispatch'
-  Plug 'scrooloose/syntastic'
-endif
+Plug 'neomake/neomake'
+Plug 'kassio/neoterm'
 
 Plug 'janko-m/vim-test'
 Plug 'mhinz/vim-grepper'
@@ -140,30 +131,24 @@ endif
 Plug 'hecal3/vim-leader-guide'
 call plug#end()
 
-if has('nvim')
-  " Neomake
-  autocmd! BufReadPost,BufWritePost * Neomake
-  let g:neomake_open_list = 0
+" Neomake
+autocmd! BufReadPost,BufWritePost * Neomake
+let g:neomake_open_list = 0
 
-  " Neoterm
-  let g:neoterm_size = '15%'
-  let g:neoterm_fixedsize = 1
-  let g:neoterm_autoscroll = 1
+" Neoterm
+let g:neoterm_size = '15%'
+let g:neoterm_fixedsize = 1
+let g:neoterm_autoscroll = 1
 
-  nnoremap <Plug>(console-run-command) :T<space>
-  nnoremap <Plug>(console-open) :Topen<cr>
-  nnoremap <Plug>(console-close) :Tclose<cr>
+nnoremap <Plug>(console-run-command) :T<space>
+nnoremap <Plug>(console-open) :Topen<cr>
+nnoremap <Plug>(console-close) :Tclose<cr>
 
-  " vim-test
-  let g:test#strategy = "neoterm"
+" vim-test
+let g:test#strategy = "neoterm"
 
-  nnoremap <Plug>(test-file) :TestFile<cr>
-  nnoremap <Plug>(test-nearest) :TestNearest<cr>
-else
-  " Dispatch
-  autocmd FileType ruby let b:dispatch = '/usr/bin/env ruby %'
-  autocmd FileType rust let b:dispatch = 'cargo build'
-endif
+nnoremap <Plug>(test-file) :TestFile<cr>
+nnoremap <Plug>(test-nearest) :TestNearest<cr>
 
 " Grepper
 let g:grepper = { 'tools': ['rg', 'git', 'ag', 'ack', 'grep'] }
