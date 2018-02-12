@@ -53,7 +53,9 @@ $(ZCACHE_DIR):
 
 clean_zsh: banner_clean_zsh
 	$(RM) $(DST_DIR)/.antigen
-	$(RM) $(ZCONFIG_DIR)
+	$(RM) $(ANTIGEN_DIR)
+	$(RM) $(ZRC_DST_FILES)
+	$(RM) $(ZENV_DST_FILES)
 	$(RM) $(ZSHENV)
 	$(RM) $(ZSHRC)
 endif
