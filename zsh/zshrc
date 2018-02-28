@@ -1,5 +1,5 @@
 # ~/.zshrc: This file is executed after /etc/zshrc, and it is executed
-# in any situation. Put here any customization.
+# in interacive shells. Put here any customization.
 
 local config_dir="$HOME/.config/zsh"
 

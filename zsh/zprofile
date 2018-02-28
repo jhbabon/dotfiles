@@ -1,0 +1,14 @@
+# ~/.zprofile: This file is executed after /etc/zprofile, and it is executed
+# in login shells. It is executed after ~/.zshenv and usually the main
+# /etc/zprofile would reset the PATH, so better to put any PATH modification
+# here.
+
+# rust PATH changes
+if [[ -d $HOME/.cargo/bin ]] ; then
+  export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# local bins
+export PATH=".safe/../bin:$HOME/.local/bin:$PATH"
+
+# vim:set ft=zsh:

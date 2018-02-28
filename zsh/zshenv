@@ -15,4 +15,10 @@ if test -d $env_d; then
   unset env
 fi
 
+if [[ ! -o login ]]; then
+  # Since there are custom PATH modifications in the zprofile,
+  # let's load it as if we were in a login shell
+  source "$HOME/.zprofile"
+fi
+
 # vim:set ft=zsh:
