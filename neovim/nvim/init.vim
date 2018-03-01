@@ -96,7 +96,6 @@ Plug 'janko-m/vim-test'
 Plug 'mhinz/vim-grepper'
 Plug 'vim-scripts/matchit.zip'
 Plug 'sheerun/vim-polyglot'
-Plug 'rust-lang/rust.vim'
 Plug 'kana/vim-smartinput'
 Plug 'jgdavey/vim-blockle'
 Plug 'itchyny/lightline.vim'
@@ -116,8 +115,6 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'jdsimcoe/panic.vim'
 Plug 'fxn/vim-monochrome'
 Plug 'dracula/vim'
-
-Plug 'PotatoesMaster/i3-vim-syntax'
 
 Plug 'MarcWeber/vim-addon-local-vimrc'
 
