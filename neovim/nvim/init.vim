@@ -106,7 +106,6 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-projectionist'
-Plug 'ElmCast/elm-vim'
 
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'joshdick/onedark.vim'
