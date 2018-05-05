@@ -184,7 +184,9 @@ if executable('scout')
   endif
 
   nnoremap <Plug>(files-open-file) :ScoutFiles<cr>
+  nnoremap <Plug>(files-open-file-current-dir) :ScoutFiles %:h<cr>
   nnoremap <Plug>(buffers-open-buffer) :ScoutBuffers<cr>
+  nnoremap <Plug>(buffers-open-buffer-current-dir) :ScoutBuffers %:h<cr>
 endif
 
 nnoremap <Plug>(files-tree-explorer) :Explore<cr>
@@ -315,6 +317,7 @@ let g:lmap =  {}
 
 let g:lmap.b = { 'name': '(buffers)' }
 nmap <leader>bb <Plug>(buffers-open-buffer)
+nmap <leader>bd <Plug>(buffers-open-buffer-current-dir)
 
 let g:lmap.c = { 'name': '(console-window)' }
 nmap <leader>cr <Plug>(console-run-command)
@@ -323,6 +326,7 @@ nmap <leader>cc <Plug>(console-close)
 
 let g:lmap.f = { 'name': '(files)' }
 nmap <leader>ff <Plug>(files-open-file)
+nmap <leader>fd <Plug>(files-open-file-current-dir)
 nmap <leader>ft <Plug>(files-tree-explorer)
 nmap <leader>fp <Plug>(files-copy-path)
 
