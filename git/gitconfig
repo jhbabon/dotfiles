@@ -31,7 +31,6 @@
   d     = diff
   dc    = diff --cached
   br    = branch
-  erase = branch -d
 
   c     = commit
   amend = commit --amend
@@ -45,23 +44,22 @@
   cob = checkout -b
 
   rb  = rebase
-  rbc = rebase --continue
-  rbs = rebase --skip
-  ri  = rebase -i
 
   who = shortlog -n -s --no-merges
   up  = pull --rebase
   l   = log --graph --pretty=format:'%C(auto)%h%d%Creset | %Cgreen%an%Creset | %s | %Cblue%cr%Creset'
 
-  name = rev-parse --abbrev-ref HEAD # branch name
+  bname = rev-parse --abbrev-ref HEAD # branch name
 
-  publish = !git push -u origin $(git name)
+  publish = !git push -u origin $(git bname)
 
   draft = stash save -u
 
   # exclude: http://coderwall.com/p/n1d-na
   exclude = !sh -c 'mkdir -p .git/info && echo "$1" >> .git/info/exclude' -
   ex      = !git exclude
+
+  ignore = !sh -c 'echo "$1" >> .gitignore' -
 
   # select a branch from a menu thanks to scout.
   select = !git branch | cut -c 3- | scout | xargs git checkout
