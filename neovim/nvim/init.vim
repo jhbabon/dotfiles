@@ -86,6 +86,11 @@ set lazyredraw
 
 set inccommand=split
 
+" Experimental: save when leaving insert mode
+set updatetime=750
+au InsertLeave * nested update
+au CursorHold * nested update
+
 " Plugins
 " =============================================================================
 filetype off
