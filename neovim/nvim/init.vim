@@ -126,7 +126,7 @@ if executable('scout')
   Plug 'jhbabon/scout.vim'
 endif
 
-Plug 'hecal3/vim-leader-guide'
+Plug 'liuchengxu/vim-which-key'
 call plug#end()
 
 " Ale
@@ -281,21 +281,26 @@ let g:lightline = {
       \   }
       \ }
 
-" LeaderGuide
-" Init the main leaderGuide dictionary
-let g:lmap =  {}
+" Which Key
+autocmd! FileType which_key
+autocmd  FileType which_key set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
-function! s:my_displayfunc()
-  let g:leaderGuide#displayname =
-        \ substitute(g:leaderGuide#displayname, '\c<cr>$', '', '')
-  let g:leaderGuide#displayname =
-        \ substitute(g:leaderGuide#displayname, '^<Plug>', '', '')
+let g:which_key_map =  {}
+
+call which_key#register('<Space>', "g:which_key_map")
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+
+function! s:my_which_key_format(mapping) abort
+  let l:ret = a:mapping
+  let l:ret = substitute(l:ret, '\c<cr>$', '', '')
+  let l:ret = substitute(l:ret, '^:', '', '')
+  let l:ret = substitute(l:ret, '^\c<c-u>', '', '')
+  let l:ret = substitute(l:ret, '^<Plug>', '', '')
+  return l:ret
 endfunction
-let g:leaderGuide_displayfunc = [function("s:my_displayfunc")]
-
-call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
-nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<cr>
-vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<cr>
+let g:WhichKeyFormatFunc = function('s:my_which_key_format')
 
 filetype plugin indent on
 
@@ -341,73 +346,71 @@ nnoremap <Plug>(list-location-open) :lopen<cr>
 nnoremap <Plug>(list-quick-close) :cclose<cr>
 nnoremap <Plug>(list-location-close) :lclose<cr>
 
-" Leader Guide mappings
-let g:lmap =  {}
-
-let g:lmap.b = { 'name': '(buffers)' }
+" Which Key mappings
+let g:which_key_map.b = { 'name': '(buffers)' }
 nmap <leader>bb <Plug>(buffers-open-buffer)
 nmap <leader>bd <Plug>(buffers-open-buffer-current-dir)
 
-let g:lmap.c = { 'name': '(console-window)' }
+let g:which_key_map.c = { 'name': '(console-window)' }
 nmap <leader>cr <Plug>(console-run-command)
 nmap <leader>co <Plug>(console-open)
 nmap <leader>cc <Plug>(console-close)
 
-let g:lmap.f = { 'name': '(files)' }
+let g:which_key_map.f = { 'name': '(files)' }
 nmap <leader>ff <Plug>(files-open-file)
 nmap <leader>fd <Plug>(files-open-file-current-dir)
 nmap <leader>ft <Plug>(files-tree-explorer)
 nmap <leader>fp <Plug>(files-copy-path)
 
-let g:lmap.g = { 'name': '(git)' }
+let g:which_key_map.g = { 'name': '(git)' }
 nmap <leader>gs <Plug>(git-status)
 nmap <leader>gc <Plug>(git-commit)
 nmap <leader>gl <Plug>(git-log)
 nmap <leader>gd <Plug>(git-diff)
 
-let g:lmap.l = { 'name': '(lists)' }
-let g:lmap.l.l = { 'name': '(location-list)' }
+let g:which_key_map.l = { 'name': '(lists)' }
+let g:which_key_map.l.l = { 'name': '(location-list)' }
 nmap <leader>llo <Plug>(list-location-open)
 nmap <leader>llc <Plug>(list-location-close)
-let g:lmap.l.q = { 'name': '(quick-list)' }
+let g:which_key_map.l.q = { 'name': '(quick-list)' }
 nmap <leader>lqo <Plug>(list-quick-open)
 nmap <leader>lqc <Plug>(list-quick-close)
 
-let g:lmap.m = { 'name': '(misc)' }
+let g:which_key_map.m = { 'name': '(misc)' }
 nmap <silent> <leader>m; <Plug>(misc-semicolon-eol)
 nmap <silent> <leader>m, <Plug>(misc-comma-eol)
 nmap <silent> <leader>m<space> <Plug>(misc-strip-trailing-whitespace)
 
-let g:lmap.p = { 'name': '(programming)' }
-let g:lmap.p.r = { 'name': '(ruby)' }
+let g:which_key_map.p = { 'name': '(programming)' }
+let g:which_key_map.p.r = { 'name': '(ruby)' }
 " blockle plugin
 nmap <leader>prb <Plug>BlockToggle
 
-let g:lmap.s = { 'name': '(search)' }
+let g:which_key_map.s = { 'name': '(search)' }
 nmap <leader>sw <Plug>(search-current-word)
 nmap <leader>sq <Plug>(search-query)
 nmap <leader>sc <Plug>(search-clear-highlighted)
 
-let g:lmap.s.r = { 'name': '(search-with-rg)' }
+let g:which_key_map.s.r = { 'name': '(search-with-rg)' }
 nmap <leader>srw <Plug>(search-rg-current-word)
 nmap <leader>srq <Plug>(search-rg-query)
 
-let g:lmap.s.i = { 'name': '(search-with-git)' }
+let g:which_key_map.s.i = { 'name': '(search-with-git)' }
 nmap <leader>siw <Plug>(search-git-current-word)
 nmap <leader>siq <Plug>(search-git-query)
 
-let g:lmap.s.a = { 'name': '(search-with-ag)' }
+let g:which_key_map.s.a = { 'name': '(search-with-ag)' }
 nmap <leader>saw <Plug>(search-ag-current-word)
 nmap <leader>saq <Plug>(search-ag-query)
 
-let g:lmap.s.k = { 'name': '(search-with-ack)' }
+let g:which_key_map.s.k = { 'name': '(search-with-ack)' }
 nmap <leader>skw <Plug>(search-ack-current-word)
 nmap <leader>skq <Plug>(search-ack-query)
 
-let g:lmap.s.g = { 'name': '(search-with-grep)' }
+let g:which_key_map.s.g = { 'name': '(search-with-grep)' }
 nmap <leader>sgw <Plug>(search-grep-current-word)
 nmap <leader>sgq <Plug>(search-grep-query)
 
-let g:lmap.t = { 'name': '(test)' }
+let g:which_key_map.t = { 'name': '(test)' }
 nmap <leader>tf <Plug>(test-file)
 nmap <leader>tn <Plug>(test-nearest)
