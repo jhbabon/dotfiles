@@ -90,7 +90,7 @@ set inccommand=split
 " =============================================================================
 filetype off
 call plug#begin()
-Plug 'neomake/neomake'
+Plug 'w0rp/ale'
 Plug 'kassio/neoterm'
 
 Plug 'janko-m/vim-test'
@@ -100,6 +100,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'kana/vim-smartinput'
 Plug 'jgdavey/vim-blockle'
 Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-ragtag'
@@ -128,9 +129,13 @@ endif
 Plug 'hecal3/vim-leader-guide'
 call plug#end()
 
-" Neomake
-autocmd! BufReadPost,BufWritePost * Neomake
-let g:neomake_open_list = 0
+" Ale
+let g:ale_linters = {
+      \   'rust': ['rls']
+      \ }
+let g:ale_fixers = {
+      \   'rust': ['rustfmt']
+      \ }
 
 " Neoterm
 let g:neoterm_size = '15%'
@@ -247,10 +252,34 @@ endif
 
 syntax enable
 set background=dark
-colorscheme dracula
+colorscheme onedark
 
 " Lightline
-let g:lightline = { 'colorscheme': 'one' }
+let g:lightline = {
+      \   'colorscheme': 'one',
+      \   'active': {
+      \     'left': [
+      \       ['mode', 'paste'],
+      \       ['gitbranch', 'readonly', 'filename', 'modified']
+      \     ],
+      \     'right': [
+      \       ['linter_checking', 'linter_warnings', 'linter_errors', 'lineinfo'],
+      \       ['percent'],
+      \       ['fileformat', 'fileencoding', 'filetype']
+      \     ]
+      \   },
+      \   'component_expand': {
+      \     'gitbranch': 'fugitive#head',
+      \     'linter_checking': 'lightline#ale#checking',
+      \     'linter_warnings': 'lightline#ale#warnings',
+      \     'linter_errors': 'lightline#ale#errors'
+      \   },
+      \   'component_type': {
+      \     'linter_checking': 'left',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error'
+      \   }
+      \ }
 
 " LeaderGuide
 " Init the main leaderGuide dictionary
