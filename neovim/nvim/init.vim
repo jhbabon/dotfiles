@@ -116,11 +116,9 @@ Plug 'tpope/vim-projectionist'
 
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'joshdick/onedark.vim'
-Plug 'drewtempelmeyer/palenight.vim'
 Plug 'ayu-theme/ayu-vim'
-Plug 'jdsimcoe/panic.vim'
-Plug 'fxn/vim-monochrome'
-Plug 'dracula/vim'
+Plug 'TroyFletcher/vim-colors-synthwave'
+Plug 'jacoborus/tender.vim'
 
 Plug 'MarcWeber/vim-addon-local-vimrc'
 
@@ -257,11 +255,11 @@ endif
 
 syntax enable
 set background=dark
-colorscheme onedark
+colorscheme tender
 
 " Lightline
 let g:lightline = {
-      \   'colorscheme': 'one',
+      \   'colorscheme': 'tender',
       \   'active': {
       \     'left': [
       \       ['mode', 'paste'],
