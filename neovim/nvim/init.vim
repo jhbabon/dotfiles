@@ -102,7 +102,7 @@ Plug 'janko-m/vim-test'
 Plug 'mhinz/vim-grepper'
 Plug 'vim-scripts/matchit.zip'
 Plug 'sheerun/vim-polyglot'
-Plug 'kana/vim-smartinput'
+" Plug 'kana/vim-smartinput'
 Plug 'jgdavey/vim-blockle'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
@@ -255,11 +255,11 @@ endif
 
 syntax enable
 set background=dark
-colorscheme tender
+colorscheme onedark
 
 " Lightline
 let g:lightline = {
-      \   'colorscheme': 'tender',
+      \   'colorscheme': 'one',
       \   'active': {
       \     'left': [
       \       ['mode', 'paste'],
