@@ -35,6 +35,8 @@
   c     = commit
   amend = commit --amend
 
+  cp  = cherry-pick
+
   a   = add
   aa  = !git add --all && git status -s --branch
   intent = add --all --intent-to-add
