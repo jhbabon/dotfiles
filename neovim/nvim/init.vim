@@ -102,7 +102,7 @@ Plug 'janko-m/vim-test'
 Plug 'mhinz/vim-grepper'
 Plug 'vim-scripts/matchit.zip'
 Plug 'sheerun/vim-polyglot'
-" Plug 'kana/vim-smartinput'
+Plug 'jiangmiao/auto-pairs'
 Plug 'jgdavey/vim-blockle'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
@@ -122,6 +122,7 @@ Plug 'jacoborus/tender.vim'
 
 Plug 'MarcWeber/vim-addon-local-vimrc'
 
+Plug 'mattn/emmet-vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
@@ -140,6 +141,12 @@ let g:ale_fixers = {
       \   'rust': ['rustfmt']
       \ }
 
+" Polyglot
+let g:polyglot_disabled = ['graphql']
+
+" Ruby
+au BufNewFile,BufRead *.jbuilder set ft=ruby
+
 " Neoterm
 let g:neoterm_size = '15%'
 let g:neoterm_fixedsize = 1
@@ -150,7 +157,13 @@ nnoremap <Plug>(console-open) :Topen<cr>
 nnoremap <Plug>(console-close) :Tclose<cr>
 
 " vim-test
-let g:test#strategy = "neoterm"
+function! NeotermFixStrategy(cmd)
+  " call neoterm#do({ 'cmd': a:cmd })
+  execute 'rightbelow T ' . a:cmd
+endfunction
+
+let g:test#custom_strategies = {'neotermfix': function('NeotermFixStrategy')}
+let g:test#strategy = 'neotermfix'
 
 nnoremap <Plug>(test-file) :TestFile<cr>
 nnoremap <Plug>(test-nearest) :TestNearest<cr>
