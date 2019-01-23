@@ -398,6 +398,8 @@ nmap <silent> <leader>m, <Plug>(misc-comma-eol)
 nmap <silent> <leader>m<space> <Plug>(misc-strip-trailing-whitespace)
 
 let g:which_key_map.p = { 'name': '(programming)' }
+nmap <leader>pf <Plug>(ale_fix)
+
 let g:which_key_map.p.r = { 'name': '(ruby)' }
 " blockle plugin
 nmap <leader>prb <Plug>BlockToggle
