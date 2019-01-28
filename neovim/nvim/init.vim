@@ -114,6 +114,8 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-projectionist'
 
+Plug 'metakirby5/codi.vim'
+
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'joshdick/onedark.vim'
 Plug 'ayu-theme/ayu-vim'
