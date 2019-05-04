@@ -265,16 +265,16 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "snips"]
 " Colors
 
 if (has("termguicolors"))
-  set termguicolors
+ set termguicolors
 endif
 
 syntax enable
 set background=dark
-colorscheme ThemerDefault
+colorscheme onedark
 
 " Lightline
 let g:lightline = {
-      \   'colorscheme': 'ThemerDefaultLightline',
+      \   'colorscheme': 'one',
       \   'active': {
       \     'left': [
       \       ['mode', 'paste'],
