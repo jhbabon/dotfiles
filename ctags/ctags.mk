@@ -17,4 +17,7 @@ $(CTAGS_CONF):
 clean_ctags: banner_clean_ctags
 	$(RM) $(CTAGS_CONF)
 
+else
+IGNORED += ctags
+
 endif

@@ -19,4 +19,7 @@ $(ASDF_DST_CONFIG):
 clean_asdf: banner_clean_asdf
 	$(RM) $(ASDF_DST_CONFIG)
 
+else
+IGNORED += asdf
+
 endif

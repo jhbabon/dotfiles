@@ -20,4 +20,7 @@ $(RBENV_DST_DEFAULT_GEMS):
 clean_rbenv: banner_clean_rbenv
 	$(RM) $(RBENV_DST_DEFAULT_GEMS)
 
+else
+IGNORED += rbenv
+
 endif

@@ -28,4 +28,7 @@ clean_tmux: banner_clean_tmux
 	$(RM) $(TMUX_DST_DIR)
 	$(RM) $(TMUX_CONF)
 
+else
+IGNORED += tmux
+
 endif

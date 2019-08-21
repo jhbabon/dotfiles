@@ -63,4 +63,7 @@ clean_zsh: banner_clean_zsh
 	$(RM) $(ZSHENV)
 	$(RM) $(ZSHRC)
 	$(RM) $(ZPROFILE)
+
+else
+IGNORED += zsh
 endif

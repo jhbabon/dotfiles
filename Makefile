@@ -20,7 +20,7 @@ MKDIR := mkdir -p
 CLONE := git clone
 RM    := rm -fr
 
-.PHONY: default install clean
+.PHONY: default install clean list
 
 default: install
 
@@ -37,3 +37,15 @@ include **/*.mk
 install: $(INSTALLERS)
 
 clean: $(CLEANERS)
+
+list: list_installers_preface $(addprefix item_,$(INSTALLERS)) list_ignored_preface $(addprefix item_,$(IGNORED))
+
+list_installers_preface:
+	@echo "> Configuration files that can be installed"
+
+list_ignored_preface:
+	@echo ""
+	@echo "> Configuration files that are ignored (reason: software not found)"
+
+item_%:
+	@echo "  * $*"

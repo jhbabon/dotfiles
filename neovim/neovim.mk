@@ -25,4 +25,7 @@ clean_neovim: banner_clean_neovim
 	$(RM) $(NEOVIM_PLUG)
 	$(RM) $(NEOVIM_DST_DIR)
 
+else
+IGNORED += neovim
+
 endif

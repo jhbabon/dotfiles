@@ -34,6 +34,9 @@ clean_i3: banner_clean_i3
 	$(RM) $(I3_CONFIG)
 	$(RM) $(I3STATUS_CONFIG)
 
+else
+IGNORED += i3
+
 endif
 
 # vim:set ft=make:

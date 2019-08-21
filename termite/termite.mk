@@ -21,4 +21,7 @@ $(TERMITE_DST_DIR):
 clean_termite: banner_clean_termite
 	$(RM) $(TERMITE_CONF)
 
+else
+IGNORED += termite
+
 endif

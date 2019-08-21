@@ -32,4 +32,7 @@ clean_git: banner_clean_git
 	$(RM) $(GIT_DST_DIR)
 	$(RM) $(GIT_DST_CONFIG)
 
+else
+IGNORED += git
+
 endif
