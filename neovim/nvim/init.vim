@@ -117,11 +117,10 @@ Plug 'tpope/vim-projectionist'
 Plug 'metakirby5/codi.vim'
 
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'joshdick/onedark.vim'
+" Plug 'joshdick/onedark.vim'
+Plug 'rakr/vim-one'
 Plug 'ayu-theme/ayu-vim'
 Plug 'TroyFletcher/vim-colors-synthwave'
-Plug 'jacoborus/tender.vim'
-Plug 'connorholyday/vim-snazzy'
 
 Plug 'MarcWeber/vim-addon-local-vimrc'
 
@@ -271,11 +270,11 @@ endif
 
 syntax enable
 set background=dark
-colorscheme snazzy
+colorscheme one
 
 " Lightline
 let g:lightline = {
-      \   'colorscheme': 'snazzy',
+      \   'colorscheme': 'one',
       \   'active': {
       \     'left': [
       \       ['mode', 'paste'],
