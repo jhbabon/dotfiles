@@ -202,6 +202,8 @@ nnoremap <Plug>(git-diff) :Gdiff<cr>
 
 " Scout
 if executable('scout')
+  let g:scout_window_type = 'floating'
+
   if executable('rg')
     let g:scout_find_files_command = 'rg --files --hidden --follow --glob "!.git/*" 2>/dev/null'
   endif
