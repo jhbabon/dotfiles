@@ -149,6 +149,10 @@ let g:polyglot_disabled = ['graphql']
 " Ruby
 au BufNewFile,BufRead *.jbuilder set ft=ruby
 
+" JSX files
+" This is done to make UltiSnips JavaScript to work with .jsx files
+au BufRead,BufNewFile *.jsx setlocal filetype=javascriptreact.javascript
+
 " Neoterm
 let g:neoterm_size = '15%'
 let g:neoterm_fixedsize = 1
