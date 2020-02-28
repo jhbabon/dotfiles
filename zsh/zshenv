@@ -6,13 +6,16 @@ if [[ -n $XDG_CONFIG_HOME ]] ; then
   config_dir=$XDG_CONFIG_HOME
 fi
 
-# Load files from $HOME/.config/zsh/env.d/
-local env_d=$config_dir/env.d
-if test -d $env_d; then
-  for env in $env_d/*.zsh; do
-    test -r $env && source $env
-  done
-  unset env
+export EDITOR=nvim
+export VISUAL=$EDITOR
+export PAGER=less
+
+# ---------------------------------------------------------------------------
+# Local settings
+# ---------------------------------------------------------------------------
+# Set this file for custom local changes
+if [ -f "$config_dir/local.env.zsh" ]; then
+  source "$config_dir/local.env.zsh"
 fi
 
 if [[ ! -o login ]]; then

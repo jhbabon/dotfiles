@@ -6,27 +6,24 @@ CLEANERS   += clean_zsh
 
 Z_SRC_DIR    := $(DOTFILES)/zsh
 ZCONFIG_DIR  := $(CONFIG_DIR)/zsh
-ANTIGEN_DIR  := $(ZCONFIG_DIR)/antigen
-ANTIGEN_REPO := https://github.com/zsh-users/antigen.git
 ZDOT_DIR     := $(DST_DIR)
 ZSHRC        := $(ZDOT_DIR)/.zshrc
 ZSHENV       := $(ZDOT_DIR)/.zshenv
 ZPROFILE     := $(ZDOT_DIR)/.zprofile
 ZCACHE_DIR   := $(DST_DIR)/.cache/zsh
 
-ZRC_SRC_DIR  := $(Z_SRC_DIR)/rc.d
-ZENV_SRC_DIR := $(Z_SRC_DIR)/env.d
-ZRC_DST_DIR  := $(ZCONFIG_DIR)/rc.d
-ZENV_DST_DIR := $(ZCONFIG_DIR)/env.d
+ZPLUGINS_DST_DIR  := $(ZCONFIG_DIR)/plugins
+ZPLUGINS_SH_DIR   := $(ZPLUGINS_DST_DIR)/zsh-syntax-highlighting
+ZPLUGINS_SH_REPO  := https://github.com/zsh-users/zsh-syntax-highlighting.git
+ZPLUGINS_AS_DIR   := $(ZPLUGINS_DST_DIR)/zsh-autosuggestions
+ZPLUGINS_AS_REPO  := https://github.com/zsh-users/zsh-autosuggestions.git
+ZPLUGINS_HSS_DIR  := $(ZPLUGINS_DST_DIR)/zsh-history-substring-search
+ZPLUGINS_HSS_REPO := https://github.com/zsh-users/zsh-history-substring-search.git
 
-ZRC_SRC_FILES := $(wildcard $(ZRC_SRC_DIR)/*)
-ZRC_DST_FILES := $(patsubst $(ZRC_SRC_DIR)/%, $(ZRC_DST_DIR)/%, $(ZRC_SRC_FILES))
-ZENV_SRC_FILES := $(wildcard $(ZENV_SRC_DIR)/*)
-ZENV_DST_FILES := $(patsubst $(ZENV_SRC_DIR)/%, $(ZENV_DST_DIR)/%, $(ZENV_SRC_FILES))
 
 .PHONY: zsh clean_zsh
 
-zsh: banner_install_zsh $(ZCACHE_DIR) $(ZENV_DST_FILES) $(ZRC_DST_FILES) $(ANTIGEN_DIR) $(ZSHENV) $(ZSHRC) $(ZPROFILE)
+zsh: banner_install_zsh $(ZCACHE_DIR) $(ZSHENV) $(ZSHRC) $(ZPROFILE) zplugins
 
 $(ZSHENV):
 	$(LINK) $(Z_SRC_DIR)/zshenv $@
@@ -37,17 +34,19 @@ $(ZSHRC):
 $(ZPROFILE):
 	$(LINK) $(Z_SRC_DIR)/zprofile $@
 
-$(ZENV_DST_FILES): $(ZENV_DST_DIR)
-	$(LINK) $(ZENV_SRC_DIR)/$(@F) $@
+zplugins: $(ZPLUGINS_SH_DIR) $(ZPLUGINS_AS_DIR) $(ZPLUGINS_HSS_DIR)
 
-$(ZRC_DST_FILES): $(ZRC_DST_DIR)
-	$(LINK) $(ZRC_SRC_DIR)/$(@F) $@
+$(ZPLUGINS_SH_DIR): $(ZPLUGINS_DST_DIR)
+	$(CLONE) $(ZPLUGINS_SH_REPO) $@
 
-$(ZENV_DST_DIR) $(ZRC_DST_DIR): $(ZCONFIG_DIR)
+$(ZPLUGINS_AS_DIR): $(ZPLUGINS_DST_DIR)
+	$(CLONE) $(ZPLUGINS_AS_REPO) $@
+
+$(ZPLUGINS_HSS_DIR): $(ZPLUGINS_DST_DIR)
+	$(CLONE) $(ZPLUGINS_HSS_REPO) $@
+
+$(ZPLUGINS_DST_DIR): $(ZCONFIG_DIR)
 	$(MKDIR) $@
-
-$(ANTIGEN_DIR): $(ZCONFIG_DIR)
-	$(CLONE) $(ANTIGEN_REPO) $@
 
 $(ZCONFIG_DIR):
 	$(MKDIR) $@
@@ -56,10 +55,7 @@ $(ZCACHE_DIR):
 	$(MKDIR) $@
 
 clean_zsh: banner_clean_zsh
-	$(RM) $(DST_DIR)/.antigen
-	$(RM) $(ANTIGEN_DIR)
-	$(RM) $(ZRC_DST_FILES)
-	$(RM) $(ZENV_DST_FILES)
+	$(RM) $(ZPLUGINS_DST_DIR)
 	$(RM) $(ZSHENV)
 	$(RM) $(ZSHRC)
 	$(RM) $(ZPROFILE)

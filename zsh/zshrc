@@ -1,40 +1,394 @@
 # ~/.zshrc: This file is executed after /etc/zshrc, and it is executed
 # in interacive shells. Put here any customization.
 
+# bootTimeStart=$(gdate +%s%N) # In mac you'll need brew's coreutils package
+
 local config_dir="$HOME/.config/zsh"
 
 if [[ -n $XDG_CONFIG_HOME ]] ; then
   config_dir=$XDG_CONFIG_HOME
 fi
 
-# cmd_exists:
-#   * description: Utiliy function to check if a command exists.
-#                  It is used inside these zsh config files.
+local plugins_dir="$config_dir/plugins"
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+# Utiliy function to check if a command exists.
+# It is used inside these zsh config files.
 #
-#   * example:
-#
-#       cmd_exists 'echo' && alias hi="echo 'hello $USER'"
+# Example:
+#   cmd_exists 'echo' && alias hi="echo 'hello $USER'"
 function cmd_exists() {
   command -v $1 > /dev/null 2>&1
 }
 
-# Plugins
-# -----------------------------------------------
-source "$config_dir/antigen/bin/antigen.zsh"
+function zplugins_update() {
+  local config_dir="$HOME/.config/zsh"
 
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-history-substring-search
-antigen bundle zsh-users/zsh-autosuggestions
+  if [[ -n $XDG_CONFIG_HOME ]] ; then
+    config_dir=$XDG_CONFIG_HOME
+  fi
 
-antigen apply
+  local plugins_dir="$config_dir/plugins"
 
-# Load files from $HOME/.config/zsh/rc.d/
-local rc_d=$config_dir/rc.d
-if test -d $rc_d; then
-  for rc in $rc_d/*.zsh; do
-    test -r $rc && source $rc
+  local current_dir=$PDW
+
+  if test -d $plugins_dir; then
+    for plug in $plugins_dir/*; do
+      echo "Updating $plug"
+      cd $plug
+      git pull
+      cd $current_dir
+    done
+    unset plug
+  fi
+}
+
+# Create a dir and go inside it.
+function mkcd() {
+  mkdir -p "$1" && cd "$1";
+}
+
+# A very handy function from the Grml distro’s excellent zsh config
+# that lets you search for running processes.
+#
+# Link: http://onethingwell.org/post/14669173541/any
+function any() {
+  emulate -L zsh
+  unsetopt KSH_ARRAYS
+  if [[ -z "$1" ]] ; then
+    echo "any - grep for process(es) by keyword" >&2
+    echo "Usage: any <keyword>" >&2
+    return 1
+  else
+    ps xauwww | grep -i --color=auto "[${1[1]}]${1[2,-1]}"
+  fi
+}
+
+# Create a .safe dir in $PWD to indicate that the bin dir
+# in $PWD is secure to use.
+function sf() {
+  [[ -d $PWD/.safe ]] || (mkdir -p $PWD/.safe && echo '---> safe: done')
+}
+
+# Use the remote service explain.com from the terminal.
+#
+# Link: https://github.com/schneems/explain_shell#without-rubygems
+function explain() {
+  # base url with first command already injected
+  # $ explain tar
+  #   => http://explainshel.com/explain/tar?args=
+  url="http://explainshell.com/explain/$1?args="
+
+  # removes $1 (tar) from arguments ($@)
+  shift;
+
+  # iterates over remaining args and adds builds the rest of the url
+  for i in "$@"; do
+    url=$url"$i""+"
   done
-  unset rc
+
+  # opens url in browser
+  open $url
+}
+
+# Print the weather in the terminal using http://wttr.in
+#
+# Usage:
+#   weather [city]
+#
+# Example:
+#   $ weather
+#   # => Prints Berlin weather
+#   $ weather Dublin
+#   # => Prints Dublin weather
+function weather() {
+  local city="$1"
+  [[ -z $city ]] && city="Berlin"
+
+  curl "http://wttr.in/$city"
+}
+
+# Run neovim with Codi scratchpad enabled
+#
+# Usage:
+#   codi [filetype] [filename]
+#
+# Example:
+#   $ codi javascript test.js
+function codi() {
+  local syntax="${1:-javascript}"
+  shift
+  nvim -c \
+    "let g:startify_disable_at_vimenter = 1 |\
+    set bt=nofile ls=0 noru nonu nornu |\
+    hi ColorColumn ctermbg=NONE |\
+    hi VertSplit ctermbg=NONE |\
+    hi NonText ctermfg=0 |\
+    Codi $syntax" "$@"
+}
+
+# ZSH renaming tool
+# Link: http://www.mfasold.net/blog/2008/11/moving-or-renaming-multiple-files/
+#
+# Example:
+#   % mmv '(*).json' '$1.rb'
+autoload -U zmv
+alias mmv='noglob zmv -W'
+
+# ---------------------------------------------------------------------------
+# Aliases
+# ---------------------------------------------------------------------------
+alias _='sudo'
+alias cl='clear'
+alias pingg='ping -c 4 www.duckduckgo.com'
+alias rake='noglob rake' # makes rake work nicely with zsh
+alias ..='cd ..'
+alias ...='cd ../..'
+alias rm='rm -i'
+
+alias bi='bundle install'
+alias bu='bundle update'
+alias be='bundle exec'
+
+# show full history
+alias hs='fc -l 1'
+# search command in history
+# link: http://viget.com/extend/level-up-your-shell-game#history-expansions
+alias 'h?'='history | grep'
+# don't save current history in the global history file.
+# history will be lost once the session is closed.
+alias hide='fc -pa'
+
+# find the option for using colors in ls, depending on the version: Linux or BSD
+ls --color -d . &>/dev/null 2>&1 && alias ls='ls --color=tty' || alias ls='ls -G'
+alias ll='ls -lh'
+alias la='ll -a'
+
+# higher-order function: map
+# link: https://coderwall.com/p/4tkkpq
+alias map='xargs -n1'
+
+# disk space
+alias dus='du -Psckx * | sort -nr'
+
+# Format JSON text with python
+alias pyson='python -m json.tool'
+
+# most used tools
+alias g='git'
+alias nv='nvim'
+
+# mimic macOS pbcopy and pbpaste
+cmd_exists 'pbcopy' || alias pbcopy='xclip -i -selection clipboard'
+cmd_exists 'pbpaste' || alias pbpaste='xclip -o -selection clipboard'
+
+# ---------------------------------------------------------------------------
+# History
+# ---------------------------------------------------------------------------
+# ignore duplicate history entries
+setopt histignoredups
+# Appends every command to the history file once it is executed
+setopt inc_append_history
+# Reloads the history whenever you use it
+setopt share_history
+
+# keep more history
+export HISTFILE=$HOME/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=10000
+export DIRSTACKSIZE=50
+
+# ---------------------------------------------------------------------------
+# Completions
+# ---------------------------------------------------------------------------
+autoload -U compinit
+compinit
+zmodload -i zsh/complist
+
+# completion styles
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*' # case insensitive
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+zstyle ':completion:*:*:*:*:processes' command "ps -u `whoami` -o pid,user,comm -w -w"
+zstyle ':completion:*:warnings' format '%B%U---- no match for: %d%u%b'
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:options' auto-description '%d'
+
+# ---------------------------------------------------------------------------
+# Edit command line
+# ---------------------------------------------------------------------------
+autoload -U edit-command-line
+zle -N edit-command-line
+
+# ---------------------------------------------------------------------------
+# Bindkeys
+# ---------------------------------------------------------------------------
+bindkey "^R" history-incremental-search-backward
+
+bindkey '\C-x\C-e' edit-command-line
+
+# Substring search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# Autosuggestions
+bindkey '^ ' autosuggest-accept
+
+# ---------------------------------------------------------------------------
+# VI Mode
+# ---------------------------------------------------------------------------
+bindkey -v
+
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+
+# Visual mode enters the editor
+bindkey -M vicmd 'v' edit-command-line
+
+export KEYTIMEOUT=1
+
+# ---------------------------------------------------------------------------
+# Prompt
+# ---------------------------------------------------------------------------
+autoload -U colors
+colors
+setopt prompt_subst
+
+## Git info
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' get-revision true
+zstyle ':vcs_info:*' stagedstr '%F{green}+%f'
+zstyle ':vcs_info:*' unstagedstr '%F{red}!%f'
+# zstyle ':vcs_info:*' branchformat '%F{green}%b%f'
+zstyle ':vcs_info:*' formats ' %F{yellow}%8.8i%f %F{green}%b%f%c%u%m'
+zstyle ':vcs_info:*' actionformats ' %F{yellow}%8.8i%f %F{green}%b%f %F{red}%a%f%c%u'
+
+## Hooks!
+# zstyle ':vcs_info:*+*:*' debug true # enable to debug hooks
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-unmerged
+function +vi-git-untracked() {
+  if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]] ; then
+    hook_com[misc]+="%F{yellow}?%f"
+  fi
+}
+
+function +vi-git-unmerged() {
+  if [[ -n $(git ls-files --unmerged 2> /dev/null) ]] ; then
+    hook_com[misc]+="%F{red}*%f"
+  fi
+}
+
+## Vi mode
+export VI_INSERT_SYMBOL='%F{blue}%#%f'
+export VI_NORMAL_SYMBOL='%F{yellow}>%f'
+export CURRENT_KEYMAP='main'
+
+function zle-line-init zle-keymap-select {
+  # In some scenarios, like when resizing the terminal
+  # (WINCH Signal), the KEYMAP could be empty, and I don't know why.
+  #
+  # If is empty we will not be able to print the correct prompt symbol.
+  # That's why we save the KEYMAP in another variable, CURRENT_KEYMAP,
+  # and we don't overwrite it in case we lose the original KEYMAP.
+  #
+  # This way we can keep printing the right prompt symbol even if
+  # we resize the terminal.
+  if [[ -n $KEYMAP ]]; then
+    export CURRENT_KEYMAP=$KEYMAP
+  fi
+
+  zle reset-prompt
+  zle -R
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+### Set the prompt symbol based on the current VI mode
+function _prompt_symbol() {
+  echo "${${CURRENT_KEYMAP/vicmd/$VI_NORMAL_SYMBOL}/(main|viins)/$VI_INSERT_SYMBOL}"
+}
+
+## Fish like CWD
+function _fish_cwd() {
+  if [[ $PWD == $HOME ]] ; then
+    echo "~"
+  else
+    # This piece of magic comes from here:
+    # https://github.com/robbyrussell/oh-my-zsh/issues/5068#issuecomment-218780098
+    echo ${${:-/${(j:/:)${(M)${(s:/:)${(D)PWD:h}}#(|.)[^.]}}/${PWD:t}}//\/~/\~}
+  fi
+}
+
+function precmd() {
+  vcs_info
+}
+
+local return_code="%(?..%F{red}(%?%) %f)"
+local jobs_running="%(1j.%F{green}(j:%j%) %f.)"
+PROMPT='%F{blue}$(_fish_cwd)%f${vcs_info_msg_0_} ${jobs_running}${return_code}$(_prompt_symbol) '
+
+# ---------------------------------------------------------------------------
+# Vendor
+# ---------------------------------------------------------------------------
+# Run ssh-agents with keychain
+cmd_exists keychain && eval `keychain --eval --noask --quiet id_rsa`
+
+cmd_exists direnv && eval "$(direnv hook zsh)"
+
+# WARNING: nodenv and rbenv add each ~100ms to boot time
+cmd_exists nodenv && eval "$(nodenv init -)"
+cmd_exists rbenv && eval "$(rbenv init -)"
+
+# chruby: https://github.com/postmodern/chruby
+# NOTE: This assumes ruby versions are in ~/.rubies
+if [ -d /usr/local/opt/chruby/share/chruby ]; then
+  # Set the default global ruby by setting a ~/.ruby-version file
+  source /usr/local/opt/chruby/share/chruby/chruby.sh
+  source /usr/local/opt/chruby/share/chruby/auto.sh
 fi
+
+# chnode: https://github.com/tkareine/chnode
+# NOTE: This assumes node versions are in ~/.nodes
+if [ -d /usr/local/opt/chnode/share/chnode ]; then
+  # Set the default global node by setting a ~/.node-version file
+  source /usr/local/opt/chnode/share/chnode/chnode.sh
+  source /usr/local/opt/chnode/share/chnode/auto.sh
+fi
+
+# Exercism
+if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
+  source ~/.config/exercism/exercism_completion.zsh
+fi
+
+# ---------------------------------------------------------------------------
+# Local settings
+# ---------------------------------------------------------------------------
+# Set this file for custom local changes
+if [ -f "$config_dir/local.rc.zsh" ]; then
+  source "$config_dir/local.rc.zsh"
+fi
+
+# ---------------------------------------------------------------------------
+# Plugins
+# ---------------------------------------------------------------------------
+source "$plugins_dir/zsh-history-substring-search/zsh-history-substring-search.zsh"
+source "$plugins_dir/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$plugins_dir/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+# bootTimeDuration=$((($(gdate +%s%N) - $bootTimeStart)/1000000))
+# echo $bootTimeDuration ms overall boot duration
 
 # vim:set ft=zsh:
