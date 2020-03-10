@@ -121,6 +121,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'rakr/vim-one'
 Plug 'ayu-theme/ayu-vim'
 Plug 'TroyFletcher/vim-colors-synthwave'
+Plug 'haishanh/night-owl.vim'
 
 Plug 'MarcWeber/vim-addon-local-vimrc'
 
@@ -276,11 +277,11 @@ endif
 
 syntax enable
 set background=dark
-colorscheme one
+colorscheme night-owl
 
 " Lightline
 let g:lightline = {
-      \   'colorscheme': 'one',
+      \   'colorscheme': 'nightowl',
       \   'active': {
       \     'left': [
       \       ['mode', 'paste'],
