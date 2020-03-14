@@ -114,6 +114,8 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-projectionist'
 
+Plug 'pechorin/any-jump.vim'
+
 Plug 'metakirby5/codi.vim'
 
 Plug 'NLKNguyen/papercolor-theme'
@@ -204,6 +206,13 @@ nnoremap <Plug>(git-status) :Gstatus<cr>
 nnoremap <Plug>(git-commit) :Gcommit<cr>
 nnoremap <Plug>(git-log) :Glog<cr>
 nnoremap <Plug>(git-diff) :Gdiff<cr>
+
+" AnyJump
+let g:any_jump_disable_default_keybindings = 1
+nnoremap <Plug>(jump-current-word) :AnyJump<CR>
+xnoremap <Plug>(jump-visual-word) :AnyJumpVisual<CR>
+nnoremap <Plug>(jump-previous-file) :AnyJumpBack<CR>
+nnoremap <Plug>(jump-last-results) :AnyJumpLastResults<CR>
 
 " Scout
 if executable('scout')
@@ -392,6 +401,12 @@ nmap <leader>gs <Plug>(git-status)
 nmap <leader>gc <Plug>(git-commit)
 nmap <leader>gl <Plug>(git-log)
 nmap <leader>gd <Plug>(git-diff)
+
+let g:which_key_map.j = { 'name': '(jump)' }
+nmap <leader>jw <Plug>(jump-current-word)
+xmap <leader>jw <Plug>(jump-visual-word)
+nmap <leader>jb <Plug>(jump-previous-file)
+nmap <leader>jl <Plug>(jump-last-results)
 
 let g:which_key_map.l = { 'name': '(lists)' }
 let g:which_key_map.l.l = { 'name': '(location-list)' }
