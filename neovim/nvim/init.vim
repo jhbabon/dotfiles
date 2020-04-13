@@ -119,11 +119,11 @@ Plug 'pechorin/any-jump.vim'
 Plug 'metakirby5/codi.vim'
 
 Plug 'NLKNguyen/papercolor-theme'
-" Plug 'joshdick/onedark.vim'
+Plug 'joshdick/onedark.vim'
 Plug 'rakr/vim-one'
 Plug 'ayu-theme/ayu-vim'
-Plug 'TroyFletcher/vim-colors-synthwave'
 Plug 'haishanh/night-owl.vim'
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 
 Plug 'MarcWeber/vim-addon-local-vimrc'
 
@@ -286,11 +286,11 @@ endif
 
 syntax enable
 set background=dark
-colorscheme night-owl
+colorscheme challenger_deep
 
 " Lightline
 let g:lightline = {
-      \   'colorscheme': 'nightowl',
+      \   'colorscheme': 'challenger_deep',
       \   'active': {
       \     'left': [
       \       ['mode', 'paste'],
