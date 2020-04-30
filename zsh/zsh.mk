@@ -20,6 +20,8 @@ ZPLUGINS_AS_REPO  := https://github.com/zsh-users/zsh-autosuggestions.git
 ZPLUGINS_HSS_DIR  := $(ZPLUGINS_DST_DIR)/zsh-history-substring-search
 ZPLUGINS_HSS_REPO := https://github.com/zsh-users/zsh-history-substring-search.git
 
+ZPROMPT := $(ZCONFIG_DIR)/prompt.zsh
+
 
 .PHONY: zsh clean_zsh
 
@@ -28,11 +30,14 @@ zsh: banner_install_zsh $(ZCACHE_DIR) $(ZSHENV) $(ZSHRC) $(ZPROFILE) zplugins
 $(ZSHENV):
 	$(LINK) $(Z_SRC_DIR)/zshenv $@
 
-$(ZSHRC):
+$(ZSHRC): $(ZPROMPT)
 	$(LINK) $(Z_SRC_DIR)/zshrc $@
 
 $(ZPROFILE):
 	$(LINK) $(Z_SRC_DIR)/zprofile $@
+
+$(ZPROMPT):
+	$(LINK) $(Z_SRC_DIR)/prompt.zsh $@
 
 zplugins: $(ZPLUGINS_SH_DIR) $(ZPLUGINS_AS_DIR) $(ZPLUGINS_HSS_DIR)
 
@@ -59,6 +64,7 @@ clean_zsh: banner_clean_zsh
 	$(RM) $(ZSHENV)
 	$(RM) $(ZSHRC)
 	$(RM) $(ZPROFILE)
+	$(RM) $(ZPROMPT)
 
 else
 IGNORED += zsh
