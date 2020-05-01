@@ -264,24 +264,14 @@ cmd_exists keychain && eval `keychain --eval --noask --quiet id_rsa`
 
 cmd_exists direnv && eval "$(direnv hook zsh)"
 
-# WARNING: nodenv and rbenv add each ~100ms to boot time
-cmd_exists nodenv && eval "$(nodenv init -)"
-cmd_exists rbenv && eval "$(rbenv init -)"
-
-# chruby: https://github.com/postmodern/chruby
-# NOTE: This assumes ruby versions are in ~/.rubies
-if [ -d /usr/local/opt/chruby/share/chruby ]; then
-  # Set the default global ruby by setting a ~/.ruby-version file
-  source /usr/local/opt/chruby/share/chruby/chruby.sh
-  source /usr/local/opt/chruby/share/chruby/auto.sh
+# nodenv configuration
+if [[ -d "$HOME/.nodenv/shims" ]]; then
+  export PATH="$HOME/.nodenv/shims:${PATH}"
 fi
 
-# chnode: https://github.com/tkareine/chnode
-# NOTE: This assumes node versions are in ~/.nodes
-if [ -d /usr/local/opt/chnode/share/chnode ]; then
-  # Set the default global node by setting a ~/.node-version file
-  source /usr/local/opt/chnode/share/chnode/chnode.sh
-  source /usr/local/opt/chnode/share/chnode/auto.sh
+# rbenv configuration
+if [[ -d "$HOME/.rbenv/shims" ]]; then
+  export PATH="$HOME/.rbenv/shims:${PATH}"
 fi
 
 # Exercism
