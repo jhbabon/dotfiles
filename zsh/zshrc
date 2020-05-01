@@ -19,8 +19,8 @@ local plugins_dir="$config_dir/plugins"
 # It is used inside these zsh config files.
 #
 # Example:
-#   cmd_exists 'echo' && alias hi="echo 'hello $USER'"
-function cmd_exists() {
+#   has 'echo' && alias hi="echo 'hello $USER'"
+function has() {
   type $1 > /dev/null 2>&1
 }
 
@@ -182,8 +182,8 @@ alias g='git'
 alias nv='nvim'
 
 # mimic macOS pbcopy and pbpaste
-cmd_exists 'pbcopy' || alias pbcopy='xclip -i -selection clipboard'
-cmd_exists 'pbpaste' || alias pbpaste='xclip -o -selection clipboard'
+has 'pbcopy' || alias pbcopy='xclip -i -selection clipboard'
+has 'pbpaste' || alias pbpaste='xclip -o -selection clipboard'
 
 # ---------------------------------------------------------------------------
 # History
@@ -254,9 +254,10 @@ export KEYTIMEOUT=1
 # Vendor
 # ---------------------------------------------------------------------------
 # Run ssh-agents with keychain
-cmd_exists keychain && eval `keychain --eval --noask --quiet id_rsa`
+has keychain && eval `keychain --eval --noask --quiet id_rsa`
 
-cmd_exists direnv && eval "$(direnv hook zsh)"
+# Direnv
+has direnv && eval "$(direnv hook zsh)"
 
 # nodenv configuration
 if [[ -d "$HOME/.nodenv/shims" ]]; then
@@ -291,7 +292,7 @@ source "$plugins_dir/zsh-autosuggestions/zsh-autosuggestions.zsh"
 #
 # Check for starship.rs or fallback to the custom prompt if not present
 # ---------------------------------------------------------------------------
-cmd_exists starship && eval "$(starship init zsh)" || source "$config_dir/prompt.zsh"
+has starship && eval "$(starship init zsh)" || source "$config_dir/prompt.zsh"
 
 # bootTimeDuration=$((($(gdate +%s%N) - $bootTimeStart)/1000000))
 # echo $bootTimeDuration ms overall boot duration
