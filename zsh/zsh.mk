@@ -13,15 +13,10 @@ ZPROFILE     := $(ZDOT_DIR)/.zprofile
 ZCACHE_DIR   := $(DST_DIR)/.cache/zsh
 
 ZPLUGINS_DST_DIR  := $(ZCONFIG_DIR)/plugins
-ZPLUGINS_SH_DIR   := $(ZPLUGINS_DST_DIR)/zsh-syntax-highlighting
-ZPLUGINS_SH_REPO  := https://github.com/zsh-users/zsh-syntax-highlighting.git
 ZPLUGINS_AS_DIR   := $(ZPLUGINS_DST_DIR)/zsh-autosuggestions
 ZPLUGINS_AS_REPO  := https://github.com/zsh-users/zsh-autosuggestions.git
-ZPLUGINS_HSS_DIR  := $(ZPLUGINS_DST_DIR)/zsh-history-substring-search
-ZPLUGINS_HSS_REPO := https://github.com/zsh-users/zsh-history-substring-search.git
 
 ZPROMPT := $(ZCONFIG_DIR)/prompt.zsh
-
 
 .PHONY: zsh clean_zsh
 
@@ -39,16 +34,10 @@ $(ZPROFILE):
 $(ZPROMPT):
 	$(LINK) $(Z_SRC_DIR)/prompt.zsh $@
 
-zplugins: $(ZPLUGINS_SH_DIR) $(ZPLUGINS_AS_DIR) $(ZPLUGINS_HSS_DIR)
-
-$(ZPLUGINS_SH_DIR): $(ZPLUGINS_DST_DIR)
-	$(CLONE) $(ZPLUGINS_SH_REPO) $@
+zplugins: $(ZPLUGINS_AS_DIR)
 
 $(ZPLUGINS_AS_DIR): $(ZPLUGINS_DST_DIR)
 	$(CLONE) $(ZPLUGINS_AS_REPO) $@
-
-$(ZPLUGINS_HSS_DIR): $(ZPLUGINS_DST_DIR)
-	$(CLONE) $(ZPLUGINS_HSS_REPO) $@
 
 $(ZPLUGINS_DST_DIR): $(ZCONFIG_DIR)
 	$(MKDIR) $@

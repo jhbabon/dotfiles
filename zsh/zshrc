@@ -227,13 +227,7 @@ zle -N edit-command-line
 # Bindkeys
 # ---------------------------------------------------------------------------
 bindkey "^R" history-incremental-search-backward
-
 bindkey '\C-x\C-e' edit-command-line
-
-# Substring search
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
 # Autosuggestions
 bindkey '^ ' autosuggest-accept
 
@@ -290,9 +284,7 @@ fi
 # ---------------------------------------------------------------------------
 # Plugins
 # ---------------------------------------------------------------------------
-source "$plugins_dir/zsh-history-substring-search/zsh-history-substring-search.zsh"
 source "$plugins_dir/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "$plugins_dir/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # ---------------------------------------------------------------------------
 # Prompt
