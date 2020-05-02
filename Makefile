@@ -1,10 +1,10 @@
 # Makefile to install all dotfiles
 #
 # $ make # install all dotfiles
-# $ make vim # install vim dotfiles
+# $ make neovim # install neovim dotfiles
 #
 # $ make clean # uninstall all dotfiles
-# $ make clean_vim # uninstall vim dotfiles
+# $ make clean_neovim # uninstall neovim dotfiles
 
 DOTFILES := $(PWD)
 DST_DIR  := $(HOME)
@@ -17,7 +17,7 @@ CONFIG_DIR ?= $(DST_DIR)/.config
 
 LINK  := ln -sf
 MKDIR := mkdir -p
-CLONE := git clone --depth 2
+CLONE := git clone --depth 1
 RM    := rm -fr
 
 .PHONY: default install clean list
