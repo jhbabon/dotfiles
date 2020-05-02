@@ -182,8 +182,11 @@ alias g='git'
 alias nv='nvim'
 
 # mimic macOS pbcopy and pbpaste
-has 'pbcopy' || alias pbcopy='xclip -i -selection clipboard'
-has 'pbpaste' || alias pbpaste='xclip -o -selection clipboard'
+has pbcopy || alias pbcopy='xclip -i -selection clipboard'
+has pbpaste || alias pbpaste='xclip -o -selection clipboard'
+
+# source: https://github.com/direnv/direnv/wiki/Tmux
+has direnv && alias tmux='direnv exec / tmux'
 
 # ---------------------------------------------------------------------------
 # History
