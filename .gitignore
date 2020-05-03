@@ -1,6 +1,8 @@
 sandbox
 neovim/nvim/plugged
 neovim/nvim/plugin/local.vim
+neovim/nvim/pack/*
+!neovim/nvim/pack/.keep
 neovim/nvim/view
 neovim/nvim/autoload/plug.vim*
 neovim/nvim/.netrwhist

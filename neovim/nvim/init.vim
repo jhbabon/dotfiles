@@ -92,51 +92,70 @@ au InsertLeave * nested update
 au CursorHold * nested update
 
 " Plugins
+"
+" All plugins are loaded using the default (neo)vim's package manager
+" see :h packages
+"
+" Plugins are installed using minpac: https://github.com/k-takata/minpac
 " =============================================================================
 filetype off
-call plug#begin()
-Plug 'w0rp/ale'
-Plug 'kassio/neoterm'
 
-Plug 'janko-m/vim-test'
-Plug 'mhinz/vim-grepper'
-Plug 'vim-scripts/matchit.zip'
-Plug 'sheerun/vim-polyglot'
-Plug 'jiangmiao/auto-pairs'
-Plug 'jgdavey/vim-blockle'
-Plug 'itchyny/lightline.vim'
-Plug 'maximbaz/lightline-ale'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-ragtag'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-projectionist'
+" Load early all plugins
+packloadall
 
-Plug 'pechorin/any-jump.vim'
+function! PackInit() abort
+  packadd minpac
 
-Plug 'metakirby5/codi.vim'
+  call minpac#init()
+  call minpac#add('k-takata/minpac', { 'type': 'opt' })
 
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'joshdick/onedark.vim'
-Plug 'rakr/vim-one'
-Plug 'ayu-theme/ayu-vim'
-Plug 'haishanh/night-owl.vim'
-Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 
-Plug 'MarcWeber/vim-addon-local-vimrc'
+  call minpac#add('w0rp/ale')
+  call minpac#add('kassio/neoterm')
 
-Plug 'mattn/emmet-vim'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+  call minpac#add('janko-m/vim-test')
+  call minpac#add('mhinz/vim-grepper')
+  call minpac#add('vim-scripts/matchit.zip')
+  call minpac#add('sheerun/vim-polyglot')
+  call minpac#add('jiangmiao/auto-pairs')
+  call minpac#add('jgdavey/vim-blockle')
+  call minpac#add('itchyny/lightline.vim')
+  call minpac#add('maximbaz/lightline-ale')
+  call minpac#add('tpope/vim-fugitive')
+  call minpac#add('tpope/vim-surround')
+  call minpac#add('tpope/vim-ragtag')
+  call minpac#add('tpope/vim-endwise')
+  call minpac#add('tpope/vim-commentary')
+  call minpac#add('tpope/vim-eunuch')
+  call minpac#add('tpope/vim-projectionist')
 
-if executable('scout')
-  Plug 'jhbabon/scout.vim'
-endif
+  call minpac#add('pechorin/any-jump.vim')
 
-Plug 'liuchengxu/vim-which-key'
-call plug#end()
+  call minpac#add('metakirby5/codi.vim')
+
+  call minpac#add('NLKNguyen/papercolor-theme')
+  call minpac#add('joshdick/onedark.vim')
+  call minpac#add('rakr/vim-one')
+  call minpac#add('ayu-theme/ayu-vim')
+  call minpac#add('haishanh/night-owl.vim')
+  call minpac#add('challenger-deep-theme/vim', { 'name': 'challenger-deep' })
+
+  call minpac#add('MarcWeber/vim-addon-local-vimrc')
+
+  call minpac#add('mattn/emmet-vim')
+  call minpac#add('SirVer/ultisnips')
+  call minpac#add('honza/vim-snippets')
+
+  call minpac#add('jhbabon/scout.vim', { 'type': 'opt', 'name': 'scout' })
+
+  call minpac#add('liuchengxu/vim-which-key')
+endfunction
+
+" PackBootstrap is used the first time, to install and then exit nvim
+command! PackBootstrap call PackInit() | call minpac#update('', { 'do': 'quit' })
+command! PackUpdate    call PackInit() | call minpac#update('', { 'do': 'call minpac#status()' })
+command! PackClean     call PackInit() | call minpac#clean()
+command! PackStatus    call PackInit() | call minpac#status()
 
 " Ale
 let g:ale_linters = {
@@ -216,6 +235,7 @@ nnoremap <Plug>(jump-last-results) :AnyJumpLastResults<CR>
 
 " Scout
 if executable('scout')
+  packadd scout " load the plugin
   let g:scout_window_type = 'floating'
 
   if executable('rg')
@@ -358,7 +378,7 @@ endfunction
 " Mappings
 " =============================================================================
 
-" Go to Normal mode fast
+" Go fast to Normal mode
 imap jj <ESC>
 
 " copy file path to clipboard
