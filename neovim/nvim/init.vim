@@ -100,39 +100,53 @@ au CursorHold * nested update
 " =============================================================================
 filetype off
 
-" Load early all plugins
+" Load early all `start` plugins
 packloadall
 
+" Load minpac in order to install/update/clean plugins
+" Minpac doesn't need to be loaded all the time
 function! PackInit() abort
+  " NOTE: To remove a plugin `PackClean` has to be called after removing
+  "   the `minpac#add()` line
   packadd minpac
 
   call minpac#init()
+  " Minpac can update itself by adding it here
   call minpac#add('k-takata/minpac', { 'type': 'opt' })
 
+  " Start plugins
+  "
+  " Can be loaded right away
+  " ---------------------------------------------------------------------------
 
-  call minpac#add('w0rp/ale')
-  call minpac#add('kassio/neoterm')
-
-  call minpac#add('janko-m/vim-test')
-  call minpac#add('mhinz/vim-grepper')
+  " Match pairs like (), if else, etc
   call minpac#add('vim-scripts/matchit.zip')
-  call minpac#add('sheerun/vim-polyglot')
+
+  " Plugin to insert or delete brackets, parens, quotes in pair
   call minpac#add('jiangmiao/auto-pairs')
-  call minpac#add('jgdavey/vim-blockle')
-  call minpac#add('itchyny/lightline.vim')
-  call minpac#add('maximbaz/lightline-ale')
+
+  " Git integration
   call minpac#add('tpope/vim-fugitive')
+
+  " This plugin is all about 'surroundings': parentheses, brackets, quotes,
+  " XML tags, and more. Provides mappings to easily delete, change and
+  " add such surroundings in pairs
   call minpac#add('tpope/vim-surround')
-  call minpac#add('tpope/vim-ragtag')
+
+  " Plugin that helps to end certain structures automatically
+  " (i.e: adds `end` after `if`)
   call minpac#add('tpope/vim-endwise')
+
+  " Add/remove comments
   call minpac#add('tpope/vim-commentary')
+
+  " Helpers for UNIX shell commands (i.e: Delete files, etc)
   call minpac#add('tpope/vim-eunuch')
-  call minpac#add('tpope/vim-projectionist')
 
-  call minpac#add('pechorin/any-jump.vim')
-
+  " The interactive scratchpad
   call minpac#add('metakirby5/codi.vim')
 
+  " Colorschemes
   call minpac#add('NLKNguyen/papercolor-theme')
   call minpac#add('joshdick/onedark.vim')
   call minpac#add('rakr/vim-one')
@@ -140,24 +154,78 @@ function! PackInit() abort
   call minpac#add('haishanh/night-owl.vim')
   call minpac#add('challenger-deep-theme/vim', { 'name': 'challenger-deep' })
 
-  call minpac#add('MarcWeber/vim-addon-local-vimrc')
+  " Optional (opt) plugins
+  "
+  " Loaded on demand or after their configurations are set
+  "
+  " If a plugin needs custom configurations it's better to load it with
+  " `packadd` after the configurations are set
+  "
+  " Example:
+  "
+  "   let g:myplugin_config = 1
+  "   packadd myplugin
+  " ---------------------------------------------------------------------------
 
-  call minpac#add('mattn/emmet-vim')
-  call minpac#add('SirVer/ultisnips')
-  call minpac#add('honza/vim-snippets')
+  " Asynchronous Lint Engine
+  call minpac#add('dense-analysis/ale', { 'type': 'opt' })
 
-  call minpac#add('jhbabon/scout.vim', { 'type': 'opt', 'name': 'scout' })
+  " Wrappers around :terminal functions
+  call minpac#add('kassio/neoterm', { 'type': 'opt' })
 
-  call minpac#add('liuchengxu/vim-which-key')
+  " Run tests for many different languages/frameworks. It can use neoterm
+  call minpac#add('janko-m/vim-test', { 'type': 'opt' })
+
+  " Async search with a grep tool (i.e: ripgrep)
+  call minpac#add('mhinz/vim-grepper', { 'type': 'opt' })
+
+  " A collection of language packs
+  call minpac#add('sheerun/vim-polyglot', { 'type': 'opt' })
+
+  " Fancier status line
+  call minpac#add('itchyny/lightline.vim', { 'type': 'opt' })
+  call minpac#add('maximbaz/lightline-ale', { 'type': 'opt' })
+
+  " Jump to any definition and references
+  call minpac#add('pechorin/any-jump.vim', { 'type': 'opt' })
+
+  " Load local .vimrc directories
+  call minpac#add('embear/vim-localvimrc', { 'type': 'opt' })
+
+  " https://emmet.io/
+  call minpac#add('mattn/emmet-vim', { 'type': 'opt' })
+
+  " Use snippets in vim
+  call minpac#add('SirVer/ultisnips', { 'type': 'opt' })
+  " Pack of snippets for different languages
+  call minpac#add('honza/vim-snippets', { 'type': 'opt' })
+
+  " Fuzzy finder for files and buffers
+  call minpac#add('jhbabon/scout.vim', { 'type': 'opt' })
+
+  " Granular project configuration using 'projections'
+  call minpac#add('tpope/vim-projectionist', { 'type': 'opt' })
+
+  " Show keybindings and mappings in a popup
+  call minpac#add('liuchengxu/vim-which-key', { 'type': 'opt' })
 endfunction
 
 " PackBootstrap is used the first time, to install and then exit nvim
 command! PackBootstrap call PackInit() | call minpac#update('', { 'do': 'quit' })
+command! PackReset     call PackInit() | call minpac#update('', { 'do': 'call minpac#clean()' })
 command! PackUpdate    call PackInit() | call minpac#update('', { 'do': 'call minpac#status()' })
 command! PackClean     call PackInit() | call minpac#clean()
 command! PackStatus    call PackInit() | call minpac#status()
 
-" Ale
+" vim-fugitive
+" -----------------------------------------------------------------------------
+nnoremap <Plug>(git-status) :Gstatus<cr>
+nnoremap <Plug>(git-commit) :Gcommit<cr>
+nnoremap <Plug>(git-log) :Glog<cr>
+nnoremap <Plug>(git-diff) :Gdiff<cr>
+
+" ale
+" -----------------------------------------------------------------------------
 let g:ale_linters = {
       \   'rust': ['rls']
       \ }
@@ -165,17 +233,10 @@ let g:ale_fixers = {
       \   'rust': ['rustfmt']
       \ }
 
-" Polyglot
-let g:polyglot_disabled = ['graphql']
+packadd ale
 
-" Ruby
-au BufNewFile,BufRead *.jbuilder set ft=ruby
-
-" JSX files
-" This is done to make UltiSnips JavaScript to work with .jsx files
-au BufRead,BufNewFile *.jsx setlocal filetype=javascriptreact.javascript
-
-" Neoterm
+" neoterm
+" -----------------------------------------------------------------------------
 let g:neoterm_size = '15%'
 let g:neoterm_fixedsize = 1
 let g:neoterm_autoscroll = 1
@@ -184,7 +245,10 @@ nnoremap <Plug>(console-run-command) :T<space>
 nnoremap <Plug>(console-open) :Topen<cr>
 nnoremap <Plug>(console-close) :Tclose<cr>
 
+packadd neoterm
+
 " vim-test
+" -----------------------------------------------------------------------------
 function! NeotermFixStrategy(cmd)
   " call neoterm#do({ 'cmd': a:cmd })
   execute 'rightbelow T ' . a:cmd
@@ -196,7 +260,10 @@ let g:test#strategy = 'neotermfix'
 nnoremap <Plug>(test-file) :TestFile<cr>
 nnoremap <Plug>(test-nearest) :TestNearest<cr>
 
-" Grepper
+packadd vim-test
+
+" vim-grepper
+" -----------------------------------------------------------------------------
 let g:grepper = { 'tools': ['rg', 'git', 'ag', 'ack', 'grep'] }
 
 nnoremap <Plug>(search-current-word) :Grepper -noprompt -cword<cr>
@@ -217,25 +284,86 @@ nnoremap <Plug>(search-ack-query) :Grepper -tool ack -query<space>
 nnoremap <Plug>(search-grep-current-word) :Grepper -tool grep -noprompt -cword<cr>
 nnoremap <Plug>(search-grep-query) :Grepper -tool grep -query<space>
 
+packadd vim-grepper
+
+" vim-polyglot
+" -----------------------------------------------------------------------------
+let g:polyglot_disabled = ['graphql']
 " Don't load elm.vim mappings
 let g:elm_setup_keybindings = 0
 
-" Fugitive
-nnoremap <Plug>(git-status) :Gstatus<cr>
-nnoremap <Plug>(git-commit) :Gcommit<cr>
-nnoremap <Plug>(git-log) :Glog<cr>
-nnoremap <Plug>(git-diff) :Gdiff<cr>
+packadd vim-polyglot
 
-" AnyJump
+" lightline.vim
+" -----------------------------------------------------------------------------
+let g:lightline = {
+      \   'colorscheme': 'challenger_deep',
+      \   'active': {
+      \     'left': [
+      \       ['mode', 'paste'],
+      \       ['gitbranch', 'readonly', 'filename', 'modified']
+      \     ],
+      \     'right': [
+      \       ['linter_checking', 'linter_warnings', 'linter_errors', 'lineinfo'],
+      \       ['percent'],
+      \       ['fileformat', 'fileencoding', 'filetype']
+      \     ]
+      \   },
+      \   'component_expand': {
+      \     'gitbranch': 'fugitive#head',
+      \     'linter_checking': 'lightline#ale#checking',
+      \     'linter_warnings': 'lightline#ale#warnings',
+      \     'linter_errors': 'lightline#ale#errors'
+      \   },
+      \   'component_type': {
+      \     'linter_checking': 'left',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error'
+      \   }
+      \ }
+
+packadd lightline.vim
+packadd lightline-ale
+
+" any-jump.vim
+" -----------------------------------------------------------------------------
 let g:any_jump_disable_default_keybindings = 1
 nnoremap <Plug>(jump-current-word) :AnyJump<CR>
 xnoremap <Plug>(jump-visual-word) :AnyJumpVisual<CR>
 nnoremap <Plug>(jump-previous-file) :AnyJumpBack<CR>
 nnoremap <Plug>(jump-last-results) :AnyJumpLastResults<CR>
 
-" Scout
+packadd any-jump.vim
+
+" vim-localvimrc
+" -----------------------------------------------------------------------------
+let g:localvimrc_persistent = 1
+let g:localvimrc_name = ['.vimrc']
+
+packadd vim-localvimrc
+
+" emmet-vim
+" -----------------------------------------------------------------------------
+" With <space> emmet mappings will be displayed in which_key prompt
+let g:user_emmet_leader_key = '<space>e'
+let g:user_emmet_mode = 'nv' " load only in normal and visual mode
+packadd emmet-vim
+
+" ultisnips
+" -----------------------------------------------------------------------------
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories=["snips"]
+
+packadd ultisnips
+packadd vim-snippets
+
+" scout.vim
+" -----------------------------------------------------------------------------
 if executable('scout')
-  packadd scout " load the plugin
   let g:scout_window_type = 'floating'
 
   if executable('rg')
@@ -246,11 +374,14 @@ if executable('scout')
   nnoremap <Plug>(files-open-file-current-dir) :ScoutFiles %:h<cr>
   nnoremap <Plug>(buffers-open-buffer) :ScoutBuffers<cr>
   nnoremap <Plug>(buffers-open-buffer-current-dir) :ScoutBuffers %:h<cr>
+
+  packadd scout.vim
 endif
 
 nnoremap <Plug>(files-tree-explorer) :Explore<cr>
 
-" Projectionist
+" vim-projectionist
+" -----------------------------------------------------------------------------
 if !exists('g:projectionist_transformations')
   let g:projectionist_transformations = {}
 endif
@@ -286,65 +417,15 @@ let g:projectionist_heuristics = {
       \   }
       \ }
 
-" Ragtag
-let g:ragtag_global_maps = 1
+packadd vim-projectionist
 
-" UltiSnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "snips"]
-
-
-" Colors
-
-if (has("termguicolors"))
- set termguicolors
-endif
-
-syntax enable
-set background=dark
-colorscheme challenger_deep
-
-" Lightline
-let g:lightline = {
-      \   'colorscheme': 'challenger_deep',
-      \   'active': {
-      \     'left': [
-      \       ['mode', 'paste'],
-      \       ['gitbranch', 'readonly', 'filename', 'modified']
-      \     ],
-      \     'right': [
-      \       ['linter_checking', 'linter_warnings', 'linter_errors', 'lineinfo'],
-      \       ['percent'],
-      \       ['fileformat', 'fileencoding', 'filetype']
-      \     ]
-      \   },
-      \   'component_expand': {
-      \     'gitbranch': 'fugitive#head',
-      \     'linter_checking': 'lightline#ale#checking',
-      \     'linter_warnings': 'lightline#ale#warnings',
-      \     'linter_errors': 'lightline#ale#errors'
-      \   },
-      \   'component_type': {
-      \     'linter_checking': 'left',
-      \     'linter_warnings': 'warning',
-      \     'linter_errors': 'error'
-      \   }
-      \ }
-
-" Which Key
+" vim-which-key
+" -----------------------------------------------------------------------------
 autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 let g:which_key_map =  {}
-
-call which_key#register('<Space>', "g:which_key_map")
-nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 
 function! s:my_which_key_format(mapping) abort
   let l:ret = a:mapping
@@ -355,6 +436,31 @@ function! s:my_which_key_format(mapping) abort
   return l:ret
 endfunction
 let g:WhichKeyFormatFunc = function('s:my_which_key_format')
+
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+
+packadd vim-which-key
+call which_key#register('<Space>', "g:which_key_map")
+
+" Languages' settings
+" =============================================================================
+" Ruby
+au BufNewFile,BufRead *.jbuilder set ft=ruby
+
+" JSX files
+" This is done to make UltiSnips JavaScript to work with .jsx files
+au BufRead,BufNewFile *.jsx setlocal filetype=javascriptreact.javascript
+
+" Colors
+" =============================================================================
+if (has("termguicolors"))
+ set termguicolors
+endif
+
+syntax enable
+set background=dark
+colorscheme challenger_deep
 
 filetype plugin indent on
 
@@ -378,7 +484,7 @@ endfunction
 " Mappings
 " =============================================================================
 
-" Go fast to Normal mode
+" go fast to Normal mode
 imap jj <ESC>
 
 " copy file path to clipboard
@@ -391,7 +497,7 @@ nnoremap <Plug>(misc-comma-eol) :s/\([^,]\)$/\1,/<cr>:noh<cr>
 " clear highlighted search
 nnoremap <Plug>(search-clear-highlighted) :nohl<cr>
 
-" Map trailing whitespace method
+" map trailing whitespace method
 nnoremap <Plug>(misc-strip-trailing-whitespace) :call StripTrailingWhitespace()<cr>
 
 " quick list and location list
@@ -400,7 +506,7 @@ nnoremap <Plug>(list-location-open) :lopen<cr>
 nnoremap <Plug>(list-quick-close) :cclose<cr>
 nnoremap <Plug>(list-location-close) :lclose<cr>
 
-" Which Key mappings
+" vim-which-key mappings
 let g:which_key_map.b = { 'name': '(buffers)' }
 nmap <leader>bb <Plug>(buffers-open-buffer)
 nmap <leader>bd <Plug>(buffers-open-buffer-current-dir)
@@ -409,6 +515,8 @@ let g:which_key_map.c = { 'name': '(console-window)' }
 nmap <leader>cr <Plug>(console-run-command)
 nmap <leader>co <Plug>(console-open)
 nmap <leader>cc <Plug>(console-close)
+
+let g:which_key_map.e = { 'name': '(emmet)' }
 
 let g:which_key_map.f = { 'name': '(files)' }
 nmap <leader>ff <Plug>(files-open-file)
@@ -443,10 +551,6 @@ nmap <silent> <leader>m<space> <Plug>(misc-strip-trailing-whitespace)
 
 let g:which_key_map.p = { 'name': '(programming)' }
 nmap <leader>pf <Plug>(ale_fix)
-
-let g:which_key_map.p.r = { 'name': '(ruby)' }
-" blockle plugin
-nmap <leader>prb <Plug>BlockToggle
 
 let g:which_key_map.s = { 'name': '(search)' }
 nmap <leader>sw <Plug>(search-current-word)
