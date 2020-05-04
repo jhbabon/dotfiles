@@ -108,7 +108,7 @@ packloadall
 function! PackInit() abort
   " NOTE: To remove a plugin `PackClean` has to be called after removing
   "   the `minpac#add()` line
-  packadd minpac
+  packadd! minpac
 
   call minpac#init()
   " Minpac can update itself by adding it here
@@ -159,12 +159,12 @@ function! PackInit() abort
   " Loaded on demand or after their configurations are set
   "
   " If a plugin needs custom configurations it's better to load it with
-  " `packadd` after the configurations are set
+  " `packadd!` after the configurations are set
   "
   " Example:
   "
   "   let g:myplugin_config = 1
-  "   packadd myplugin
+  "   packadd! myplugin
   " ---------------------------------------------------------------------------
 
   " Asynchronous Lint Engine
@@ -233,7 +233,7 @@ let g:ale_fixers = {
       \   'rust': ['rustfmt']
       \ }
 
-packadd ale
+packadd! ale
 
 " neoterm
 " -----------------------------------------------------------------------------
@@ -245,7 +245,7 @@ nnoremap <Plug>(console-run-command) :T<space>
 nnoremap <Plug>(console-open) :Topen<cr>
 nnoremap <Plug>(console-close) :Tclose<cr>
 
-packadd neoterm
+packadd! neoterm
 
 " vim-test
 " -----------------------------------------------------------------------------
@@ -260,7 +260,7 @@ let g:test#strategy = 'neotermfix'
 nnoremap <Plug>(test-file) :TestFile<cr>
 nnoremap <Plug>(test-nearest) :TestNearest<cr>
 
-packadd vim-test
+packadd! vim-test
 
 " vim-grepper
 " -----------------------------------------------------------------------------
@@ -284,7 +284,7 @@ nnoremap <Plug>(search-ack-query) :Grepper -tool ack -query<space>
 nnoremap <Plug>(search-grep-current-word) :Grepper -tool grep -noprompt -cword<cr>
 nnoremap <Plug>(search-grep-query) :Grepper -tool grep -query<space>
 
-packadd vim-grepper
+packadd! vim-grepper
 
 " vim-polyglot
 " -----------------------------------------------------------------------------
@@ -292,7 +292,7 @@ let g:polyglot_disabled = ['graphql']
 " Don't load elm.vim mappings
 let g:elm_setup_keybindings = 0
 
-packadd vim-polyglot
+packadd! vim-polyglot
 
 " lightline.vim
 " -----------------------------------------------------------------------------
@@ -322,8 +322,8 @@ let g:lightline = {
       \   }
       \ }
 
-packadd lightline.vim
-packadd lightline-ale
+packadd! lightline.vim
+packadd! lightline-ale
 
 " any-jump.vim
 " -----------------------------------------------------------------------------
@@ -333,21 +333,21 @@ xnoremap <Plug>(jump-visual-word) :AnyJumpVisual<CR>
 nnoremap <Plug>(jump-previous-file) :AnyJumpBack<CR>
 nnoremap <Plug>(jump-last-results) :AnyJumpLastResults<CR>
 
-packadd any-jump.vim
+packadd! any-jump.vim
 
 " vim-localvimrc
 " -----------------------------------------------------------------------------
 let g:localvimrc_persistent = 1
 let g:localvimrc_name = ['.vimrc']
 
-packadd vim-localvimrc
+packadd! vim-localvimrc
 
 " emmet-vim
 " -----------------------------------------------------------------------------
 " With <space> emmet mappings will be displayed in which_key prompt
 let g:user_emmet_leader_key = '<space>e'
 let g:user_emmet_mode = 'nv' " load only in normal and visual mode
-packadd emmet-vim
+packadd! emmet-vim
 
 " ultisnips
 " -----------------------------------------------------------------------------
@@ -358,8 +358,8 @@ let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetDirectories=["snips"]
 
-packadd ultisnips
-packadd vim-snippets
+packadd! ultisnips
+packadd! vim-snippets
 
 " scout.vim
 " -----------------------------------------------------------------------------
@@ -375,7 +375,7 @@ if executable('scout')
   nnoremap <Plug>(buffers-open-buffer) :ScoutBuffers<cr>
   nnoremap <Plug>(buffers-open-buffer-current-dir) :ScoutBuffers %:h<cr>
 
-  packadd scout.vim
+  packadd! scout.vim
 endif
 
 nnoremap <Plug>(files-tree-explorer) :Explore<cr>
@@ -417,7 +417,7 @@ let g:projectionist_heuristics = {
       \   }
       \ }
 
-packadd vim-projectionist
+packadd! vim-projectionist
 
 " vim-which-key
 " -----------------------------------------------------------------------------
@@ -440,7 +440,7 @@ let g:WhichKeyFormatFunc = function('s:my_which_key_format')
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 
-packadd vim-which-key
+packadd! vim-which-key
 call which_key#register('<Space>', "g:which_key_map")
 
 " Languages' settings
