@@ -108,7 +108,7 @@ packloadall
 function! PackInit() abort
   " NOTE: To remove a plugin `PackClean` has to be called after removing
   "   the `minpac#add()` line
-  packadd! minpac
+  packadd minpac
 
   call minpac#init()
   " Minpac can update itself by adding it here
