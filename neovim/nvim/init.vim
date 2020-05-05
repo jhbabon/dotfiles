@@ -94,70 +94,137 @@ au CursorHold * nested update
 " Plugins
 "
 " All plugins are loaded using the default (neo)vim's package manager
+" see :h packages
 "
-" Plugins are managed using the small plugin `pack.vim`, a wrapper around
-" `minpac`:
-"
-" References:
-"   * see :h packages
-"   * see nvim/autoload/pack.vim
-"   * see https://github.com/k-takata/minpac
+" Plugins are installed using minpac: https://github.com/k-takata/minpac
 " =============================================================================
 filetype off
-packloadall " load all `start` plugins
 
-" Initialize Pack* commands to install, update and remove plugins
-call pack#setup()
+" Load early all `start` plugins
+packloadall
 
-" matchit: Match pairs like `()`, `if ... else`, etc
-" -----------------------------------------------------------------------------
-call pack#start('vim-scripts/matchit.zip')
+" Load minpac in order to install/update/clean plugins
+" Minpac doesn't need to be loaded all the time
+function! PackInit() abort
+  " NOTE: To remove a plugin `PackClean` has to be called after removing
+  "   the `minpac#add()` line
+  packadd minpac
 
-" auto-pairs: Plugin to insert or delete brackets, parens, quotes in pair
-" -----------------------------------------------------------------------------
-call pack#start('jiangmiao/auto-pairs')
+  call minpac#init()
+  " Minpac can update itself by adding it here
+  call minpac#add('k-takata/minpac', { 'type': 'opt' })
 
-" vim-fugitive: Git integration
+  " Start plugins
+  "
+  " Can be loaded right away
+  " ---------------------------------------------------------------------------
+
+  " Match pairs like (), if else, etc
+  call minpac#add('vim-scripts/matchit.zip')
+
+  " Plugin to insert or delete brackets, parens, quotes in pair
+  call minpac#add('jiangmiao/auto-pairs')
+
+  " Git integration
+  call minpac#add('tpope/vim-fugitive')
+
+  " This plugin is all about 'surroundings': parentheses, brackets, quotes,
+  " XML tags, and more. Provides mappings to easily delete, change and
+  " add such surroundings in pairs
+  call minpac#add('tpope/vim-surround')
+
+  " Plugin that helps to end certain structures automatically
+  " (i.e: adds `end` after `if`)
+  call minpac#add('tpope/vim-endwise')
+
+  " Add/remove comments
+  call minpac#add('tpope/vim-commentary')
+
+  " Helpers for UNIX shell commands (i.e: Delete files, etc)
+  call minpac#add('tpope/vim-eunuch')
+
+  " The interactive scratchpad
+  call minpac#add('metakirby5/codi.vim')
+
+  " Colorschemes
+  call minpac#add('NLKNguyen/papercolor-theme')
+  call minpac#add('joshdick/onedark.vim')
+  call minpac#add('rakr/vim-one')
+  call minpac#add('ayu-theme/ayu-vim')
+  call minpac#add('haishanh/night-owl.vim')
+  call minpac#add('challenger-deep-theme/vim', { 'name': 'challenger-deep' })
+
+  " Optional (opt) plugins
+  "
+  " Loaded on demand or after their configurations are set
+  "
+  " If a plugin needs custom configurations it's better to load it with
+  " `packadd!` after the configurations are set
+  "
+  " Example:
+  "
+  "   let g:myplugin_config = 1
+  "   packadd! myplugin
+  " ---------------------------------------------------------------------------
+
+  " Asynchronous Lint Engine
+  call minpac#add('dense-analysis/ale', { 'type': 'opt' })
+
+  " Wrappers around :terminal functions
+  call minpac#add('kassio/neoterm', { 'type': 'opt' })
+
+  " Run tests for many different languages/frameworks. It can use neoterm
+  call minpac#add('janko-m/vim-test', { 'type': 'opt' })
+
+  " Async search with a grep tool (i.e: ripgrep)
+  call minpac#add('mhinz/vim-grepper', { 'type': 'opt' })
+
+  " A collection of language packs
+  call minpac#add('sheerun/vim-polyglot', { 'type': 'opt' })
+
+  " Fancier status line
+  call minpac#add('itchyny/lightline.vim', { 'type': 'opt' })
+  call minpac#add('maximbaz/lightline-ale', { 'type': 'opt' })
+
+  " Jump to any definition and references
+  call minpac#add('pechorin/any-jump.vim', { 'type': 'opt' })
+
+  " Load local .vimrc directories
+  call minpac#add('embear/vim-localvimrc', { 'type': 'opt' })
+
+  " https://emmet.io/
+  call minpac#add('mattn/emmet-vim', { 'type': 'opt' })
+
+  " Use snippets in vim
+  call minpac#add('SirVer/ultisnips', { 'type': 'opt' })
+  " Pack of snippets for different languages
+  call minpac#add('honza/vim-snippets', { 'type': 'opt' })
+
+  " Fuzzy finder for files and buffers
+  call minpac#add('jhbabon/scout.vim', { 'type': 'opt' })
+
+  " Granular project configuration using 'projections'
+  call minpac#add('tpope/vim-projectionist', { 'type': 'opt' })
+
+  " Show keybindings and mappings in a popup
+  call minpac#add('liuchengxu/vim-which-key', { 'type': 'opt' })
+endfunction
+
+" PackBootstrap is used the first time, to install and then exit nvim
+command! PackBootstrap call PackInit() | call minpac#update('', { 'do': 'quit' })
+command! PackReset     call PackInit() | call minpac#update('', { 'do': 'call minpac#clean()' })
+command! PackUpdate    call PackInit() | call minpac#update('', { 'do': 'call minpac#status()' })
+command! PackClean     call PackInit() | call minpac#clean()
+command! PackStatus    call PackInit() | call minpac#status()
+
+" vim-fugitive
 " -----------------------------------------------------------------------------
 nnoremap <Plug>(git-status) :Gstatus<cr>
 nnoremap <Plug>(git-commit) :Gcommit<cr>
 nnoremap <Plug>(git-log) :Glog<cr>
 nnoremap <Plug>(git-diff) :Gdiff<cr>
-call pack#start('tpope/vim-fugitive')
 
-" vim-surround: This plugin is all about 'surroundings': parentheses,
-" brackets, quotes, XML tags, and more. Provides mappings to easily delete,
-" change and add such surroundings in pairs
-" -----------------------------------------------------------------------------
-call pack#start('tpope/vim-surround')
-
-" vim-endwise: Plugin that helps to end certain structures automatically
-" (i.e: adds `end` after `if`)
-" -----------------------------------------------------------------------------
-call pack#start('tpope/vim-endwise')
-
-" vim-commentary: Add/remove comments
-" -----------------------------------------------------------------------------
-call pack#start('tpope/vim-commentary')
-
-" vim-eunuch: Helpers for UNIX shell commands (i.e: Delete files, etc)
-" -----------------------------------------------------------------------------
-call pack#start('tpope/vim-eunuch')
-
-" codi.vim: The interactive scratchpad
-" -----------------------------------------------------------------------------
-call pack#start('metakirby5/codi.vim')
-
-" Colorschemes
-" -----------------------------------------------------------------------------
-call pack#start('NLKNguyen/papercolor-theme')
-call pack#start('joshdick/onedark.vim')
-call pack#start('rakr/vim-one')
-call pack#start('ayu-theme/ayu-vim')
-call pack#start('haishanh/night-owl.vim')
-call pack#start('challenger-deep-theme/vim', { 'name': 'challenger-deep' })
-
-" ale: Asynchronous Lint Engine
+" ale
 " -----------------------------------------------------------------------------
 let g:ale_linters = {
       \   'rust': ['rls']
@@ -166,9 +233,9 @@ let g:ale_fixers = {
       \   'rust': ['rustfmt']
       \ }
 
-call pack#add('dense-analysis/ale')
+packadd! ale
 
-" neoterm: Wrappers around :terminal functions
+" neoterm
 " -----------------------------------------------------------------------------
 let g:neoterm_size = '15%'
 let g:neoterm_fixedsize = 1
@@ -178,9 +245,9 @@ nnoremap <Plug>(console-run-command) :T<space>
 nnoremap <Plug>(console-open) :Topen<cr>
 nnoremap <Plug>(console-close) :Tclose<cr>
 
-call pack#add('kassio/neoterm')
+packadd! neoterm
 
-" vim-test: Run tests for many different languages/frameworks. It can use neoterm
+" vim-test
 " -----------------------------------------------------------------------------
 function! NeotermFixStrategy(cmd)
   " call neoterm#do({ 'cmd': a:cmd })
@@ -193,9 +260,9 @@ let g:test#strategy = 'neotermfix'
 nnoremap <Plug>(test-file) :TestFile<cr>
 nnoremap <Plug>(test-nearest) :TestNearest<cr>
 
-call pack#add('janko-m/vim-test')
+packadd! vim-test
 
-" vim-grepper: Async search with a grep tool (i.e: ripgrep)
+" vim-grepper
 " -----------------------------------------------------------------------------
 let g:grepper = { 'tools': ['rg', 'git', 'ag', 'ack', 'grep'] }
 
@@ -217,17 +284,17 @@ nnoremap <Plug>(search-ack-query) :Grepper -tool ack -query<space>
 nnoremap <Plug>(search-grep-current-word) :Grepper -tool grep -noprompt -cword<cr>
 nnoremap <Plug>(search-grep-query) :Grepper -tool grep -query<space>
 
-call pack#add('mhinz/vim-grepper')
+packadd! vim-grepper
 
-" vim-polyglot: A collection of language packs
+" vim-polyglot
 " -----------------------------------------------------------------------------
 let g:polyglot_disabled = ['graphql']
 " Don't load elm.vim mappings
 let g:elm_setup_keybindings = 0
 
-call pack#add('sheerun/vim-polyglot')
+packadd! vim-polyglot
 
-" lightline.vim: Fancier status line
+" lightline.vim
 " -----------------------------------------------------------------------------
 let g:lightline = {
       \   'colorscheme': 'challenger_deep',
@@ -255,10 +322,10 @@ let g:lightline = {
       \   }
       \ }
 
-call pack#add('itchyny/lightline.vim')
-call pack#add('maximbaz/lightline-ale')
+packadd! lightline.vim
+packadd! lightline-ale
 
-" any-jump.vim: Jump to any definition and references
+" any-jump.vim
 " -----------------------------------------------------------------------------
 let g:any_jump_disable_default_keybindings = 1
 nnoremap <Plug>(jump-current-word) :AnyJump<CR>
@@ -266,24 +333,23 @@ xnoremap <Plug>(jump-visual-word) :AnyJumpVisual<CR>
 nnoremap <Plug>(jump-previous-file) :AnyJumpBack<CR>
 nnoremap <Plug>(jump-last-results) :AnyJumpLastResults<CR>
 
-call pack#add('pechorin/any-jump.vim')
+packadd! any-jump.vim
 
-" vim-localvimrc: Load local .vimrc directories
+" vim-localvimrc
 " -----------------------------------------------------------------------------
 let g:localvimrc_persistent = 1
 let g:localvimrc_name = ['.vimrc']
 
-call pack#add('embear/vim-localvimrc')
+packadd! vim-localvimrc
 
-" emmet-vim: https://emmet.io/
+" emmet-vim
 " -----------------------------------------------------------------------------
 " With <space> emmet mappings will be displayed in which_key prompt
 let g:user_emmet_leader_key = '<space>e'
 let g:user_emmet_mode = 'nv' " load only in normal and visual mode
+packadd! emmet-vim
 
-call pack#add('mattn/emmet-vim')
-
-" ultisnips: Use snippets in vim
+" ultisnips
 " -----------------------------------------------------------------------------
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -292,11 +358,10 @@ let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetDirectories=["snips"]
 
-call pack#add('SirVer/ultisnips')
-" Pack of snippets for different languages
-call pack#add('honza/vim-snippets')
+packadd! ultisnips
+packadd! vim-snippets
 
-" scout.vim: Fuzzy finder for files and buffers
+" scout.vim
 " -----------------------------------------------------------------------------
 if executable('scout')
   let g:scout_window_type = 'floating'
@@ -310,12 +375,12 @@ if executable('scout')
   nnoremap <Plug>(buffers-open-buffer) :ScoutBuffers<cr>
   nnoremap <Plug>(buffers-open-buffer-current-dir) :ScoutBuffers %:h<cr>
 
-  call pack#add('jhbabon/scout.vim')
+  packadd! scout.vim
 endif
 
 nnoremap <Plug>(files-tree-explorer) :Explore<cr>
 
-" vim-projectionist: Granular project configuration using 'projections'
+" vim-projectionist
 " -----------------------------------------------------------------------------
 if !exists('g:projectionist_transformations')
   let g:projectionist_transformations = {}
@@ -352,9 +417,9 @@ let g:projectionist_heuristics = {
       \   }
       \ }
 
-call pack#add('tpope/vim-projectionist')
+packadd! vim-projectionist
 
-" vim-which-key: Show keybindings and mappings in a popup
+" vim-which-key
 " -----------------------------------------------------------------------------
 autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
@@ -375,7 +440,7 @@ let g:WhichKeyFormatFunc = function('s:my_which_key_format')
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 
-call pack#add('liuchengxu/vim-which-key')
+packadd! vim-which-key
 call which_key#register('<Space>', "g:which_key_map")
 
 " Languages' settings
