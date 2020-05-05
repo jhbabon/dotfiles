@@ -86,6 +86,11 @@ set lazyredraw
 
 set inccommand=split
 
+set belloff+=ctrlg
+
+" Prevent text jumping with linters/lsp integrations
+set signcolumn=yes
+
 " Experimental: save when leaving insert mode
 set updatetime=750
 au InsertLeave * nested update
@@ -119,9 +124,6 @@ function! PackInit() abort
   " Match pairs like (), if else, etc
   call minpac#add('vim-scripts/matchit.zip')
 
-  " Plugin to insert or delete brackets, parens, quotes in pair
-  call minpac#add('jiangmiao/auto-pairs')
-
   " Git integration
   call minpac#add('tpope/vim-fugitive')
 
@@ -143,14 +145,6 @@ function! PackInit() abort
   " The interactive scratchpad
   call minpac#add('metakirby5/codi.vim')
 
-  " Colorschemes
-  call minpac#add('NLKNguyen/papercolor-theme')
-  call minpac#add('joshdick/onedark.vim')
-  call minpac#add('rakr/vim-one')
-  call minpac#add('ayu-theme/ayu-vim')
-  call minpac#add('haishanh/night-owl.vim')
-  call minpac#add('challenger-deep-theme/vim', { 'name': 'challenger-deep' })
-
   " Optional (opt) plugins
   "
   " Loaded on demand or after their configurations are set
@@ -163,6 +157,26 @@ function! PackInit() abort
   "   let g:myplugin_config = 1
   "   packadd! myplugin
   " ---------------------------------------------------------------------------
+
+  " Colorschemes
+  call minpac#add('NLKNguyen/papercolor-theme', { 'type': 'opt' })
+  call minpac#add('joshdick/onedark.vim', { 'type': 'opt' })
+  call minpac#add('rakr/vim-one', { 'type': 'opt' })
+  call minpac#add('ayu-theme/ayu-vim', { 'type': 'opt' })
+  call minpac#add('haishanh/night-owl.vim', { 'type': 'opt' })
+  call minpac#add('challenger-deep-theme/vim', { 'type': 'opt', 'name': 'challenger-deep' })
+  call minpac#add('dracula/vim', { 'type': 'opt', 'name': 'dracula' })
+
+  " MUcomplete is a minimalist autocompletion plugin for Vim.
+  call minpac#add('lifepillar/vim-mucomplete', { 'type': 'opt' })
+
+  " Plugin to insert or delete brackets, parens, quotes in pair
+  call minpac#add('jiangmiao/auto-pairs', { 'type': 'opt' })
+
+  " Use snippets in vim
+  call minpac#add('SirVer/ultisnips', { 'type': 'opt' })
+  " Pack of snippets for different languages
+  call minpac#add('honza/vim-snippets', { 'type': 'opt' })
 
   " Asynchronous Lint Engine
   call minpac#add('dense-analysis/ale', { 'type': 'opt' })
@@ -192,11 +206,6 @@ function! PackInit() abort
   " https://emmet.io/
   call minpac#add('mattn/emmet-vim', { 'type': 'opt' })
 
-  " Use snippets in vim
-  call minpac#add('SirVer/ultisnips', { 'type': 'opt' })
-  " Pack of snippets for different languages
-  call minpac#add('honza/vim-snippets', { 'type': 'opt' })
-
   " Fuzzy finder for files and buffers
   call minpac#add('jhbabon/scout.vim', { 'type': 'opt' })
 
@@ -221,14 +230,56 @@ nnoremap <Plug>(git-commit) :Gcommit<cr>
 nnoremap <Plug>(git-log) :Glog<cr>
 nnoremap <Plug>(git-diff) :Gdiff<cr>
 
+" vim-mucomplete
+" -----------------------------------------------------------------------------
+set completeopt-=preview
+set completeopt+=menuone,noselect
+let g:mucomplete#completion_delay = 50
+let g:mucomplete#reopen_immediately = 0
+let g:mucomplete#chains = {
+    \ 'default' : ['ulti', 'omni', 'keyn'],
+    \ }
+let g:mucomplete#enable_auto_at_startup = 1
+
+packadd! vim-mucomplete
+
+" auto-pairs
+" -----------------------------------------------------------------------------
+let g:AutoPairsMapSpace = 0
+let g:AutoPairsMapCR = 0
+let g:AutoPairsMapCh = 0
+imap <silent> <expr> <space> pumvisible()
+    \ ? "<space>"
+    \ : "<c-r>=AutoPairsSpace()<cr>"
+
+packadd! auto-pairs
+
+" ultisnips
+" -----------------------------------------------------------------------------
+let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsJumpForwardTrigger="<c-f>"
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories=["snips"]
+
+packadd! ultisnips
+packadd! vim-snippets
+
 " ale
 " -----------------------------------------------------------------------------
-let g:ale_linters = {
-      \   'rust': ['rls']
-      \ }
-let g:ale_fixers = {
-      \   'rust': ['rustfmt']
-      \ }
+let g:airline#extensions#ale#enabled = 0
+set omnifunc=ale#completion#OmniFunc " to show completions with vim-mucomplete
+
+nnoremap <Plug>(lsp-goto-definition)  :ALEGoToDefinition<CR>
+nnoremap <Plug>(lsp-type-definition)  :ALEGoToTypeDefinition<CR>
+nnoremap <Plug>(lsp-hover)            :ALEHover<CR>
+nnoremap <Plug>(lsp-references)       :ALEFindReferences<CR>
+nnoremap <Plug>(lsp-formatting)       :ALEFix<CR>
+nnoremap <Plug>(lsp-workspace-symbol) :ALESymbolSearch<CR>
+nnoremap <Plug>(lsp-rename)           :ALERename<CR>
 
 packadd! ale
 
@@ -294,21 +345,21 @@ packadd! vim-polyglot
 " lightline.vim
 " -----------------------------------------------------------------------------
 let g:lightline = {
-      \   'colorscheme': 'challenger_deep',
+      \   'colorscheme': 'dracula',
       \   'active': {
       \     'left': [
       \       ['mode', 'paste'],
       \       ['gitbranch', 'readonly', 'filename', 'modified']
       \     ],
       \     'right': [
-      \       ['linter_checking', 'linter_warnings', 'linter_errors', 'lineinfo'],
+      \       ['linter_infos', 'linter_warnings', 'linter_errors', 'lineinfo'],
       \       ['percent'],
       \       ['fileformat', 'fileencoding', 'filetype']
       \     ]
       \   },
       \   'component_expand': {
       \     'gitbranch': 'fugitive#head',
-      \     'linter_checking': 'lightline#ale#checking',
+      \     'linter_infos': 'lightline#ale#infos',
       \     'linter_warnings': 'lightline#ale#warnings',
       \     'linter_errors': 'lightline#ale#errors'
       \   },
@@ -345,18 +396,6 @@ packadd! vim-localvimrc
 let g:user_emmet_leader_key = '<space>e'
 let g:user_emmet_mode = 'nv' " load only in normal and visual mode
 packadd! emmet-vim
-
-" ultisnips
-" -----------------------------------------------------------------------------
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetDirectories=["snips"]
-
-packadd! ultisnips
-packadd! vim-snippets
 
 " scout.vim
 " -----------------------------------------------------------------------------
@@ -418,9 +457,11 @@ packadd! vim-projectionist
 
 " vim-which-key
 " -----------------------------------------------------------------------------
-autocmd! FileType which_key
-autocmd  FileType which_key set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+augroup MyWhichKey
+  autocmd! FileType which_key
+  autocmd  FileType which_key set laststatus=0 noshowmode noruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+augroup END
 
 let g:which_key_map =  {}
 
@@ -442,12 +483,15 @@ call which_key#register('<Space>', "g:which_key_map")
 
 " Languages' settings
 " =============================================================================
-" Ruby
-au BufNewFile,BufRead *.jbuilder set ft=ruby
+augroup LanguageSettings
+  au!
+  " Ruby
+  au BufNewFile,BufRead *.jbuilder set ft=ruby
 
-" JSX files
-" This is done to make UltiSnips JavaScript to work with .jsx files
-au BufRead,BufNewFile *.jsx setlocal filetype=javascriptreact.javascript
+  " JSX files
+  " This is done to make UltiSnips JavaScript to work with .jsx files
+  au BufRead,BufNewFile *.jsx setlocal filetype=javascriptreact.javascript
+augroup END
 
 " Colors
 " =============================================================================
@@ -455,9 +499,10 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
+packadd! dracula
 syntax enable
 set background=dark
-colorscheme challenger_deep
+colorscheme dracula
 
 filetype plugin indent on
 
@@ -497,12 +542,6 @@ nnoremap <Plug>(search-clear-highlighted) :nohl<cr>
 " map trailing whitespace method
 nnoremap <Plug>(misc-strip-trailing-whitespace) :call StripTrailingWhitespace()<cr>
 
-" quick list and location list
-nnoremap <Plug>(list-quick-open) :copen<cr>
-nnoremap <Plug>(list-location-open) :lopen<cr>
-nnoremap <Plug>(list-quick-close) :cclose<cr>
-nnoremap <Plug>(list-location-close) :lclose<cr>
-
 " vim-which-key mappings
 let g:which_key_map.b = { 'name': '(buffers)' }
 nmap <leader>bb <Plug>(buffers-open-buffer)
@@ -533,13 +572,15 @@ xmap <leader>jw <Plug>(jump-visual-word)
 nmap <leader>jb <Plug>(jump-previous-file)
 nmap <leader>jl <Plug>(jump-last-results)
 
-let g:which_key_map.l = { 'name': '(lists)' }
-let g:which_key_map.l.l = { 'name': '(location-list)' }
-nmap <leader>llo <Plug>(list-location-open)
-nmap <leader>llc <Plug>(list-location-close)
-let g:which_key_map.l.q = { 'name': '(quick-list)' }
-nmap <leader>lqo <Plug>(list-quick-open)
-nmap <leader>lqc <Plug>(list-quick-close)
+let g:which_key_map.l = { 'name': '(lsp)' }
+nmap <leader>ld <Plug>(lsp-goto-definition)
+nmap <leader>lt <Plug>(lsp-type-definition)
+nmap <leader>lh <Plug>(lsp-hover)
+nmap <leader>lr <Plug>(lsp-references)
+nmap <leader>lf <Plug>(lsp-formatting)
+nmap <leader>ln <Plug>(lsp-rename)
+let g:which_key_map.l.s = { 'name': '(symbol)' }
+nmap <leader>lsw <Plug>(lsp-workspace-symbol)
 
 let g:which_key_map.m = { 'name': '(misc)' }
 nmap <silent> <leader>m; <Plug>(misc-semicolon-eol)
