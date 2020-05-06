@@ -100,9 +100,6 @@ au CursorHold * nested update
 " =============================================================================
 filetype off
 
-" Load early all `start` plugins
-packloadall
-
 " Load minpac in order to install/update/clean plugins
 " Minpac doesn't need to be loaded all the time
 function! PackInit() abort
