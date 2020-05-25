@@ -5,7 +5,7 @@ let g:markdown_fenced_languages = [
       \'ruby',
       \'bash=sh',
       \'javascript',
-      \'yaml'
+      \'typescript',
+      \'yaml',
+      \'rust'
     \]
-
-setlocal textwidth=80
