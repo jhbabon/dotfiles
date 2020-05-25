@@ -64,7 +64,7 @@
   ignore = !sh -c 'echo "$1" >> .gitignore' -
 
   # select a branch from a menu thanks to scout.
-  select = !git branch | cut -c 3- | scout | xargs git checkout
+  select = !git branch | cut -c 3- | scout -i | xargs git checkout
   sl     = !git select
 
   # force push with care
