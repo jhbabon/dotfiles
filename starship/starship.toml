@@ -125,7 +125,7 @@ disabled = true
 disabled = true
 
 [cmd_duration]
-disabled = false
+disabled = true
 min_time = 500
 show_milliseconds = true
 
