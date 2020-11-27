@@ -197,6 +197,9 @@ function! PackInit() abort
   " A collection of language packs
   call minpac#add('sheerun/vim-polyglot', { 'type': 'opt' })
 
+  " Display indention levels
+  call minpac#add('Yggdroot/indentLine', { 'type': 'opt' })
+
   " Fancier status line
   call minpac#add('itchyny/lightline.vim', { 'type': 'opt' })
   call minpac#add('maximbaz/lightline-ale', { 'type': 'opt' })
@@ -361,6 +364,11 @@ let g:vim_markdown_conceal_code_blocks = 0
 
 packadd! tabular
 packadd! vim-polyglot
+
+" indentLine
+" -----------------------------------------------------------------------------
+let g:indentLine_char = '‧'
+packadd! indentLine
 
 " lightline.vim
 " -----------------------------------------------------------------------------
