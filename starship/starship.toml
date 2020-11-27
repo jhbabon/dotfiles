@@ -1,14 +1,51 @@
 # ---------------------------------------------------------------------
 # Starship configuration
-#
-# All symbols come from this preset:
-# https://starship.rs/presets/#nerd-font-symbols
-#
-# To use them install a patched Nerd Front:
-# https://www.nerdfonts.com
 # ---------------------------------------------------------------------
 add_newline = true
 scan_timeout = 10
+
+format = """\
+    $username\
+    $hostname\
+    $kubernetes\
+    $directory\
+    $git_branch\
+    $git_commit\
+    $git_state\
+    $git_status\
+    $hg_branch\
+    $docker_context\
+    $package\
+    $dotnet\
+    $elixir\
+    $elm\
+    $erlang\
+    $golang\
+    $haskell\
+    $java\
+    $julia\
+    $nodejs\
+    $ocaml\
+    $php\
+    $purescript\
+    $python\
+    $ruby\
+    $rust\
+    $terraform\
+    $zig\
+    $nix_shell\
+    $conda\
+    $memory_usage\
+    $aws\
+    $env_var\
+    $crystal\
+    $cmd_duration\
+    $line_break\
+    $jobs\
+    $battery\
+    $time\
+    $character\
+    """
 
 [username]
 disabled = false
@@ -24,7 +61,7 @@ disabled = false
 fish_style_pwd_dir_length = 1
 
 [git_branch]
-symbol = " "
+symbol = "🌱 "
 disabled = false
 
 [git_commit]
@@ -35,79 +72,67 @@ disabled = false
 disabled = false
 
 [git_status]
-disabled = false
-staged.style = "green"
+disabled = false # flag-git-status
+untracked = "[?](bold yellow)"
+staged = "[+](bold green)"
+stashed = "[\\$](bold purple)"
 
 [hg_branch]
-symbol = " "
 disabled = false
 
 [docker_context]
-symbol = " "
-disabled = true
+disabled = false
 
 [package]
-symbol = " "
-disabled = false
+disabled = true
 
 [dotnet]
 disabled = true
 
 [elixir]
-symbol = " "
 disabled = false
 
 [elm]
-symbol = " "
 disabled = true
 
 [erlang]
 disabled = false
 
 [golang]
-symbol = " "
 disabled = false
 
 [haskell]
-symbol = " "
 disabled = false
 
 [java]
-symbol = " "
 disabled = false
 
 [julia]
-symbol = " "
 disabled = false
 
 [nodejs]
 disabled = false
 
 [php]
-symbol = " "
 disabled = true
 
 [python]
-symbol = " "
 disabled = false
 
 [ruby]
-symbol = " "
 disabled = false
 
 [rust]
-symbol = " "
 disabled = false
 
 [terraform]
-disabled = true
+symbol = " "
+disabled = false
 
 [nix_shell]
-symbol = " "
 disabled = true
 
 [conda]
-symbol = " "
 disabled = true
 
 [memory_usage]
@@ -115,7 +140,6 @@ symbol = " "
 disabled = true
 
 [aws]
-symbol = " "
 disabled = true
 
 [env_var]
@@ -139,9 +163,6 @@ disabled = false
 disabled = false
 
 [battery]
-full_symbol = ""
-charging_symbol = ""
-discharging_symbol = ""
 disabled = true
 
 [time]
@@ -149,4 +170,3 @@ disabled = true
 
 [character]
 disabled = false
-use_symbol_for_status = true
