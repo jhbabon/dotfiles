@@ -13,6 +13,8 @@
   #TERM: xterm-256color
 
 window:
+  dynamic_title: true
+
   # Window dimensions (changes require restart)
   #
   # Specified in number of columns/lines, not pixels.
@@ -77,27 +79,6 @@ scrolling:
   # scrollback is enabled (history > 0).
   multiplier: 3
 
-  # Faux Scrolling
-  #
-  # The `faux_multiplier` setting controls the number of lines the terminal
-  # should scroll when the alternate screen buffer is active. This is used
-  # to allow mouse scrolling for applications like `man`.
-  #
-  # Specifying `0` will disable faux scrolling.
-  faux_multiplier: 3
-
-  # Scroll to the bottom when new text is written to the terminal.
-  auto_scroll: false
-
-# Spaces per Tab (changes require restart)
-#
-# This setting defines the width of a tab in cells.
-#
-# Some applications, like Emacs, rely on knowing about the width of a tab.
-# To prevent unexpected behavior in these applications, it's also required to
-# change the `it` value in terminfo when altering this setting.
-tabspaces: 8
-
 # Font configuration (changes require restart)
 font:
   # Normal (roman) font face
@@ -108,7 +89,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux) monospace
     #   - (Windows) Consolas
-    family: Hack
+    family: IBM Plex Mono # Cascadia Code
 
     # The `style` can be specified to pick a specific face.
     style: Regular
@@ -119,7 +100,7 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Hack
+    family: IBM Plex Mono # Cascadia Code
 
     # The `style` can be specified to pick a specific face.
     style: Bold
@@ -130,13 +111,13 @@ font:
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Hack
+    family: IBM Plex Mono # Cascadia Code
 
     # The `style` can be specified to pick a specific face.
     style: Italic
 
   # Point size
-  size: 12.0
+  size: 14.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -168,16 +149,14 @@ font:
   use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
-draw_bold_text_with_bright_colors: true
+# draw_bold_text_with_bright_colors: true
 
 schemes:
   onedark: &onedark
-    # Default colors
     primary:
       background: '0x282c34'
       foreground: '0xabb2bf'
 
-    # Normal colors
     normal:
       # NOTE: Use '0x131613' for the `black` color if you'd like to see
       # black text on the background.
@@ -190,7 +169,6 @@ schemes:
       cyan:    '0x56b6c2'
       white:   '0xabb2bf'
 
-    # Bright colors
     bright:
       black:   '0x5c6370'
       red:     '0xe06c75'
@@ -202,12 +180,10 @@ schemes:
       white:   '0xffffff'
 
   dracula: &dracula
-    # Default colors
     primary:
       background: '#282a36'
       foreground: '#f8f8f2'
 
-    # Normal colors
     normal:
       black:   '#000000'
       red:     '#ff5555'
@@ -218,7 +194,6 @@ schemes:
       cyan:    '#8be9fd'
       white:   '#bfbfbf'
 
-    # Bright colors
     bright:
       black:   '#575b70'
       red:     '#ff6e67'
@@ -230,12 +205,10 @@ schemes:
       white:   '#e6e6e6'
 
   material: &material
-    # Default colors
     primary:
       background: '#1e282d'
       foreground: '#c4c7d1'
 
-    # Normal colors
     normal:
       black:   '#666666'
       red:     '#eb606b'
@@ -246,7 +219,6 @@ schemes:
       cyan:    '#aeddff'
       white:   '#ffffff'
 
-    # Bright colors
     bright:
       black:   '#ff262b'
       red:     '#eb606b'
@@ -257,8 +229,57 @@ schemes:
       cyan:    '#35434d'
       white:   '#ffffff'
 
-# Colors (One Dark)
-colors: *dracula
+  ayu_dark: &ayu_dark
+    primary:
+      background: '0x0A0E14'
+      foreground: '0xB3B1AD'
+
+    normal:
+      black:   '0x01060E'
+      red:     '0xEA6C73'
+      green:   '0x91B362'
+      yellow:  '0xF9AF4F'
+      blue:    '0x53BDFA'
+      magenta: '0xFAE994'
+      cyan:    '0x90E1C6'
+      white:   '0xC7C7C7'
+
+    bright:
+      black:   '0x686868'
+      red:     '0xF07178'
+      green:   '0xC2D94C'
+      yellow:  '0xFFB454'
+      blue:    '0x59C2FF'
+      magenta: '0xFFEE99'
+      cyan:    '0x95E6CB'
+      white:   '0xFFFFFF'
+
+  ayu_light: &ayu_light
+    primary:
+      background: '0xfafafa'
+      foreground: '0x5b6672'
+
+    normal:
+      black: '0x000000' #0
+      red: '0xf2590b' #1
+      green: '0x76cc00' #2
+      yellow: '0xf29717' #3
+      blue: '0x41a5d9' #4
+      magenta: '0x9965cc' #5
+      cyan: '0x4dbf98' #6
+      white: '0xc7c7c7' #7
+
+    bright:
+      black: '0x676767'
+      red: '0xd6646a' #9
+      green: '0xa3d900' #10
+      yellow: '0xe7c446' #11
+      blue: '0x6871ff' #12
+      magenta: '0xa37acc' #13
+      cyan: '0x56d9ad' #14
+      white: '0xfeffff' #15
+
+colors: *ayu_dark
 
 # Visual Bell
 #
@@ -281,7 +302,7 @@ colors: *dracula
 #   - Linear
 #
 # Specifying a `duration` of `0` will disable the visual bell.
-visual_bell:
+bell:
   animation: EaseOutExpo
   duration: 0
   color: '0xffffff'
@@ -349,9 +370,6 @@ selection:
 
   # When set to `true`, selected text will be copied to the primary clipboard.
   save_to_clipboard: false
-
-# Allow terminal applications to change Alacritty's window title.
-dynamic_title: true
 
 cursor:
   # Cursor style
