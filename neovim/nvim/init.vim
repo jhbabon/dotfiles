@@ -190,6 +190,10 @@ function! PackInit() abort
   " Async search with a grep tool (i.e: ripgrep)
   call minpac#add('mhinz/vim-grepper', { 'type': 'opt' })
 
+  " Vim Script for filtering and alignment
+  " NOTE: required by vim-markdown (inside vim-polyglot)
+  call minpac#add('godlygeek/tabular', { 'type': 'opt' })
+
   " A collection of language packs
   call minpac#add('sheerun/vim-polyglot', { 'type': 'opt' })
 
@@ -340,6 +344,22 @@ let g:polyglot_disabled = ['graphql']
 " Don't load elm.vim mappings
 let g:elm_setup_keybindings = 0
 
+" Markdown options
+let g:vim_markdown_fenced_languages = [
+      \'html',
+      \'css',
+      \'python',
+      \'ruby',
+      \'bash=sh',
+      \'js=javascript',
+      \'ts=typescript',
+      \'yaml',
+      \'rust'
+    \]
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
+
+packadd! tabular
 packadd! vim-polyglot
 
 " lightline.vim
