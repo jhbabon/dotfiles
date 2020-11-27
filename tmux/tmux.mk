@@ -9,13 +9,17 @@ TMUX_DST_DIR  := $(DST_DIR)/.tmux
 TMUX_CONF     := $(DST_DIR)/.tmux.conf
 TMUX_TPM_REPO := https://github.com/tmux-plugins/tpm.git
 TMUX_TPM_DIR  := $(TMUX_DST_DIR)/plugins/tpm
+TMUX_TERMINFO := $(TMUX_SRC_DIR)/tmux.terminfo
 
 .PHONY: tmux clean_tmux
 
 tmux: banner_install_tmux $(TMUX_CONF)
 
-$(TMUX_CONF): $(TMUX_TPM_DIR)
+$(TMUX_CONF): terminfo $(TMUX_TPM_DIR)
 	$(LINK) $(TMUX_SRC_DIR)/tmux.conf $@
+
+terminfo:
+	tic -x $(TMUX_TERMINFO)
 
 $(TMUX_TPM_DIR): $(TMUX_DST_DIR)
 	$(CLONE) $(TMUX_TPM_REPO) $(TMUX_TPM_DIR)
