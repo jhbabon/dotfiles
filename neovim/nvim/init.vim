@@ -166,6 +166,9 @@ function! PackInit() abort
   call minpac#add('haishanh/night-owl.vim', { 'type': 'opt' })
   call minpac#add('challenger-deep-theme/vim', { 'type': 'opt', 'name': 'challenger-deep' })
   call minpac#add('dracula/vim', { 'type': 'opt', 'name': 'dracula' })
+  call minpac#add('sonph/onehalf', { 'type': 'opt', 'subdir': 'vim' })
+  call minpac#add('ghifarit53/tokyonight-vim', { 'type': 'opt' })
+  call minpac#add('fxn/vim-monochrome', { 'type': 'opt' })
 
   " MUcomplete is a minimalist autocompletion plugin for Vim.
   call minpac#add('lifepillar/vim-mucomplete', { 'type': 'opt' })
@@ -346,7 +349,6 @@ packadd! vim-grepper
 let g:polyglot_disabled = ['graphql']
 " Don't load elm.vim mappings
 let g:elm_setup_keybindings = 0
-
 " Markdown options
 let g:vim_markdown_fenced_languages = [
       \'html',
@@ -373,7 +375,6 @@ packadd! indentLine
 " lightline.vim
 " -----------------------------------------------------------------------------
 let g:lightline = {
-      \   'colorscheme': 'dracula',
       \   'active': {
       \     'left': [
       \       ['mode', 'paste'],
@@ -527,10 +528,12 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-packadd! dracula
+let ayucolor="dark"
+packadd! ayu-vim
 syntax enable
 set background=dark
-colorscheme dracula
+colorscheme ayu
+let g:lightline.colorscheme='ayu'
 
 filetype plugin indent on
 
