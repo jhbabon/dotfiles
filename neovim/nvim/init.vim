@@ -93,8 +93,8 @@ set signcolumn=yes
 
 " Experimental: save when leaving insert mode
 set updatetime=750
-au InsertLeave * nested update
-au CursorHold * nested update
+au InsertLeave * ++nested silent! update
+au CursorHold * ++nested silent! update
 
 " Plugins
 "
