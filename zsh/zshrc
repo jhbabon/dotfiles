@@ -246,14 +246,16 @@ has keychain && eval `keychain --eval --noask --quiet id_rsa`
 # Direnv
 has direnv && eval "$(direnv hook zsh)"
 
+typeset -agU path
+
 # nodenv configuration
 if [[ -d "$HOME/.nodenv/shims" ]]; then
-  export PATH="$HOME/.nodenv/shims:${PATH}"
+  path=("$HOME/.nodenv/shims" $path)
 fi
 
 # rbenv configuration
 if [[ -d "$HOME/.rbenv/shims" ]]; then
-  export PATH="$HOME/.rbenv/shims:${PATH}"
+  path=("$HOME/.rbenv/shims" $path)
 fi
 
 # Exercism
