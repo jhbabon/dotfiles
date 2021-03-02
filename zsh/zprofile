@@ -4,7 +4,7 @@
 # here.
 
 # In ZSH $PATH is tied to $path, so we can use it as a global (-g) array (-a) with unique (-U) elements
-typeset -agU path
+typeset -U path
 
 # go PATH changes
 if [[ -d "$HOME/go" ]] ; then
