@@ -1,6 +1,7 @@
 [prompt]
 symbol = "❯ "
 style_symbol = "bold fg:blue"
+# style = "bg:red"
 
 [gauge]
 style = "fg:yellow"

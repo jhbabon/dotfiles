@@ -329,7 +329,7 @@ schemes:
         cyan: '0x56b6c2'
         white: '0xdcdfe4'
 
-colors: *dracula
+colors: *ayu_light
 
 # Visual Bell
 #

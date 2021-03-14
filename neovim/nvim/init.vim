@@ -181,6 +181,11 @@ function! PackInit() abort
   " Pack of snippets for different languages
   call minpac#add('honza/vim-snippets', { 'type': 'opt' })
 
+  " LSP configuration
+  call minpac#add('neovim/nvim-lspconfig', { 'type': 'opt' })
+  " LSP Integration
+  call minpac#add('glepnir/lspsaga.nvim', { 'type': 'opt' })
+
   " Asynchronous Lint Engine
   call minpac#add('dense-analysis/ale', { 'type': 'opt' })
 
@@ -281,17 +286,53 @@ packadd! vim-snippets
 " ale
 " -----------------------------------------------------------------------------
 let g:airline#extensions#ale#enabled = 0
-set omnifunc=ale#completion#OmniFunc " to show completions with vim-mucomplete
+" set omnifunc=ale#completion#OmniFunc " to show completions with vim-mucomplete
+let g:ale_disable_lsp = 1 " Disable LSP itegration
+" let g:ale_sign_error = '●'
+" let g:ale_sign_warning = '.'
 
-nnoremap <Plug>(lsp-goto-definition)  :ALEGoToDefinition<CR>
-nnoremap <Plug>(lsp-type-definition)  :ALEGoToTypeDefinition<CR>
-nnoremap <Plug>(lsp-hover)            :ALEHover<CR>
-nnoremap <Plug>(lsp-references)       :ALEFindReferences<CR>
+" nnoremap <Plug>(lsp-goto-definition)  :ALEGoToDefinition<CR>
+" nnoremap <Plug>(lsp-type-definition)  :ALEGoToTypeDefinition<CR>
+" nnoremap <Plug>(lsp-hover)            :ALEHover<CR>
+" nnoremap <Plug>(lsp-references)       :ALEFindReferences<CR>
 nnoremap <Plug>(lsp-formatting)       :ALEFix<CR>
-nnoremap <Plug>(lsp-workspace-symbol) :ALESymbolSearch<CR>
-nnoremap <Plug>(lsp-rename)           :ALERename<CR>
+" nnoremap <Plug>(lsp-workspace-symbol) :ALESymbolSearch<CR>
+" nnoremap <Plug>(lsp-rename)           :ALERename<CR>
 
 packadd! ale
+
+" nvim-lspconfig
+" -----------------------------------------------------------------------------
+packadd! nvim-lspconfig
+lua require('lspconfig').rust_analyzer.setup{}
+
+nnoremap <Plug>(lsp-goto-definition) <cmd>lua vim.lsp.buf.definition()<cr>
+
+" lspsaga.nvim
+" -----------------------------------------------------------------------------
+packadd! lspsaga.nvim
+lua <<EOF
+require('lspsaga').init_lsp_saga {
+  error_sign = 'X';
+  warn_sign = '!';
+  hint_sign = '.';
+  infor_sign = 'i';
+  dianostic_header_icon = '';
+  code_action_icon = '●';
+  finder_definition_icon = '';
+  finder_reference_icon = '';
+}
+EOF
+
+nnoremap <Plug>(lsp-preview-definition) <cmd>lua require('lspsaga.provider').preview_definition()<cr>
+nnoremap <Plug>(lsp-hover) <cmd>lua require('lspsaga.hover').render_hover_doc()<cr>
+nnoremap <Plug>(lsp-references) <cmd>lua require('lspsaga.provider').lsp_finder()<cr>
+nnoremap <Plug>(lsp-rename) <cmd>lua require('lspsaga.rename').rename()<cr>
+nnoremap <Plug>(lsp-action) <cmd>lua require('lspsaga.codeaction').code_action()<cr>
+vnoremap <Plug>(lsp-action-range) <cmd>lua require('lspsaga.codeaction').range_code_action()<cr>
+nnoremap <Plug>(lsp-next-diagnostic) <cmd>lua require('lspsaga.codeaction').code_action()<cr>
+nnoremap <Plug>(lsp-prev-diagnostic) <cmd>lua require('lspsaga.codeaction').code_action()<cr>
+nnoremap <Plug>(lsp-signature) <cmd>lua require('lspsaga.signaturehelp').signature_help()<cr>
 
 " neoterm
 " -----------------------------------------------------------------------------
@@ -529,10 +570,10 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-let ayucolor="dark"
+let ayucolor="light"
 packadd! ayu-vim
 syntax enable
-set background=dark
+set background=light
 colorscheme ayu
 let g:lightline.colorscheme='ayu'
 
@@ -606,13 +647,19 @@ nmap <leader>jl <Plug>(jump-last-results)
 
 let g:which_key_map.l = { 'name': '(lsp)' }
 nmap <leader>ld <Plug>(lsp-goto-definition)
-nmap <leader>lt <Plug>(lsp-type-definition)
+nmap <leader>lv <Plug>(lsp-preview-definition)
+" nmap <leader>lt <Plug>(lsp-type-definition)
 nmap <leader>lh <Plug>(lsp-hover)
 nmap <leader>lr <Plug>(lsp-references)
 nmap <leader>lf <Plug>(lsp-formatting)
 nmap <leader>ln <Plug>(lsp-rename)
-let g:which_key_map.l.s = { 'name': '(symbol)' }
-nmap <leader>lsw <Plug>(lsp-workspace-symbol)
+nmap <leader>la <Plug>(lsp-action)
+vmap <leader>la <Plug>'<,'>(lsp-action-range)
+nmap <leader>le <Plug>(lsp-next-diagnostic)
+nmap <leader>lp <Plug>(lsp-prev-diagnostic)
+nmap <leader>ls <Plug>(lsp-signature)
+" let g:which_key_map.l.s = { 'name': '(symbol)' }
+" nmap <leader>lsw <Plug>(lsp-workspace-symbol)
 
 let g:which_key_map.m = { 'name': '(misc)' }
 nmap <silent> <leader>m; <Plug>(misc-semicolon-eol)
