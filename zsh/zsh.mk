@@ -31,7 +31,7 @@ $(ZSHRC): $(ZPROMPT)
 $(ZPROFILE):
 	$(LINK) $(Z_SRC_DIR)/zprofile $@
 
-$(ZPROMPT):
+$(ZPROMPT): $(ZCONFIG_DIR)
 	$(LINK) $(Z_SRC_DIR)/prompt.zsh $@
 
 zplugins: $(ZPLUGINS_AS_DIR)
