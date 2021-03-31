@@ -13,9 +13,12 @@ RBENV_DST_DEFAULT_GEMS := $(RBENV_DST_DIR)/default-gems
 
 rbenv: banner_install_rbenv $(RBENV_DST_DEFAULT_GEMS)
 
-$(RBENV_DST_DEFAULT_GEMS):
+$(RBENV_DST_DEFAULT_GEMS): $(RBENV_DST_DIR)
 	$(LINK) $(RBENV_SRC_DEFAULT_GEMS) $@
 	@echo "--> Post install: install the rbenv-default-gems plugin to use the default-gems file"
+
+$(RBENV_DST_DIR):
+	$(MKDIR) $@
 
 clean_rbenv: banner_clean_rbenv
 	$(RM) $(RBENV_DST_DEFAULT_GEMS)
