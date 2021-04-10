@@ -7,6 +7,7 @@ require('treesitter')
 require('git')
 require('minimap')
 require('autopairs')
+require('comments')
 
 require('colorscheme')
 
