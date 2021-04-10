@@ -523,6 +523,9 @@ augroup LanguageSettings
   au BufRead,BufNewFile *.jsx setlocal filetype=javascriptreact.javascript
 augroup END
 
+" Prevent SQLComplete errors
+let g:omni_sql_default_compl_type = 'syntax'
+
 " Colors
 " =============================================================================
 if (has("termguicolors"))
