@@ -17,4 +17,15 @@ function M.nmap(...)
   M.map('n', ...)
 end
 
+function M.set(args)
+  local option = args[1]
+  local value = args[2]
+
+  if value == nil then
+    vim.cmd('set ' .. option)
+  else
+    vim.cmd('set ' .. option .. '=' .. value)
+  end
+end
+
 return M
