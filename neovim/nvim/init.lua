@@ -14,6 +14,10 @@ function imap(...)
   map('i', ...)
 end
 
+function nmap(...)
+  map('n', ...)
+end
+
 ----------------------------------------------------
 -- Settings
 ----------------------------------------------------
@@ -149,17 +153,23 @@ vim.o.termguicolors = true
 require('base16-colorscheme').setup('onedark')
 vim.cmd('filetype plugin indent on')
 
+-- Utils
+local strip_trailing_whitespace = [[:let _s=winsaveview()<Bar>:keeppatterns %s/\s\+$//e<Bar>:call winrestview(_s)<Bar><cr>]]
+nmap('<plug>(misc-strip-trailing-whitespace)', strip_trailing_whitespace)
+nmap('<plug>(misc-semicolon-eol)', [[:s/\([^;]\)$/\1;/<cr>:noh<cr>]])
+nmap('<plug>(misc-comma-eol)', [[:s/\([^,]\)$/\1,/<cr>:noh<cr>]])
+
 -- Mappings
 local wk = require('whichkey_setup')
 wk.config()
 local keymap = {}
 
+-- exit fast from insert mode
 imap('jj', '<esc>')
--- first map something to <plug>*
-map('n', '<plug>(t)', [[:lua print('test')<cr>]])
 
--- then map <plug> to a <leader>*
-keymap.t = { name = 'testing' }
-map('n', '<leader>tt', '<plug>(t)')
+keymap.m = { name = '(misc)' }
+nmap('<leader>m<space>', '<plug>(misc-strip-trailing-whitespace)', {silent=true, noremap=false})
+nmap('<leader>m,', '<plug>(misc-comma-eol)', {silent=true, noremap=false})
+nmap('<leader>m;', '<plug>(misc-semicolon-eol)', {silent=true, noremap=false})
 
 wk.register_keymap('leader', keymap)
