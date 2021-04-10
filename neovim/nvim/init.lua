@@ -6,6 +6,7 @@ vim.cmd('filetype off')
 require('treesitter')
 require('git')
 require('minimap')
+require('autopairs')
 
 require('colorscheme')
 
