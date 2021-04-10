@@ -8,6 +8,8 @@ local paq = require('paq-nvim').paq
 -- Let paq-nvim manage itself
 paq {'savq/paq-nvim', opt = true}
 
+paq {'nvim-lua/plenary.nvim'}
+
 -- TODO: Find/reuse packages for
 -- git: signs (?), commits, etc
 -- comments: add, remove, etc
@@ -20,6 +22,8 @@ paq {'AckslD/nvim-whichkey-setup.lua'}
 paq {'tpope/vim-fugitive'}
 paq {'tpope/vim-surround'}
 paq {'tpope/vim-eunuch'}
+
+paq {'lewis6991/gitsigns.nvim'}
 
 paq {'windwp/nvim-autopairs'}
 

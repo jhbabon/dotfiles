@@ -4,7 +4,7 @@ require('packages')
 vim.cmd('filetype off')
 
 require('treesitter')
-require('fugitive')
+require('git')
 require('minimap')
 
 require('colorscheme')
