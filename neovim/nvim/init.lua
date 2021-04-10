@@ -97,17 +97,18 @@ paq {'savq/paq-nvim', opt = true}
 -- comments: add, remove, etc
 
 paq {'nvim-treesitter/nvim-treesitter', run = function() vim.cmd('TSUpdate') end}
+
 paq {'RRethy/nvim-base16'}
 
-paq {'wfxr/minimap.vim', opt = true}
-
--- TODO: Review if it needs to be optional
-paq {'liuchengxu/vim-which-key', opt = true}
+paq {'liuchengxu/vim-which-key'}
 paq {'AckslD/nvim-whichkey-setup.lua'}
+
+paq {'wfxr/minimap.vim', opt = true}
 
 
 -- paq{'nvim-lua/plenary.nvim'}
 -- paq{'lewis6991/gitsigns.nvim'}
+local keymap = {}
 
 -- nvim-treesitter
 -- NOTE: some parsers need node installed
@@ -115,6 +116,7 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = 'maintained',
   highlight = {
     enable = true,
+    additional_vim_regex_highlighting = true,
   },
   incremental_selection = {
     enable = true,
@@ -122,6 +124,10 @@ require('nvim-treesitter.configs').setup {
   indent = {
     enable = true,
   },
+  tsawesome = {
+    enable = true,
+  },
+  -- TODO: look into textobjects config
 }
 vim.wo.foldlevel = 5
 vim.wo.foldmethod = 'expr'
@@ -133,43 +139,32 @@ vim.g.minimap_auto_start = true
 vim.g.minimap_auto_start_win_enter = true
 vim.cmd [[packadd! minimap.vim]]
 
--- vim-which-key
-function which_key_format(label)
-  local name, _ = string.gsub(label, [[<cr>$]], '')
-  name, _ = string.gsub(name, [[^:]], '')
-  name, _ = string.gsub(name, [[^<[Pp]lug>]], '')
-
-  return name
-end
--- So the WhichKeyFormatFunc is a lua function, but vim-which-key expects a Funcref in vim
--- world. Let's use a lambda to call internally the lua function
-vim.cmd([[let g:WhichKeyFormatFunc = {s -> v:lua.which_key_format(s)}]])
-vim.cmd [[packadd! vim-which-key]]
-
 -- Colorscheme
 vim.cmd('syntax on')
 vim.cmd('syntax reset')
 vim.o.termguicolors = true
-require('base16-colorscheme').setup('onedark')
+require('base16-colorscheme').setup('material-palenight')
 vim.cmd('filetype plugin indent on')
 
 -- Utils
-local strip_trailing_whitespace = [[:let _s=winsaveview()<Bar>:keeppatterns %s/\s\+$//e<Bar>:call winrestview(_s)<Bar><cr>]]
-nmap('<plug>(misc-strip-trailing-whitespace)', strip_trailing_whitespace)
-nmap('<plug>(misc-semicolon-eol)', [[:s/\([^;]\)$/\1;/<cr>:noh<cr>]])
-nmap('<plug>(misc-comma-eol)', [[:s/\([^,]\)$/\1,/<cr>:noh<cr>]])
+local strip = table.concat({
+  [[:let _s=winsaveview()]],     -- save current cursor position
+  [[:keeppatterns %s/\s\+$//e]], -- remove all trailing withespaces
+  [[:call winrestview(_s)]],     -- restore cursor position
+  [[<cr>]],                      -- execute all of the above
+}, '<Bar>') -- join all with '|' in one line
+keymap.m = {
+  name = '+misc',
+  [' '] = {strip, 'strip all trailing whitespaces'},
+  [';'] = {[[:s/\([^;]\)$/\1;/<cr>:noh<cr>]], 'add semicolon at eol'},
+  [','] = {[[:s/\([^,]\)$/\1,/<cr>:noh<cr>]], 'add comma at eol'},
+}
 
 -- Mappings
 local wk = require('whichkey_setup')
 wk.config()
-local keymap = {}
 
 -- exit fast from insert mode
 imap('jj', '<esc>')
-
-keymap.m = { name = '(misc)' }
-nmap('<leader>m<space>', '<plug>(misc-strip-trailing-whitespace)', {silent=true, noremap=false})
-nmap('<leader>m,', '<plug>(misc-comma-eol)', {silent=true, noremap=false})
-nmap('<leader>m;', '<plug>(misc-semicolon-eol)', {silent=true, noremap=false})
 
 wk.register_keymap('leader', keymap)
