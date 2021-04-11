@@ -9,6 +9,7 @@ require('git')
 require('minimap')
 require('autopairs')
 require('comments')
+require('quickfix')
 
 require('colorscheme')
 
