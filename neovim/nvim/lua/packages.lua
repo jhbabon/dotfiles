@@ -9,6 +9,7 @@ local paq = require('paq-nvim').paq
 paq {'savq/paq-nvim', opt = true}
 
 paq {'nvim-lua/plenary.nvim'}
+paq {'kyazdani42/nvim-web-devicons'}
 
 -- TODO: Find/reuse packages for
 -- git: signs (?), commits, etc
@@ -38,6 +39,8 @@ paq {'tpope/vim-projectionist', opt = true}
 paq {'wfxr/minimap.vim', opt = true}
 
 paq {'jhbabon/scout.vim', opt = true}
+
+paq {'hoob3rt/lualine.nvim'}
 
 -- colorschemes
 paq {'RRethy/nvim-base16'}

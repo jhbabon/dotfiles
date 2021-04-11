@@ -13,6 +13,7 @@ require('quickfix')
 require('files')
 require('projects')
 
+require('statusline')
 require('colorscheme')
 
 vim.cmd('filetype plugin indent on')
