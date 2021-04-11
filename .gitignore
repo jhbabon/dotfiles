@@ -1,4 +1,5 @@
 sandbox
+neovim/nvim/projects
 neovim/nvim/plugged
 neovim/nvim/plugin/local.vim
 neovim/nvim/pack/*

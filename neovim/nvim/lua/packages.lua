@@ -32,6 +32,9 @@ paq {'windwp/nvim-autopairs'}
 
 paq {'b3nj5m1n/kommentary'}
 
+paq {'windwp/nvim-projectconfig'}
+paq {'tpope/vim-projectionist', opt = true}
+
 paq {'wfxr/minimap.vim', opt = true}
 
 paq {'jhbabon/scout.vim', opt = true}

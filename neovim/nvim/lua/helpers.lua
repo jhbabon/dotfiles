@@ -13,6 +13,11 @@ local function format_set(args)
   return setter
 end
 
+-- Execute multiple exec commands at once
+function M.multi_exec(commands)
+  vim.api.nvim_exec(table.concat(commands, "\n"), false)
+end
+
 function M.set(args)
   vim.cmd(format_set(args))
 end
@@ -24,8 +29,7 @@ function M.mset(options)
     sets[i] = format_set(option)
   end
 
-  local bulk = table.concat(sets, "\n")
-  vim.api.nvim_exec(bulk, false)
+  M.multi_exec(sets)
 end
 
 local function map_options(opts)
