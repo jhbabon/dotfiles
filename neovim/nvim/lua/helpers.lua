@@ -28,11 +28,27 @@ function M.mset(options)
   vim.api.nvim_exec(bulk, false)
 end
 
-function M.map(mode, lhs, rhs, opts)
-  local options = {noremap = true}
+local function map_options(opts)
+  local options = { noremap = true }
   if opts then
     options = vim.tbl_extend('force', options, opts)
   end
+
+  return options
+end
+
+function M.map_buf(bufnr, mode, lhs, rhs, opts)
+  local options = map_options(opts)
+
+  vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, options)
+end
+
+function M.nmap_buf(bufnr, ...)
+  M.map_buf(bufnr, 'n', ...)
+end
+
+function M.map(mode, lhs, rhs, opts)
+  local options = map_options(opts)
 
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end

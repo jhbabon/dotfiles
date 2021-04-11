@@ -4,6 +4,7 @@ require('packages')
 vim.cmd('filetype off')
 
 require('treesitter')
+require('lsp')
 require('git')
 require('minimap')
 require('autopairs')
