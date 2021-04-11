@@ -2,61 +2,65 @@
 -- Settings
 ----------------------------------------------------
 local set = require('helpers').set
+local mset = require('helpers').mset
 
+-- Change leader keys
 vim.g.mapleader = ' '
 vim.g.localeader = ','
 
--- Backups
-set {'nobackup'} -- No backup
-set {'noswapfile'} -- No swap files
+mset {
+  -- Backups
+  {'nobackup'}, -- No backup
+  {'noswapfile'}, -- No swap files
 
--- Behaviors
-set {'modeline'}
-set {'hidden'} -- don't remove buffers on close
-set {'autoread'}
-set {'nojoinspaces'} -- put only one space after joining
-set {'mouse', 'a'} -- enable all mouse interactions
+  -- Behaviors
+  {'modeline'},
+  {'hidden'}, -- don't remove buffers on close
+  {'autoread'},
+  {'nojoinspaces'}, -- put only one space after joining
+  {'mouse', 'a'}, -- enable all mouse interactions
 
--- use the system clipboard as the default register
-set {'clipboard', 'unnamed,unnamedplus'}
+  -- Use the system clipboard as the default register
+  {'clipboard', 'unnamed,unnamedplus'},
 
--- Indentation
-set {'tabstop', '2'} -- number of visual spaces per TAB
-set {'shiftwidth', '2'} -- number of spaces to use for each step of (auto)indent
-set {'softtabstop', '2'} -- number of spaces in tab when editing.
-set {'shiftround'}
-set {'expandtab'} -- tabs are spaces
-set {'copyindent'}
-set {'smartindent'}
+  -- Indentation
+  {'tabstop', '2'}, -- number of visual spaces per TAB
+  {'shiftwidth', '2'}, -- number of spaces to use for each step of (auto)indent
+  {'softtabstop', '2'}, -- number of spaces in tab when editing.
+  {'shiftround'},
+  {'expandtab'}, -- tabs are spaces
+  {'copyindent'},
+  {'smartindent'},
 
--- Listchars
-set {'listchars', [[trail:~,tab:▸\ ,eol:¬]]} -- show special characters
-set {'list'}
+  -- Listchars
+  {'listchars', [[trail:~,tab:▸\ ,eol:¬]]}, -- show special characters
+  {'list'},
 
--- Search
-set {'ignorecase'}
-set {'smartcase'} -- override ignorecase if uppercase is used when searching
-set {'hlsearch'}
-set {'incsearch'} -- search as you type
+  -- Search
+  {'ignorecase'},
+  {'smartcase'}, -- override ignorecase if uppercase is used when searching
+  {'hlsearch'},
+  {'incsearch'}, -- search as you type
 
--- Wildmenu
-set {'wildmenu'}
-set {'wildmode', 'list:longest,full'}
+  -- Wildmenu
+  {'wildmenu'},
+  {'wildmode', 'list:longest,full'},
 
--- Position
-set {'number'}
-set {'relativenumber'}
-set {'visualbell'} -- use visual bell, not sound
-set {'shortmess', 'aI'} -- modify the error and info messages
-set {'scrolloff', '3'} -- screen lines to keep above and below the cursor
-set {'virtualedit', 'block'} -- put the cursor anywhere in visual blocks
-set {'cursorline'} -- show where you are
-set {'inccommand', 'split'}
+  -- Position
+  {'number'},
+  {'relativenumber'},
+  {'visualbell'}, -- use visual bell, not sound
+  {'shortmess', 'aI'}, -- modify the error and info messages
+  {'scrolloff', '3'}, -- screen lines to keep above and below the cursor
+  {'virtualedit', 'block'}, -- put the cursor anywhere in visual blocks
+  {'cursorline'}, -- show where you are
+  {'inccommand', 'split'},
 
--- Prevent text jumping with linters/lsp integrations
-set {'signcolumn', 'yes'}
+  -- Prevent text jumping with linters/lsp integrations
+  {'signcolumn', 'yes'},
 
-set {'lazyredraw'}
+  {'lazyredraw'},
+}
 
 -- Autosave
 set {'updatetime', '750'}
