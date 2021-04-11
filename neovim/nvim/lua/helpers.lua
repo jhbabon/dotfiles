@@ -1,16 +1,16 @@
+local fmt = string.format
 local M = {}
 
 local function format_set(args)
   local option = args[1]
   local value = args[2]
-
-  local setter = 'set ' .. option
+  local template = 'set %s'
 
   if value ~= nil then
-    setter = setter .. '=' .. value
+    template = 'set %s=%s'
   end
 
-  return setter
+  return fmt(template, option, value)
 end
 
 -- Execute multiple exec commands at once

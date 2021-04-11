@@ -30,7 +30,7 @@ local heuristics = vim.fn.json_encode{
 }
 
 multi_exec {
-  table.concat({'let g:projectionist_heuristics', heuristics}, '='),
+  string.format('let g:projectionist_heuristics = %s', heuristics),
   [[let g:projectionist_transformations = {}]],
   [[let g:projectionist_transformations.rspec = {i -> v:lua.projectionist_rspec(i)}]],
   [[packadd! vim-projectionist]]
