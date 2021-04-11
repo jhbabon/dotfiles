@@ -10,8 +10,8 @@ local strip = table.concat({
   [[:call winrestview(_s)]],     -- restore cursor position
   [[<cr>]],                      -- execute all of the above
 }, '<Bar>') -- join all with '|' in one line
-keymap.m = {
-  name = '+misc',
+keymap.u = {
+  name = '+utils',
   [' '] = {strip, 'strip all trailing whitespaces'},
   [';'] = {[[:s/\([^;]\)$/\1;/<cr>:noh<cr>]], 'add semicolon at eol'},
   [','] = {[[:s/\([^,]\)$/\1,/<cr>:noh<cr>]], 'add comma at eol'},
