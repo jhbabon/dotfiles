@@ -34,5 +34,7 @@ paq {'b3nj5m1n/kommentary'}
 
 paq {'wfxr/minimap.vim', opt = true}
 
+paq {'jhbabon/scout.vim', opt = true}
+
 -- colorschemes
 paq {'RRethy/nvim-base16'}
