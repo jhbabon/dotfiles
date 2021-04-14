@@ -3,6 +3,8 @@ require('packages')
 
 vim.cmd('filetype off')
 
+require('scout') -- experiment
+
 require('treesitter')
 require('lsp')
 require('git')
