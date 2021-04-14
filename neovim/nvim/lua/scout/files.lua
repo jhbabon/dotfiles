@@ -12,23 +12,18 @@ local openers = {
 }
 
 local function open(selection, signal)
-  if signal == 'exit' then
-    return
-  end
-
-  if not core.isempty(selection) then
+  if core.is_present(selection) then
     local opener = openers[signal]
-    assert(opener, fmt('failed to open with signal %s', signal))
+    assert(opener, fmt('unknown signal "%s"', signal))
 
     vim.cmd(fmt('%s %s', opener, selection))
   end
 end
 
--- TODO: Accept search term
-function M.run(search)
-  local finder = config.files.finder
+function M.run(options)
+  local opts = vim.tbl_extend('force', config.files, options or {})
 
-  core.run({ list_cmd = finder, finish = open, search = search })
+  core.run({ list_cmd = opts.finder, action = open, search = opts.search })
 end
 
 return M

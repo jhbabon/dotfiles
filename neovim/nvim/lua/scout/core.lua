@@ -19,13 +19,17 @@ local function mappings(job_id, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 't', '<esc>', signal('exit'), opts)
 end
 
-function M.isempty(s)
+function M.is_empty(s)
   return s == nil or s == ''
+end
+
+function M.is_present(s)
+  return not M.is_empty(s)
 end
 
 local function build_cmd(list_cmd, cmd, search)
   local c = fmt('%s | %s', list_cmd, cmd)
-  if not M.isempty(search) then
+  if M.is_present(search) then
     s = vim.fn.expand(search)
     c = fmt('%s -s "%s"', c, s)
   end
@@ -36,21 +40,22 @@ end
 function M.run(cfg)
   local list_cmd = cfg.list_cmd -- TODO: Accept list = {'a', 'b'}
   local search = cfg.search
+  local action = cfg.action
   local finish = cfg.finish
 
   assert(list_cmd, 'the list_cmd is missing')
-  assert(finish, 'the finish function is missing')
+  assert(action, 'the action function is missing')
 
   local cmd = build_cmd(list_cmd, config.cmd, search)
 
   local origin_id = vim.fn.win_getid()
-  local win = window.open('files')
+  local win = window.open('files') -- TODO: pass as an option
   local collect_output = false
   local raw_output = ''
 
   local on_stdout = function(term_id, data, event)
     local output = data[1]
-    if not M.isempty(output) then
+    if M.is_present(output) then
       if collect_output then
         raw_output = output
       end
@@ -68,10 +73,17 @@ function M.run(cfg)
     vim.fn.win_gotoid(origin_id)
 
     local job = jobs[term_id] or { signal = 'enter' }
+    local signal = job.signal
     jobs[term_id] = nil
 
-    local selection = string.gsub(raw_output or '', '%c', '')
-    finish(selection, job.signal)
+    if signal ~= 'exit' then
+      local selection = string.gsub(raw_output or '', '%c', '')
+      action(selection, job.signal)
+    end
+
+    if finish then
+      finish()
+    end
   end
 
   local options = {
@@ -96,6 +108,24 @@ function M.signal(job_id, signal)
   else
     vim.fn.chansend(job_id, "\n")
   end
+end
+
+function M.tmpfile()
+  local f = {}
+  f.name = os.tmpname()
+  local tmp = io.open(f.name, 'w')
+
+  f.write = function(...)
+    tmp:write(...)
+    tmp:flush()
+  end
+
+  f.close = function()
+    tmp:close()
+    os.remove(f.name)
+  end
+
+  return f
 end
 
 return M
