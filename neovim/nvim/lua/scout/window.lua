@@ -1,3 +1,5 @@
+local u = require('scout.utils')
+
 local M = {}
 
 local function display_options()
@@ -50,7 +52,10 @@ function M.open(label)
   vim.api.nvim_win_set_option(display.id, 'winhl', 'Normal:Pmenu,SignColumn:Pmenu')
   vim.api.nvim_win_set_option(display.id, 'signcolumn', signcolumn)
 
-  local banner = string.format('scout > %s', label)
+  local banner = 'scout'
+  if u.is_present(label) then
+    banner = string.format('scout > %s', label)
+  end
   vim.api.nvim_buf_set_lines(title.buffer, 0, -1, 0, {banner})
 
   return {

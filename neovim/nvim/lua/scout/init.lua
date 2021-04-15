@@ -1,18 +1,12 @@
--- TODO: add buffers management
--- TODO: add mappings management (?)
+local core = require('scout.core')
+local config = require('scout.config')
 
-local M = {}
--- Default values
-M.config = {
-  cmd = 'scout',
-  files = {
-    finder = 'find * -type f',
-  },
+local M = {
+  -- reexports
+  run = core.run,
+  signal = core.signal,
+  setup = config.setup,
 }
 
-function M.setup(conf)
-  -- TODO: validation ?
-  M.config = vim.tbl_extend('force', M.config, conf)
-end
 
 return M

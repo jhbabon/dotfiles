@@ -1,6 +1,7 @@
 local fmt = string.format
-local config = require('scout').config
+local config = require('scout.config').config
 local core = require('scout.core')
+local u = require('scout.utils')
 
 local M = {}
 
@@ -12,7 +13,7 @@ local openers = {
 }
 
 local function open(selection, signal)
-  if core.is_present(selection) then
+  if u.is_present(selection) then
     local opener = openers[signal]
     assert(opener, fmt('unknown signal "%s"', signal))
 
@@ -23,7 +24,12 @@ end
 function M.run(options)
   local opts = vim.tbl_extend('force', config.files, options or {})
 
-  core.run({ list_cmd = opts.finder, action = open, search = opts.search })
+  core.run({
+    search = opts.search,
+    list_cmd = opts.finder,
+    done = open,
+    title = 'files',
+  })
 end
 
 return M
