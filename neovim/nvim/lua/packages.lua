@@ -20,9 +20,6 @@ paq {'nvim-treesitter/nvim-treesitter', run = function() vim.cmd('TSUpdate') end
 paq {'neovim/nvim-lspconfig'}
 paq {'glepnir/lspsaga.nvim'}
 
-paq {'liuchengxu/vim-which-key'}
-paq {'AckslD/nvim-whichkey-setup.lua'}
-
 paq {'lewis6991/gitsigns.nvim'}
 paq {'tpope/vim-fugitive'}
 

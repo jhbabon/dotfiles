@@ -1,3 +1,5 @@
+local h = require('helpers')
+
 -- vim.cmd('highlight link GitSignsAdd Title')
 -- vim.cmd('highlight link GitSignsDelete WarningMsg')
 -- vim.cmd('highlight link GitSignsChange ModeMsg')
@@ -25,25 +27,16 @@ require('gitsigns').setup {
     },
 }
 
-local keymap = {}
-keymap.g = {
-  name = '+git',
-  -- fugitive mappings
-  s = {':Gstatus<cr>', 'status'},
-  c = {':Git commit<cr>', 'commit'},
-  l = {':Glog<cr>', 'log'},
-  d = {':Gdiff<cr>', 'diff'},
+-- fugitive
+h.nmap('<leader>gs', ':Gstatus<cr>', { silent = true, hint = 'git: status' })
+h.nmap('<leader>gc', ':Git commit<cr>', { silent = true, hint = 'git: commit' })
+h.nmap('<leader>gl', ':Glog<cr>', { silent = true, hint = 'git: log' })
+h.nmap('<leader>gd', ':Gdiff<cr>', { silent = true, hint = 'git: diff' })
 
-  h = {
-    name = '+hunk',
-    -- gitsigns
-    s = {'<cmd>lua require("gitsigns").stage_hunk()<cr>', 'stage'},
-    u = {'<cmd>lua require("gitsigns").undo_stage_hunk()<cr>', 'unstage'},
-    r = {'<cmd>lua require("gitsigns").reset_hunk()<cr>', 'reset'},
-    R = {'<cmd>lua require("gitsigns").reset_buffer()<cr>', 'reset buffer'},
-    p = {'<cmd>lua require("gitsigns").preview_hunk()<cr>', 'preview'},
-    b = {'<cmd>lua require("gitsigns").blame_line()<cr>', 'blame'},
-  }
-}
-
-require('whichkey_setup').register_keymap('leader', keymap)
+-- gitsigns
+h.nmap('<leader>ghs', [[<cmd>lua require('gitsigns').stage_hunk()<cr>]], { silent = true })
+h.nmap('<leader>ghu', [[<cmd>lua require('gitsigns').undo_stage_hunk()<cr>]], { silent = true })
+h.nmap('<leader>ghr', [[<cmd>lua require('gitsigns').reset_hunk()<cr>]], { silent = true })
+h.nmap('<leader>ghR', [[<cmd>lua require('gitsigns').reset_buffer()<cr>]], { silent = true })
+h.nmap('<leader>ghp', [[<cmd>lua require('gitsigns').preview_hunk()<cr>]], { silent = true })
+h.nmap('<leader>ghb', [[<cmd>lua require('gitsigns').blame_line()<cr>]], { silent = true })

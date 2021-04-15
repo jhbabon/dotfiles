@@ -1,12 +1,8 @@
-local multi_exec = require('helpers').multi_exec
-local keymap = {}
+local h = require('helpers')
 
 -- nvim-projectconfig
 require('nvim-projectconfig').load_project_config()
-keymap.p = {
-  name = '+project',
-  e = {[[<cmd>lua require('nvim-projectconfig').edit_project_config()<cr>]], 'edit project config'},
-}
+h.nmap('<leader>pe', [[<cmd>lua require('nvim-projectconfig').edit_project_config()<cr>]], { silent = true })
 
 -- vim-projectionist
 function projectionist_rspec(input, ...)
@@ -29,11 +25,9 @@ local heuristics = vim.fn.json_encode{
   }
 }
 
-multi_exec {
+h.multi_exec {
   string.format('let g:projectionist_heuristics = %s', heuristics),
   [[let g:projectionist_transformations = {}]],
   [[let g:projectionist_transformations.rspec = {i -> v:lua.projectionist_rspec(i)}]],
   [[packadd! vim-projectionist]]
 }
-
-require('whichkey_setup').register_keymap('leader', keymap)

@@ -5,26 +5,6 @@ end
 
 local h = require('helpers')
 
-local keymap = {}
-keymap.l = {
-  name = '+lsp',
-  d = {[[<cmd>lua vim.lsp.buf.definition()<cr>]], 'go to definition'},
-  i = {[[<cmd>lua vim.lsp.buf.implementation()<cr>]], 'go to implementation'},
-  t = {[[<cmd>lua vim.lsp.buf.type_definition()<cr>]], 'go to type definition'},
-  h = {[[<cmd>lua require('lspsaga.hover').render_hover_doc()<cr>]], 'hover'},
-  s = {[[<cmd>lua require('lspsaga.signaturehelp').signature_help()<cr>]], 'signature'},
-  r = {[[<cmd>lua require('lspsaga.rename').rename()<cr>]], 'rename'},
-  f = {[[<cmd>lua vim.lsp.buf.references()<cr>]], 'references'},
-  g = {[[<cmd>lua require('lspsaga.diagnostic').show_line_diagnostics()<cr>]], 'diagnostic'},
-  c = {[[<cmd>lua require('lspsaga.codeaction').code_action()<cr>]], 'code action'},
-}
-
-local visual_keymap = {}
-visual_keymap.l = {
-  name = '+lsp',
-  c = {[[<cmd>lua require('lspsaga.codeaction').range_code_action()<cr>]], 'code action'},
-}
-
 -- nvim-slpconfig
 local nvim_lsp = require('lspconfig')
 local function on_attach(client, bufnr)
@@ -35,8 +15,18 @@ local function on_attach(client, bufnr)
   h.map_buf(bufnr, 'n', ']e', [[cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_next()<cr>]], opts)
   h.map_buf(bufnr, 'n', '[e', [[cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_prev()<cr>]], opts)
 
-  require('whichkey_setup').register_keymap('leader', keymap, { noremap = true, silent = true, bufnr = bufnr })
-  require('whichkey_setup').register_keymap('visual', visual_keymap, { noremap = true, silent = true, bufnr = bufnr })
+  h.map_buf(bufnr, 'n', '<leader>ld', [[<cmd>lua vim.lsp.buf.definition()<cr>]], opts)
+  h.map_buf(bufnr, 'n', '<leader>li', [[<cmd>lua vim.lsp.buf.implementation()<cr>]], opts)
+  h.map_buf(bufnr, 'n', '<leader>lt', [[<cmd>lua vim.lsp.buf.type_definition()<cr>]], opts)
+  h.map_buf(bufnr, 'n', '<leader>lh', [[<cmd>lua require('lspsaga.hover').render_hover_doc()<cr>]], opts)
+  h.map_buf(bufnr, 'n', '<leader>ls', [[<cmd>lua require('lspsaga.signaturehelp').signature_help()<cr>]], opts)
+  h.map_buf(bufnr, 'n', '<leader>lr', [[<cmd>lua require('lspsaga.rename').rename()<cr>]], opts)
+  h.map_buf(bufnr, 'n', '<leader>lf', [[<cmd>lua vim.lsp.buf.references()<cr>]], opts)
+  h.map_buf(bufnr, 'n', '<leader>lg', [[<cmd>lua require('lspsaga.diagnostic').show_line_diagnostics()<cr>]], opts)
+  h.map_buf(bufnr, 'n', '<leader>lc', [[<cmd>lua require('lspsaga.codeaction').code_action()<cr>]], opts)
+
+  -- Visual mappings
+  h.map_buf(bufnr, 'v', '<leader>lc', [[<cmd>lua require('lspsaga.codeaction').range_code_action()<cr>]], opts)
 end
 
 local servers = {

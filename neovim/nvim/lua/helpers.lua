@@ -41,6 +41,7 @@ local function map_options(opts)
   if opts then
     options = vim.tbl_extend('force', options, opts)
   end
+  options.hint = nil
 
   return options
 end

@@ -1,7 +1,3 @@
-local keymap = {}
-keymap.q = {
-  name = '+quickfix',
-  n = {':cn<cr>', 'next'},
-  p = {':cp<cr>', 'previous'},
-}
-require('whichkey_setup').register_keymap('leader', keymap)
+local h = require('helpers')
+h.nmap('<leader>qn', [[:cn<cr>]], { silent = true })
+h.nmap('<leader>qp', [[:cp<cr>]], { silent = true })
