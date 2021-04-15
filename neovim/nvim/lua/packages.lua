@@ -38,7 +38,7 @@ paq {'tpope/vim-projectionist', opt = true}
 
 paq {'wfxr/minimap.vim', opt = true}
 
-paq {'jhbabon/scout.vim', opt = true}
+paq {'mhinz/vim-grepper', opt = true}
 
 paq {'hoob3rt/lualine.nvim'}
 

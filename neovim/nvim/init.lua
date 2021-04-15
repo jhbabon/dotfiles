@@ -14,6 +14,7 @@ require('comments')
 require('quickfix')
 require('files')
 require('projects')
+require('search')
 
 require('statusline')
 require('colorscheme')

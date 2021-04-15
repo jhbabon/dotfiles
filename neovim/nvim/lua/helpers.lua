@@ -13,9 +13,13 @@ local function format_set(args)
   return fmt(template, option, value)
 end
 
+function M.exec(command)
+  vim.api.nvim_exec(command, false)
+end
+
 -- Execute multiple exec commands at once
 function M.multi_exec(commands)
-  vim.api.nvim_exec(table.concat(commands, "\n"), false)
+  M.exec(table.concat(commands, "\n"))
 end
 
 function M.set(args)
