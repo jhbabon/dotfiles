@@ -1,6 +1,31 @@
 local fmt = string.format
 local M = {}
 
+function M.expr_quote(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local hints = {}
+local escape = {
+  __index = function(t, key)
+    local esc = M.expr_quote(key)
+    return rawget(t, esc)
+  end,
+  __newindex = function(t, key, value)
+    local esc = M.expr_quote(key)
+    rawset(t, esc, value)
+  end
+}
+local modes = {
+  __index = function(t, key)
+    local m = {}
+    setmetatable(m, escape)
+    t[key] = m
+    return m
+  end
+}
+setmetatable(hints, modes)
+
 local function format_set(args)
   local option = args[1]
   local value = args[2]
@@ -36,18 +61,20 @@ function M.mset(options)
   M.multi_exec(sets)
 end
 
-local function map_options(opts)
+local function map_options(mode, lhs, opts)
   local options = { noremap = true }
   if opts then
     options = vim.tbl_extend('force', options, opts)
   end
+
+  hints[mode][lhs] = options.hint
   options.hint = nil
 
   return options
 end
 
 function M.map_buf(bufnr, mode, lhs, rhs, opts)
-  local options = map_options(opts)
+  local options = map_options(mode, lhs, opts)
 
   vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, options)
 end
@@ -57,7 +84,7 @@ function M.nmap_buf(bufnr, ...)
 end
 
 function M.map(mode, lhs, rhs, opts)
-  local options = map_options(opts)
+  local options = map_options(mode, lhs, opts)
 
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
@@ -68,6 +95,10 @@ end
 
 function M.nmap(...)
   M.map('n', ...)
+end
+
+function M.map_hint(mode, lhs)
+  return hints[mode][lhs]
 end
 
 return M

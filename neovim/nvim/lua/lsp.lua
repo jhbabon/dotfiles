@@ -12,21 +12,20 @@ local function on_attach(client, bufnr)
 
   -- Mappings
   local opts = { noremap = true, silent = true }
-  h.map_buf(bufnr, 'n', ']e', [[cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_next()<cr>]], opts)
-  h.map_buf(bufnr, 'n', '[e', [[cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_prev()<cr>]], opts)
-
-  h.map_buf(bufnr, 'n', '<leader>ld', [[<cmd>lua vim.lsp.buf.definition()<cr>]], opts)
-  h.map_buf(bufnr, 'n', '<leader>li', [[<cmd>lua vim.lsp.buf.implementation()<cr>]], opts)
-  h.map_buf(bufnr, 'n', '<leader>lt', [[<cmd>lua vim.lsp.buf.type_definition()<cr>]], opts)
-  h.map_buf(bufnr, 'n', '<leader>lh', [[<cmd>lua require('lspsaga.hover').render_hover_doc()<cr>]], opts)
-  h.map_buf(bufnr, 'n', '<leader>ls', [[<cmd>lua require('lspsaga.signaturehelp').signature_help()<cr>]], opts)
-  h.map_buf(bufnr, 'n', '<leader>lr', [[<cmd>lua require('lspsaga.rename').rename()<cr>]], opts)
-  h.map_buf(bufnr, 'n', '<leader>lf', [[<cmd>lua vim.lsp.buf.references()<cr>]], opts)
-  h.map_buf(bufnr, 'n', '<leader>lg', [[<cmd>lua require('lspsaga.diagnostic').show_line_diagnostics()<cr>]], opts)
-  h.map_buf(bufnr, 'n', '<leader>lc', [[<cmd>lua require('lspsaga.codeaction').code_action()<cr>]], opts)
+  h.nmap_buf(bufnr, ']e', [[cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_next()<cr>]], { silent = true, hint = 'lsp: next diagnostic' })
+  h.nmap_buf(bufnr, '[e', [[cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_prev()<cr>]], { silent = true, hint = 'lsp: previous diagnostic' })
+  h.nmap_buf(bufnr, '<leader>ld', [[<cmd>lua vim.lsp.buf.definition()<cr>]], { silent = true, hint = 'lsp: go to definition' })
+  h.nmap_buf(bufnr, '<leader>li', [[<cmd>lua vim.lsp.buf.implementation()<cr>]], { silent = true, hint = 'lsp: go to implementation' })
+  h.nmap_buf(bufnr, '<leader>lt', [[<cmd>lua vim.lsp.buf.type_definition()<cr>]], { silent = true, hint = 'lsp: go to type definition' })
+  h.nmap_buf(bufnr, '<leader>lh', [[<cmd>lua require('lspsaga.hover').render_hover_doc()<cr>]], { silent = true, hint = 'lsp: hover' })
+  h.nmap_buf(bufnr, '<leader>ls', [[<cmd>lua require('lspsaga.signaturehelp').signature_help()<cr>]], { silent = true, hint = 'lsp: signature' })
+  h.nmap_buf(bufnr, '<leader>lr', [[<cmd>lua require('lspsaga.rename').rename()<cr>]], { silent = true, hint = 'lsp: rename' })
+  h.nmap_buf(bufnr, '<leader>lf', [[<cmd>lua vim.lsp.buf.references()<cr>]], { silent = true, hint = 'lsp: references' })
+  h.nmap_buf(bufnr, '<leader>lg', [[<cmd>lua require('lspsaga.diagnostic').show_line_diagnostics()<cr>]], { silent = true, hint = 'lsp: line diagnostic' })
+  h.nmap_buf(bufnr, '<leader>lc', [[<cmd>lua require('lspsaga.codeaction').code_action()<cr>]], { silent = true, hint = 'lsp: code action' })
 
   -- Visual mappings
-  h.map_buf(bufnr, 'v', '<leader>lc', [[<cmd>lua require('lspsaga.codeaction').range_code_action()<cr>]], opts)
+  h.map_buf(bufnr, 'v', '<leader>lc', [[<cmd>lua require('lspsaga.codeaction').range_code_action()<cr>]], { silent = true, hint = 'lsp: code action' })
 end
 
 local servers = {

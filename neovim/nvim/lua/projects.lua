@@ -2,7 +2,7 @@ local h = require('helpers')
 
 -- nvim-projectconfig
 require('nvim-projectconfig').load_project_config()
-h.nmap('<leader>pe', [[<cmd>lua require('nvim-projectconfig').edit_project_config()<cr>]], { silent = true })
+h.nmap('<leader>pe', [[<cmd>lua require('nvim-projectconfig').edit_project_config()<cr>]], { silent = true, hint = 'projects: edit config' })
 
 -- vim-projectionist
 function projectionist_rspec(input, ...)

@@ -28,15 +28,15 @@ require('gitsigns').setup {
 }
 
 -- fugitive
-h.nmap('<leader>gs', ':Gstatus<cr>', { silent = true, hint = 'git: status' })
+h.nmap('<leader>gs', ':Git<cr>', { silent = true, hint = 'git: status' })
 h.nmap('<leader>gc', ':Git commit<cr>', { silent = true, hint = 'git: commit' })
 h.nmap('<leader>gl', ':Glog<cr>', { silent = true, hint = 'git: log' })
 h.nmap('<leader>gd', ':Gdiff<cr>', { silent = true, hint = 'git: diff' })
 
 -- gitsigns
-h.nmap('<leader>ghs', [[<cmd>lua require('gitsigns').stage_hunk()<cr>]], { silent = true })
-h.nmap('<leader>ghu', [[<cmd>lua require('gitsigns').undo_stage_hunk()<cr>]], { silent = true })
-h.nmap('<leader>ghr', [[<cmd>lua require('gitsigns').reset_hunk()<cr>]], { silent = true })
-h.nmap('<leader>ghR', [[<cmd>lua require('gitsigns').reset_buffer()<cr>]], { silent = true })
-h.nmap('<leader>ghp', [[<cmd>lua require('gitsigns').preview_hunk()<cr>]], { silent = true })
-h.nmap('<leader>ghb', [[<cmd>lua require('gitsigns').blame_line()<cr>]], { silent = true })
+h.nmap('<leader>ghs', [[<cmd>lua require('gitsigns').stage_hunk()<cr>]], { silent = true, hint = 'git: stage hunk' })
+h.nmap('<leader>ghu', [[<cmd>lua require('gitsigns').undo_stage_hunk()<cr>]], { silent = true, hint = 'git: unstage hunk' })
+h.nmap('<leader>ghr', [[<cmd>lua require('gitsigns').reset_hunk()<cr>]], { silent = true, hint = 'git: reset hunk' })
+h.nmap('<leader>ghR', [[<cmd>lua require('gitsigns').reset_buffer()<cr>]], { silent = true, hint = 'git: reset buffer' })
+h.nmap('<leader>ghp', [[<cmd>lua require('gitsigns').preview_hunk()<cr>]], { silent = true, hint = 'git: preview hunk' })
+h.nmap('<leader>ghb', [[<cmd>lua require('gitsigns').blame_line()<cr>]], { silent = true, hint = 'git: blame line' })

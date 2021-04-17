@@ -4,5 +4,5 @@ local h = require('helpers')
 vim.g.minimap_close_filetypes = {'startify', 'netrw', 'vim-plug', 'fugitive', 'git', 'which_key', 'lspinfo'}
 vim.cmd [[packadd! minimap.vim]]
 
-h.nmap('<leader>mt', ':MinimapToggle<cr>', { silent = true })
-h.nmap('<leader>mr', ':MinimapRefresh<cr>', { silent = true })
+h.nmap('<leader>mt', ':MinimapToggle<cr>', { silent = true, hint = 'minimap: toggle' })
+h.nmap('<leader>mr', ':MinimapRefresh<cr>', { silent = true, hint = 'minimap: refresh' })
