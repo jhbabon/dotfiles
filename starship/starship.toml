@@ -21,7 +21,6 @@ format = """\
     $elm\
     $erlang\
     $golang\
-    $haskell\
     $java\
     $julia\
     $nodejs\
@@ -99,9 +98,6 @@ disabled = true
 disabled = false
 
 [golang]
-disabled = false
-
-[haskell]
 disabled = false
 
 [java]
