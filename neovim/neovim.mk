@@ -6,23 +6,22 @@ CLEANERS   += clean_neovim
 
 NEOVIM_SRC_DIR    := $(DOTFILES)/neovim/nvim
 NEOVIM_DST_DIR    := $(CONFIG_DIR)/nvim
-NEOVIM_MINPAC_URL := https://github.com/k-takata/minpac.git
-NEOVIM_MINPAC_DST := $(NEOVIM_DST_DIR)/pack/minpac
-NEOVIM_MINPAC_OPT := $(NEOVIM_MINPAC_DST)/opt/minpac
+NEOVIM_PACKER_URL := https://github.com/wbthomason/packer.nvim
+NEOVIM_PACKER_DST := $(HOME)/.local/share/nvim/site/pack/packer
 
 .PHONY: neovim clean_neovim
 
-neovim: banner_install_neovim $(NEOVIM_DST_DIR) $(NEOVIM_MINPAC_DST)
+neovim: banner_install_neovim $(NEOVIM_DST_DIR) $(NEOVIM_PACKER_DST)
 
 $(NEOVIM_DST_DIR):
 	$(LINK) $(NEOVIM_SRC_DIR) $@
 
-$(NEOVIM_MINPAC_DST):
-	$(CLONE) $(NEOVIM_MINPAC_URL) $(NEOVIM_MINPAC_OPT)
-	nvim +PackBootstrap
+$(NEOVIM_PACKER_DST):
+	$(CLONE) $(NEOVIM_PACKER_URL) $(NEOVIM_PACKER_DST)/start/packer.nvim
+	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 clean_neovim: banner_clean_neovim
-	$(RM) $(NEOVIM_MINPAC_DST)
+	$(RM) $(NEOVIM_PACKER_DST)
 	$(RM) $(NEOVIM_DST_DIR)
 
 else
