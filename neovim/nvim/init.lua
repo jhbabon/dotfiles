@@ -74,4 +74,37 @@ vim.cmd [[au CursorHold * ++nested silent! update]]
 require('packer').startup(function(use)
   -- Packer can manage itself
   use {'wbthomason/packer.nvim'}
+
+  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 end)
+
+-- -----------------------------------------------------------------------
+--
+-- Nvim Treesitter
+--
+-- NOTE: some parsers need node installed
+-- TODO: Review configuration
+-- -----------------------------------------------------------------------
+require("nvim-treesitter.install").prefer_git = true
+require('nvim-treesitter.configs').setup {
+  ensure_installed = 'maintained',
+  sync_install = false,
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false, -- TODO: Review
+  },
+  incremental_selection = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+  },
+  -- TODO: look into textobjects config
+}
+
+-- use treesitter folding module
+_.mset {
+  {'foldlevel', 5},
+  {'foldmethod', 'expr'},
+  {'foldexpr', 'nvim_treesitter#foldexpr()'},
+}
