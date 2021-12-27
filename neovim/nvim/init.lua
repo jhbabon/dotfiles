@@ -78,6 +78,8 @@ require('packer').startup(function(use)
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
   use {'tpope/vim-commentary'}
+
+  use {'nacro90/numb.nvim'}
 end)
 
 -- -----------------------------------------------------------------------
@@ -110,3 +112,9 @@ _.mset {
   {'foldmethod', 'expr'},
   {'foldexpr', 'nvim_treesitter#foldexpr()'},
 }
+
+-- -----------------------------------------------------------------------
+--
+-- Numb: Peek lines just when you intend
+-- -----------------------------------------------------------------------
+require('numb').setup()
