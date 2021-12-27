@@ -66,45 +66,11 @@ _.set {'updatetime', '750'}
 vim.cmd [[au InsertLeave * ++nested silent! update]]
 vim.cmd [[au CursorHold * ++nested silent! update]]
 
-
--- -----------------------------------------------------------------------
---
--- Packages
--- -----------------------------------------------------------------------
-require('packer').startup(function(use)
-  -- Packer can manage itself
-  use {'wbthomason/packer.nvim'}
-
-  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-
-  use {'tpope/vim-commentary'}
-
-  use {'nacro90/numb.nvim'}
-end)
-
--- -----------------------------------------------------------------------
---
--- Nvim Treesitter
---
--- NOTE: some parsers need node installed
--- TODO: Review configuration
--- -----------------------------------------------------------------------
-require("nvim-treesitter.install").prefer_git = true
-require('nvim-treesitter.configs').setup {
-  ensure_installed = 'maintained',
-  sync_install = false,
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false, -- TODO: Review
-  },
-  incremental_selection = {
-    enable = true,
-  },
-  indent = {
-    enable = true,
-  },
-  -- TODO: look into textobjects config
-}
+vim.cmd [[command! PackerInstall lua require('packages').install()]]
+vim.cmd [[command! PackerUpdate lua require('packages').update()]]
+vim.cmd [[command! PackerSync lua require('packages').sync()]]
+vim.cmd [[command! PackerClean lua require('packages').clean()]]
+vim.cmd [[command! PackerCompile lua require('packages').compile()]]
 
 -- use treesitter folding module
 _.mset {
@@ -112,9 +78,3 @@ _.mset {
   {'foldmethod', 'expr'},
   {'foldexpr', 'nvim_treesitter#foldexpr()'},
 }
-
--- -----------------------------------------------------------------------
---
--- Numb: Peek lines just when you intend
--- -----------------------------------------------------------------------
-require('numb').setup()
