@@ -8,7 +8,6 @@ local function config(name)
   return require("config." .. name)
 end
 
--- TODO: Install https://github.com/lewis6991/impatient.nvim
 local function pkgs(use)
   -- Packer can manage itself
   use({ "wbthomason/packer.nvim", opt = true })
@@ -74,6 +73,9 @@ local function pkgs(use)
   use({ "rose-pine/neovim", as = "rose-pine", config = config("rose-pine") })
   use({ "marko-cerovac/material.nvim", config = config("material") })
   use({ "yonlu/omni.vim" })
+
+  -- Statusline
+  use({ "nvim-lualine/lualine.nvim", config = config("lualine") })
 end
 
 return require("packer").startup({

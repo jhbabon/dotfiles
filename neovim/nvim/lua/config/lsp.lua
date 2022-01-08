@@ -1,5 +1,18 @@
 return function()
   local u = require("utils")
+
+  -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
+  local icons = {
+    Error = " ", -- xf659
+    Warn = " ", -- xf529
+    Info = " ", -- xf7fc
+    Hint = " ", -- xf835
+  }
+  for type, icon in pairs(icons) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  end
+
   -- TODO: Check https://github.com/williamboman/nvim-lsp-installer/wiki/Rust
   local lsp_installer = require("nvim-lsp-installer")
 
