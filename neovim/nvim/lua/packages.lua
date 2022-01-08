@@ -32,7 +32,16 @@ local function pkgs(use)
     requires = {
       'kyazdani42/nvim-web-devicons',
     },
-    config = config('nvim-tree')
+    config = config('nvim-tree'),
+  }
+
+  -- LSP
+  use {
+    'williamboman/nvim-lsp-installer',
+    requires = {
+      'neovim/nvim-lspconfig',
+    },
+    config = config('lsp'),
   }
 
   -- Git
@@ -42,7 +51,7 @@ local function pkgs(use)
     requires = {
       'nvim-lua/plenary.nvim'
     },
-    config = config('gitsigns')
+    config = config('gitsigns'),
   }
 
   -- Colorschemes
