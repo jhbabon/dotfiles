@@ -1,5 +1,3 @@
-local function config()
+return function()
   require('numb').setup()
 end
-
-return config

@@ -1,6 +1,4 @@
-local function config()
+return function()
   -- remove keymaps
   require('gitsigns').setup({ keymaps = {} })
 end
-
-return config

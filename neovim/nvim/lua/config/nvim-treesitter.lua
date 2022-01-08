@@ -1,5 +1,5 @@
 -- TODO: Review configuration
-local function config()
+return function()
   -- require("nvim-treesitter.install").prefer_git = true
   require('nvim-treesitter.configs').setup {
     ensure_installed = 'maintained',
@@ -16,5 +16,3 @@ local function config()
     },
   }
 end
-
-return config
