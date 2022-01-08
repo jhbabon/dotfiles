@@ -1,3 +1,18 @@
+-- Load impatient plugin before anything else to speed up lua loading
+local ok, impatient = pcall(require, 'impatient')
+if not ok then
+  -- This fails on fresh installs, so define the PackerSync command and exit early
+  -- NOTE: This assumes that packer.nvim is installed in the pack path
+  --
+  -- To bootstrap nvim run this from the command line:
+  --   nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+  vim.cmd [[command! PackerSync lua require('packages').sync()]]
+  return
+end
+
+-- Enable profiling for module loading
+-- impatient.enable_profile()
+
 local _ = require('utils')
 
 -- -----------------------------------------------------------------------
@@ -9,8 +24,8 @@ vim.g.localeader = ','
 
 _.mset {
   -- Backups
-  {'nobackup'}, -- No backup
-  {'noswapfile'}, -- No swap files
+  {'nobackup'}, -- no backup
+  {'noswapfile'}, -- no swap files
 
   -- Behaviors
   {'modeline'},
@@ -66,14 +81,16 @@ _.set {'updatetime', '750'}
 vim.cmd [[au InsertLeave * ++nested silent! update]]
 vim.cmd [[au CursorHold * ++nested silent! update]]
 
--- Redefine packer.nvim command to lazy load it through the custom packages module
+-- Packages
+require('packer_compiled')
+-- redefine packer commands to lazy load it through the custom packages module
 vim.cmd [[command! PackerInstall lua require('packages').install()]]
 vim.cmd [[command! PackerUpdate lua require('packages').update()]]
 vim.cmd [[command! PackerSync lua require('packages').sync()]]
 vim.cmd [[command! PackerClean lua require('packages').clean()]]
 vim.cmd [[command! PackerCompile lua require('packages').compile()]]
 
--- Use treesitter folding module
+-- Use treesitter's folding module
 _.mset {
   {'foldlevel', 5},
   {'foldmethod', 'expr'},

@@ -9,6 +9,9 @@ local function pkgs(use)
   -- Packer can manage itself
   use {'wbthomason/packer.nvim', opt = true}
 
+  -- Improve startup time for Neovim
+  use {'lewis6991/impatient.nvim'}
+
   -- NOTE: some parsers need node installed
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -29,4 +32,11 @@ local function pkgs(use)
   }
 end
 
-return require('packer').startup(pkgs, { disable_commands = true })
+return require('packer').startup({
+  pkgs,
+  config = {
+    disable_commands = true,
+    -- Move to lua dir so impatient.nvim can cache it
+    compile_path = vim.fn.stdpath('config')..'/lua/packer_compiled.lua',
+  }
+})

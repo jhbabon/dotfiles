@@ -8,7 +8,7 @@ NEOVIM_SRC_DIR    := $(DOTFILES)/neovim/nvim
 NEOVIM_DST_DIR    := $(CONFIG_DIR)/nvim
 NEOVIM_PACKER_URL := https://github.com/wbthomason/packer.nvim
 NEOVIM_PACKER_DST := $(HOME)/.local/share/nvim/site/pack/packer
-NEOVIM_PACKER_LD  := $(NEOVIM_DST_DIR)/plugin/packer_compiled.lua
+NEOVIM_PACKER_LD  := $(NEOVIM_DST_DIR)/lua/packer_compiled.lua
 
 .PHONY: neovim clean_neovim
 

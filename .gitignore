@@ -8,6 +8,7 @@ neovim/nvim/view
 neovim/nvim/autoload/plug.vim*
 neovim/nvim/.netrwhist
 neovim/nvim/plugin/packer_compiled.lua
+neovim/nvim/lua/packer_compiled.lua
 tmux/plugins
 git/template
 ruby/bundle/cache
