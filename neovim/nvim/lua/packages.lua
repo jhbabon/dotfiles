@@ -44,6 +44,13 @@ local function pkgs(use)
     config = config("lsp"),
   })
 
+  -- Diagnostics
+  use({
+    "folke/trouble.nvim",
+    requires = { "kyazdani42/nvim-web-devicons" },
+    config = config("trouble"),
+  })
+
   -- Lint and Formatting
   use({
     "jose-elias-alvarez/null-ls.nvim",
