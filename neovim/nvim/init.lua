@@ -96,3 +96,7 @@ _.mset {
   {'foldmethod', 'expr'},
   {'foldexpr', 'nvim_treesitter#foldexpr()'},
 }
+
+-- Colorscheme
+_.set { 'background', 'dark' }
+vim.cmd [[colorscheme rose-pine]]

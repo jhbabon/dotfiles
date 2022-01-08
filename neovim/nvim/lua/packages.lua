@@ -4,6 +4,10 @@
 -- -----------------------------------------------------------------------
 vim.cmd [[packadd packer.nvim]]
 
+local function config(name)
+  return require('config.' .. name)
+end
+
 -- TODO: Install https://github.com/lewis6991/impatient.nvim
 local function pkgs(use)
   -- Packer can manage itself
@@ -39,6 +43,11 @@ local function pkgs(use)
     },
     config = require('config.gitsigns')
   }
+
+  -- Colorschemes
+  use { 'rose-pine/neovim', as = 'rose-pine', config = config('rose-pine') }
+  use { 'marko-cerovac/material.nvim', config = config('material') }
+  use { 'yonlu/omni.vim' }
 end
 
 return require('packer').startup({
