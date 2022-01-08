@@ -21,7 +21,7 @@ local function pkgs(use)
 
   use {'tpope/vim-commentary'}
 
-  use { 'nacro90/numb.nvim', config = require('config.numb') }
+  use {'nacro90/numb.nvim', config = require('config.numb')}
 
   use {
     'kyazdani42/nvim-tree.lua',
@@ -29,6 +29,15 @@ local function pkgs(use)
       'kyazdani42/nvim-web-devicons',
     },
     config = require('config.nvim-tree')
+  }
+
+  use {'tpope/vim-fugitive'}
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim'
+    },
+    config = require('config.gitsigns')
   }
 end
 
