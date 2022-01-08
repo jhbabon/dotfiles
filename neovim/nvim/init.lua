@@ -66,13 +66,14 @@ _.set {'updatetime', '750'}
 vim.cmd [[au InsertLeave * ++nested silent! update]]
 vim.cmd [[au CursorHold * ++nested silent! update]]
 
+-- Redefine packer.nvim command to lazy load it through the custom packages module
 vim.cmd [[command! PackerInstall lua require('packages').install()]]
 vim.cmd [[command! PackerUpdate lua require('packages').update()]]
 vim.cmd [[command! PackerSync lua require('packages').sync()]]
 vim.cmd [[command! PackerClean lua require('packages').clean()]]
 vim.cmd [[command! PackerCompile lua require('packages').compile()]]
 
--- use treesitter folding module
+-- Use treesitter folding module
 _.mset {
   {'foldlevel', 5},
   {'foldmethod', 'expr'},
