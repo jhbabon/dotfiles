@@ -44,6 +44,15 @@ local function pkgs(use)
     config = config('lsp'),
   }
 
+  -- Lint and Formatting
+  use({
+    "jose-elias-alvarez/null-ls.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = config("null-ls"),
+  })
+
   -- Git
   use { 'tpope/vim-fugitive' }
   use {
