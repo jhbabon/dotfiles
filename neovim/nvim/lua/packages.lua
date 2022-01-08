@@ -46,7 +46,9 @@ local function pkgs(use)
   -- Diagnostics
   use({
     "folke/trouble.nvim",
-    requires = { "kyazdani42/nvim-web-devicons" },
+    requires = {
+      "kyazdani42/nvim-web-devicons",
+    },
     config = config("trouble"),
   })
 
@@ -76,6 +78,12 @@ local function pkgs(use)
 
   -- Statusline
   use({ "nvim-lualine/lualine.nvim", config = config("lualine") })
+
+  -- Show indent lines
+  use({
+    "lukas-reineke/indent-blankline.nvim",
+    config = config("indent-blankline"),
+  })
 end
 
 return require("packer").startup({
