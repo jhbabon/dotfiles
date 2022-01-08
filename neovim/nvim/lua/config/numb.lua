@@ -1,3 +1,3 @@
 return function()
-  require('numb').setup()
+  require("numb").setup()
 end

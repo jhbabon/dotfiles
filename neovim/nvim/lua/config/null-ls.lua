@@ -21,5 +21,10 @@ return function()
 
   null_ls.setup({
     sources = sources,
+    on_attach = function(client, _)
+      if client.resolved_capabilities.document_formatting then
+        vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+      end
+    end,
   })
 end

@@ -1,8 +1,8 @@
 -- TODO: Review configuration
 return function()
   -- require("nvim-treesitter.install").prefer_git = true
-  require('nvim-treesitter.configs').setup {
-    ensure_installed = 'maintained',
+  require("nvim-treesitter.configs").setup({
+    ensure_installed = "maintained",
     sync_install = false,
     highlight = {
       enable = true,
@@ -14,5 +14,5 @@ return function()
     indent = {
       enable = true,
     },
-  }
+  })
 end

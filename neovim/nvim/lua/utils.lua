@@ -2,7 +2,6 @@
 --
 -- Utils: functions to set up VIM settings, mappings and execute VIM code
 -- -----------------------------------------------------------------------
-
 local fmt = string.format
 local utils = {}
 
@@ -19,7 +18,7 @@ local escape = {
   __newindex = function(t, key, value)
     local esc = utils.expr_quote(key)
     rawset(t, esc, value)
-  end
+  end,
 }
 local modes = {
   __index = function(t, key)
@@ -27,17 +26,17 @@ local modes = {
     setmetatable(m, escape)
     t[key] = m
     return m
-  end
+  end,
 }
 setmetatable(hints, modes)
 
 local function format_set(args)
   local option = args[1]
   local value = args[2]
-  local template = 'set %s'
+  local template = "set %s"
 
   if value ~= nil then
-    template = 'set %s=%s'
+    template = "set %s=%s"
   end
 
   return fmt(template, option, value)
@@ -69,7 +68,7 @@ end
 local function map_options(mode, lhs, opts)
   local options = { noremap = true }
   if opts then
-    options = vim.tbl_extend('force', options, opts)
+    options = vim.tbl_extend("force", options, opts)
   end
 
   hints[mode][lhs] = options.hint
@@ -85,7 +84,7 @@ function utils.map_buf(bufnr, mode, lhs, rhs, opts)
 end
 
 function utils.nmap_buf(bufnr, ...)
-  utils.map_buf(bufnr, 'n', ...)
+  utils.map_buf(bufnr, "n", ...)
 end
 
 function utils.map(mode, lhs, rhs, opts)
@@ -95,15 +94,32 @@ function utils.map(mode, lhs, rhs, opts)
 end
 
 function utils.imap(...)
-  utils.map('i', ...)
+  utils.map("i", ...)
 end
 
 function utils.nmap(...)
-  utils.map('n', ...)
+  utils.map("n", ...)
 end
 
 function utils.map_hint(mode, lhs)
   return hints[mode][lhs]
+end
+
+function utils.augroups(definitions)
+  local cmds = {}
+  for group_name, definition in pairs(definitions) do
+    table.insert(cmds, "augroup " .. group_name)
+    table.insert(cmds, "autocmd!")
+
+    for _, def in pairs(definition) do
+      local command = table.concat(vim.tbl_flatten({ "autocmd", def }), " ")
+      table.insert(cmds, command)
+    end
+
+    table.insert(cmds, "augroup END")
+  end
+
+  utils.multi_exec(cmds)
 end
 
 return utils

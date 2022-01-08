@@ -1,29 +1,77 @@
 return function()
+  local u = require("utils")
   -- TODO: Check https://github.com/williamboman/nvim-lsp-installer/wiki/Rust
-  local lsp_installer = require('nvim-lsp-installer')
+  local lsp_installer = require("nvim-lsp-installer")
 
-  -- Automatically install default LSP servers
-  -- Include the servers you want to have installed by default below
+  local runtime_path = vim.split(package.path, ";")
+  table.insert(runtime_path, "lua/?.lua")
+  table.insert(runtime_path, "lua/?/init.lua")
+
   local servers = {
-    "rust_analyzer",
-    "gopls",
-    "yamlls",
-    "tsserver",
-    "sumneko_lua",
-    "solargraph",
+    rust_analyzer = { filetypes = { "rust" } },
+    gopls = { filetypes = { "go" } },
+    yamlls = { filetypes = { "yaml" } },
+    tsserver = { filetypes = { "typescript", "javascript" } },
+    solargraph = { filetypes = { "ruby" } },
+    sumneko_lua = {
+      filetypes = { "lua" },
+      setup = {
+        settings = {
+          Lua = {
+            runtime = {
+              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+              version = "LuaJIT",
+              -- Setup your lua path
+              path = runtime_path,
+            },
+            diagnostics = {
+              -- Get the language server to recognize the `vim` global
+              globals = { "vim" },
+            },
+            workspace = {
+              -- Make the server aware of Neovim runtime files
+              library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
+      },
+    },
   }
 
-  for _, name in pairs(servers) do
-    local server_is_found, server = lsp_installer.get_server(name)
-    if server_is_found then
-      if not server:is_installed() then
-        server:install()
-      end
+  -- Automatically install default LSP servers on filetype load
+  -- TODO: Review, maybe is better to install servers only once
+  --   instead of doing it per filetype
+  for name, config in pairs(servers) do
+    for _, ft in pairs(config.filetypes) do
+      u.augroups({
+        ["auto_install_lsp_" .. name] = {
+          { "FileType", ft, "lua require('lsp').install('" .. name .. "')" },
+        },
+      })
     end
   end
 
+  local defaults = {
+    on_attach = function(client, _)
+      if client.resolved_capabilities.document_formatting then
+        vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+      end
+    end,
+  }
+
   -- TODO: Add keymappings
   lsp_installer.on_server_ready(function(server)
-    server:setup({})
+    local setup = defaults
+    local custom = servers[server.name]
+
+    if custom and custom.setup then
+      setup = vim.tbl_extend("force", setup, custom.setup)
+    end
+
+    server:setup(setup)
   end)
 end
