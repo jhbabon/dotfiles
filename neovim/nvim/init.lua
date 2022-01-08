@@ -13,8 +13,6 @@ end
 -- Enable profiling for module loading
 -- impatient.enable_profile()
 
-local _ = require("utils")
-
 -- -----------------------------------------------------------------------
 --
 -- Settings
@@ -22,64 +20,60 @@ local _ = require("utils")
 vim.g.mapleader = " "
 vim.g.localeader = ","
 
-_.mset({
-  -- Backups
-  { "nobackup" }, -- no backup
-  { "noswapfile" }, -- no swap files
+-- Backups
+vim.opt.backup = false -- no backup
+vim.opt.swapfile = false -- no swap files
 
-  -- Behaviors
-  { "modeline" },
-  { "hidden" }, -- don't remove buffers on close
-  { "autoread" },
-  { "nojoinspaces" }, -- put only one space after joining
-  { "mouse", "a" }, -- enable all mouse interactions
+-- Behaviors
+vim.opt.modeline = true
+vim.opt.hidden = true -- don't remove buffers on close
+vim.opt.autoread = true
+vim.opt.joinspaces = false -- put only one space after joining
+vim.opt.mouse = "a" -- enable all mouse interactions
 
-  -- Use the system clipboard as the default register
-  { "clipboard", "unnamed,unnamedplus" },
+-- Use the system clipboard as the default register
+vim.opt.clipboard = { "unnamed", "unnamedplus" }
 
-  -- Indentation
-  { "tabstop", "2" }, -- number of visual spaces per TAB
-  { "shiftwidth", "2" }, -- number of spaces to use for each step of (auto)indent
-  { "softtabstop", "2" }, -- number of spaces in tab when editing
-  { "shiftround" },
-  { "expandtab" }, -- tabs are spaces
-  { "copyindent" },
-  { "smartindent" },
+-- Indentation
+vim.opt.tabstop = 2 -- number of visual spaces per TAB
+vim.opt.shiftwidth = 2 -- number of spaces to use for each step of (auto)indent
+vim.opt.softtabstop = 2 -- number of spaces in tab when editing
+vim.opt.shiftround = true
+vim.opt.expandtab = true -- tabs are spaces
+vim.opt.copyindent = true
+vim.opt.smartindent = true
 
-  -- Listchars
-  { "listchars", [[trail:~,tab:▸\ ,eol:¬]] }, -- show special characters
-  { "list" },
+-- Listchars
+vim.opt.listchars = { trail = [[~]], tab = [[▸\ ]], eol = [[¬]] } -- show special characters
+vim.opt.list = true
 
-  -- Search
-  { "ignorecase" },
-  { "smartcase" }, -- override ignorecase if uppercase is used when searching
-  { "hlsearch" },
-  { "incsearch" }, -- search as you type
+-- Search
+vim.opt.ignorecase = true
+vim.opt.smartcase = true -- override ignorecase if uppercase is used when searching
+vim.opt.hlsearch = true
+vim.opt.incsearch = true -- search as you type
 
-  -- Wildmenu
-  { "wildmenu" },
-  { "wildmode", "list:longest,full" },
+-- Wildmenu
+vim.opt.wildmenu = true
+vim.opt.wildmode = { list = { "longest", "full" } }
 
-  -- Position
-  { "number" },
-  -- { 'relativenumber' },
-  { "visualbell" }, -- use visual bell, not sound
-  { "shortmess", "aI" }, -- modify the error and info messages
-  { "scrolloff", "3" }, -- screen lines to keep above and below the cursor
-  { "virtualedit", "block" }, -- put the cursor anywhere in visual blocks
-  { "cursorline" }, -- show where you are
-  { "inccommand", "split" },
+-- Position
+vim.opt.number = true
+vim.opt.visualbell = true -- use visual bell, not sound
+vim.opt.shortmess = "aI" -- modify the error and info messages
+vim.opt.scrolloff = 3 -- screen lines to keep above and below the cursor
+vim.opt.virtualedit = "block" -- put the cursor anywhere in visual blocks
+vim.opt.cursorline = true -- show where you are
+vim.opt.inccommand = "split"
 
-  -- Prevent text jumping with linters/lsp integrations
-  { "signcolumn", "yes" },
+-- Prevent text jumping with linters/lsp integrations
+vim.opt.signcolumn = "yes"
 
-  { "lazyredraw" },
-
-  { "termguicolors" },
-})
+vim.opt.lazyredraw = true
+vim.opt.termguicolors = true
 
 -- Autosave
-_.set({ "updatetime", "750" })
+vim.opt.updatetime = 750
 vim.cmd([[au InsertLeave * ++nested silent! update]])
 vim.cmd([[au CursorHold * ++nested silent! update]])
 
@@ -93,12 +87,10 @@ vim.cmd([[command! PackerClean lua require('packages').clean()]])
 vim.cmd([[command! PackerCompile lua require('packages').compile()]])
 
 -- Use treesitter's folding module
-_.mset({
-  { "foldlevel", 5 },
-  { "foldmethod", "expr" },
-  { "foldexpr", "nvim_treesitter#foldexpr()" },
-})
+vim.opt.foldlevel = 5
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Colorscheme
-_.set({ "background", "dark" })
+vim.opt.background = "dark"
 vim.cmd([[colorscheme rose-pine]])

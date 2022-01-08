@@ -1,6 +1,6 @@
 -- -----------------------------------------------------------------------
 --
--- Utils: functions to set up VIM settings, mappings and execute VIM code
+-- Utils: functions to set mappings and execute VIM code
 -- -----------------------------------------------------------------------
 local fmt = string.format
 local utils = {}
@@ -30,18 +30,6 @@ local modes = {
 }
 setmetatable(hints, modes)
 
-local function format_set(args)
-  local option = args[1]
-  local value = args[2]
-  local template = "set %s"
-
-  if value ~= nil then
-    template = "set %s=%s"
-  end
-
-  return fmt(template, option, value)
-end
-
 function utils.exec(command)
   vim.api.nvim_exec(command, false)
 end
@@ -49,20 +37,6 @@ end
 -- multi exec: execute multiple exec commands at once
 function utils.multi_exec(commands)
   utils.exec(table.concat(commands, "\n"))
-end
-
-function utils.set(args)
-  vim.cmd(format_set(args))
-end
-
--- multi set: execute multiple set commands at once
-function utils.mset(options)
-  local sets = {}
-  for i, option in ipairs(options) do
-    sets[i] = format_set(option)
-  end
-
-  utils.multi_exec(sets)
 end
 
 local function map_options(mode, lhs, opts)
