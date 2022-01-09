@@ -1,12 +1,6 @@
--- -----------------------------------------------------------------------
---
 -- Packages
 -- -----------------------------------------------------------------------
 vim.cmd([[packadd packer.nvim]])
-
-local function config(name)
-  return require("config." .. name)
-end
 
 local function pkgs(use)
   -- Packer can manage itself
@@ -21,13 +15,18 @@ local function pkgs(use)
   use({
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    config = config("nvim-treesitter"),
+    config = require("conf-treesitter"),
   })
 
   -- Projects
-  use({ "klen/nvim-config-local", config = config("config-local") })
-  use({ "tpope/vim-projectionist", setup = config("pre.projectionist") })
-  use({ "wfxr/minimap.vim", run = "cargo install --locked code-minimap", setup = config("minimap") })
+  use({
+    "klen/nvim-config-local",
+    config = function()
+      require("config-local").setup({ commands_create = false })
+    end,
+  })
+  use({ "tpope/vim-projectionist", setup = require("setup-projectionist") })
+  use({ "wfxr/minimap.vim", run = "cargo install --locked code-minimap", setup = require("conf-minimap") })
 
   -- Editing
   use({
@@ -41,6 +40,8 @@ local function pkgs(use)
   use({ "tpope/vim-commentary" })
   use({ "tpope/vim-surround", requires = { "tpope/vim-repeat" } })
   use({ "tpope/vim-eunuch" })
+  use({ "tpope/vim-vinegar" })
+  use({ "tpope/vim-characterize" })
 
   -- Autocomplete + snippets
   use({
@@ -53,7 +54,7 @@ local function pkgs(use)
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
     },
-    config = config("cmp"),
+    config = require("conf-cmp"),
   })
 
   -- LSP
@@ -63,7 +64,7 @@ local function pkgs(use)
       "folke/trouble.nvim", -- mappings
       "neovim/nvim-lspconfig",
     },
-    config = config("lsp"),
+    config = require("conf-lsp"),
   })
 
   -- Diagnostics
@@ -72,7 +73,7 @@ local function pkgs(use)
     requires = {
       "kyazdani42/nvim-web-devicons",
     },
-    config = config("trouble"),
+    config = require("conf-trouble"),
   })
 
   -- Lint and Formatting
@@ -81,17 +82,17 @@ local function pkgs(use)
     requires = {
       "nvim-lua/plenary.nvim",
     },
-    config = config("null-ls"),
+    config = require("conf-null-ls"),
   })
 
   -- Git
-  use({ "tpope/vim-fugitive", config = config("fugitive") })
   use({
     "lewis6991/gitsigns.nvim",
     requires = {
+      "tpope/vim-fugitive",
       "nvim-lua/plenary.nvim",
     },
-    config = config("gitsigns"),
+    config = require("conf-git"),
   })
 
   -- Search
@@ -100,20 +101,34 @@ local function pkgs(use)
     requires = {
       "folke/trouble.nvim",
     },
-    setup = config("pre.grepper"),
+    setup = require("setup-grepper"),
   })
-  use({ "pechorin/any-jump.vim", setup = config("pre.any-jump") })
+  use({ "pechorin/any-jump.vim", setup = require("setup-any-jump") })
 
   -- Colorschemes
-  use({ "rose-pine/neovim", as = "rose-pine", config = config("rose-pine") })
-  use({ "marko-cerovac/material.nvim", config = config("material") })
-  use({ "yonlu/omni.vim" })
+  use({
+    "rose-pine/neovim",
+    requires = {
+      -- these are not required, but this way they are grouped
+      "marko-cerovac/material.nvim",
+      "yonlu/omni.vim",
+    },
+    as = "rose-pine",
+    config = require("conf-colors"),
+  })
 
   -- Statusline
-  use({ "nvim-lualine/lualine.nvim", config = config("lualine") })
+  use({ "nvim-lualine/lualine.nvim", config = require("conf-lualine") })
 
   -- Show indent lines
-  use({ "lukas-reineke/indent-blankline.nvim", config = config("indent-blankline") })
+  use({
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require("indent_blankline").setup({
+        show_current_context = true,
+      })
+    end,
+  })
 end
 
 return require("packer").startup({

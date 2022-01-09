@@ -6,7 +6,7 @@ return function()
         template = {
           "require 'spec_helper'",
           "",
-          "describe {camelcase|capitalize|colons|rspec} do",
+          "RSpec.describe {camelcase|capitalize|colons|rspec} do",
           "end",
         },
       },

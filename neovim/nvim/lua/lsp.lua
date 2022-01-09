@@ -6,7 +6,8 @@ local cache = {}
 -- imports
 local keychain = require("keychain")
 
--- Install the given server, if is not installed already
+--- Install the given server, if is not installed already
+-- @tparam string name server name
 function lsp.install(name)
   if cache[name] then
     return
@@ -23,12 +24,14 @@ function lsp.install(name)
   cache[name] = true
 end
 
+-- configure automatic format on save
 function lsp.format_on_save(client, _)
   if client.resolved_capabilities.document_formatting then
     vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
   end
 end
 
+-- configure mappings
 function lsp.mappings(_, bufnr)
   -- Normal mappings
   local function map(...)
@@ -58,6 +61,7 @@ function lsp.mappings(_, bufnr)
   )
 end
 
+--- General on_attach function for any LSP client
 function lsp.on_attach(client, bufnr)
   lsp.format_on_save(client, bufnr)
   lsp.mappings(client, bufnr)

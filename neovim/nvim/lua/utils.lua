@@ -1,20 +1,20 @@
--- -----------------------------------------------------------------------
---
--- Utils: functions to set mappings and execute VIM code
--- -----------------------------------------------------------------------
--- local fmt = string.format
+--- Utils: functions to set mappings and execute VIM code
+-- @module utils
 local utils = {}
 
+--- Execute the given vim command
+-- @tparam string command
 function utils.exec(command)
   vim.api.nvim_exec(command, false)
 end
 
--- multi exec: execute multiple exec commands at once
+--- Execute multiple exec commands at once
+-- @param table commands
 function utils.multi_exec(commands)
   utils.exec(table.concat(commands, "\n"))
 end
 
--- Define sets of augroups
+--- Define sets of augroups
 -- @example
 --   local utils = require("utils")
 --   utils.augroups({
@@ -23,6 +23,8 @@ end
 --       { "FileType", "lua", "lua print("lua file") },
 --     }
 --   })
+--
+-- @tparam table definitions
 function utils.augroups(definitions)
   local cmds = {}
   for group_name, definition in pairs(definitions) do

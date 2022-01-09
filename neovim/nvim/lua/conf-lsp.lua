@@ -58,7 +58,7 @@ return function()
   }
 
   -- Automatically install default LSP servers on filetype load
-  -- TODO: Review, maybe is better to install servers only once
+  -- TODO: Review, maybe it's better to install servers only once
   --   instead of doing it per filetype
   for name, config in pairs(servers) do
     for _, ft in pairs(config.filetypes) do
@@ -74,7 +74,6 @@ return function()
     on_attach = lsp.on_attach,
   }
 
-  -- TODO: Add keymappings
   lsp_installer.on_server_ready(function(server)
     local setup = defaults
     local custom = servers[server.name]

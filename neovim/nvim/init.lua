@@ -1,3 +1,8 @@
+-- =======================================================================
+--
+--   NEOVIM configuration file
+-- =======================================================================
+
 -- Load impatient plugin before anything else to speed up lua loading
 local ok, impatient = pcall(require, "impatient")
 if not ok then
@@ -15,8 +20,6 @@ end
 
 local keychain = require("keychain")
 
--- -----------------------------------------------------------------------
---
 -- Settings
 -- -----------------------------------------------------------------------
 vim.g.mapleader = " "
@@ -88,46 +91,44 @@ vim.cmd([[command! PackerSync lua require('packages').sync()]])
 vim.cmd([[command! PackerClean lua require('packages').clean()]])
 vim.cmd([[command! PackerCompile lua require('packages').compile()]])
 
--- Scout
-if vim.fn.executable("scout") then
-  if vim.fn.executable("rg") then
-    require("scout").setup({
-      files = {
-        finder = [[rg --files --hidden --follow --glob "!.git/*" 2>/dev/null]],
-      },
-    })
-  end
-
-  --- setup files fuzzy finder
-  keychain.nmap("<leader>ff", [[:lua require('scout.files').run()<cr>]], { hint = { "files", "open" } })
-  keychain.nmap(
-    "<leader>fd",
-    [[:lua require('scout.files').run({ search = '%:h' })<cr>]],
-    { hint = { "files", "current dir" } }
-  )
-
-  --- setup buffers fuzzy finder
-  keychain.nmap("<leader>bb", [[:lua require('scout.buffers').run()<cr>]], { hint = { "buffers", "open" } })
-  keychain.nmap(
-    "<leader>bd",
-    [[:lua require('scout.buffers').run({ search = '%:h' })<cr>]],
-    { hint = { "buffers", "current dir" } }
-  )
-
-  --- setup mappings fuzzy finder
-  keychain.nmap(
-    "<leader><space>",
-    [[:lua require('scout.mappings').run({ mode='n', hints = require('keychain').hint })<cr>]],
-    { hint = { "keymaps", "show keymappings" } }
-  )
-  keychain.vmap(
-    "<leader><space>",
-    [[:lua require('scout.mappings').run({ mode='v', hints = require('keychain').hint })<cr>]],
-    { hint = { "maps", "show mappings" } }
-  )
+-- Scout: Fuzzy finder inside the editor
+if vim.fn.executable("rg") then
+  require("scout").setup({
+    files = {
+      finder = [[rg --files --hidden --follow --glob "!.git/*" 2>/dev/null]],
+    },
+  })
 end
 
--- Mappings
+--- setup files fuzzy finder
+keychain.nmap("<leader>ff", [[:lua require('scout.files').run()<cr>]], { hint = { "files", "open" } })
+keychain.nmap(
+  "<leader>fd",
+  [[:lua require('scout.files').run({ search = '%:h' })<cr>]],
+  { hint = { "files", "current dir" } }
+)
+
+--- setup buffers fuzzy finder
+keychain.nmap("<leader>bb", [[:lua require('scout.buffers').run()<cr>]], { hint = { "buffers", "open" } })
+keychain.nmap(
+  "<leader>bd",
+  [[:lua require('scout.buffers').run({ search = '%:h' })<cr>]],
+  { hint = { "buffers", "current dir" } }
+)
+
+--- setup mappings fuzzy finder
+keychain.nmap(
+  "<leader><space>",
+  [[:lua require('scout.mappings').run({ mode='n', hints = require('keychain').hint })<cr>]],
+  { hint = { "keymaps", "show keymappings" } }
+)
+keychain.vmap(
+  "<leader><space>",
+  [[:lua require('scout.mappings').run({ mode='v', hints = require('keychain').hint })<cr>]],
+  { hint = { "maps", "show mappings" } }
+)
+
+-- General mappings
 -- exit fast from insert mode
 keychain.imap("jj", "<esc>")
 
@@ -147,7 +148,3 @@ keychain.nmap("<leader>sc", [[:nohl<cr>]], { hint = { "search", "clear current h
 -- Remove tons of stuff from netrw and set it a a tree to make it more comfortable to use
 vim.g.netrw_liststyle = 3
 keychain.nmap("<leader>ft", [[:Explore<cr>]], { hint = { "files", "explorer" } })
-
--- Colorscheme
-vim.opt.background = "dark"
-vim.cmd([[colorscheme rose-pine]])

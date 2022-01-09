@@ -69,6 +69,8 @@ local function _map(mode, lhs, rhs, opts, mapper)
   mapper(mode, lhs, rhs, options)
 end
 
+--- Add keymap to buffer
+-- Pass the option hint = { "label", "description" } to set a description of the keymap
 function keychain.map_buf(bufnr, mode, lhs, rhs, opts)
   _map(mode, lhs, rhs, opts, curry(vim.api.nvim_buf_set_keymap, bufnr))
 end
@@ -85,6 +87,7 @@ function keychain.vmap_buf(bufnr, ...)
   return keychain.map_buf(bufnr, "v", ...)
 end
 
+--- Add keymap
 function keychain.map(mode, lhs, rhs, opts)
   _map(mode, lhs, rhs, opts, vim.api.nvim_set_keymap)
 end
@@ -102,7 +105,7 @@ function keychain.vmap(...)
 end
 
 --- Get the hint associated to a keymap and mode
--- @tparam string mode one of "n", "v" or "i"
+-- @tparam string mode one of vim's modes (e.g: v, i, n, etc)
 -- @tparam string lhs the left hand side of the keymap
 -- @treturn[1] string the hint
 -- @treturn[2] nil if there is no hint available

@@ -1,9 +1,16 @@
 return function()
+  local keychain = require("keychain")
+
+  -- Fugitive
+  keychain.nmap("<leader>gs", [[:Git<cr>]], { hint = { "git", "status" } })
+  keychain.nmap("<leader>gc", [[:Git commit<cr>]], { hint = { "git", "commit" } })
+  keychain.nmap("<leader>gl", [[:Gclog<cr>]], { hint = { "git", "log" } })
+  keychain.nmap("<leader>gd", [[:Gdiff<cr>]], { hint = { "git", "diff" } })
+
+  -- Gitsigns
   -- remove default keymaps
   require("gitsigns").setup({ keymaps = {} })
   -- add custom keymaps
-  local keychain = require("keychain")
-
   keychain.nmap("]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true, hint = { "git", "next hunk" } })
   keychain.nmap("[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true, hint = { "git", "prev hunk" } })
 
