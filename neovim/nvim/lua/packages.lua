@@ -22,11 +22,12 @@ local function pkgs(use)
     config = config("nvim-treesitter"),
   })
 
+  -- Projects
+  use({ "klen/nvim-config-local", config = config("config-local") })
+  use({ "tpope/vim-projectionist", setup = config("pre.projectionist") })
+
   -- Editing
-  use({
-    "windwp/nvim-autopairs",
-    config = config("nvim-autopairs"),
-  })
+  use({ "windwp/nvim-autopairs", config = config("nvim-autopairs") })
   use({ "nacro90/numb.nvim", config = config("numb") })
   use({ "tpope/vim-commentary" })
   use({ "tpope/vim-surround", requires = { "tpope/vim-repeat" } })
@@ -86,12 +87,9 @@ local function pkgs(use)
     requires = {
       "folke/trouble.nvim",
     },
-    setup = config("grepper"),
+    setup = config("pre.grepper"),
   })
-  use({
-    "pechorin/any-jump.vim",
-    setup = config("any-jump"),
-  })
+  use({ "pechorin/any-jump.vim", setup = config("pre.any-jump") })
 
   -- Colorschemes
   use({ "rose-pine/neovim", as = "rose-pine", config = config("rose-pine") })
@@ -102,10 +100,7 @@ local function pkgs(use)
   use({ "nvim-lualine/lualine.nvim", config = config("lualine") })
 
   -- Show indent lines
-  use({
-    "lukas-reineke/indent-blankline.nvim",
-    config = config("indent-blankline"),
-  })
+  use({ "lukas-reineke/indent-blankline.nvim", config = config("indent-blankline") })
 end
 
 return require("packer").startup({

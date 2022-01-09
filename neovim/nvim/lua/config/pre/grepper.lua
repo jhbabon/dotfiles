@@ -1,5 +1,3 @@
--- NOTE: this is actually a "setup" function since the settings
--- have to be set before the vim plugin is loaded
 return function()
   vim.g.grepper = {
     open = false, -- do not open the quickfix list
