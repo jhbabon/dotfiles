@@ -33,6 +33,22 @@ local function pkgs(use)
   use({ "tpope/vim-surround", requires = { "tpope/vim-repeat" } })
   use({ "tpope/vim-eunuch" })
 
+  -- Autocomplete + snippets
+  use({
+    "hrsh7th/nvim-cmp",
+    requires = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
+      "onsails/lspkind-nvim",
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "rafamadriz/friendly-snippets",
+    },
+    config = config("cmp"),
+  })
+
   -- File Explorer
   -- TODO: Do I need this?
   use({
