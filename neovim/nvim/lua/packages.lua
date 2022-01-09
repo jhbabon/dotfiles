@@ -30,8 +30,14 @@ local function pkgs(use)
   use({ "wfxr/minimap.vim", run = "cargo install --locked code-minimap", setup = config("minimap") })
 
   -- Editing
-  use({ "windwp/nvim-autopairs", config = config("nvim-autopairs") })
-  use({ "nacro90/numb.nvim", config = config("numb") })
+  use({
+    "jiangmiao/auto-pairs",
+    setup = function()
+      vim.g.AutoPairsMapSpace = false
+      vim.g.AutoPairsMapCR = false
+      vim.g.AutoPairsMapCh = false
+    end,
+  })
   use({ "tpope/vim-commentary" })
   use({ "tpope/vim-surround", requires = { "tpope/vim-repeat" } })
   use({ "tpope/vim-eunuch" })
