@@ -13,6 +13,8 @@ end
 -- Enable profiling for module loading
 -- impatient.enable_profile()
 
+local utils = require("utils")
+
 -- -----------------------------------------------------------------------
 --
 -- Settings
@@ -86,10 +88,41 @@ vim.cmd([[command! PackerSync lua require('packages').sync()]])
 vim.cmd([[command! PackerClean lua require('packages').clean()]])
 vim.cmd([[command! PackerCompile lua require('packages').compile()]])
 
--- Use treesitter's folding module
-vim.opt.foldlevel = 5
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- Scout
+if vim.fn.executable("scout") then
+  if vim.fn.executable("rg") then
+    require("scout").setup({
+      files = {
+        finder = [[rg --files --hidden --follow --glob "!.git/*" 2>/dev/null]],
+      },
+    })
+  end
+
+  utils.nmap("<leader>ff", [[:lua require('scout.files').run()<cr>]], { silent = true, hint = { "files", "open" } })
+  utils.nmap(
+    "<leader>fd",
+    [[:lua require('scout.files').run({ search = '%:h' })<cr>]],
+    { silent = true, hint = { "files", "current dir" } }
+  )
+  utils.nmap("<leader>bb", [[:lua require('scout.buffers').run()<cr>]], { silent = true, hint = { "buffers", "open" } })
+  utils.nmap(
+    "<leader>bd",
+    [[:lua require('scout.buffers').run({ search = '%:h' })<cr>]],
+    { silent = true, hint = { "buffers", "current dir" } }
+  )
+
+  utils.nmap(
+    "<leader><space>",
+    [[:lua require('scout.mappings').run({mode='n'})<cr>]],
+    { silent = true, hint = { "keymaps", "show keymappings" } }
+  )
+  utils.map(
+    "v",
+    "<leader><space>",
+    [[:lua require('scout.mappings').run({mode='v'})<cr>]],
+    { silent = true, hint = { "maps", "show mappings" } }
+  )
+end
 
 -- Colorscheme
 vim.opt.background = "dark"

@@ -2,12 +2,10 @@
 --
 -- Utils: functions to set mappings and execute VIM code
 -- -----------------------------------------------------------------------
-local fmt = string.format
+-- local fmt = string.format
 local utils = {}
 
-function utils.expr_quote(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
+-- TODO: Move mappings to their own module (?)
 
 local hints = {}
 local escape = {
@@ -30,6 +28,10 @@ local modes = {
 }
 setmetatable(hints, modes)
 
+function utils.expr_quote(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
 function utils.exec(command)
   vim.api.nvim_exec(command, false)
 end
@@ -45,8 +47,11 @@ local function map_options(mode, lhs, opts)
     options = vim.tbl_extend("force", options, opts)
   end
 
-  hints[mode][lhs] = options.hint
-  options.hint = nil
+  -- hints are int he form: { "label", "description" }
+  if options.hint then
+    hints[mode][lhs] = string.format("%s -> %s", unpack(options.hint))
+    options.hint = nil
+  end
 
   return options
 end
@@ -79,6 +84,15 @@ function utils.map_hint(mode, lhs)
   return hints[mode][lhs]
 end
 
+-- Define sets of augroups
+-- @example
+--   local utils = require("utils")
+--   utils.augroups({
+--     augroup_name = {
+--       -- autocmd
+--       { "FileType", "lua", "lua print("lua file") },
+--     }
+--   })
 function utils.augroups(definitions)
   local cmds = {}
   for group_name, definition in pairs(definitions) do

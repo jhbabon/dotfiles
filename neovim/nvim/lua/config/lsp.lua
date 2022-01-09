@@ -2,6 +2,7 @@ return function()
   local u = require("utils")
 
   -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
+  -- icons taken from lualine
   local icons = {
     Error = " ", -- xf659
     Warn = " ", -- xf529
