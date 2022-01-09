@@ -80,13 +80,17 @@ local function pkgs(use)
     config = config("gitsigns"),
   })
 
-  -- Better grep
+  -- Search
   use({
     "mhinz/vim-grepper",
     requires = {
       "folke/trouble.nvim",
     },
     setup = config("grepper"),
+  })
+  use({
+    "pechorin/any-jump.vim",
+    setup = config("any-jump"),
   })
 
   -- Colorschemes
