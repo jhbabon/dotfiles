@@ -46,6 +46,7 @@ local function pkgs(use)
   use({
     "williamboman/nvim-lsp-installer",
     requires = {
+      "folke/trouble.nvim", -- mappings
       "neovim/nvim-lspconfig",
     },
     config = config("lsp"),
@@ -77,6 +78,15 @@ local function pkgs(use)
       "nvim-lua/plenary.nvim",
     },
     config = config("gitsigns"),
+  })
+
+  -- Better grep
+  use({
+    "mhinz/vim-grepper",
+    requires = {
+      "folke/trouble.nvim",
+    },
+    setup = config("grepper"),
   })
 
   -- Colorschemes
