@@ -99,37 +99,49 @@ if vim.fn.executable("scout") then
   end
 
   --- setup files fuzzy finder
-  keychain.nmap("<leader>ff", [[:lua require('scout.files').run()<cr>]], { silent = true, hint = { "files", "open" } })
+  keychain.nmap("<leader>ff", [[:lua require('scout.files').run()<cr>]], { hint = { "files", "open" } })
   keychain.nmap(
     "<leader>fd",
     [[:lua require('scout.files').run({ search = '%:h' })<cr>]],
-    { silent = true, hint = { "files", "current dir" } }
+    { hint = { "files", "current dir" } }
   )
 
   --- setup buffers fuzzy finder
-  keychain.nmap(
-    "<leader>bb",
-    [[:lua require('scout.buffers').run()<cr>]],
-    { silent = true, hint = { "buffers", "open" } }
-  )
+  keychain.nmap("<leader>bb", [[:lua require('scout.buffers').run()<cr>]], { hint = { "buffers", "open" } })
   keychain.nmap(
     "<leader>bd",
     [[:lua require('scout.buffers').run({ search = '%:h' })<cr>]],
-    { silent = true, hint = { "buffers", "current dir" } }
+    { hint = { "buffers", "current dir" } }
   )
 
   --- setup mappings fuzzy finder
   keychain.nmap(
     "<leader><space>",
     [[:lua require('scout.mappings').run({ mode='n', hints = require('keychain').hint })<cr>]],
-    { silent = true, hint = { "keymaps", "show keymappings" } }
+    { hint = { "keymaps", "show keymappings" } }
   )
   keychain.vmap(
     "<leader><space>",
     [[:lua require('scout.mappings').run({ mode='v', hints = require('keychain').hint })<cr>]],
-    { silent = true, hint = { "maps", "show mappings" } }
+    { hint = { "maps", "show mappings" } }
   )
 end
+
+-- Mappings
+-- exit fast from insert mode
+keychain.imap("jj", "<esc>")
+
+local strip = table.concat({
+  [[:let _s=winsaveview()]], -- save current cursor position
+  [[:keeppatterns %s/\s\+$//e]], -- remove all trailing withespaces
+  [[:call winrestview(_s)]], -- restore cursor position
+  [[<cr>]], -- execute all of the above
+}, "<Bar>") -- join all with '|' in one line
+keychain.nmap("<leader>u<space>", strip, { hint = { "misc", "remove trailing whitespace" } })
+keychain.nmap("<leader>u;", [[:s/\([^;]\)$/\1;/<cr>:noh<cr>]], { hint = { "misc", "add semicolon (;) at eol" } })
+keychain.nmap("<leader>u,", [[:s/\([^,]\)$/\1,/<cr>:noh<cr>]], { hint = { "misc", "add comma (,) at eol" } })
+keychain.nmap("<leader>fp", [[:let @+ = expand("%")<cr>]], { hint = { "files", "copy path" } })
+keychain.nmap("<leader>sc", [[:nohl<cr>]], { hint = { "search", "clear current highlight" } })
 
 -- Colorscheme
 vim.opt.background = "dark"

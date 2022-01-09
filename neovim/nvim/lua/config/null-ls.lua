@@ -1,5 +1,6 @@
 return function()
   local null_ls = require("null-ls")
+  local lsp = require("lsp")
 
   local sources = {
     -- javascript & typescript
@@ -21,10 +22,6 @@ return function()
 
   null_ls.setup({
     sources = sources,
-    on_attach = function(client, _)
-      if client.resolved_capabilities.document_formatting then
-        vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
-      end
-    end,
+    on_attach = lsp.on_attach,
   })
 end

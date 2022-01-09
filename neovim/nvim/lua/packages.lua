@@ -70,7 +70,7 @@ local function pkgs(use)
   })
 
   -- Git
-  use({ "tpope/vim-fugitive" })
+  use({ "tpope/vim-fugitive", config = config("fugitive") })
   use({
     "lewis6991/gitsigns.nvim",
     requires = {

@@ -1,5 +1,6 @@
 return function()
-  local u = require("utils")
+  local utils = require("utils")
+  local lsp = require("lsp")
 
   -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
   -- icons taken from lualine
@@ -61,7 +62,7 @@ return function()
   --   instead of doing it per filetype
   for name, config in pairs(servers) do
     for _, ft in pairs(config.filetypes) do
-      u.augroups({
+      utils.augroups({
         ["auto_install_lsp_" .. name] = {
           { "FileType", ft, "lua require('lsp').install('" .. name .. "')" },
         },
@@ -70,11 +71,7 @@ return function()
   end
 
   local defaults = {
-    on_attach = function(client, _)
-      if client.resolved_capabilities.document_formatting then
-        vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
-      end
-    end,
+    on_attach = lsp.on_attach,
   }
 
   -- TODO: Add keymappings

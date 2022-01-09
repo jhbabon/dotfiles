@@ -6,4 +6,7 @@ return function()
       auto_resize = true,
     },
   })
+  local keychain = require("keychain")
+
+  keychain.nmap("<leader>ft", [[:NvimTreeToggle<cr>]], { hint = { "files", "explorer" } })
 end

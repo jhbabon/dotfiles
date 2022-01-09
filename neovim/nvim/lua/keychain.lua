@@ -48,7 +48,7 @@ end
 local function map_options(opts)
   -- default options
   local hint = nil
-  local options = { noremap = true }
+  local options = { noremap = true, silent = true }
   if opts then
     options = vim.tbl_extend("force", options, opts)
   end
