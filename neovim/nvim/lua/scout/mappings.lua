@@ -1,21 +1,21 @@
 -- Experimental module that shows the current defined mappings inside vim
--- It uses the module "utils" that associates hints, or descriptions, to
--- each map so it's easier to know what does each mapping
--- @see utils
+-- It uses a function, "hints", that returns a hint associated to a keymap
+-- This function has to be passed as a dependency.
 --
 -- The idea is to use the list and selection as a cheatsheet.
 -- When selecting a mapping, it will be executed.
+--
+-- @see keychain.hints
 local fmt = string.format
 -- TODO: Try to inject this dependency
-local h = require("utils")
 local u = require("scout.utils")
 local core = require("scout.core")
 
 local M = {}
 
-local function encode(raw)
+local function encode(raw, hints)
   local m, lhs, rhs = string.match(raw, "(%S+)%s+(%S+)%s+(.*)")
-  local hint = h.map_hint(m, lhs)
+  local hint = hints(m, lhs)
   if u.is_present(hint) then
     rhs = hint
   end
@@ -27,14 +27,14 @@ local function decode(enc)
   return string.match(enc, "(%S+)%s+.*") or ""
 end
 
-local function build_list(mode)
+local function build_list(mode, hints)
   local map = fmt("%smap", mode or "")
   local raw = vim.api.nvim_exec(map, true)
 
   local list = {}
   for line in raw:gmatch("([^\n]*)\n?") do
     if u.is_present(line) then
-      table.insert(list, encode(line))
+      table.insert(list, encode(line, hints))
     end
   end
 
@@ -44,14 +44,19 @@ end
 local function open(selection, _)
   if u.is_present(selection) then
     local keys = decode(selection)
-    vim.fn.feedkeys(h.expr_quote(keys))
+    vim.fn.feedkeys(vim.api.nvim_replace_termcodes(keys, true, true, true))
   end
 end
 
+local function none()
+  return nil
+end
+
 function M.run(options)
-  local opts = options or { mode = "n" }
+  local opts = options or { mode = "n", hints = none }
   assert(opts.mode, 'the option "mode" is missing')
-  local list = build_list(opts.mode)
+  assert(opts.hints, 'the option "hints" is missing')
+  local list = build_list(opts.mode, opts.hints)
 
   core.run({
     search = opts.search,

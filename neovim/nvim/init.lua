@@ -13,7 +13,7 @@ end
 -- Enable profiling for module loading
 -- impatient.enable_profile()
 
-local utils = require("utils")
+local keychain = require("keychain")
 
 -- -----------------------------------------------------------------------
 --
@@ -98,28 +98,35 @@ if vim.fn.executable("scout") then
     })
   end
 
-  utils.nmap("<leader>ff", [[:lua require('scout.files').run()<cr>]], { silent = true, hint = { "files", "open" } })
-  utils.nmap(
+  --- setup files fuzzy finder
+  keychain.nmap("<leader>ff", [[:lua require('scout.files').run()<cr>]], { silent = true, hint = { "files", "open" } })
+  keychain.nmap(
     "<leader>fd",
     [[:lua require('scout.files').run({ search = '%:h' })<cr>]],
     { silent = true, hint = { "files", "current dir" } }
   )
-  utils.nmap("<leader>bb", [[:lua require('scout.buffers').run()<cr>]], { silent = true, hint = { "buffers", "open" } })
-  utils.nmap(
+
+  --- setup buffers fuzzy finder
+  keychain.nmap(
+    "<leader>bb",
+    [[:lua require('scout.buffers').run()<cr>]],
+    { silent = true, hint = { "buffers", "open" } }
+  )
+  keychain.nmap(
     "<leader>bd",
     [[:lua require('scout.buffers').run({ search = '%:h' })<cr>]],
     { silent = true, hint = { "buffers", "current dir" } }
   )
 
-  utils.nmap(
+  --- setup mappings fuzzy finder
+  keychain.nmap(
     "<leader><space>",
-    [[:lua require('scout.mappings').run({mode='n'})<cr>]],
+    [[:lua require('scout.mappings').run({ mode='n', hints = require('keychain').hint })<cr>]],
     { silent = true, hint = { "keymaps", "show keymappings" } }
   )
-  utils.map(
-    "v",
+  keychain.vmap(
     "<leader><space>",
-    [[:lua require('scout.mappings').run({mode='v'})<cr>]],
+    [[:lua require('scout.mappings').run({ mode='v', hints = require('keychain').hint })<cr>]],
     { silent = true, hint = { "maps", "show mappings" } }
   )
 end
