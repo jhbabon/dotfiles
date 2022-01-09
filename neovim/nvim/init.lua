@@ -44,8 +44,8 @@ vim.opt.copyindent = true
 vim.opt.smartindent = true
 
 -- Listchars
-vim.opt.listchars = { trail = [[~]], tab = [[▸\ ]], eol = [[¬]] } -- show special characters
 vim.opt.list = true
+vim.opt.listchars = { trail = [[~]], tab = [[▸\ ]], eol = [[¬]] } -- show special characters
 
 -- Search
 vim.opt.ignorecase = true
@@ -55,7 +55,7 @@ vim.opt.incsearch = true -- search as you type
 
 -- Wildmenu
 vim.opt.wildmenu = true
-vim.opt.wildmode = { list = { "longest", "full" } }
+vim.opt.wildmode = "list:longest,full"
 
 -- Position
 vim.opt.number = true
