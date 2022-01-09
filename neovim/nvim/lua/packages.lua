@@ -25,6 +25,7 @@ local function pkgs(use)
   -- Projects
   use({ "klen/nvim-config-local", config = config("config-local") })
   use({ "tpope/vim-projectionist", setup = config("pre.projectionist") })
+  use({ "wfxr/minimap.vim", run = "cargo install --locked code-minimap", setup = config("minimap") })
 
   -- Editing
   use({ "windwp/nvim-autopairs", config = config("nvim-autopairs") })
