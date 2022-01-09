@@ -22,10 +22,18 @@ local function pkgs(use)
     config = config("nvim-treesitter"),
   })
 
-  use({ "tpope/vim-commentary" })
-
+  -- Editing
+  use({
+    "windwp/nvim-autopairs",
+    config = config("nvim-autopairs"),
+  })
   use({ "nacro90/numb.nvim", config = config("numb") })
+  use({ "tpope/vim-commentary" })
+  use({ "tpope/vim-surround", requires = { "tpope/vim-repeat" } })
+  use({ "tpope/vim-eunuch" })
 
+  -- File Explorer
+  -- TODO: Do I need this?
   use({
     "kyazdani42/nvim-tree.lua",
     requires = {
