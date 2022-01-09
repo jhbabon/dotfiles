@@ -143,6 +143,11 @@ keychain.nmap("<leader>u,", [[:s/\([^,]\)$/\1,/<cr>:noh<cr>]], { hint = { "misc"
 keychain.nmap("<leader>fp", [[:let @+ = expand("%")<cr>]], { hint = { "files", "copy path" } })
 keychain.nmap("<leader>sc", [[:nohl<cr>]], { hint = { "search", "clear current highlight" } })
 
+-- Explorer
+-- Remove tons of stuff from netrw and set it a a tree to make it more comfortable to use
+vim.g.netrw_liststyle = 3
+keychain.nmap("<leader>ft", [[:Explore<cr>]], { hint = { "files", "explorer" } })
+
 -- Colorscheme
 vim.opt.background = "dark"
 vim.cmd([[colorscheme rose-pine]])

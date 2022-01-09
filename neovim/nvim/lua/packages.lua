@@ -15,6 +15,8 @@ local function pkgs(use)
   -- Improve startup time for Neovim
   use({ "lewis6991/impatient.nvim" })
 
+  use({ "kyazdani42/nvim-web-devicons" })
+
   -- NOTE: some parsers need node installed
   use({
     "nvim-treesitter/nvim-treesitter",
@@ -48,16 +50,6 @@ local function pkgs(use)
       "rafamadriz/friendly-snippets",
     },
     config = config("cmp"),
-  })
-
-  -- File Explorer
-  -- TODO: Do I need this?
-  use({
-    "kyazdani42/nvim-tree.lua",
-    requires = {
-      "kyazdani42/nvim-web-devicons",
-    },
-    config = config("nvim-tree"),
   })
 
   -- LSP
