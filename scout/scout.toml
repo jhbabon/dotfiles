@@ -7,10 +7,10 @@ style = "fg:yellow"
 
 [candidate]
 style = "dimmed"
-style_match = "bold underline"
+style_match = "italic underline"
 
 [selection]
 symbol = "❯ "
-style = "fg:blue"
-style_symbol = "fg:blue"
-style_match = "bold underline fg:blue"
+style_symbol = "fg:green"
+style = "fg:green"
+style_match = "italic underline fg:green"
