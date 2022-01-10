@@ -45,8 +45,9 @@ vim.opt.shiftwidth = 2 -- number of spaces to use for each step of (auto)indent
 vim.opt.softtabstop = 2 -- number of spaces in tab when editing
 vim.opt.shiftround = true
 vim.opt.expandtab = true -- tabs are spaces
-vim.opt.copyindent = true
-vim.opt.smartindent = true
+vim.opt.copyindent = false
+vim.opt.autoindent = false
+vim.opt.smartindent = false
 
 -- Listchars
 vim.opt.list = true
