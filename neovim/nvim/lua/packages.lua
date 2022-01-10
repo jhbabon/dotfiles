@@ -14,7 +14,13 @@ local function pkgs(use)
   -- NOTE: some parsers need node installed
   use({
     "nvim-treesitter/nvim-treesitter",
+    requires = {
+      "andymass/vim-matchup",
+    },
     run = ":TSUpdate",
+    setup = function()
+      vim.g.loaded_matchit = 1
+    end,
     config = require("conf-treesitter"),
   })
 

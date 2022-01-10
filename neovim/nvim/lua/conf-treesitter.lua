@@ -13,6 +13,9 @@ return function()
     indent = {
       enable = true,
     },
+    matchup = {
+      enable = true,
+    },
   })
 
   -- Use treesitter's folding module
