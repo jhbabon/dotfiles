@@ -44,18 +44,18 @@ local function pkgs(use)
   use({ "tpope/vim-characterize" })
 
   -- Autocomplete + snippets
-  use({
-    "hrsh7th/nvim-cmp",
-    requires = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "onsails/lspkind-nvim",
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-      "rafamadriz/friendly-snippets",
-    },
-    config = require("conf-cmp"),
-  })
+  -- use({
+  --   "hrsh7th/nvim-cmp",
+  --   requires = {
+  --     "hrsh7th/cmp-nvim-lsp",
+  --     "hrsh7th/cmp-buffer",
+  --     "onsails/lspkind-nvim",
+  --     "L3MON4D3/LuaSnip",
+  --     "saadparwaiz1/cmp_luasnip",
+  --     "rafamadriz/friendly-snippets",
+  --   },
+  --   config = require("conf-cmp"),
+  -- })
 
   -- LSP
   use({
