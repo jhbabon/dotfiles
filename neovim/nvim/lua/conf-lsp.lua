@@ -1,7 +1,5 @@
 return function()
-  local utils = require("utils")
-  local lsp = require("lsp")
-
+  -- lspconfig UI
   -- @see https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#change-diagnostic-symbols-in-the-sign-column-gutter
   -- icons taken from lualine
   local icons = {
@@ -15,8 +13,11 @@ return function()
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
   end
 
+  -- lsp-installer & lspconfig
   -- TODO: Check https://github.com/williamboman/nvim-lsp-installer/wiki/Rust
   local lsp_installer = require("nvim-lsp-installer")
+  local lsp = require("lsp")
+  local utils = require("utils")
 
   local runtime_path = vim.split(package.path, ";")
   table.insert(runtime_path, "lua/?.lua")
@@ -26,7 +27,16 @@ return function()
     rust_analyzer = { filetypes = { "rust" } },
     gopls = { filetypes = { "go" } },
     yamlls = { filetypes = { "yaml" } },
-    tsserver = { filetypes = { "typescript", "javascript" } },
+    tsserver = {
+      filetypes = { "typescript", "javascript" },
+      setup = {
+        on_attach = function(client, bufnr)
+          client.resolved_capabilities.document_formatting = false
+          client.resolved_capabilities.document_range_formatting = false
+          lsp.mappings(client, bufnr)
+        end,
+      },
+    },
     solargraph = { filetypes = { "ruby" } },
     sumneko_lua = {
       filetypes = { "lua" },
@@ -84,4 +94,29 @@ return function()
 
     server:setup(setup)
   end)
+
+  -- null-ls
+  local null_ls = require("null-ls")
+
+  local sources = {
+    -- javascript & typescript
+    null_ls.builtins.formatting.eslint_d,
+    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.code_actions.eslint_d,
+
+    -- golang
+    null_ls.builtins.formatting.gofmt,
+    null_ls.builtins.formatting.goimports,
+
+    -- lua
+    null_ls.builtins.formatting.stylua,
+
+    -- git
+    null_ls.builtins.code_actions.gitsigns,
+  }
+
+  null_ls.setup({
+    sources = sources,
+    on_attach = lsp.on_attach,
+  })
 end

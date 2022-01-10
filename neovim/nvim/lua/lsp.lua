@@ -24,13 +24,6 @@ function lsp.install(name)
   cache[name] = true
 end
 
--- configure automatic format on save
-function lsp.format_on_save(client, _)
-  if client.resolved_capabilities.document_formatting then
-    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
-  end
-end
-
 -- configure mappings
 function lsp.mappings(_, bufnr)
   -- Normal mappings
@@ -46,6 +39,7 @@ function lsp.mappings(_, bufnr)
   map("<leader>lg", [[<cmd>lua vim.diagnostic.open_float()<cr>]], { hint = { "lsp", "line diagnostic" } })
   map("<leader>lc", [[<cmd>lua vim.lsp.buf.code_action()<cr>]], { hint = { "lsp", "code action" } })
   map("<leader>lf", [[<cmd>lua vim.lsp.buf.formatting_sync()<cr>]], { hint = { "lsp", "format file" } })
+  map("<leader>la", [[<cmd>lua vim.lsp.buf.formatting()<cr>]], { hint = { "lsp", "async format file" } })
 
   -- Use Trouble for references and definitions
   map("<leader>lr", [[<cmd>Trouble lsp_references<cr>]], { hint = { "lsp", "references" } })
@@ -63,7 +57,6 @@ end
 
 --- General on_attach function for any LSP client
 function lsp.on_attach(client, bufnr)
-  lsp.format_on_save(client, bufnr)
   lsp.mappings(client, bufnr)
 end
 

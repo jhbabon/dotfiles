@@ -59,10 +59,12 @@ local function pkgs(use)
 
   -- LSP
   use({
-    "williamboman/nvim-lsp-installer",
+    "neovim/nvim-lspconfig",
     requires = {
-      "folke/trouble.nvim", -- mappings
-      "neovim/nvim-lspconfig",
+      "folke/trouble.nvim", -- for mappings
+      "williamboman/nvim-lsp-installer",
+      "nvim-lua/plenary.nvim",
+      "jose-elias-alvarez/null-ls.nvim",
     },
     config = require("conf-lsp"),
   })
@@ -74,15 +76,6 @@ local function pkgs(use)
       "kyazdani42/nvim-web-devicons",
     },
     config = require("conf-trouble"),
-  })
-
-  -- Lint and Formatting
-  use({
-    "jose-elias-alvarez/null-ls.nvim",
-    requires = {
-      "nvim-lua/plenary.nvim",
-    },
-    config = require("conf-null-ls"),
   })
 
   -- Git
