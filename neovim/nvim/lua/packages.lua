@@ -26,15 +26,17 @@ local function pkgs(use)
     end,
   })
   use({ "tpope/vim-projectionist", setup = require("setup-projectionist") })
-  use({ "wfxr/minimap.vim", run = "cargo install --locked code-minimap", setup = require("conf-minimap") })
+  use({
+    "wfxr/minimap.vim",
+    run = "cargo install --locked code-minimap",
+    setup = require("conf-minimap"),
+  })
 
   -- Editing
   use({
-    "jiangmiao/auto-pairs",
-    setup = function()
-      vim.g.AutoPairsMapSpace = false
-      vim.g.AutoPairsMapCR = false
-      vim.g.AutoPairsMapCh = false
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup({ enable_check_bracket_line = false })
     end,
   })
   use({ "tpope/vim-commentary" })
