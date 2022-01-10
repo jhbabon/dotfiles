@@ -57,6 +57,7 @@ end
 
 --- General on_attach function for any LSP client
 function lsp.on_attach(client, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   lsp.mappings(client, bufnr)
 end
 
