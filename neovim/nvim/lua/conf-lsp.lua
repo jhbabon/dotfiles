@@ -80,8 +80,11 @@ return function()
     end
   end
 
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
   local defaults = {
     on_attach = lsp.on_attach,
+    capabilities = capabilities,
   }
 
   lsp_installer.on_server_ready(function(server)

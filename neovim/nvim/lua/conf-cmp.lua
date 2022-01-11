@@ -6,13 +6,15 @@ return function()
   -- This should load vscode snippets from friendly snippets
   require("luasnip.loaders.from_vscode").lazy_load()
 
-  local has_words_before = function()
-    ---@diagnostic disable-next-line: deprecated
+  local function has_words_before()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
   end
 
   cmp.setup({
+    completion = {
+      autocomplete = false,
+    },
     formatting = {
       format = lspkind.cmp_format({
         with_text = true,
@@ -69,10 +71,13 @@ return function()
     }),
   })
 
-  -- Use buffer source for `/` (if you enabled `native_menu`, this won"t work anymore).
-  cmp.setup.cmdline("/", {
-    sources = {
-      { name = "buffer", keyword_length = 2 },
-    },
-  })
+  -- Save cmp in the global object
+  _G.vimrc = _G.vimrc or {}
+  _G.vimrc.cmp = function()
+    cmp.complete()
+  end
+
+  -- Override <c-n> to use cmp as the completion menu/omnifunc
+  -- This can be also set to <c-x><c-o> (default omnifunc)
+  vim.cmd([[inoremap <c-n> <cmd>lua vimrc.cmp()<cr>]])
 end
