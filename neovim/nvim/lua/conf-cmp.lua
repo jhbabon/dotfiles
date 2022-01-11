@@ -73,7 +73,7 @@ return function()
 
   -- Save cmp in the global object
   _G.vimrc = _G.vimrc or {}
-  _G.vimrc.cmp = function()
+  function _G.vimrc.cmp()
     cmp.complete()
   end
 
