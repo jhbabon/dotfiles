@@ -108,20 +108,14 @@ local function pkgs(use)
   })
   use({ "pechorin/any-jump.vim", setup = require("setup-any-jump") })
 
-  -- Colorschemes
+  -- Colorschemes & statusline
   use({
-    "rose-pine/neovim",
+    "marko-cerovac/material.nvim",
     requires = {
-      -- these are not required, but this way they are grouped
-      "marko-cerovac/material.nvim",
-      "yonlu/omni.vim",
+      "nvim-lualine/lualine.nvim",
     },
-    as = "rose-pine",
     config = require("conf-colors"),
   })
-
-  -- Statusline
-  use({ "nvim-lualine/lualine.nvim", config = require("conf-lualine") })
 
   -- Show indent lines
   use({
@@ -141,5 +135,10 @@ return require("packer").startup({
     disable_commands = true,
     -- Move to lua dir so impatient.nvim can cache it
     compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
+    -- Remove comments to enable profiling
+    -- profile = {
+    --   enable = true,
+    --   threshold = 1, -- the amount in ms that a plugins load time must be over for it to be included in the profile
+    -- },
   },
 })
