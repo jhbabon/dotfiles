@@ -110,9 +110,12 @@ local function pkgs(use)
 
   -- Colorschemes & statusline
   use({
-    "marko-cerovac/material.nvim",
+    "nvim-lualine/lualine.nvim",
     requires = {
-      "nvim-lualine/lualine.nvim",
+      "marko-cerovac/material.nvim",
+      "EdenEast/nightfox.nvim",
+      "sainnhe/everforest",
+      { "rose-pine/neovim", as = "rose-pine" },
     },
     config = require("conf-colors"),
   })
