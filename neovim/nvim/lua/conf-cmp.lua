@@ -77,7 +77,6 @@ return function()
     cmp.complete()
   end
 
-  -- Override <c-n> to use cmp as the completion menu/omnifunc
-  -- This can be also set to <c-x><c-o> (default omnifunc)
-  vim.cmd([[inoremap <c-n> <cmd>lua vimrc.cmp()<cr>]])
+  -- Override <c-x><c-o> to use cmp as the default omnifunc
+  vim.cmd([[inoremap <c-x><c-o> <cmd>lua vimrc.cmp()<cr>]])
 end
