@@ -130,6 +130,19 @@ local function pkgs(use)
       })
     end,
   })
+
+  -- Dim inactive portions of the code you're editing
+  use({
+    "folke/twilight.nvim",
+    config = function()
+      require("twilight").setup({
+        context = 15,
+      })
+
+      local keychain = require("keychain")
+      keychain.nmap("<leader>uf", [[:Twilight<cr>]], { hint = { "misc", "focus with Twilight" } })
+    end,
+  })
 end
 
 return require("packer").startup({
