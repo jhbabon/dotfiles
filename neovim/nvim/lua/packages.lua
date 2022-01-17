@@ -38,6 +38,7 @@ local function pkgs(use)
     run = "cargo install --locked code-minimap",
     setup = require("conf-minimap"),
   })
+  use({ "sidebar-nvim/sidebar.nvim", config = require("conf-sidebar") })
 
   -- Editing
   use({
