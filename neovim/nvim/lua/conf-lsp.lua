@@ -39,6 +39,8 @@ return function()
     map("<leader>lf", [[<cmd>lua vim.lsp.buf.formatting_sync()<cr>]], { hint = { "lsp", "format file" } })
     map("<leader>la", [[<cmd>lua vim.lsp.buf.formatting()<cr>]], { hint = { "lsp", "async format file" } })
 
+    map("<leader>ly", [[<cmd>lua vim.lsp.buf.document_symbol()<cr>]], { hint = { "lsp", "document symbols" } })
+
     -- Use Trouble for references and definitions
     map("<leader>lr", [[<cmd>Trouble lsp_references<cr>]], { hint = { "lsp", "references" } })
     map("<leader>lt", [[<cmd>Trouble lsp_type_definitions<cr>]], { hint = { "lsp", "go to type definition" } })
