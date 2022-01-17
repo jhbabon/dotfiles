@@ -6,6 +6,8 @@ local fmt = string.format
 local config = require("scout.config").config
 local window = require("scout.window")
 local u = require("scout.utils")
+local async = require("plenary.async")
+local Path = require("plenary.path")
 
 local new_tty = "?1049h"
 local return_tty = "?1049l"
@@ -13,22 +15,47 @@ local jobs = {}
 
 local M = {}
 
+local function stdpath(name)
+  -- create a callback based function
+  -- that executes the callback inside vim.schedule_wrap
+  local function promise(callback)
+    local resolve = vim.schedule_wrap(function()
+      callback(vim.fn.stdpath(name))
+    end)
+
+    resolve()
+  end
+  -- wrap the callback based function so it can be used async/await style
+  local await = async.wrap(promise, 1)
+
+  return await()
+end
+
+local function fs_mkstemp(template)
+  local wrap = async.wrap(vim.loop.fs_mkstemp, 2)
+  return wrap(template)
+end
+
 local function tmpfile()
-  local f = {}
-  f.name = os.tmpname()
-  local tmp = io.open(f.name, "w")
+  local template = Path:new(stdpath("cache"), "scout-stdin-XXXXXX"):absolute()
+  local err, fd, name = fs_mkstemp(template)
+  assert(not err, err)
 
-  f.write = function(...)
-    tmp:write(...)
-    tmp:flush()
+  local tmp = { name = name, fd = fd }
+
+  function tmp.write(self, ...)
+    local error, _ = async.uv.fs_write(self.fd, ...)
+    assert(not error, error)
   end
 
-  f.close = function()
-    tmp:close()
-    os.remove(f.name)
+  function tmp.close(self)
+    async.run(function()
+      local error, _ = async.uv.fs_unlink(self.name)
+      assert(not error, error)
+    end)
   end
 
-  return f
+  return tmp
 end
 
 local function noop() end
@@ -56,13 +83,15 @@ local function build_list_cmd(cfg)
   end
 
   local tmp = tmpfile()
-  tmp.write(list)
+  tmp:write(list)
 
   local cmd = fmt("cat %s", tmp.name)
 
   return {
     cmd = cmd,
-    close = tmp.close,
+    close = function()
+      tmp:close()
+    end,
   }
 end
 
@@ -88,71 +117,79 @@ local function mappings(job_id, bufnr)
 end
 
 function M.run(cfg)
-  local list = build_list_cmd(cfg)
-  local search = cfg.search
-  local done = cfg.done
-  local title = cfg.title
+  -- all async functions must be wrapped inside async.run
+  async.run(function()
+    local list = build_list_cmd(cfg)
+    local search = cfg.search
+    local done = cfg.done
+    local title = cfg.title
 
-  assert(list.cmd, "list_cmd or list are missing")
-  assert(done, "done function is missing")
+    assert(list.cmd, "list_cmd or list are missing")
+    assert(done, "done function is missing")
 
-  local cmd = build_cmd(list.cmd, config.cmd, search)
+    -- wrap all this code inside schedule_wrap so it can use vim.fn
+    -- functions inside the async.run callback
+    local _run = vim.schedule_wrap(function()
+      local cmd = build_cmd(list.cmd, config.cmd, search)
+      local origin_id = vim.fn.win_getid()
+      local win = window.open(title)
+      local collect_output = false
+      local raw_output = ""
 
-  local origin_id = vim.fn.win_getid()
-  local win = window.open(title)
-  local collect_output = false
-  local raw_output = ""
+      local function on_stdout(_, data, _)
+        local output = data[1]
+        if u.is_present(output) then
+          if string.match(output, return_tty) then
+            collect_output = true
+          end
 
-  local function on_stdout(_, data, _)
-    local output = data[1]
-    if u.is_present(output) then
-      if string.match(output, return_tty) then
-        collect_output = true
+          if collect_output then
+            raw_output = output
+          end
+        end
       end
 
-      if collect_output then
-        raw_output = output
+      local function on_exit(term_id, _, _)
+        collect_output = false
+
+        win.close()
+        vim.fn.win_gotoid(origin_id)
+        list.close()
+
+        local job = jobs[term_id] or { signal = "enter" }
+        local signal = job.signal
+        jobs[term_id] = nil
+
+        local selection = ""
+        if signal ~= "exit" then
+          -- clean up control characters
+          selection = vim.fn.substitute(raw_output, "[[:cntrl:]]", "", "g")
+
+          -- Remove the escape sequences used to change the terminal: ^[[1049l, etc
+          selection = vim.fn.substitute(selection, "^[[:escape]]", "", "g")
+          selection = vim.fn.substitute(selection, "^[" .. return_tty, "", "g")
+          selection = vim.fn.substitute(selection, "^[" .. new_tty, "", "g")
+        end
+
+        done(selection, job.signal)
       end
-    end
-  end
 
-  local function on_exit(term_id, _, _)
-    collect_output = false
+      local options = {
+        on_exit = vim.schedule_wrap(on_exit),
+        on_stdout = vim.schedule_wrap(on_stdout),
+      }
 
-    win.close()
-    vim.fn.win_gotoid(origin_id)
-    list.close()
+      local job_id = vim.fn.termopen(cmd, options)
 
-    local job = jobs[term_id] or { signal = "enter" }
-    local signal = job.signal
-    jobs[term_id] = nil
+      jobs[job_id] = { signal = "enter" }
 
-    local selection = ""
-    if signal ~= "exit" then
-      -- clean up control characters
-      selection = vim.fn.substitute(raw_output, "[[:cntrl:]]", "", "g")
+      mappings(job_id, win.display.buffer)
 
-      -- Remove the escape sequences used to change the terminal: ^[[1049l, etc
-      selection = vim.fn.substitute(selection, "^[[:escape]]", "", "g")
-      selection = vim.fn.substitute(selection, "^[" .. return_tty, "", "g")
-      selection = vim.fn.substitute(selection, "^[" .. new_tty, "", "g")
-    end
+      vim.cmd("startinsert")
+    end)
 
-    done(selection, job.signal)
-  end
-
-  local options = {
-    on_exit = on_exit,
-    on_stdout = on_stdout,
-  }
-
-  local job_id = vim.fn.termopen(cmd, options)
-
-  jobs[job_id] = { signal = "enter" }
-
-  mappings(job_id, win.display.buffer)
-
-  vim.cmd("startinsert")
+    _run()
+  end)
 end
 
 function M.signal(job_id, signal)
