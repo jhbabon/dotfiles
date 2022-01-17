@@ -6,9 +6,10 @@ local keychain = {}
 local format = string.format
 
 -- curry/partial application of the first argument of a function
-local function curry(fn, arg)
+local function curry(fn, ...)
+  local args = { ... }
   return function(...)
-    return fn(arg, ...)
+    return fn(unpack(args), ...)
   end
 end
 
