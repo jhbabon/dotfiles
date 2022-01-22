@@ -246,17 +246,23 @@ has keychain && eval `keychain --eval --noask --quiet id_rsa`
 # Direnv
 has direnv && eval "$(direnv hook zsh)"
 
-typeset -U path
+# Use fnm as a node version manager
+has fnm && eval "$(fnm env --use-on-cd)"
+
+# Use frum as a ruby version manager
+has frum && eval "$(frum init)"
+
+# typeset -U path
 
 # nodenv configuration
-if [[ -d "$HOME/.nodenv/shims" ]]; then
-  path=("$HOME/.nodenv/shims" $path)
-fi
+# if [[ -d "$HOME/.nodenv/shims" ]]; then
+#  path=("$HOME/.nodenv/shims" $path)
+# fi
 
 # rbenv configuration
-if [[ -d "$HOME/.rbenv/shims" ]]; then
-  path=("$HOME/.rbenv/shims" $path)
-fi
+# if [[ -d "$HOME/.rbenv/shims" ]]; then
+#   path=("$HOME/.rbenv/shims" $path)
+# fi
 
 # Exercism
 if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
