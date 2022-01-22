@@ -20,7 +20,7 @@ $(NEOVIM_DST_DIR):
 $(NEOVIM_PACKER_DST):
 	$(CLONE) $(NEOVIM_PACKER_URL) $(NEOVIM_PACKER_DST)/opt/packer.nvim
 	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-	nvim --headless -c 'TSInstallSync all' +q
+	nvim --headless -c 'TSInstallSync maintained' +q
 
 clean_neovim: banner_clean_neovim
 	$(RM) $(NEOVIM_PACKER_LD)
