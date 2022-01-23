@@ -1,4 +1,7 @@
 return function()
+  -- NOTE: If some parsers fail to install, try to install tree-sitter-cli with npm:
+  --   npm install -g tree-sitter-cli
+
   -- require("nvim-treesitter.install").prefer_git = true
   require("nvim-treesitter.configs").setup({
     ensure_installed = "maintained",
