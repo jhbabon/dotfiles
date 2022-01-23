@@ -6,6 +6,7 @@ M.config = {
   files = {
     finder = "find * -type f",
   },
+  temp_dir = vim.fn.stdpath("cache"),
 }
 
 function M.setup(cfg)

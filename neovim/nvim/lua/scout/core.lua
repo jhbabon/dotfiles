@@ -6,8 +6,6 @@ local fmt = string.format
 local config = require("scout.config").config
 local window = require("scout.window")
 local u = require("scout.utils")
-local async = require("plenary.async")
-local Path = require("plenary.path")
 
 local new_tty = "?1049h"
 local return_tty = "?1049l"
@@ -15,57 +13,35 @@ local jobs = {}
 
 local M = {}
 
-local function stdpath(name)
-  -- create a callback based function
-  -- that executes the callback inside vim.schedule_wrap
-  local function promise(callback)
-    local resolve = vim.schedule_wrap(function()
-      callback(vim.fn.stdpath(name))
+local function tempfile(contents, callback)
+  local template = fmt("%s/%s", config.temp_dir, "scout-stdin-XXXXXX")
+
+  vim.loop.fs_mkstemp(template, function(temp_error, fd, name)
+    assert(not temp_error, temp_error)
+    local tmp = { name = name, fd = fd }
+
+    vim.loop.fs_write(fd, contents, function(write_error)
+      assert(not write_error, write_error)
+
+      function tmp.close(self)
+        vim.loop.fs_unlink(self.name, function(unlink_error)
+          assert(not unlink_error, unlink_error)
+        end)
+      end
+
+      callback(tmp)
     end)
-
-    resolve()
-  end
-  -- wrap the callback based function so it can be used async/await style
-  local await = async.wrap(promise, 1)
-
-  return await()
-end
-
-local function fs_mkstemp(template)
-  local wrap = async.wrap(vim.loop.fs_mkstemp, 2)
-  return wrap(template)
-end
-
-local function tmpfile()
-  local template = Path:new(stdpath("cache"), "scout-stdin-XXXXXX"):absolute()
-  local err, fd, name = fs_mkstemp(template)
-  assert(not err, err)
-
-  local tmp = { name = name, fd = fd }
-
-  function tmp.write(self, ...)
-    local error, _ = async.uv.fs_write(self.fd, ...)
-    assert(not error, error)
-  end
-
-  function tmp.close(self)
-    async.run(function()
-      local error, _ = async.uv.fs_unlink(self.name)
-      assert(not error, error)
-    end)
-  end
-
-  return tmp
+  end)
 end
 
 local function noop() end
 
-local function build_list_cmd(cfg)
+local function build_list_cmd(cfg, callback)
   if u.is_present(cfg.list_cmd) then
-    return {
+    return callback({
       cmd = cfg.list_cmd,
       close = noop,
-    }
+    })
   end
 
   local list = ""
@@ -76,23 +52,22 @@ local function build_list_cmd(cfg)
   end
 
   if u.is_empty(list) then
-    return {
+    return callback({
       cmd = nil,
       close = noop,
-    }
+    })
   end
 
-  local tmp = tmpfile()
-  tmp:write(list)
+  tempfile(list, function(tmp)
+    local cmd = fmt("cat %s", tmp.name)
 
-  local cmd = fmt("cat %s", tmp.name)
-
-  return {
-    cmd = cmd,
-    close = function()
-      tmp:close()
-    end,
-  }
+    callback({
+      cmd = cmd,
+      close = function()
+        tmp:close()
+      end,
+    })
+  end)
 end
 
 local function build_cmd(list_cmd, cmd, search)
@@ -106,30 +81,32 @@ end
 
 local function mappings(job_id, bufnr)
   local opts = { noremap = true, silent = true }
-  local signal = function(sig)
+  local function signal(sig)
     return fmt([[<c-\><c-n>:lua require('scout').signal(%d, "%s")<cr>]], job_id, sig)
   end
-  vim.api.nvim_buf_set_keymap(bufnr, "t", "<c-v>", signal("c-v"), opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "t", "<c-x>", signal("c-x"), opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "t", "<c-t>", signal("c-t"), opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "t", "<c-c>", signal("exit"), opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "t", "<esc>", signal("exit"), opts)
+  local function map(keys, sig)
+    vim.api.nvim_buf_set_keymap(bufnr, "t", keys, signal(sig), opts)
+  end
+
+  map("<c-v>", "c-v")
+  map("<c-x>", "c-x")
+  map("<c-t>", "c-t")
+  map("<c-c>", "exit")
+  map("<esc>", "exit")
 end
 
 function M.run(cfg)
-  -- all async functions must be wrapped inside async.run
-  async.run(function()
-    local list = build_list_cmd(cfg)
-    local search = cfg.search
-    local done = cfg.done
-    local title = cfg.title
+  local search = cfg.search
+  local done = cfg.done
+  local title = cfg.title
 
-    assert(list.cmd, "list_cmd or list are missing")
-    assert(done, "done function is missing")
+  assert(done, "done function is missing")
 
-    -- wrap all this code inside schedule_wrap so it can use vim.fn
-    -- functions inside the async.run callback
-    local _run = vim.schedule_wrap(function()
+  build_list_cmd(
+    cfg,
+    vim.schedule_wrap(function(list)
+      assert(list.cmd, "list_cmd or list are missing")
+
       local cmd = build_cmd(list.cmd, config.cmd, search)
       local origin_id = vim.fn.win_getid()
       local win = window.open(title)
@@ -187,9 +164,7 @@ function M.run(cfg)
 
       vim.cmd("startinsert")
     end)
-
-    _run()
-  end)
+  )
 end
 
 function M.signal(job_id, signal)
