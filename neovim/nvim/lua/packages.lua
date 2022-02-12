@@ -123,11 +123,10 @@ local function pkgs(use)
 
   -- Show indent lines
   use({
-    "lukas-reineke/indent-blankline.nvim",
+    "echasnovski/mini.nvim",
     config = function()
-      require("indent_blankline").setup({
-        char = "‧",
-        show_current_context = true,
+      require("mini.indentscope").setup({
+        symbol = "‧",
       })
     end,
   })
