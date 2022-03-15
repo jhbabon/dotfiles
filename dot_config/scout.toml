@@ -1,0 +1,16 @@
+[prompt]
+symbol = "❯ "
+style_symbol = "bold fg:blue"
+
+[gauge]
+style = "fg:yellow"
+
+[candidate]
+style = "dimmed"
+style_match = "italic underline"
+
+[selection]
+symbol = "❯ "
+style_symbol = "fg:green"
+style = "fg:green"
+style_match = "italic underline fg:green"
