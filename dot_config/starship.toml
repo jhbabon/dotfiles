@@ -1,0 +1,62 @@
+# ---------------------------------------------------------------------
+# Starship configuration
+# ---------------------------------------------------------------------
+add_newline = true
+scan_timeout = 10
+
+format = """\
+    $username\
+    $hostname\
+    $directory\
+    $git_branch\
+    $git_commit\
+    $git_state\
+    $git_status\
+    $hg_branch\
+    $fill\
+    $kubernetes\
+    $elixir\
+    $erlang\
+    $golang\
+    $java\
+    $julia\
+    $nodejs\
+    $python\
+    $ruby\
+    $rust\
+    $zig\
+    $line_break\
+    $jobs\
+    $character\
+    """
+
+[hostname]
+disabled = false
+ssh_only = true
+
+[directory]
+disabled = false
+fish_style_pwd_dir_length = 1
+
+[git_branch]
+# symbol = "🌱 "
+disabled = false
+
+[git_commit]
+only_detached = false
+disabled = false
+
+[git_state]
+disabled = false
+
+[git_status]
+disabled = false
+untracked = "[?](bold yellow)"
+staged = "[+](bold green)"
+stashed = "[\\$](bold purple)"
+
+[kubernetes]
+disabled = false
+
+[fill]
+symbol = " "
