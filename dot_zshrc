@@ -1,0 +1,295 @@
+# ~/.zshrc: This file is executed in interactive shells after /etc/zshrc.
+#   Put here any customization.
+
+# bootTimeStart=$(gdate +%s%N) # In mac you'll need brew's coreutils package
+
+local config_dir="$HOME/.config/zsh"
+
+local plugins_dir="$config_dir/plugins"
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+# Utility function to check if a command exists.
+# It is used inside these zsh config files.
+#
+# Example:
+#   has 'echo' && alias hi="echo 'hello $USER'"
+function has() {
+  type $1 > /dev/null 2>&1
+}
+
+function zplugins_update() {
+  local config_dir="$HOME/.config/zsh"
+  local plugins_dir="$config_dir/plugins"
+  local current_dir=$PDW
+
+  if test -d $plugins_dir; then
+    for plug in $plugins_dir/*; do
+      echo "Updating $plug"
+      cd $plug
+      git pull
+      cd $current_dir
+    done
+    unset plug
+  fi
+}
+
+# Create a dir and go inside it.
+function mkcd() {
+  mkdir -p "$1" && cd "$1";
+}
+
+# A very handy function from the Grml distro’s excellent zsh config
+# that lets you search for running processes.
+#
+# Link: http://onethingwell.org/post/14669173541/any
+function any() {
+  emulate -L zsh
+  unsetopt KSH_ARRAYS
+  if [[ -z "$1" ]] ; then
+    echo "any - grep for process(es) by keyword" >&2
+    echo "Usage: any <keyword>" >&2
+    return 1
+  else
+    ps xauwww | grep -i --color=auto "[${1[1]}]${1[2,-1]}"
+  fi
+}
+
+# Use the remote service explain.com from the terminal.
+#
+# Link: https://github.com/schneems/explain_shell#without-rubygems
+function explain() {
+  # base url with first command already injected
+  # $ explain tar
+  #   => http://explainshel.com/explain/tar?args=
+  url="http://explainshell.com/explain/$1?args="
+
+  # removes $1 (tar) from arguments ($@)
+  shift;
+
+  # iterates over remaining args and adds builds the rest of the url
+  for i in "$@"; do
+    url=$url"$i""+"
+  done
+
+  # opens url in browser
+  open $url
+}
+
+# Print the weather in the terminal using http://wttr.in
+#
+# Usage:
+#   weather [city]
+#
+# Example:
+#   $ weather
+#   # => Prints Berlin weather
+#   $ weather Dublin
+#   # => Prints Dublin weather
+function weather() {
+  local city="$1"
+  [[ -z $city ]] && city="Berlin"
+
+  curl "http://wttr.in/$city"
+}
+
+# Run neovim with Codi scratchpad enabled
+#
+# Usage:
+#   codi [filetype] [filename]
+#
+# Example:
+#   $ codi javascript test.js
+function codi() {
+  local syntax="${1:-javascript}"
+  shift
+  nvim -c \
+    "let g:startify_disable_at_vimenter = 1 |\
+    set bt=nofile ls=0 noru nonu nornu |\
+    hi ColorColumn ctermbg=NONE |\
+    hi VertSplit ctermbg=NONE |\
+    hi NonText ctermfg=0 |\
+    Codi $syntax" "$@"
+}
+
+# ZSH renaming tool
+# Link: http://www.mfasold.net/blog/2008/11/moving-or-renaming-multiple-files/
+#
+# Example:
+#   % mmv '(*).json' '$1.rb'
+autoload -U zmv
+alias mmv='noglob zmv -W'
+
+# ---------------------------------------------------------------------------
+# Aliases
+# ---------------------------------------------------------------------------
+alias _='sudo'
+alias cl='clear'
+alias pingg='ping -c 4 www.duckduckgo.com'
+alias rake='noglob rake' # makes rake work nicely with zsh
+alias ..='cd ..'
+alias ...='cd ../..'
+alias rm='rm -i'
+
+alias bi='bundle install'
+alias bu='bundle update'
+alias be='bundle exec'
+
+# show full history
+alias hs='fc -l 1'
+# search command in history
+# link: http://viget.com/extend/level-up-your-shell-game#history-expansions
+alias 'h?'='history | grep'
+# don't save current history in the global history file.
+# history will be lost once the session is closed.
+alias hide='fc -pa'
+
+# find the option for using colors in ls, depending on the version: Linux or BSD
+ls --color -d . &>/dev/null 2>&1 && alias ls='ls --color=tty' || alias ls='ls -G'
+alias ll='ls -lh'
+alias la='ll -a'
+
+# higher-order function: map
+# link: https://coderwall.com/p/4tkkpq
+alias map='xargs -n1'
+
+# disk space
+alias dus='du -Psckx * | sort -nr'
+
+# Format JSON text with python
+alias pyson='python -m json.tool'
+
+# most used tools
+alias g='git'
+alias nv='nvim'
+
+# mimic macOS pbcopy and pbpaste
+has pbcopy || alias pbcopy='xclip -i -selection clipboard'
+has pbpaste || alias pbpaste='xclip -o -selection clipboard'
+
+# source: https://github.com/direnv/direnv/wiki/Tmux
+has direnv && alias tmux='direnv exec / tmux'
+
+# ---------------------------------------------------------------------------
+# History
+# ---------------------------------------------------------------------------
+# ignore duplicate history entries
+setopt histignoredups
+# Appends every command to the history file once it is executed
+setopt inc_append_history
+# Reloads the history whenever you use it
+setopt share_history
+
+# keep more history
+export HISTFILE=$HOME/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=10000
+export DIRSTACKSIZE=50
+
+# ---------------------------------------------------------------------------
+# Edit command line
+# ---------------------------------------------------------------------------
+autoload -U edit-command-line
+zle -N edit-command-line
+
+# ---------------------------------------------------------------------------
+# Bindkeys
+# ---------------------------------------------------------------------------
+bindkey "^R" history-incremental-search-backward
+bindkey '\C-x\C-e' edit-command-line
+# Autosuggestions
+bindkey '^ ' autosuggest-accept
+
+# ---------------------------------------------------------------------------
+# VI Mode
+# ---------------------------------------------------------------------------
+bindkey -v
+
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+
+# Visual mode enters the editor
+bindkey -M vicmd 'v' edit-command-line
+
+export KEYTIMEOUT=1
+
+# ---------------------------------------------------------------------------
+# Vendor
+# ---------------------------------------------------------------------------
+# Run ssh-agents with keychain
+has keychain && eval `keychain --eval --noask --quiet id_rsa`
+
+# Direnv
+has direnv && eval "$(direnv hook zsh)"
+
+# Use fnm as a node version manager
+has fnm && eval "$(fnm env --use-on-cd)"
+
+# Use frum as a ruby version manager
+has frum && eval "$(frum init)"
+
+# typeset -U path
+
+# nodenv configuration
+# if [[ -d "$HOME/.nodenv/shims" ]]; then
+#  path=("$HOME/.nodenv/shims" $path)
+# fi
+
+# rbenv configuration
+# if [[ -d "$HOME/.rbenv/shims" ]]; then
+#   path=("$HOME/.rbenv/shims" $path)
+# fi
+
+# Exercism
+if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
+  source ~/.config/exercism/exercism_completion.zsh
+fi
+
+# ---------------------------------------------------------------------------
+# Local settings
+# ---------------------------------------------------------------------------
+# Set this file for custom local changes
+if [ -f "$config_dir/local.rc.zsh" ]; then
+  source "$config_dir/local.rc.zsh"
+fi
+
+# ---------------------------------------------------------------------------
+# Completions
+# ---------------------------------------------------------------------------
+autoload -Uz compinit
+compinit
+zmodload -i zsh/complist
+
+# completion styles
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*' # case insensitive
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+zstyle ':completion:*:*:*:*:processes' command "ps -o pid,user,tty,comm -w"
+zstyle ':completion:*:warnings' format '%B%U---- no match for: %d%u%b'
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:options' auto-description '%d'
+
+# ---------------------------------------------------------------------------
+# Plugins
+# ---------------------------------------------------------------------------
+source "$plugins_dir/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+# ---------------------------------------------------------------------------
+# Prompt
+#
+# Check for starship.rs or fallback to the custom prompt if not present
+# ---------------------------------------------------------------------------
+has starship && eval "$(starship init zsh)" || source "$config_dir/prompt.zsh"
+
+# bootTimeDuration=$((($(gdate +%s%N) - $bootTimeStart)/1000000))
+# echo $bootTimeDuration ms overall boot duration
+
+# vim:set ft=zsh:
