@@ -1,0 +1,16 @@
+# Main SSH config file
+
+Host *
+  # If there is an ssh-agent running,
+  # make sure the key is added to it
+  AddKeysToAgent yes
+{{- if (eq .chezmoi.os "darwin") }}
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+{{- end }}
+
+# If you want to add more concrete options for different
+# SSH connections it is better if you add them to the local.conf file
+Include local.conf
+
+# vim:set ft=sshconfig:
