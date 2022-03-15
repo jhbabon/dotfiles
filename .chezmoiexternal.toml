@@ -6,3 +6,7 @@
     type = "git-repo"
     url = "https://github.com/zsh-users/zsh-autosuggestions.git"
     refreshPeriod = "168h"
+[".local/share/nvim/site/pack/packer/opt/packer.nvim"]
+    type = "git-repo"
+    url = "https://github.com/wbthomason/packer.nvim.git"
+    refreshPeriod = "168h"
