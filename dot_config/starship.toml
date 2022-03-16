@@ -35,11 +35,12 @@ disabled = false
 ssh_only = true
 
 [directory]
+read_only = " "
 disabled = false
 fish_style_pwd_dir_length = 1
 
 [git_branch]
-# symbol = "🌱 "
+symbol = " "
 disabled = false
 
 [git_commit]
@@ -60,3 +61,15 @@ disabled = false
 
 [fill]
 symbol = " "
+
+[nodejs]
+symbol = " "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[golang]
+symbol = " "

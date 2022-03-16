@@ -5,9 +5,7 @@ set -e
 echo "Installing: tmux plugins ********************"
 ~/.tmux/plugins/tpm/bin/install_plugins
 
-{{ if (eq .chezmoi.os "darwin") -}}
 echo "Installing: tmux terminfo ********************"
 tic -x ~/.tmux/tmux.terminfo
-{{ end -}}
 
 # vim:set ft=sh:
