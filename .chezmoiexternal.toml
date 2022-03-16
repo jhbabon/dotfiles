@@ -15,13 +15,13 @@
   type = "file"
   url = "https://github.com/jhbabon/scout/releases/download/v2.6.0/scout-linux"
   executable = true
-# [".local/bin/exa"]
-#  type = "file"
-#  url = "https://github.com/ogham/exa/releases/download/v0.10.1/exa-linux-x86_64-v0.10.1.zip"
-#  executable = true
-#  [".local/bin/exa".filter]
-#    command = "busybox"
-#    args = ["unzip", "-", "bin/exa", "-p"]
+[".local/bin/exa"]
+  type = "file"
+  url = "https://github.com/ogham/exa/releases/download/v0.10.1/exa-linux-x86_64-v0.10.1.zip"
+  executable = true
+    [".local/bin/exa".filter]
+      command = "busybox"
+      args = ["unzip", "-", "bin/exa", "-p"]
 [".local/bin/code-minimap"]
   type = "file"
   url = "https://github.com/wfxr/code-minimap/releases/download/v0.6.4/code-minimap-v0.6.4-x86_64-unknown-linux-gnu.tar.gz"
