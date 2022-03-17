@@ -9,6 +9,9 @@ fi
 export EDITOR=nvim
 export VISUAL=$EDITOR
 export PAGER=less
+{{ if (.codespaces) -}}
+export SHELL=/bin/zsh
+{{- end }}
 
 # ---------------------------------------------------------------------------
 # Local settings
