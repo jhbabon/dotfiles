@@ -139,6 +139,17 @@ local function pkgs(use)
       keychain.nmap("<leader>uf", [[:Twilight<cr>]], { hint = { "misc", "focus with Twilight" } })
     end,
   })
+
+  -- Terminal manipulation
+  use({
+    "akinsho/toggleterm.nvim",
+    config = function()
+      require("toggleterm").setup({})
+
+      local keychain = require("keychain")
+      keychain.nmap("<leader>tt", [[<Cmd>exe v:count1 . "ToggleTerm"<CR>]], { hint = { "terminal", "toggle terminal" } })
+    end,
+  })
 end
 
 return require("packer").startup({
