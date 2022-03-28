@@ -112,6 +112,7 @@ local function pkgs(use)
       "marko-cerovac/material.nvim",
       "EdenEast/nightfox.nvim",
       "sainnhe/everforest",
+      "rebelot/kanagawa.nvim",
       { "rose-pine/neovim", as = "rose-pine" },
     },
     config = require("conf-colors"),
@@ -147,7 +148,11 @@ local function pkgs(use)
       require("toggleterm").setup({})
 
       local keychain = require("keychain")
-      keychain.nmap("<leader>tt", [[<Cmd>exe v:count1 . "ToggleTerm"<CR>]], { hint = { "terminal", "toggle terminal" } })
+      keychain.nmap(
+        "<leader>tt",
+        [[<Cmd>exe v:count1 . "ToggleTerm"<CR>]],
+        { hint = { "terminal", "toggle terminal" } }
+      )
     end,
   })
 end

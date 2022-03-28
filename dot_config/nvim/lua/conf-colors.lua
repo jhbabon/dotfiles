@@ -1,4 +1,6 @@
 return function()
+  local lualine = "auto"
+
   -- material colorscheme
   -- variants: 'darker' | 'lighter' | 'oceanic' | 'palenight' | 'deep ocean'
   -- vim.g.material_style = "palenight"
@@ -19,13 +21,18 @@ return function()
   -- rose-pine colorscheme
   -- @usage 'main' | 'moon' | 'dawn'
   vim.g.rose_pine_variant = "moon"
-  local keychain = require("keychain")
-  keychain.nmap("<leader>cs", [[:lua require("rose-pine").toggle()<cr>]], { hint = { "colorscheme", "switch style" } })
+  -- lualine = "rose-pine"
+  -- local keychain = require("keychain")
+  -- keychain.nmap("<leader>cs", [[:lua require("rose-pine").toggle()<cr>]], { hint = { "colorscheme", "switch style" } })
 
-  require("lualine").setup({
-    options = { theme = "rose-pine" },
-  })
+  -- Kanagawa
+  require('kanagawa').setup({})
+  lualine = "kanagawa"
 
   -- Setup the final colorscheme
-  vim.cmd([[colorscheme rose-pine]])
+  require("lualine").setup({
+    options = { theme = lualine },
+  })
+  -- vim.cmd([[colorscheme rose-pine]])
+  vim.cmd([[colorscheme kanagawa]])
 end
