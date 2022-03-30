@@ -16,7 +16,6 @@ local function pkgs(use)
     "nvim-treesitter/nvim-treesitter",
     requires = {
       "andymass/vim-matchup",
-      "romgrk/nvim-treesitter-context",
     },
     run = function()
       if os.getenv("CODESPACES") ~= "true" then
