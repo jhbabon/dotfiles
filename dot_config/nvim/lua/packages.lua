@@ -18,7 +18,11 @@ local function pkgs(use)
       "andymass/vim-matchup",
       "romgrk/nvim-treesitter-context",
     },
-    run = ":TSUpdate",
+    run = function()
+      if os.getenv("CODESPACES") ~= "true" then
+        vim.cmd("TSUpdate")
+      end
+    end,
     setup = function()
       vim.g.loaded_matchit = 1
     end,

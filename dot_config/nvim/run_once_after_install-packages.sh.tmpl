@@ -8,4 +8,5 @@ nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 {{ end }}
 {{ if (.codespaces) -}}
 $HOME/.local/bin/nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+$HOME/.local/bin/nvim --headless -c 'TSInstallSync all' -c 'quit'
 {{ end -}}
