@@ -1,6 +1,7 @@
 {{- if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
 
+echo "Installing: homebrew packages ********************"
 brew bundle --no-lock --file=/dev/stdin <<EOF
 brew "coreutils"
 brew "git"
@@ -25,4 +26,7 @@ brew "jhbabon/tap/scout"
 cask "alacritty"
 cask "font-jetbrains-mono-nerd-font"
 EOF
+
+echo "Installing: goimports ****************************"
+go install golang.org/x/tools/cmd/goimports@latest
 {{ end -}}
