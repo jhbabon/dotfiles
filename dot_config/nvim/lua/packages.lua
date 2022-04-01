@@ -17,7 +17,7 @@ local function pkgs(use)
     requires = {
       "andymass/vim-matchup",
     },
-    run = ':TSUpdate',
+    run = ":TSUpdate",
     setup = function()
       vim.g.loaded_matchit = 1
     end,
@@ -48,18 +48,13 @@ local function pkgs(use)
   use({ "tpope/vim-vinegar" })
   use({ "tpope/vim-characterize" })
 
-  -- Autocomplete
+  -- Snippets
   use({
-    "hrsh7th/nvim-cmp",
+    "L3MON4D3/LuaSnip",
     requires = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "onsails/lspkind-nvim",
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
     },
-    config = require("conf-cmp"),
+    config = require("conf-snippets"),
   })
 
   -- LSP
@@ -70,7 +65,6 @@ local function pkgs(use)
       "williamboman/nvim-lsp-installer",
       "nvim-lua/plenary.nvim",
       "jose-elias-alvarez/null-ls.nvim",
-      "hrsh7th/cmp-nvim-lsp",
     },
     config = require("conf-lsp"),
   })
@@ -117,14 +111,13 @@ local function pkgs(use)
     config = require("conf-colors"),
   })
 
-  -- Show indent lines
+  -- Mini pluings
   use({
     "echasnovski/mini.nvim",
-    config = function()
-      require("mini.indentscope").setup({
-        symbol = "‧",
-      })
-    end,
+    requires = {
+      "onsails/lspkind-nvim",
+    },
+    config = require("conf-mini"),
   })
 
   -- Dim inactive portions of the code you're editing

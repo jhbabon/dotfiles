@@ -139,7 +139,6 @@ return function()
   end
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
   local defaults = {
     on_attach = on_attach,
@@ -184,5 +183,8 @@ return function()
     sources = sources,
     on_attach = on_attach,
     capabilities = capabilities,
+    should_attach = function()
+      return vim.bo.filetype ~= "gitcommit"
+    end,
   })
 end
