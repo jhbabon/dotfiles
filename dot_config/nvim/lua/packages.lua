@@ -17,11 +17,7 @@ local function pkgs(use)
     requires = {
       "andymass/vim-matchup",
     },
-    run = function()
-      if os.getenv("CODESPACES") ~= "true" then
-        vim.cmd("TSUpdate")
-      end
-    end,
+    run = ':TSUpdate',
     setup = function()
       vim.g.loaded_matchit = 1
     end,
