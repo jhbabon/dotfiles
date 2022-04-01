@@ -168,8 +168,6 @@ return function()
     null_ls.builtins.code_actions.eslint_d,
 
     -- golang
-    null_ls.builtins.formatting.gofmt,
-    null_ls.builtins.formatting.goimports,
     null_ls.builtins.diagnostics.golangci_lint,
 
     -- lua
