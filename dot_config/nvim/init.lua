@@ -79,9 +79,10 @@ vim.opt.lazyredraw = true
 vim.opt.termguicolors = true
 
 -- Autosave
-vim.opt.updatetime = 750
-vim.cmd([[au InsertLeave * ++nested silent! update]])
-vim.cmd([[au CursorHold * ++nested silent! update]])
+-- vim.opt.updatetime = 750
+-- vim.cmd([[au InsertLeave * ++nested silent! update]])
+-- vim.cmd([[au CursorHold * ++nested silent! update]])
+keychain.nmap("<leader>w", [[:w<cr>]], { hint = { "save", "save file" } })
 
 -- Packages
 require("packer_compiled")

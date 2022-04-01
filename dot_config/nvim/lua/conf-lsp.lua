@@ -57,6 +57,14 @@ return function()
 
   -- default on_attach function for every server
   local function on_attach(client, bufnr)
+    if client.resolved_capabilities.document_formatting then
+      vim.cmd([[
+            augroup LspFormatting
+                autocmd! * <buffer>
+                autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+            augroup END
+            ]])
+    end
     mappings(client, bufnr)
   end
 
