@@ -135,16 +135,13 @@ local function pkgs(use)
 
   -- Terminal manipulation
   use({
-    "akinsho/toggleterm.nvim",
+    "numToStr/FTerm.nvim",
     config = function()
-      require("toggleterm").setup({})
+      require("FTerm").setup({})
 
       local keychain = require("keychain")
-      keychain.nmap(
-        "<leader>tt",
-        [[<Cmd>exe v:count1 . "ToggleTerm"<CR>]],
-        { hint = { "terminal", "toggle terminal" } }
-      )
+      keychain.nmap("<F1>", [[<Cmd>lua require("FTerm").toggle()<CR>]], { hint = { "terminal", "toggle terminal" } })
+      keychain.map("t", "<F1>", [[<Cmd>lua require("FTerm").toggle()<CR>]])
     end,
   })
 end
