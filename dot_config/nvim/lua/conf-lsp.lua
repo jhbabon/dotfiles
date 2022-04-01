@@ -75,7 +75,16 @@ return function()
 
   local servers = {
     rust_analyzer = { filetypes = { "rust" } },
-    gopls = { filetypes = { "go" } },
+    gopls = {
+      filetypes = { "go" },
+      setup = {
+        on_attach = function(client, bufnr)
+          client.resolved_capabilities.document_formatting = false
+          client.resolved_capabilities.document_range_formatting = false
+          mappings(client, bufnr)
+        end,
+      },
+    },
     yamlls = { filetypes = { "yaml" } },
     tsserver = {
       filetypes = { "typescript", "javascript" },
@@ -176,6 +185,7 @@ return function()
     null_ls.builtins.code_actions.eslint_d,
 
     -- golang
+    null_ls.builtins.formatting.goimports,
     null_ls.builtins.diagnostics.golangci_lint,
 
     -- lua
