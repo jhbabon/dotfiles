@@ -197,10 +197,16 @@ return function()
 
   null_ls.setup({
     sources = sources,
-    on_attach = on_attach,
-    capabilities = capabilities,
-    should_attach = function()
-      return vim.bo.filetype ~= "gitcommit"
+    on_attach = function(client, bufnr)
+      -- Do not enable textDocument/completion capability on null-ls.
+      -- By disabling this capability the autocompletion plugin stops
+      -- throwing the error:
+      --   "method textDocument/completion is not supported by any of the servers registered for the current buffer"
+      -- this happens because null-ls is attached to every buffer, but we don't want this capability since
+      -- it's only provided by actual LSP servers.
+      client.resolved_capabilities.completion = false
+      on_attach(client, bufnr)
     end,
+    capabilities = capabilities,
   })
 end
