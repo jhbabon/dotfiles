@@ -144,6 +144,17 @@ local function pkgs(use)
       keychain.map("t", "<F1>", [[<Cmd>lua require("FTerm").toggle()<CR>]])
     end,
   })
+
+  -- Copy from beyond (SSH)
+  use({
+    "ojroques/vim-oscyank",
+    config = function()
+      local hint = { "yank", "Yank/Copy from anywhere using the ANSI OS52 sequence" }
+      local keychain = require("keychain")
+      keychain.nmap("<leader>o", [[<Plug>OSCYank]], { noremap = false, silent = false, hint = hint })
+      keychain.vmap("<leader>o", [[:OSCYank<CR>]], { hint = hint })
+    end,
+  })
 end
 
 return require("packer").startup({
