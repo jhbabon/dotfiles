@@ -74,7 +74,22 @@ return function()
   table.insert(runtime_path, "lua/?/init.lua")
 
   local servers = {
-    rust_analyzer = { filetypes = { "rust" } },
+    rust_analyzer = {
+      filetypes = { "rust" },
+      setup = {
+        settings = {
+          -- to enable rust-analyzer settings visit:
+          -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+          ["rust-analyzer"] = {
+            -- enable clippy on save
+            checkOnSave = {
+              command = "clippy",
+            },
+          },
+        },
+      },
+    },
+
     gopls = {
       filetypes = { "go" },
       setup = {
