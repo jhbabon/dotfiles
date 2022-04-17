@@ -23,7 +23,7 @@ local keychain = require("keychain")
 -- Settings
 -- -----------------------------------------------------------------------
 vim.g.mapleader = " "
-vim.g.localeader = ","
+vim.g.maplocalleader = ","
 
 -- Backups
 vim.opt.backup = false -- no backup
