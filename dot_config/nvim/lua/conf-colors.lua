@@ -26,12 +26,15 @@ return function()
   -- keychain.nmap("<leader>cs", [[:lua require("rose-pine").toggle()<cr>]], { hint = { "colorscheme", "switch style" } })
 
   -- Kanagawa
-  require('kanagawa').setup({})
+  require("kanagawa").setup({})
   lualine = "kanagawa"
 
   -- Setup the final colorscheme
   require("lualine").setup({
-    options = { theme = lualine },
+    options = {
+      theme = lualine,
+      -- globalstatus = true, -- new in neovim 0.7
+    },
   })
   -- vim.cmd([[colorscheme rose-pine]])
   vim.cmd([[colorscheme kanagawa]])

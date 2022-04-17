@@ -129,7 +129,7 @@ local function pkgs(use)
       })
 
       local keychain = require("keychain")
-      keychain.nmap("<leader>uf", [[:Twilight<cr>]], { hint = { "misc", "focus with Twilight" } })
+      keychain.set("n", "<leader>uf", [[:Twilight<cr>]], { hint = { "misc", "focus with Twilight" } })
     end,
   })
 
@@ -140,8 +140,12 @@ local function pkgs(use)
       require("FTerm").setup({})
 
       local keychain = require("keychain")
-      keychain.nmap("<F1>", [[<Cmd>lua require("FTerm").toggle()<CR>]], { hint = { "terminal", "toggle terminal" } })
-      keychain.map("t", "<F1>", [[<Cmd>lua require("FTerm").toggle()<CR>]])
+      keychain.set("n", "<F1>", function()
+        return require("FTerm").toggle()
+      end, { hint = { "terminal", "toggle terminal" } })
+      keychain.set("t", "<F1>", function()
+        return require("FTerm").toggle()
+      end)
     end,
   })
 
@@ -151,8 +155,8 @@ local function pkgs(use)
     config = function()
       local hint = { "yank", "Yank/Copy from anywhere using the ANSI OS52 sequence" }
       local keychain = require("keychain")
-      keychain.nmap("<leader>o", [[<Plug>OSCYank]], { noremap = false, silent = false, hint = hint })
-      keychain.vmap("<leader>o", [[:OSCYank<CR>]], { hint = hint })
+      keychain.set("n", "<leader>o", [[<Plug>OSCYank]], { noremap = false, silent = false, hint = hint })
+      keychain.set("v", "<leader>o", [[:OSCYank<CR>]], { hint = hint })
     end,
   })
 end

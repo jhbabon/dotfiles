@@ -82,7 +82,7 @@ vim.opt.termguicolors = true
 -- vim.opt.updatetime = 750
 -- vim.cmd([[au InsertLeave * ++nested silent! update]])
 -- vim.cmd([[au CursorHold * ++nested silent! update]])
-keychain.nmap("<leader>w", [[:w<cr>]], { hint = { "save", "save file" } })
+keychain.set("n", "<leader>w", [[:w<cr>]], { hint = { "save", "save file" } })
 
 -- Packages
 require("packer_compiled")
@@ -103,23 +103,24 @@ if vim.fn.executable("rg") then
 end
 
 --- setup files fuzzy finder
-keychain.nmap("<leader>ff", [[:lua require('scout.files').run()<cr>]], { hint = { "files", "open" } })
-keychain.nmap(
-  "<leader>fd",
-  [[:lua require('scout.files').run({ search = '%:h' })<cr>]],
-  { hint = { "files", "current dir" } }
-)
+keychain.set("n", "<leader>ff", function()
+  return require("scout.files").run()
+end, { hint = { "files", "open" } })
+keychain.set("n", "<leader>fd", function()
+  return require("scout.files").run({ search = "%:h" })
+end, { hint = { "files", "current dir" } })
 
 --- setup buffers fuzzy finder
-keychain.nmap("<leader>bb", [[:lua require('scout.buffers').run()<cr>]], { hint = { "buffers", "open" } })
-keychain.nmap(
-  "<leader>bd",
-  [[:lua require('scout.buffers').run({ search = '%:h' })<cr>]],
-  { hint = { "buffers", "current dir" } }
-)
+keychain.set("n", "<leader>bb", function()
+  return require("scout.buffers").run()
+end, { hint = { "buffers", "open" } })
+keychain.set("n", "<leader>bd", function()
+  return require("scout.buffers").run({ search = "%:h" })
+end, { hint = { "buffers", "current dir" } })
 
 --- setup mappings fuzzy finder
-keychain.nmap(
+keychain.set(
+  "n",
   "<leader><space>",
   [[:lua require('scout.mappings').run({ mode='n', hints = require('keychain').hint })<cr>]],
   { hint = { "keymaps", "show keymappings" } }
@@ -140,13 +141,13 @@ local strip = table.concat({
   [[:call winrestview(_s)]], -- restore cursor position
   [[<cr>]], -- execute all of the above
 }, "<Bar>") -- join all with '|' in one line
-keychain.nmap("<leader>u<space>", strip, { hint = { "misc", "remove trailing whitespace" } })
-keychain.nmap("<leader>u;", [[:s/\([^;]\)$/\1;/<cr>:noh<cr>]], { hint = { "misc", "add semicolon (;) at eol" } })
-keychain.nmap("<leader>u,", [[:s/\([^,]\)$/\1,/<cr>:noh<cr>]], { hint = { "misc", "add comma (,) at eol" } })
-keychain.nmap("<leader>fp", [[:let @+ = expand("%")<cr>]], { hint = { "files", "copy path" } })
-keychain.nmap("<leader>sc", [[:nohl<cr>]], { hint = { "search", "clear current highlight" } })
+keychain.set("n", "<leader>u<space>", strip, { hint = { "misc", "remove trailing whitespace" } })
+keychain.set("n", "<leader>u;", [[:s/\([^;]\)$/\1;/<cr>:noh<cr>]], { hint = { "misc", "add semicolon (;) at eol" } })
+keychain.set("n", "<leader>u,", [[:s/\([^,]\)$/\1,/<cr>:noh<cr>]], { hint = { "misc", "add comma (,) at eol" } })
+keychain.set("n", "<leader>fp", [[:let @+ = expand("%")<cr>]], { hint = { "files", "copy path" } })
+keychain.set("n", "<leader>sc", [[:nohl<cr>]], { hint = { "search", "clear current highlight" } })
 
 -- Explorer
 -- Remove tons of stuff from netrw and set it a a tree to make it more comfortable to use
 vim.g.netrw_liststyle = 3
-keychain.nmap("<leader>ft", [[:Explore<cr>]], { hint = { "files", "explorer" } })
+keychain.set("n", "<leader>ft", [[:Explore<cr>]], { hint = { "files", "explorer" } })

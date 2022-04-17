@@ -28,18 +28,18 @@ return function()
     local function map(...)
       keychain.nmap_buf(bufnr, ...)
     end
-    map("]e", [[cmd>lua vim.diagnostic.goto_next()<cr>]], { hint = { "lsp", "next diagnostic" } })
-    map("[e", [[cmd>lua vim.diagnostic.goto_prev()<cr>]], { hint = { "lsp", "previous diagnostic" } })
-    map("<leader>li", [[<cmd>lua vim.lsp.buf.implementation()<cr>]], { hint = { "lsp", "go to implementation" } })
-    map("<leader>lh", [[<cmd>lua vim.lsp.buf.hover()<cr>]], { hint = { "lsp", "hover" } })
-    map("<leader>ls", [[<cmd>lua vim.lsp.buf.signature_help()<cr>]], { hint = { "lsp", "signature" } })
-    map("<leader>ln", [[<cmd>lua vim.lsp.buf.rename()<cr>]], { hint = { "lsp", "rename" } })
-    map("<leader>lg", [[<cmd>lua vim.diagnostic.open_float()<cr>]], { hint = { "lsp", "line diagnostic" } })
-    map("<leader>lc", [[<cmd>lua vim.lsp.buf.code_action()<cr>]], { hint = { "lsp", "code action" } })
-    map("<leader>lf", [[<cmd>lua vim.lsp.buf.formatting_sync()<cr>]], { hint = { "lsp", "format file" } })
-    map("<leader>la", [[<cmd>lua vim.lsp.buf.formatting()<cr>]], { hint = { "lsp", "async format file" } })
+    map("]e", vim.diagnostic.goto_next, { hint = { "lsp", "next diagnostic" } })
+    map("[e", vim.diagnostic.goto_prev, { hint = { "lsp", "previous diagnostic" } })
+    map("<leader>li", vim.lsp.buf.implementation, { hint = { "lsp", "go to implementation" } })
+    map("<leader>lh", vim.lsp.buf.hover, { hint = { "lsp", "hover" } })
+    map("<leader>ls", vim.lsp.buf.signature_help, { hint = { "lsp", "signature" } })
+    map("<leader>ln", vim.lsp.buf.rename, { hint = { "lsp", "rename" } })
+    map("<leader>lg", vim.diagnostic.open_float, { hint = { "lsp", "line diagnostic" } })
+    map("<leader>lc", vim.lsp.buf.code_action, { hint = { "lsp", "code action" } })
+    map("<leader>lf", vim.lsp.buf.formatting_sync, { hint = { "lsp", "format file" } })
+    map("<leader>la", vim.lsp.buf.formatting, { hint = { "lsp", "async format file" } })
 
-    map("<leader>ly", [[<cmd>lua vim.lsp.buf.document_symbol()<cr>]], { hint = { "lsp", "document symbols" } })
+    map("<leader>ly", vim.lsp.buf.document_symbol, { hint = { "lsp", "document symbols" } })
 
     -- Use Trouble for references and definitions
     map("<leader>lr", [[<cmd>Trouble lsp_references<cr>]], { hint = { "lsp", "references" } })
@@ -47,12 +47,7 @@ return function()
     map("<leader>ld", [[<cmd>Trouble lsp_definitions<cr>]], { hint = { "lsp", "go to definition" } })
 
     -- Visual mappings
-    keychain.vmap_buf(
-      bufnr,
-      "<leader>lc",
-      [[<cmd>lua vim.lsp.buf.range_code_action()<cr>]],
-      { hint = { "lsp", "code action" } }
-    )
+    keychain.set("v", "<leader>lc", vim.lsp.buf.range_code_action, { hint = { "lsp", "code action" }, buffer = bufnr })
   end
 
   -- default on_attach function for every server

@@ -5,14 +5,6 @@ local keychain = {}
 -- imports
 local format = string.format
 
--- curry/partial application of the first argument of a function
-local function curry(fn, ...)
-  local args = { ... }
-  return function(...)
-    return fn(unpack(args), ...)
-  end
-end
-
 local function escape_str(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -41,8 +33,16 @@ local modes = {
 setmetatable(hints, modes)
 
 local function set_hint(mode, lhs, hint)
-  if hint then
-    hints[mode][lhs] = hint
+  if not hint then
+    return
+  end
+
+  if type(mode) == "string" then
+    mode = { mode }
+  end
+
+  for _, m in pairs(mode) do
+    hints[m][lhs] = hint
   end
 end
 
@@ -63,34 +63,19 @@ local function map_options(opts)
   return options, hint
 end
 
-local function _map(mode, lhs, rhs, opts, mapper)
+--- Wrapper around vim.keymap.set. It accepts the extra option hint.
+--- Pass the option hint = { "label", "description" } to set a description of the keymap
+function keychain.set(mode, lhs, rhs, opts)
   local options, hint = map_options(opts)
 
   set_hint(mode, lhs, hint)
-  mapper(mode, lhs, rhs, options)
+
+  vim.keymap.set(mode, lhs, rhs, options)
 end
 
---- Add keymap to buffer
--- Pass the option hint = { "label", "description" } to set a description of the keymap
-function keychain.map_buf(bufnr, mode, lhs, rhs, opts)
-  _map(mode, lhs, rhs, opts, curry(vim.api.nvim_buf_set_keymap, bufnr))
-end
-
-function keychain.imap_buf(bufnr, ...)
-  return keychain.map_buf(bufnr, "i", ...)
-end
-
-function keychain.nmap_buf(bufnr, ...)
-  return keychain.map_buf(bufnr, "n", ...)
-end
-
-function keychain.vmap_buf(bufnr, ...)
-  return keychain.map_buf(bufnr, "v", ...)
-end
-
---- Add keymap
+--- Add keymap, alias of #set
 function keychain.map(mode, lhs, rhs, opts)
-  _map(mode, lhs, rhs, opts, vim.api.nvim_set_keymap)
+  keychain.set(mode, lhs, rhs, opts)
 end
 
 function keychain.nmap(...)
@@ -103,6 +88,24 @@ end
 
 function keychain.vmap(...)
   return keychain.map("v", ...)
+end
+
+--- Add keymap to buffer
+function keychain.map_buf(bufnr, mode, lhs, rhs, opts)
+  opts = vim.tbl_extend("force", opts, { buffer = bufnr })
+  keychain.map(mode, lhs, rhs, opts)
+end
+
+function keychain.imap_buf(bufnr, ...)
+  return keychain.map_buf(bufnr, "i", ...)
+end
+
+function keychain.nmap_buf(bufnr, ...)
+  return keychain.map_buf(bufnr, "n", ...)
+end
+
+function keychain.vmap_buf(bufnr, ...)
+  return keychain.map_buf(bufnr, "v", ...)
 end
 
 --- Get the hint associated to a keymap and mode

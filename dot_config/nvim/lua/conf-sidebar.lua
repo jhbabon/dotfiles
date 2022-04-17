@@ -5,5 +5,5 @@ return function()
   })
 
   local keychain = require("keychain")
-  keychain.nmap("<leader>ds", [[:SidebarNvimToggle<cr>]], { hint = { "diagnostics", "sidebar" } })
+  keychain.set("n", "<leader>ds", [[:SidebarNvimToggle<cr>]], { hint = { "diagnostics", "sidebar" } })
 end

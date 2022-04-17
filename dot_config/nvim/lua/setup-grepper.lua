@@ -10,20 +10,22 @@ return function()
 
   local keychain = require("keychain")
 
-  keychain.nmap("<leader>sw", [[:Grepper -noprompt -cword<cr>]], { hint = { "search", "current word" } })
-  keychain.nmap("<leader>sq", [[:Grepper -query<space>]], { hint = { "search", "query" } })
+  keychain.set("n", "<leader>sw", [[:Grepper -noprompt -cword<cr>]], { hint = { "search", "current word" } })
+  keychain.set("n", "<leader>sq", [[:Grepper -query<space>]], { hint = { "search", "query" } })
 
-  keychain.nmap(
+  keychain.set(
+    "n",
     "<leader>siw",
     [[:Grepper -tool git -noprompt -cword<cr>]],
     { hint = { "search", "current word with git" } }
   )
-  keychain.nmap("<leader>siq", [[:Grepper -tool git -query<space>]], { hint = { "search", "query with git" } })
+  keychain.set("n", "<leader>siq", [[:Grepper -tool git -query<space>]], { hint = { "search", "query with git" } })
 
-  keychain.nmap(
+  keychain.set(
+    "n",
     "<leader>sgw",
     [[:Grepper -tool grep -noprompt -cword<cr>]],
     { hint = { "search", "current word with grep" } }
   )
-  keychain.nmap("<leader>sgq", [[:Grepper -tool grep -query<space>]], { hint = { "search", "query with grep" } })
+  keychain.set("n", "<leader>sgq", [[:Grepper -tool grep -query<space>]], { hint = { "search", "query with grep" } })
 end
