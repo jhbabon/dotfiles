@@ -47,6 +47,18 @@ local function pkgs(use)
   use({ "tpope/vim-eunuch" })
   use({ "tpope/vim-vinegar" })
   use({ "tpope/vim-characterize" })
+  use({
+    "AckslD/nvim-trevJ.lua",
+    requires = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("trevj").setup()
+      require("keychain").set("n", "<leader>ej", function()
+        require("trevj").format_at_cursor()
+      end, { hint = { "edit", "reverse J" } })
+    end,
+  })
 
   -- Snippets
   use({
