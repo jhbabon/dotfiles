@@ -7,6 +7,12 @@ return function()
   })
 
   -- add nice icons to LSP symbols
-  require("lspkind").init({})
+  local lspkind = require("lspkind")
+  if lspkind.init then
+    lspkind.init({})
+  else
+    lspkind.setup({})
+  end
+
   require("mini.completion").setup({})
 end
