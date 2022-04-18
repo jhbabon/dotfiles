@@ -34,16 +34,7 @@ local function pkgs(use)
   })
   use({ "tpope/vim-projectionist", setup = require("setup-projectionist") })
   use({ "wfxr/minimap.vim", setup = require("conf-minimap") })
-  use({
-    "stevearc/aerial.nvim",
-    config = function()
-      require("aerial").setup({
-        default_direction = "prefer_left",
-      })
-
-      require("keychain").set("n", "<leader>ds", [[<cmd>AerialToggle<cr>]], { hint = { "diagnostics", "sidebar" } })
-    end,
-  })
+  use({ "sidebar-nvim/sidebar.nvim", config = require("conf-sidebar") })
 
   -- Editing
   use({

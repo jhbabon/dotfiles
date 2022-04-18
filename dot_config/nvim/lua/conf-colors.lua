@@ -31,9 +31,6 @@ return function()
 
   -- Setup the final colorscheme
   require("lualine").setup({
-    sections = {
-      lualine_c = { "filename", "aerial" },
-    },
     options = {
       theme = lualine,
       -- globalstatus = true, -- new in neovim 0.7

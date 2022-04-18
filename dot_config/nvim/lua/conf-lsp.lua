@@ -63,7 +63,6 @@ return function()
             augroup END
             ]])
     end
-    require("aerial").on_attach(client, bufnr)
     mappings(client, bufnr)
   end
 
