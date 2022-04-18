@@ -1,7 +1,7 @@
 return function()
   require("sidebar-nvim").setup({
     open = false,
-    sections = { "todos", "git", "diagnostics", "symbols" },
+    sections = { "symbols", "diagnostics" },
   })
 
   local keychain = require("keychain")
