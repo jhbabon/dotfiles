@@ -113,6 +113,11 @@ return function()
     sumneko_lua = {
       filetypes = { "lua" },
       setup = {
+        on_attach = function(client, bufnr)
+          client.resolved_capabilities.document_formatting = false
+          client.resolved_capabilities.document_range_formatting = false
+          mappings(client, bufnr)
+        end,
         settings = {
           Lua = {
             runtime = {
