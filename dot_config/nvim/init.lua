@@ -41,7 +41,7 @@ vim.opt.clipboard = { "unnamed", "unnamedplus" }
 
 -- Indentation
 vim.opt.tabstop = 2 -- number of visual spaces per TAB
-vim.opt.shiftwidth = 2 -- number of spaces to use for each step of (auto)indent
+vim.opt.shiftwidth = 0 -- number of spaces to use for each step of (auto)indent. 0 uses tabstop
 vim.opt.softtabstop = 2 -- number of spaces in tab when editing
 vim.opt.shiftround = true
 vim.opt.expandtab = true -- tabs are spaces
