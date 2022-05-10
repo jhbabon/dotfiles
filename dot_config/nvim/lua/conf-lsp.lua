@@ -20,6 +20,8 @@ return function()
   -- ---------------------------------------------------
   -- TODO: Check https://github.com/williamboman/nvim-lsp-installer/wiki/Rust
   local lsp_installer = require("nvim-lsp-installer")
+  lsp_installer.setup({})
+
   local utils = require("utils")
   local keychain = require("keychain")
 
@@ -166,8 +168,15 @@ return function()
     _G.vimrc.lsp_installed[name] = true
   end
 
-  -- Automatically install default LSP servers on filetype load
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  local defaults = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+  local lspconfig = require("lspconfig")
+
   for name, config in pairs(servers) do
+    -- Automatically install default LSP servers on filetype load
     for _, ft in pairs(config.filetypes) do
       utils.augroups({
         ["auto_install_lsp_" .. name .. "_" .. ft] = {
@@ -175,25 +184,16 @@ return function()
         },
       })
     end
-  end
 
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-  local defaults = {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-
-  lsp_installer.on_server_ready(function(server)
+    -- Setup server
     local options = defaults
-    local custom = servers[server.name]
 
-    if custom and custom.setup then
-      options = vim.tbl_extend("force", options, custom.setup)
+    if config and config.setup then
+      options = vim.tbl_extend("force", options, config.setup)
     end
 
-    server:setup(options)
-  end)
+    lspconfig[name].setup(options)
+  end
 
   -- ---------------------------------------------------
   -- null-ls: for formatters and linters outside LSP
