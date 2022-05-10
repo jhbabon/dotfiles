@@ -63,6 +63,7 @@ return function()
             augroup END
             ]])
     end
+    require("aerial").on_attach(client, bufnr)
     mappings(client, bufnr)
   end
 
@@ -94,6 +95,7 @@ return function()
         on_attach = function(client, bufnr)
           client.resolved_capabilities.document_formatting = false
           client.resolved_capabilities.document_range_formatting = false
+          require("aerial").on_attach(client, bufnr)
           mappings(client, bufnr)
         end,
       },
@@ -105,6 +107,7 @@ return function()
         on_attach = function(client, bufnr)
           client.resolved_capabilities.document_formatting = false
           client.resolved_capabilities.document_range_formatting = false
+          require("aerial").on_attach(client, bufnr)
           mappings(client, bufnr)
         end,
       },
@@ -116,6 +119,7 @@ return function()
         on_attach = function(client, bufnr)
           client.resolved_capabilities.document_formatting = false
           client.resolved_capabilities.document_range_formatting = false
+          require("aerial").on_attach(client, bufnr)
           mappings(client, bufnr)
         end,
         settings = {
