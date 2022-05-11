@@ -114,7 +114,7 @@ return function()
         end,
       },
     },
-    solargraph = { filetypes = { "ruby" } },
+    -- solargraph = { filetypes = { "ruby" } },
     sumneko_lua = {
       filetypes = { "lua" },
       setup = {
@@ -150,24 +150,6 @@ return function()
     },
   }
 
-  -- Global installer function
-  _G.vimrc = _G.vimrc or {}
-  _G.vimrc.lsp_installed = _G.vimrc.lsp_installed or {}
-  function _G.vimrc.lsp_install(name)
-    if _G.vimrc.lsp_installed[name] then
-      return
-    end
-
-    local server_is_found, server = lsp_installer.get_server(name)
-    if server_is_found then
-      if not server:is_installed() then
-        server:install()
-      end
-    end
-
-    _G.vimrc.lsp_installed[name] = true
-  end
-
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   local defaults = {
     on_attach = on_attach,
@@ -176,13 +158,11 @@ return function()
   local lspconfig = require("lspconfig")
 
   for name, config in pairs(servers) do
-    -- Automatically install default LSP servers on filetype load
-    for _, ft in pairs(config.filetypes) do
-      utils.augroups({
-        ["auto_install_lsp_" .. name .. "_" .. ft] = {
-          { "FileType", ft, "lua vimrc.lsp_install('" .. name .. "')" },
-        },
-      })
+    local server_is_found, server = lsp_installer.get_server(name)
+    if server_is_found then
+      if not server:is_installed() then
+        server:install()
+      end
     end
 
     -- Setup server
