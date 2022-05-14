@@ -22,7 +22,6 @@ return function()
   local lsp_installer = require("nvim-lsp-installer")
   lsp_installer.setup({})
 
-  local utils = require("utils")
   local keychain = require("keychain")
 
   local function mappings(_, bufnr)
@@ -65,6 +64,9 @@ return function()
             augroup END
             ]])
     end
+
+    -- Set MiniCompletion only on demand per LSP server
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.MiniCompletion.completefunc_lsp")
     require("aerial").on_attach(client, bufnr)
     mappings(client, bufnr)
   end
@@ -200,14 +202,18 @@ return function()
   null_ls.setup({
     sources = sources,
     on_attach = function(client, bufnr)
-      -- Do not enable textDocument/completion capability on null-ls.
-      -- By disabling this capability the autocompletion plugin stops
-      -- throwing the error:
-      --   "method textDocument/completion is not supported by any of the servers registered for the current buffer"
-      -- this happens because null-ls is attached to every buffer, but we don't want this capability since
-      -- it's only provided by actual LSP servers.
-      client.resolved_capabilities.completion = false
-      on_attach(client, bufnr)
+      if client.resolved_capabilities.document_formatting then
+        vim.cmd([[
+              augroup LspFormatting
+                  autocmd! * <buffer>
+                  autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+              augroup END
+              ]])
+      end
+
+      -- NOTE: Here the MiniCompletion plugin is not set
+      require("aerial").on_attach(client, bufnr)
+      mappings(client, bufnr)
     end,
     capabilities = capabilities,
   })

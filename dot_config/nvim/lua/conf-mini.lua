@@ -14,5 +14,8 @@ return function()
     lspkind.setup({})
   end
 
-  require("mini.completion").setup({})
+  -- see conf-lsp for custom setup per LSP server
+  require("mini.completion").setup({
+    lsp_completion = { source_func = "omnifunc", auto_setup = false },
+  })
 end
