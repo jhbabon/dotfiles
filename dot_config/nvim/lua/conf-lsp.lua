@@ -65,8 +65,10 @@ return function()
             ]])
     end
 
-    -- Set MiniCompletion only on demand per LSP server
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.MiniCompletion.completefunc_lsp")
+    if client.resolved_capabilities.completion then
+      -- Set MiniCompletion only on demand per LSP server
+      vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.MiniCompletion.completefunc_lsp")
+    end
     require("aerial").on_attach(client, bufnr)
     mappings(client, bufnr)
   end
