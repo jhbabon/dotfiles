@@ -1,4 +1,36 @@
 return function()
+  -- Execute formatting, but make sure marks are restored after doing it.
+  -- @see https://github.com/jose-elias-alvarez/null-ls.nvim/pull/5/files
+  _G.vimrc = _G.vimrc or {}
+  function _G.vimrc.lsp_formatting_sync()
+    local function save_marks(bufnr)
+      local marks = {}
+      for _, m in pairs(vim.fn.getmarklist(bufnr)) do
+        if m.mark:match("%a") then
+          marks[m.mark] = m.pos
+        end
+      end
+      return marks
+    end
+
+    local function restore_marks(marks, bufnr)
+      -- no need to restore marks that still exist
+      for _, m in pairs(vim.fn.getmarklist(bufnr)) do
+        marks[m.mark] = nil
+      end
+      -- restore marks
+      for mark, pos in pairs(marks) do
+        if pos then
+          vim.fn.setpos(mark, pos)
+        end
+      end
+    end
+
+    local bufnr = vim.api.nvim_get_current_buf()
+    local marks = save_marks(bufnr)
+    vim.lsp.buf.formatting_sync()
+    restore_marks(marks, bufnr)
+  end
   -- ---------------------------------------------------
   -- lspconfig UI
   -- ---------------------------------------------------
@@ -60,7 +92,7 @@ return function()
       vim.cmd([[
             augroup LspFormatting
                 autocmd! * <buffer>
-                autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+                autocmd BufWritePre <buffer> lua vimrc.lsp_formatting_sync()
             augroup END
             ]])
     end
