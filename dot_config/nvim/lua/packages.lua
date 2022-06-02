@@ -46,6 +46,16 @@ local function pkgs(use)
     end,
   })
 
+  -- Litee
+  use({
+    "ldelossa/litee.nvim",
+    requires = {
+      "ldelossa/litee-calltree.nvim",
+      "ldelossa/litee-filetree.nvim",
+    },
+    config = require("conf-litee"),
+  })
+
   -- Editing
   use({
     "windwp/nvim-autopairs",

@@ -150,4 +150,5 @@ keychain.set("n", "<leader>sc", [[:nohl<cr>]], { hint = { "search", "clear curre
 -- Explorer
 -- Remove tons of stuff from netrw and set it a a tree to make it more comfortable to use
 vim.g.netrw_liststyle = 3
-keychain.set("n", "<leader>ft", [[:Explore<cr>]], { hint = { "files", "explorer" } })
+-- Replaced by litee-filetree
+-- keychain.set("n", "<leader>ft", [[:Explore<cr>]], { hint = { "files", "explorer" } })

@@ -74,6 +74,9 @@ return function()
 
     map("<leader>ly", vim.lsp.buf.document_symbol, { hint = { "lsp", "document symbols" } })
 
+    map("<leader>lm", vim.lsp.buf.incoming_calls, { hint = { "lsp", "incoming calls" } })
+    map("<leader>lo", vim.lsp.buf.outgoing_calls, { hint = { "lsp", "outgoing calls" } })
+
     -- Use Trouble for references and definitions
     -- map("<leader>lr", [[<cmd>Trouble lsp_references<cr>]], { hint = { "lsp", "references" } })
     -- map("<leader>lt", [[<cmd>Trouble lsp_type_definitions<cr>]], { hint = { "lsp", "go to type definition" } })
