@@ -78,12 +78,12 @@ return function()
     map("<leader>lo", vim.lsp.buf.outgoing_calls, { hint = { "lsp", "outgoing calls" } })
 
     -- Use Trouble for references and definitions
-    -- map("<leader>lr", [[<cmd>Trouble lsp_references<cr>]], { hint = { "lsp", "references" } })
-    -- map("<leader>lt", [[<cmd>Trouble lsp_type_definitions<cr>]], { hint = { "lsp", "go to type definition" } })
-    -- map("<leader>ld", [[<cmd>Trouble lsp_definitions<cr>]], { hint = { "lsp", "go to definition" } })
-    map("<leader>lr", vim.lsp.buf.references, { hint = { "lsp", "references" } })
-    map("<leader>lt", vim.lsp.buf.type_definition, { hint = { "lsp", "references" } })
-    map("<leader>ld", vim.lsp.buf.definition, { hint = { "lsp", "go to definition" } })
+    map("<leader>lr", [[<cmd>Trouble lsp_references<cr>]], { hint = { "lsp", "references" } })
+    map("<leader>lt", [[<cmd>Trouble lsp_type_definitions<cr>]], { hint = { "lsp", "go to type definition" } })
+    map("<leader>ld", [[<cmd>Trouble lsp_definitions<cr>]], { hint = { "lsp", "go to definition" } })
+    -- map("<leader>lr", vim.lsp.buf.references, { hint = { "lsp", "references" } })
+    -- map("<leader>lt", vim.lsp.buf.type_definition, { hint = { "lsp", "go to type definition" } })
+    -- map("<leader>ld", vim.lsp.buf.definition, { hint = { "lsp", "go to definition" } })
 
     -- Visual mappings
     keychain.set("v", "<leader>lc", vim.lsp.buf.range_code_action, { hint = { "lsp", "code action" }, buffer = bufnr })
