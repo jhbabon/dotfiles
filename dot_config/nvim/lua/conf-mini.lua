@@ -3,7 +3,8 @@
 -- * Autocompletion
 return function()
   require("mini.indentscope").setup({
-    symbol = "‧",
+    -- symbol = "‧",
+    symbol = [[·]], -- Middle Dot (U+00B7)
   })
 
   -- add nice icons to LSP symbols
