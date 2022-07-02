@@ -26,6 +26,7 @@ local function pkgs(use)
   })
 
   -- Projects
+  use({ "tpope/vim-sleuth" })
   use({
     "klen/nvim-config-local",
     config = function()

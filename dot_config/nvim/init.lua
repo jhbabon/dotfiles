@@ -51,7 +51,12 @@ vim.opt.smartindent = false
 
 -- Listchars
 vim.opt.list = true
-vim.opt.listchars = { trail = [[~]], tab = [[▸\ ]], eol = [[¬]] } -- show special characters
+-- show special characters
+vim.opt.listchars = {
+  trail = [[~]],
+  tab = [[▸ ]],
+  eol = [[¬]],
+}
 
 -- Search
 vim.opt.ignorecase = true
