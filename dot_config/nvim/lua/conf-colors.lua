@@ -18,15 +18,16 @@ return function()
   vim.g.everforest_better_performance = true
 
   -- rose-pine colorscheme
-  -- @usage 'main' | 'moon' | 'dawn'
-  vim.g.rose_pine_variant = "moon"
-  -- lualine = "rose-pine"
-  -- local keychain = require("keychain")
-  -- keychain.nmap("<leader>cs", [[:lua require("rose-pine").toggle()<cr>]], { hint = { "colorscheme", "switch style" } })
+  require("rose-pine").setup({
+    dark_variant = "moon",
+  })
+  lualine = "rose-pine"
+  local keychain = require("keychain")
+  keychain.nmap("<leader>cs", [[:lua require("rose-pine").toggle()<cr>]], { hint = { "colorscheme", "switch style" } })
 
   -- Kanagawa
-  require("kanagawa").setup({})
-  lualine = "kanagawa"
+  -- require("kanagawa").setup({})
+  -- lualine = "kanagawa"
 
   -- Setup the final colorscheme
   require("lualine").setup({
@@ -38,6 +39,8 @@ return function()
       -- globalstatus = true, -- new in neovim 0.7
     },
   })
-  -- vim.cmd([[colorscheme rose-pine]])
-  vim.cmd([[colorscheme kanagawa]])
+
+  vim.opt.background = "light"
+  vim.cmd([[colorscheme rose-pine]])
+  -- vim.cmd([[colorscheme kanagawa]])
 end
