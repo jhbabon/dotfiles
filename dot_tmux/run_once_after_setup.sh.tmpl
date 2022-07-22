@@ -5,7 +5,8 @@ set -e
 echo "Installing: tmux plugins ********************"
 ~/.tmux/plugins/tpm/bin/install_plugins
 
+# @see https://gist.github.com/bbqtd/a4ac060d6f6b9ea6fe3aabe735aa9d95
 echo "Installing: tmux terminfo ********************"
-tic -x ~/.tmux/tmux.terminfo
+tic -xe tmux-256color ~/.local/share/terminfo.src
 
 # vim:set ft=sh:

@@ -10,6 +10,13 @@
   type = "git-repo"
   url = "https://github.com/wbthomason/packer.nvim.git"
   refreshPeriod = "168h"
+[".local/share/terminfo.src"]
+  type = "file"
+  url = "https://invisible-island.net/datafiles/current/terminfo.src.gz"
+  exact = true
+  refreshPeriod = "168h"
+    [".local/share/terminfo.src".filter]
+      command = "gunzip"
 [".config/alacritty/alacritty.info"]
   type = "file"
   url = "https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info"
