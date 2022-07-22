@@ -1,12 +1,8 @@
-{{- if (.codespaces) -}}
 #!/usr/bin/env sh
 
 set -e
 
 echo "Installing: alacritty terminfo ********************"
-wget https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info
-tic -xe alacritty,alacritty-direct alacritty.info
-rm alacritty.info
+tic -xe alacritty,alacritty-direct ~/.config/alacritty/alacritty.info
 
 # vim:set ft=sh:
-{{end -}}

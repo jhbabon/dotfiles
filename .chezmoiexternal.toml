@@ -1,15 +1,20 @@
 [".tmux/plugins/tpm"]
-    type = "git-repo"
-    url = "https://github.com/tmux-plugins/tpm.git"
-    refreshPeriod = "168h"
+  type = "git-repo"
+  url = "https://github.com/tmux-plugins/tpm.git"
+  refreshPeriod = "168h"
 [".config/zsh/plugins/zsh-autosuggestions"]
-    type = "git-repo"
-    url = "https://github.com/zsh-users/zsh-autosuggestions.git"
-    refreshPeriod = "168h"
+  type = "git-repo"
+  url = "https://github.com/zsh-users/zsh-autosuggestions.git"
+  refreshPeriod = "168h"
 [".local/share/nvim/site/pack/packer/opt/packer.nvim"]
-    type = "git-repo"
-    url = "https://github.com/wbthomason/packer.nvim.git"
-    refreshPeriod = "68h"
+  type = "git-repo"
+  url = "https://github.com/wbthomason/packer.nvim.git"
+  refreshPeriod = "168h"
+[".config/alacritty/alacritty.info"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info"
+  exact = true
+  refreshPeriod = "168h"
 {{ if (.codespaces) }}
 [".local/bin/scout"]
   type = "file"
