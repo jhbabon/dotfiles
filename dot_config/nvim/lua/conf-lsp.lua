@@ -139,6 +139,12 @@ return function()
           require("aerial").on_attach(client, bufnr)
           mappings(client, bufnr)
         end,
+        settings = {
+          gopls = {
+            -- this prevents GOPROXY=off errors when loading the lsp server
+            allowImplicitNetworkAccess = true,
+          },
+        },
       },
     },
     yamlls = { filetypes = { "yaml" } },
