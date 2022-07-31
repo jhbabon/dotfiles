@@ -54,7 +54,6 @@ local function pkgs(use)
       require("nvim-autopairs").setup({ enable_check_bracket_line = false })
     end,
   })
-  use({ "tpope/vim-commentary" })
   use({ "tpope/vim-surround", requires = { "tpope/vim-repeat" } })
   use({ "tpope/vim-eunuch" })
   use({ "tpope/vim-vinegar" })
