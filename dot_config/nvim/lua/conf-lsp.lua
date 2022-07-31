@@ -78,11 +78,12 @@ return function()
   )
 
   -- ---------------------------------------------------
-  -- lsp-installer & lspconfig
+  -- mason & lspconfig
   -- ---------------------------------------------------
-  -- TODO: Check https://github.com/williamboman/nvim-lsp-installer/wiki/Rust
-  local lsp_installer = require("nvim-lsp-installer")
-  lsp_installer.setup({})
+  require("mason").setup()
+  require("mason-lspconfig").setup({
+    automatic_installation = true,
+  })
 
   local keychain = require("keychain")
 
@@ -244,13 +245,6 @@ return function()
   local lspconfig = require("lspconfig")
 
   for name, config in pairs(servers) do
-    local server_is_found, server = lsp_installer.get_server(name)
-    if server_is_found then
-      if not server:is_installed() then
-        server:install()
-      end
-    end
-
     -- Setup server
     local options = defaults
 

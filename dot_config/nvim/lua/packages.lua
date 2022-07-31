@@ -79,7 +79,8 @@ local function pkgs(use)
     requires = {
       "onsails/lspkind-nvim",
       "folke/trouble.nvim", -- for mappings
-      "williamboman/nvim-lsp-installer", -- FIXME: Replace with https://github.com/williamboman/mason.nvim
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
       "nvim-lua/plenary.nvim",
       "jose-elias-alvarez/null-ls.nvim",
     },
