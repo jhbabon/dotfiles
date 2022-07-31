@@ -25,4 +25,21 @@ return function()
   -- Autopair plugin
   -- Replaces windwp/nvim-autopairs
   require("mini.pairs").setup({})
+
+  -- Session management
+  require("mini.sessions").setup({
+    -- local session file
+    file = "Session.vim",
+  })
+  local function save()
+    -- Save current session in local session file
+    require("mini.sessions").write("Session.vim", {})
+  end
+  local function load()
+    -- Load current session from local session file
+    require("mini.sessions").read("Session.vim", {})
+  end
+  local keychain = require("keychain")
+  keychain.set("n", "<leader>cs", save, { hint = { "checkpoint", "save current session" } })
+  keychain.set("n", "<leader>cl", load, { hint = { "checkpoint", "load last session" } })
 end

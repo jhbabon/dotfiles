@@ -22,8 +22,6 @@ return function()
     dark_variant = "moon",
   })
   lualine = "rose-pine"
-  local keychain = require("keychain")
-  keychain.nmap("<leader>cs", [[:lua require("rose-pine").toggle()<cr>]], { hint = { "colorscheme", "switch style" } })
 
   -- Kanagawa
   -- require("kanagawa").setup({})
