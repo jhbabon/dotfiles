@@ -124,17 +124,17 @@ keychain.set("n", "<leader>bd", function()
 end, { hint = { "buffers", "current dir" } })
 
 --- setup mappings fuzzy finder
-keychain.set(
-  "n",
-  "<leader><space>",
-  [[:lua require('scout.mappings').run({ mode='n', hints = require('keychain').hint })<cr>]],
-  { hint = { "keymaps", "show keymappings" } }
-)
-keychain.vmap(
-  "<leader><space>",
-  [[:lua require('scout.mappings').run({ mode='v', hints = require('keychain').hint })<cr>]],
-  { hint = { "maps", "show mappings" } }
-)
+keychain.set("n", "<leader><space>", function()
+  return require("scout.mappings").run({ mode = "n", hints = require("keychain").hint })
+end, { hint = { "keymaps", "show keymappings" } })
+keychain.set("v", "<leader><space>", function()
+  return require("scout.mappings").run({ mode = "v", hints = require("keychain").hint })
+end, { hint = { "keymaps", "show keymappings" } })
+
+--- setup snippets fuzzy finder
+keychain.set("n", "<leader>zs", function()
+  return require("scout.snippets").run()
+end, { hint = { "snippets", "show snippets" } })
 
 -- General mappings
 -- exit fast from insert mode
