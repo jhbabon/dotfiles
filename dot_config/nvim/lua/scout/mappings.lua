@@ -15,7 +15,12 @@ local M = {}
 
 local function encode(raw, hints)
   local m, lhs, rhs = string.match(raw, "(%S+)%s+(%S+)%s+(.*)")
-  local hint = hints(m, lhs)
+
+  local hint = nil
+  if u.is_present(m) then
+    hint = hints(m, lhs)
+  end
+
   if u.is_present(hint) then
     rhs = hint
   end
