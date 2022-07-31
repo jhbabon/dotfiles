@@ -14,4 +14,11 @@ return function()
 
   -- Automatic highlighting of word under cursor
   require("mini.cursorword").setup({})
+
+  -- Minimal and fast module for smarter jumping to a single character
+  require("mini.jump").setup({})
+
+  -- Minimal and fast Lua plugin for jumping (moving cursor)
+  -- within visible lines via iterative label filtering
+  require("mini.jump2d").setup({})
 end
