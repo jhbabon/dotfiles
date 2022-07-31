@@ -1,8 +1,8 @@
--- Mini plugins:
+-- Mini plugins
+-- @see https://github.com/echasnovski/mini.nvim
 return function()
   -- Show indent lines
   require("mini.indentscope").setup({
-    -- symbol = "‧",
     symbol = [[·]], -- Middle Dot (U+00B7)
   })
 
@@ -11,4 +11,7 @@ return function()
 
   -- LSP autocompletion.
   require("mini.completion").setup({})
+
+  -- Automatic highlighting of word under cursor
+  require("mini.cursorword").setup({})
 end
