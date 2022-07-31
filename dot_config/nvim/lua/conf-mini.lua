@@ -21,4 +21,8 @@ return function()
   -- Minimal and fast Lua plugin for jumping (moving cursor)
   -- within visible lines via iterative label filtering
   require("mini.jump2d").setup({})
+
+  -- Autopair plugin
+  -- Replaces windwp/nvim-autopairs
+  require("mini.pairs").setup({})
 end
