@@ -45,4 +45,7 @@ return function()
 
   -- Start screen
   require("mini.starter").setup({})
+
+  -- Surround
+  require("mini.surround").setup({})
 end

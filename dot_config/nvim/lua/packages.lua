@@ -48,7 +48,6 @@ local function pkgs(use)
   })
 
   -- Editing
-  use({ "tpope/vim-surround", requires = { "tpope/vim-repeat" } })
   use({ "tpope/vim-eunuch" })
   use({ "tpope/vim-vinegar" })
   use({ "tpope/vim-characterize" })
