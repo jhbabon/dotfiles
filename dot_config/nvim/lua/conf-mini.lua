@@ -42,4 +42,7 @@ return function()
   local keychain = require("keychain")
   keychain.set("n", "<leader>cs", save, { hint = { "checkpoint", "save current session" } })
   keychain.set("n", "<leader>cl", load, { hint = { "checkpoint", "load last session" } })
+
+  -- Start screen
+  require("mini.starter").setup({})
 end
