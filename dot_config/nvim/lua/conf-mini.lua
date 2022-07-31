@@ -7,16 +7,7 @@ return function()
     symbol = [[·]], -- Middle Dot (U+00B7)
   })
 
-  -- add nice icons to LSP symbols
-  local lspkind = require("lspkind")
-  if lspkind.init then
-    lspkind.init({})
-  else
-    lspkind.setup({})
-  end
 
-  -- see conf-lsp for custom setup per LSP server
-  require("mini.completion").setup({
-    lsp_completion = { source_func = "omnifunc", auto_setup = false },
-  })
+  -- LSP autocompletion.
+  require("mini.completion").setup({})
 end

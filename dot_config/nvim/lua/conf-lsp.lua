@@ -31,6 +31,7 @@ return function()
     vim.lsp.buf.formatting_sync()
     restore_marks(marks, bufnr)
   end
+
   -- ---------------------------------------------------
   -- lspconfig UI
   -- ---------------------------------------------------
@@ -46,6 +47,35 @@ return function()
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
   end
+
+  -- Add nice icons to LSP symbols during completion
+  local lspkind = require("lspkind")
+  if lspkind.init then
+    lspkind.init({})
+  else
+    lspkind.setup({})
+  end
+
+  -- ---------------------------------------------------
+  -- Autocompletion
+  -- ---------------------------------------------------
+  -- LSP autocompletion is set up with mini.completion plugin
+  -- @see conf-mini
+  -- Sadly, the autocompletion doesn't work well with null-ls.
+  -- null-ls attaches to many buffers as a LSP server. That means
+  -- that the autocompletion plugin will try to show the completion
+  -- menu even though the LSP server doesn't have the completion
+  -- capability, causing it to show an error all the time in
+  -- insert mode.
+  -- To prevent that, this augroup disables the autocompletion
+  -- by default and it is only enabled later if the LSP server
+  -- has the completion capability.
+  vim.api.nvim_exec(
+    [[augroup LSPAutocompletionExt
+        au BufEnter * lua vim.b.minicompletion_disable = true
+      augroup END]],
+    false
+  )
 
   -- ---------------------------------------------------
   -- lsp-installer & lspconfig
@@ -92,18 +122,29 @@ return function()
   -- default on_attach function for every server
   local function on_attach(client, bufnr)
     if client.resolved_capabilities.document_formatting then
-      vim.cmd([[
-            augroup LspFormatting
-                autocmd! * <buffer>
-                autocmd BufWritePre <buffer> lua vimrc.lsp_formatting_sync()
-            augroup END
-            ]])
+      -- Format the buffer's contents on save
+      vim.api.nvim_exec(
+        [[augroup LSPFormattingExt
+            autocmd! * <buffer>
+            autocmd BufWritePre <buffer> lua vimrc.lsp_formatting_sync()
+          augroup END]],
+        false
+      )
     end
 
     if client.resolved_capabilities.completion then
-      -- Set MiniCompletion only on demand per LSP server
-      vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.MiniCompletion.completefunc_lsp")
+      -- Ensure the completion plugin is enabled in this buffer
+      -- TODO: Check how to do this with nvim_create_augroup
+      vim.b.minicompletion_disable = false
+      vim.api.nvim_exec(
+        [[augroup LSPAutocompletionExt
+          au! * <buffer>
+          au BufEnter <buffer> lua vim.b.minicompletion_disable = false
+        augroup END]],
+        false
+      )
     end
+
     require("aerial").on_attach(client, bufnr)
     mappings(client, bufnr)
   end
@@ -246,15 +287,15 @@ return function()
     sources = sources,
     on_attach = function(client, bufnr)
       if client.resolved_capabilities.document_formatting then
-        vim.cmd([[
-              augroup LspFormatting
-                  autocmd! * <buffer>
-                  autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
-              augroup END
-              ]])
+        vim.api.nvim_exec(
+          [[augroup LSPFormattingExt
+              autocmd! * <buffer>
+              autocmd BufWritePre <buffer> lua vimrc.lsp_formatting_sync()
+            augroup END]],
+          false
+        )
       end
 
-      -- NOTE: Here the MiniCompletion plugin is not set
       require("aerial").on_attach(client, bufnr)
       mappings(client, bufnr)
     end,

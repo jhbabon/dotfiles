@@ -85,8 +85,9 @@ local function pkgs(use)
   use({
     "neovim/nvim-lspconfig",
     requires = {
+      "onsails/lspkind-nvim",
       "folke/trouble.nvim", -- for mappings
-      "williamboman/nvim-lsp-installer",
+      "williamboman/nvim-lsp-installer", -- FIXME: Replace with https://github.com/williamboman/mason.nvim
       "nvim-lua/plenary.nvim",
       "jose-elias-alvarez/null-ls.nvim",
     },
@@ -135,14 +136,8 @@ local function pkgs(use)
     config = require("conf-colors"),
   })
 
-  -- Mini pluings
-  use({
-    "echasnovski/mini.nvim",
-    requires = {
-      "onsails/lspkind-nvim",
-    },
-    config = require("conf-mini"),
-  })
+  -- Mini plugins
+  use({ "echasnovski/mini.nvim", config = require("conf-mini") })
 
   -- Dim inactive portions of the code you're editing
   use({
