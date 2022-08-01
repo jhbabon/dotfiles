@@ -120,34 +120,45 @@ return function()
     keychain.set("v", "<leader>lc", vim.lsp.buf.range_code_action, { hint = { "lsp", "code action" }, buffer = bufnr })
   end
 
+  local function format_on_save(client, _)
+    if not client.resolved_capabilities.document_formatting then
+      return
+    end
+
+    -- Format the buffer's contents on save
+    vim.api.nvim_exec(
+      [[augroup LSPFormattingExt
+          autocmd! * <buffer>
+          autocmd BufWritePre <buffer> lua vimrc.lsp_formatting_sync()
+        augroup END]],
+      false
+    )
+  end
+
+  local function enable_autocomplete(client, _)
+    if not client.resolved_capabilities.completion then
+      return
+    end
+
+    -- Ensure the completion plugin is enabled in this buffer
+    -- TODO: Check how to do this with nvim_create_augroup
+    vim.b.minicompletion_disable = false
+    vim.api.nvim_exec(
+      [[augroup LSPAutocompletionExt
+        au! * <buffer>
+        au BufEnter <buffer> lua vim.b.minicompletion_disable = false
+      augroup END]],
+      false
+    )
+  end
+
   -- default on_attach function for every server
   local function on_attach(client, bufnr)
-    if client.resolved_capabilities.document_formatting then
-      -- Format the buffer's contents on save
-      vim.api.nvim_exec(
-        [[augroup LSPFormattingExt
-            autocmd! * <buffer>
-            autocmd BufWritePre <buffer> lua vimrc.lsp_formatting_sync()
-          augroup END]],
-        false
-      )
-    end
-
-    if client.resolved_capabilities.completion then
-      -- Ensure the completion plugin is enabled in this buffer
-      -- TODO: Check how to do this with nvim_create_augroup
-      vim.b.minicompletion_disable = false
-      vim.api.nvim_exec(
-        [[augroup LSPAutocompletionExt
-          au! * <buffer>
-          au BufEnter <buffer> lua vim.b.minicompletion_disable = false
-        augroup END]],
-        false
-      )
-    end
+    format_on_save(client, bufnr)
+    enable_autocomplete(client, bufnr)
+    mappings(client, bufnr)
 
     require("aerial").on_attach(client, bufnr)
-    mappings(client, bufnr)
   end
 
   -- for lua LSP server
@@ -178,8 +189,11 @@ return function()
         on_attach = function(client, bufnr)
           client.resolved_capabilities.document_formatting = false
           client.resolved_capabilities.document_range_formatting = false
-          require("aerial").on_attach(client, bufnr)
+
+          enable_autocomplete(client, bufnr)
           mappings(client, bufnr)
+
+          require("aerial").on_attach(client, bufnr)
         end,
         settings = {
           gopls = {
@@ -196,8 +210,11 @@ return function()
         on_attach = function(client, bufnr)
           client.resolved_capabilities.document_formatting = false
           client.resolved_capabilities.document_range_formatting = false
-          require("aerial").on_attach(client, bufnr)
+
+          enable_autocomplete(client, bufnr)
           mappings(client, bufnr)
+
+          require("aerial").on_attach(client, bufnr)
         end,
       },
     },
@@ -208,8 +225,11 @@ return function()
         on_attach = function(client, bufnr)
           client.resolved_capabilities.document_formatting = false
           client.resolved_capabilities.document_range_formatting = false
-          require("aerial").on_attach(client, bufnr)
+
+          enable_autocomplete(client, bufnr)
           mappings(client, bufnr)
+
+          require("aerial").on_attach(client, bufnr)
         end,
         settings = {
           Lua = {
@@ -280,18 +300,9 @@ return function()
   null_ls.setup({
     sources = sources,
     on_attach = function(client, bufnr)
-      if client.resolved_capabilities.document_formatting then
-        vim.api.nvim_exec(
-          [[augroup LSPFormattingExt
-              autocmd! * <buffer>
-              autocmd BufWritePre <buffer> lua vimrc.lsp_formatting_sync()
-            augroup END]],
-          false
-        )
-      end
-
-      require("aerial").on_attach(client, bufnr)
+      format_on_save(client, bufnr)
       mappings(client, bufnr)
+      require("aerial").on_attach(client, bufnr)
     end,
     capabilities = capabilities,
   })
