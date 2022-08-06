@@ -44,7 +44,26 @@ return function()
   keychain.set("n", "<leader>cl", load, { hint = { "checkpoint", "load last session" } })
 
   -- Start screen
-  require("mini.starter").setup({})
+  local starter = require("mini.starter")
+  starter.setup({
+    items = {
+      starter.sections.sessions(5, true),
+      {
+        {
+          name = "Open file",
+          action = [[lua require("scout.files").run()]],
+          section = "Navigate",
+        },
+        {
+          name = "Search word",
+          action = [[Grepper -query<space>]],
+          section = "Navigate",
+        },
+      },
+      starter.sections.recent_files(5, false, false),
+      starter.sections.builtin_actions(),
+    },
+  })
 
   -- Surround
   require("mini.surround").setup({})
