@@ -129,12 +129,17 @@ keychain.set("n", "<leader><space>", function()
 end, { hint = { "keymaps", "show keymappings" } })
 keychain.set("v", "<leader><space>", function()
   return require("scout.mappings").run({ mode = "v", hints = require("keychain").hint })
-end, { hint = { "keymaps", "show keymappings" } })
+end, { hint = { "keymaps", "find and expand keymaps" } })
 
 --- setup snippets fuzzy finder
 keychain.set("n", "<leader>zs", function()
   return require("scout.snippets").run()
-end, { hint = { "snippets", "show snippets" } })
+end, { hint = { "snippets", "find and expand snippets" } })
+
+--- setup symbols fuzzy finder
+keychain.set("n", "<leader>zy", function()
+  return require("scout.symbols").run()
+end, { hint = { "symbols", "jump to symbol" } })
 
 -- General mappings
 -- exit fast from insert mode
