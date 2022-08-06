@@ -87,6 +87,14 @@ local function pkgs(use)
     config = require("conf-lsp"),
   })
 
+  -- Show LSP progress information
+  use({
+    "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup({})
+    end,
+  })
+
   -- Diagnostics
   use({
     "folke/trouble.nvim",
