@@ -1,17 +1,6 @@
 return function()
   local lualine = "auto"
 
-  -- material colorscheme
-  -- variants: 'darker' | 'lighter' | 'oceanic' | 'palenight' | 'deep ocean'
-  -- vim.g.material_style = "palenight"
-  -- require("material").setup({
-  --   italics = {
-  --     comments = true,
-  --     functions = true,
-  --     keywords = true,
-  --   },
-  -- })
-
   -- everforest
   vim.g.everforest_background = "hard"
   vim.g.everforest_enable_italic = true
@@ -30,7 +19,10 @@ return function()
   -- Setup the final colorscheme
   require("lualine").setup({
     sections = {
-      lualine_c = { "filename", "aerial" },
+      lualine_z = { "aerial", "location" },
+    },
+    inactive_sections = {
+      lualine_b = { "diff" },
     },
     options = {
       theme = lualine,
@@ -40,5 +32,4 @@ return function()
 
   vim.opt.background = "dark"
   vim.cmd([[colorscheme rose-pine]])
-  -- vim.cmd([[colorscheme kanagawa]])
 end

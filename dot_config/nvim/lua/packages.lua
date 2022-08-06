@@ -120,13 +120,11 @@ local function pkgs(use)
   use({
     "nvim-lualine/lualine.nvim",
     requires = {
-      "marko-cerovac/material.nvim",
-      "EdenEast/nightfox.nvim",
       "sainnhe/everforest",
       "rebelot/kanagawa.nvim",
-      { "rose-pine/neovim", as = "rose-pine" },
+      { "rose-pine/neovim", as = "rose-pine", tag = "v1.*" },
     },
-    config = require("conf-colors"),
+    config = require("conf-theme"),
   })
 
   -- Mini plugins
