@@ -133,4 +133,7 @@ return function()
   vim.opt.foldlevel = 5
   vim.opt.foldmethod = "expr"
   vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+  -- Context
+  require("treesitter-context").setup()
 end

@@ -17,6 +17,7 @@ local function pkgs(use)
     requires = {
       "nvim-treesitter/nvim-treesitter-textobjects",
       "andymass/vim-matchup",
+      "nvim-treesitter/nvim-treesitter-context",
     },
     run = ":TSUpdate",
     setup = function()
