@@ -67,4 +67,7 @@ return function()
 
   -- Surround
   require("mini.surround").setup({})
+
+  -- Statusline
+  require("mini.statusline").setup({})
 end
