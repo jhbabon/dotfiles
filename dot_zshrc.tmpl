@@ -291,6 +291,17 @@ source "$plugins_dir/zsh-autosuggestions/zsh-autosuggestions.zsh"
 # ---------------------------------------------------------------------------
 has starship && eval "$(starship init zsh)" || source "$config_dir/prompt.zsh"
 
+
+{{ if (.codespaces) -}}
+# In codespaces the GOPATH/bin dir is not set properly, this tries to fix it
+# This has to be done in the zshrc because that's where codespaces' zsh config
+# sets env vars
+typeset -U path
+if [[ -d "$GOPATH/bin" ]]; then
+  path=("$GOPATH/bin" $path)
+fi
+{{- end }}
+
 # bootTimeDuration=$((($(gdate +%s%N) - $bootTimeStart)/1000000))
 # echo $bootTimeDuration ms overall boot duration
 

@@ -15,7 +15,7 @@ fi
 if [[ -d "$HOME/go" ]] ; then
   export GOPATH="$HOME/go"
 fi
-if [[ -d "$GOPATH" ]] ; then
+if [[ -d "$GOPATH/bin" ]] ; then
   path=("$GOPATH/bin" $path)
 fi
 
