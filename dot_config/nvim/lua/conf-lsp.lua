@@ -255,6 +255,8 @@ return function()
         },
       },
     },
+
+    marksman = { filetype = { "markdown" } },
   }
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
