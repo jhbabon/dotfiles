@@ -9,15 +9,6 @@ return function()
   -- Per line commenting. Replacement of tpope/vim-commentary
   require("mini.comment").setup({})
 
-  -- LSP autocompletion.
-  require("mini.completion").setup({
-    fallback_action = "<C-X><C-O>", -- omnifunc
-    mappings = {
-      force_twostep = "<C-J>", -- Force two-step completion
-      force_fallback = "<C-K>", -- Force fallback completion
-    },
-  })
-
   -- Automatic highlighting of word under cursor
   require("mini.cursorword").setup({})
 
