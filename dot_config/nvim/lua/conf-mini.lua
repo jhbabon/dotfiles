@@ -53,7 +53,7 @@ return function()
         },
         {
           name = "Search word",
-          action = [[Grepper -query<space>]],
+          action = [[lua vim.api.nvim_feedkeys(":GrepperRg ", "n", false)]],
           section = "Navigate",
         },
       },
