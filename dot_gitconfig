@@ -73,4 +73,7 @@
   # rename current branch
   rename = br -m
 
+[include]
+  path = .gitconfiglocal.inc
+
 # vim:set ft=gitconfig:
