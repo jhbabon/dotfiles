@@ -70,6 +70,7 @@ vim.opt.wildmode = "list:longest,full"
 
 -- Position
 vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.visualbell = true -- use visual bell, not sound
 vim.opt.shortmess = "aI" -- modify the error and info messages
 vim.opt.scrolloff = 3 -- screen lines to keep above and below the cursor
