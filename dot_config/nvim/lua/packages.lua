@@ -56,6 +56,18 @@ local function pkgs(use)
 		end,
 	})
 
+	-- Registers
+	use({
+		-- NOTE: neoclip keeps it's own history of yanks, it doesn' use :registers
+		"AckslD/nvim-neoclip.lua",
+		config = function()
+			require("neoclip").setup({
+				enable_persistent_history = false,
+				enable_macro_history = false,
+			})
+		end,
+	})
+
 	-- Snippets
 	use({
 		"L3MON4D3/LuaSnip",

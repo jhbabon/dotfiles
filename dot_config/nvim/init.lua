@@ -141,6 +141,11 @@ keychain.set("n", "<leader>zy", function()
 	return require("scout.symbols").run()
 end, { hint = { "symbols", "jump to symbol" } })
 
+--- setup registers fuzzy finder
+keychain.set("n", "<leader>zr", function()
+	return require("scout.registers").run()
+end, { hint = { "registers", "find and paste last yanks" } })
+
 -- General mappings
 -- exit fast from insert mode
 keychain.imap("jj", "<esc>")
