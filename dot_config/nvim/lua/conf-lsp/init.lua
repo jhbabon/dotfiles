@@ -36,7 +36,6 @@ return function()
 		local hl = "DiagnosticSign" .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 	end
-	-- TODO: configure with cmp
 	require("lspkind").init({})
 
 	-- ---------------------------------------------------

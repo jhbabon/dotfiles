@@ -1,7 +1,11 @@
 return function()
+	local lspkind = require("lspkind")
 	local cmp = require("cmp")
 
 	cmp.setup({
+		formatting = {
+			format = lspkind.cmp_format({}),
+		},
 		snippet = {
 			-- REQUIRED - you must specify a snippet engine
 			expand = function(args)
