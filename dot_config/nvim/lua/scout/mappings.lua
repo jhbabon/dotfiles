@@ -14,61 +14,61 @@ local core = require("scout.core")
 local M = {}
 
 local function encode(raw, hints)
-  local m, lhs, rhs = string.match(raw, "(%S+)%s+(%S+)%s+(.*)")
+	local m, lhs, rhs = string.match(raw, "(%S+)%s+(%S+)%s+(.*)")
 
-  local hint = nil
-  if u.is_present(m) then
-    hint = hints(m, lhs)
-  end
+	local hint = nil
+	if u.is_present(m) then
+		hint = hints(m, lhs)
+	end
 
-  if u.is_present(hint) then
-    rhs = hint
-  end
+	if u.is_present(hint) then
+		rhs = hint
+	end
 
-  return fmt("%-10s  %s", lhs, rhs)
+	return fmt("%-10s  %s", lhs, rhs)
 end
 
 local function decode(enc)
-  return string.match(enc, "(%S+)%s+.*") or ""
+	return string.match(enc, "(%S+)%s+.*") or ""
 end
 
 local function build_list(mode, hints)
-  local map = fmt("%smap", mode or "")
-  local raw = vim.api.nvim_exec(map, true)
+	local map = fmt("%smap", mode or "")
+	local raw = vim.api.nvim_exec(map, true)
 
-  local list = {}
-  for line in raw:gmatch("([^\n]*)\n?") do
-    if u.is_present(line) then
-      table.insert(list, encode(line, hints))
-    end
-  end
+	local list = {}
+	for line in raw:gmatch("([^\n]*)\n?") do
+		if u.is_present(line) then
+			table.insert(list, encode(line, hints))
+		end
+	end
 
-  return list
+	return list
 end
 
 local function open(selection, _)
-  if u.is_present(selection) then
-    local keys = decode(selection)
-    vim.fn.feedkeys(vim.api.nvim_replace_termcodes(keys, true, true, true))
-  end
+	if u.is_present(selection) then
+		local keys = decode(selection)
+		vim.fn.feedkeys(vim.api.nvim_replace_termcodes(keys, true, true, true))
+	end
 end
 
 local function none()
-  return nil
+	return nil
 end
 
 function M.run(options)
-  local opts = options or { mode = "n", hints = none }
-  assert(opts.mode, 'the option "mode" is missing')
-  assert(opts.hints, 'the option "hints" is missing')
-  local list = build_list(opts.mode, opts.hints)
+	local opts = options or { mode = "n", hints = none }
+	assert(opts.mode, 'the option "mode" is missing')
+	assert(opts.hints, 'the option "hints" is missing')
+	local list = build_list(opts.mode, opts.hints)
 
-  core.run({
-    search = opts.search,
-    list = list,
-    done = open,
-    title = "mappings",
-  })
+	core.run({
+		search = opts.search,
+		list = list,
+		done = open,
+		title = "mappings",
+	})
 end
 
 return M

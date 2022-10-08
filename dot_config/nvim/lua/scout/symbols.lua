@@ -6,20 +6,20 @@ local aerial = require("aerial.fzf")
 local M = {}
 
 function M.run(options)
-  local opts = options or {}
+	local opts = options or {}
 
-  core.run({
-    search = opts.search,
-    list = aerial.get_labels(),
-    done = function(selection, _)
-      if u.is_empty(selection) then
-        return
-      end
+	core.run({
+		search = opts.search,
+		list = aerial.get_labels(),
+		done = function(selection, _)
+			if u.is_empty(selection) then
+				return
+			end
 
-      aerial.goto_symbol(selection)
-    end,
-    title = "document symbols",
-  })
+			aerial.goto_symbol(selection)
+		end,
+		title = "document symbols",
+	})
 end
 
 return M

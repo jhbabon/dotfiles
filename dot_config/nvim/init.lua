@@ -6,13 +6,13 @@
 -- Load impatient plugin before anything else to speed up lua loading
 local ok, impatient = pcall(require, "impatient")
 if not ok then
-  -- This fails on fresh installs, so define the PackerSync command and exit early
-  -- NOTE: This assumes that packer.nvim is installed in the pack path
-  --
-  -- To bootstrap nvim run this from the command line:
-  --   nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-  vim.cmd([[command! PackerSync lua require('packages').sync()]])
-  return
+	-- This fails on fresh installs, so define the PackerSync command and exit early
+	-- NOTE: This assumes that packer.nvim is installed in the pack path
+	--
+	-- To bootstrap nvim run this from the command line:
+	--   nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+	vim.cmd([[command! PackerSync lua require('packages').sync()]])
+	return
 end
 
 -- Enable profiling for module loading
@@ -53,9 +53,9 @@ vim.opt.smartindent = false
 vim.opt.list = true
 -- show special characters
 vim.opt.listchars = {
-  trail = [[~]],
-  tab = [[▸ ]],
-  eol = [[¬]],
+	trail = [[~]],
+	tab = [[▸ ]],
+	eol = [[¬]],
 }
 
 -- Search
@@ -100,45 +100,45 @@ vim.cmd([[command! PackerCompile lua require('packages').compile()]])
 
 -- Scout: Fuzzy finder inside the editor
 if vim.fn.executable("rg") then
-  require("scout").setup({
-    files = {
-      finder = [[rg --files --hidden --follow --glob "!.git/*" 2>/dev/null]],
-    },
-  })
+	require("scout").setup({
+		files = {
+			finder = [[rg --files --hidden --follow --glob "!.git/*" 2>/dev/null]],
+		},
+	})
 end
 
 --- setup files fuzzy finder
 keychain.set("n", "<leader>ff", function()
-  return require("scout.files").run()
+	return require("scout.files").run()
 end, { hint = { "files", "open" } })
 keychain.set("n", "<leader>fd", function()
-  return require("scout.files").run({ search = "%:h" })
+	return require("scout.files").run({ search = "%:h" })
 end, { hint = { "files", "current dir" } })
 
 --- setup buffers fuzzy finder
 keychain.set("n", "<leader>bb", function()
-  return require("scout.buffers").run()
+	return require("scout.buffers").run()
 end, { hint = { "buffers", "open" } })
 keychain.set("n", "<leader>bd", function()
-  return require("scout.buffers").run({ search = "%:h" })
+	return require("scout.buffers").run({ search = "%:h" })
 end, { hint = { "buffers", "current dir" } })
 
 --- setup mappings fuzzy finder
 keychain.set("n", "<leader><space>", function()
-  return require("scout.mappings").run({ mode = "n", hints = require("keychain").hint })
+	return require("scout.mappings").run({ mode = "n", hints = require("keychain").hint })
 end, { hint = { "keymaps", "show keymappings" } })
 keychain.set("v", "<leader><space>", function()
-  return require("scout.mappings").run({ mode = "v", hints = require("keychain").hint })
+	return require("scout.mappings").run({ mode = "v", hints = require("keychain").hint })
 end, { hint = { "keymaps", "find and expand keymaps" } })
 
 --- setup snippets fuzzy finder
 keychain.set("n", "<leader>zs", function()
-  return require("scout.snippets").run()
+	return require("scout.snippets").run()
 end, { hint = { "snippets", "find and expand snippets" } })
 
 --- setup symbols fuzzy finder
 keychain.set("n", "<leader>zy", function()
-  return require("scout.symbols").run()
+	return require("scout.symbols").run()
 end, { hint = { "symbols", "jump to symbol" } })
 
 -- General mappings
@@ -146,10 +146,10 @@ end, { hint = { "symbols", "jump to symbol" } })
 keychain.imap("jj", "<esc>")
 
 local strip = table.concat({
-  [[:let _s=winsaveview()]], -- save current cursor position
-  [[:keeppatterns %s/\s\+$//e]], -- remove all trailing withespaces
-  [[:call winrestview(_s)]], -- restore cursor position
-  [[<cr>]], -- execute all of the above
+	[[:let _s=winsaveview()]], -- save current cursor position
+	[[:keeppatterns %s/\s\+$//e]], -- remove all trailing withespaces
+	[[:call winrestview(_s)]], -- restore cursor position
+	[[<cr>]], -- execute all of the above
 }, "<Bar>") -- join all with '|' in one line
 keychain.set("n", "<leader>u<space>", strip, { hint = { "misc", "remove trailing whitespace" } })
 keychain.set("n", "<leader>u;", [[:s/\([^;]\)$/\1;/<cr>:noh<cr>]], { hint = { "misc", "add semicolon (;) at eol" } })
