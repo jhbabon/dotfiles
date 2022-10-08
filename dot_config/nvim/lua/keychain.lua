@@ -46,6 +46,16 @@ local function set_hint(mode, lhs, hint)
   end
 end
 
+local function del_hint(mode, lhs)
+  if type(mode) == "string" then
+    mode = { mode }
+  end
+
+  for _, m in pairs(mode) do
+    hints[m][lhs] = nil
+  end
+end
+
 local function map_options(opts)
   -- default options
   local hint = nil
@@ -71,6 +81,12 @@ function keychain.set(mode, lhs, rhs, opts)
   set_hint(mode, lhs, hint)
 
   vim.keymap.set(mode, lhs, rhs, options)
+end
+
+function keychain.del(mode, lhs, opts)
+  del_hint(mode, lhs)
+
+  vim.keymap.del(mode, lhs, opts)
 end
 
 --- Add keymap, alias of #set
