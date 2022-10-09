@@ -533,7 +533,104 @@ schemes:
       - { index: 16, color: '0xffa066' }
       - { index: 17, color: '0xff5d62' }
 
-colors: *kanagawa
+  # GitHub theme: https://github.com/projekt0n/github-theme-contrib/tree/main/alacritty
+  github_dark: &github_dark
+    # Default colors
+    primary:
+      background: '0x24292e'
+      foreground: '0xd1d5da'
+
+    # Normal colors
+    normal:
+      black:   '0x586069'
+      red:     '0xea4a5a'
+      green:   '0x34d058'
+      yellow:  '0xffea7f'
+      blue:    '0x2188ff'
+      magenta: '0xb392f0'
+      cyan:    '0x39c5cf'
+      white:   '0xd1d5da'
+
+    # Bright colors
+    bright:
+      black:   '0x959da5'
+      red:     '0xf97583'
+      green:   '0x85e89d'
+      yellow:  '0xffea7f'
+      blue:    '0x79b8ff'
+      magenta: '0xb392f0'
+      cyan:    '0x56d4dd'
+      white:   '0xfafbfc'
+
+    indexed_colors:
+      - { index: 16, color: '0xd18616' }
+      - { index: 17, color: '0xf97583' }
+
+  github_dimmed: &github_dimmed
+    # Default colors
+    primary:
+      background: '0x22272e'
+      foreground: '0x768390'
+
+    # Normal colors
+    normal:
+      black:   '0x545d68'
+      red:     '0xf47067'
+      green:   '0x57ab5a'
+      yellow:  '0xc69026'
+      blue:    '0x539bf5'
+      magenta: '0xb083f0'
+      cyan:    '0x39c5cf'
+      white:   '0x909dab'
+
+    # Bright colors
+    bright:
+      black:   '0x636e7b'
+      red:     '0xff938a'
+      green:   '0x6bc46d'
+      yellow:  '0xdaaa3f'
+      blue:    '0x6cb6ff'
+      magenta: '0xdcbdfb'
+      cyan:    '0x56d4dd'
+      white:   '0xcdd9e5'
+
+    indexed_colors:
+      - { index: 16, color: '0xd18616' }
+      - { index: 17, color: '0xff938a' }
+
+  github: &github
+    # Default colors
+    primary:
+      background: '0xffffff'
+      foreground: '0x24292f'
+
+    # Normal colors
+    normal:
+      black:   '0x24292e'
+      red:     '0xd73a49'
+      green:   '0x28a745'
+      yellow:  '0xdbab09'
+      blue:    '0x0366d6'
+      magenta: '0x5a32a3'
+      cyan:    '0x0598bc'
+      white:   '0x6a737d'
+
+    # Bright colors
+    bright:
+      black:   '0x959da5'
+      red:     '0xcb2431'
+      green:   '0x22863a'
+      yellow:  '0xb08800'
+      blue:    '0x005cc5'
+      magenta: '0x5a32a3'
+      cyan:    '0x3192aa'
+      white:   '0xd1d5da'
+
+    indexed_colors:
+      - { index: 16, color: '0xd18616' }
+      - { index: 17, color: '0xcb2431' }
+
+colors: *github_dark
 
 # Visual Bell
 #
