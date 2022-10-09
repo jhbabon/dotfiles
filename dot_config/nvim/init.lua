@@ -162,8 +162,3 @@ keychain.set("n", "<leader>u;", [[:s/\([^;]\)$/\1;/<cr>:noh<cr>]], { hint = { "m
 keychain.set("n", "<leader>u,", [[:s/\([^,]\)$/\1,/<cr>:noh<cr>]], { hint = { "misc", "add comma (,) at eol" } })
 keychain.set("n", "<leader>fp", [[:let @+ = expand("%")<cr>]], { hint = { "files", "copy path" } })
 keychain.set("n", "<leader>sc", [[:nohl<cr>]], { hint = { "search", "clear current highlight" } })
-
--- Explorer
--- Remove tons of stuff from netrw and set it a a tree to make it more comfortable to use
-vim.g.netrw_liststyle = 3
-keychain.set("n", "<leader>ft", [[:Explore<cr>]], { hint = { "files", "explorer" } })

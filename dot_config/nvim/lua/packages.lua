@@ -39,6 +39,12 @@ local function pkgs(use)
 	-- use({ "sidebar-nvim/sidebar.nvim", config = require("conf-sidebar") })
 	use({ "stevearc/aerial.nvim", config = require("conf-aerial") })
 
+	-- File Tree
+	use({
+		"elihunter173/dirbuf.nvim",
+		config = require("conf-explorer"),
+	})
+
 	-- Editing
 	use({ "tpope/vim-eunuch" })
 	use({ "tpope/vim-vinegar" })
