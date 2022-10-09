@@ -74,6 +74,14 @@ local function pkgs(use)
 		end,
 	})
 
+	-- Marks
+	use({
+		"chentoast/marks.nvim",
+		config = function()
+			require("marks").setup({})
+		end,
+	})
+
 	-- Snippets
 	use({
 		"L3MON4D3/LuaSnip",
