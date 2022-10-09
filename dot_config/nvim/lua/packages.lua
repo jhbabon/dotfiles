@@ -185,17 +185,7 @@ local function pkgs(use)
 	-- Terminal manipulation
 	use({
 		"numToStr/FTerm.nvim",
-		config = function()
-			require("FTerm").setup({})
-
-			local keychain = require("keychain")
-			keychain.set("n", "<F1>", function()
-				return require("FTerm").toggle()
-			end, { hint = { "terminal", "toggle terminal" } })
-			keychain.set("t", "<F1>", function()
-				return require("FTerm").toggle()
-			end)
-		end,
+		config = require("conf-terminal"),
 	})
 
 	-- Copy from beyond (SSH)

@@ -17,5 +17,5 @@ return function()
 	)
 	keychain.set("n", "<leader>qf", [[<cmd>Trouble quickfix<cr>]], { hint = { "list", "quickfix" } })
 	keychain.set("n", "<leader>ql", [[<cmd>Trouble loclist<cr>]], { hint = { "list", "loclist" } })
-	keychain.set("n", "<leader>tt", [[<cmd>TroubleToggle<cr>]], { hint = { "trouble", "toggle" } })
+	keychain.set("n", "<leader>qt", [[<cmd>TroubleToggle<cr>]], { hint = { "trouble", "toggle" } })
 end
