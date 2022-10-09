@@ -74,6 +74,20 @@ local function pkgs(use)
 		end,
 	})
 
+	-- Undo tree
+	use({
+		"jiaoshijie/undotree",
+		requires = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			local undotree = require("undotree")
+			undotree.setup()
+
+			require("keychain").set("n", "<leader>ut", undotree.toggle, { hint = { "undo", "toggle undo tree" } })
+		end,
+	})
+
 	-- Snippets
 	use({
 		"L3MON4D3/LuaSnip",
