@@ -170,6 +170,7 @@ local function pkgs(use)
 			"sainnhe/everforest",
 			"rebelot/kanagawa.nvim",
 			{ "rose-pine/neovim", as = "rose-pine", tag = "v1.*" },
+			"projekt0n/github-nvim-theme",
 		},
 		config = function()
 			local confs = {
