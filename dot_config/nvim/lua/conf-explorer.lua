@@ -8,7 +8,7 @@ return function()
 		if vim.bo.filetype == "dirbuf" then
 			require("dirbuf").quit()
 		else
-			require("dirbuf").open()
+			require("dirbuf").open("")
 		end
 	end
 
