@@ -25,7 +25,13 @@ return function()
 			options = {
 				theme = theme,
 				disabled_filetypes = {
-					winbar = { "Trouble", "dirbuf", "aerial", "fugitive" },
+					winbar = {
+						"Trouble",
+						"dirbuf",
+						"aerial",
+						"fugitive",
+						"gitcommit",
+					},
 				},
 			},
 			extensions = { "aerial", "fugitive", dirbuf },
