@@ -52,6 +52,12 @@ return function()
 			end
 
 			keychain.set("n", "<leader>hb", blame, { buffer = buffer, hint = { "git", "blame" } })
+			keychain.set(
+				"n",
+				"<leader>hB",
+				gitsigns.toggle_current_line_blame,
+				{ buffer = buffer, hint = { "git", "toggle current line blame" } }
+			)
 
 			keychain.set(
 				"n",
@@ -65,6 +71,14 @@ return function()
 				gitsigns.reset_buffer_index,
 				{ buffer = buffer, hint = { "git", "reset buffer index" } }
 			)
+
+			local function highlight()
+				gitsigns.toggle_numhl()
+				gitsigns.toggle_linehl()
+				gitsigns.toggle_word_diff()
+			end
+
+			keychain.set("n", "<leader>hh", highlight, { buffer = buffer, hint = { "git", "highlight changes" } })
 
 			-- Text objects
 			keychain.map("o", "ih", [[:<C-U>Gitsigns select_hunk<CR>]], { buffer = buffer, hint = { "git", "" } })
