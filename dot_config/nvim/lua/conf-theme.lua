@@ -1,8 +1,37 @@
 return function()
 	local function statusline(theme)
-		require("lualine").setup({
-			theme = theme,
+		-- Dirbuf customizations
+		local dirbuf = {
 			sections = {
+				lualine_a = {
+					{
+						"filetype",
+						icons_enabled = false,
+					},
+				},
+				lualine_c = {
+					{
+						"filename",
+						newfile_status = true,
+						path = 1,
+					},
+				},
+				lualine_z = { "location" },
+			},
+			filetypes = { "dirbuf" },
+		}
+
+		require("lualine").setup({
+			options = {
+				theme = theme,
+				disabled_filetypes = {
+					winbar = { "Trouble", "dirbuf", "aerial", "fugitive" },
+				},
+			},
+			extensions = { "aerial", "fugitive", dirbuf },
+			sections = {
+				lualine_a = { "branch" },
+				lualine_b = { "diff", "diagnostics" },
 				lualine_c = {
 					{
 						"filename",
@@ -12,6 +41,7 @@ return function()
 				},
 			},
 			winbar = {
+				lualine_a = { "mode" },
 				lualine_c = { "aerial" },
 			},
 		})
@@ -56,7 +86,7 @@ return function()
 		vim.opt.background = "dark"
 		vim.cmd([[colorscheme everforest]])
 
-		statusline("auto")
+		statusline("everforest")
 	end
 
 	function themes.rosepine()
@@ -67,7 +97,7 @@ return function()
 		vim.opt.background = "dark"
 		vim.cmd([[colorscheme rose-pine]])
 
-		statusline("auto")
+		statusline("rose-pine")
 	end
 
 	function themes.kanagawa()
@@ -76,7 +106,7 @@ return function()
 		vim.opt.background = "dark"
 		vim.cmd([[colorscheme kanagawa]])
 
-		statusline("auto")
+		statusline("kanagawa")
 	end
 
 	function themes.github()
