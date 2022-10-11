@@ -4,6 +4,8 @@ set -e
 
 # @see https://gist.github.com/bbqtd/a4ac060d6f6b9ea6fe3aabe735aa9d95
 echo "Installing: tmux terminfo ********************"
-tic -xe tmux-256color ~/.local/share/terminfo.src
+if [ -f "/usr/bin/tic" ]; then
+  /urs/bin/tic -xe tmux-256color ~/.local/share/terminfo.src
+fi
 
 # vim:set ft=sh:

@@ -3,6 +3,8 @@
 set -e
 
 echo "Installing: alacritty terminfo ********************"
-tic -xe alacritty,alacritty-direct ~/.config/alacritty/alacritty.info
+if [ -f "/usr/bin/tic" ]; then
+  /usr/bin/tic -xe alacritty,alacritty-direct ~/.config/alacritty/alacritty.info
+fi
 
 # vim:set ft=sh:
