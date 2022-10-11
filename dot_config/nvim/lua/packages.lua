@@ -161,27 +161,23 @@ local function pkgs(use)
 	})
 	use({ "pechorin/any-jump.vim", setup = require("setup-any-jump") })
 
-	-- Mini plugins AND colorschemes & statusline
-	-- They are configures together because the statusline
-	-- is set up with Mini
+	-- Mini plugin
 	use({
 		"echasnovski/mini.nvim",
+		config = require("conf-mini"),
+	})
+
+	-- Colorschemes and statusline
+	use({
+		"nvim-lualine/lualine.nvim",
 		requires = {
+			{ "kyazdani42/nvim-web-devicons", opt = true },
 			"sainnhe/everforest",
 			"rebelot/kanagawa.nvim",
 			{ "rose-pine/neovim", as = "rose-pine", tag = "v1.*" },
 			"projekt0n/github-nvim-theme",
 		},
-		config = function()
-			local confs = {
-				require("conf-theme"),
-				require("conf-mini"),
-			}
-
-			for _, fn in pairs(confs) do
-				fn()
-			end
-		end,
+		config = require("conf-theme"),
 	})
 
 	-- Dim inactive portions of the code you're editing

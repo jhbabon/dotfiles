@@ -1,4 +1,22 @@
 return function()
+	local function statusline(theme)
+		require("lualine").setup({
+			theme = theme,
+			sections = {
+				lualine_c = {
+					{
+						"filename",
+						newfile_status = true,
+						path = 1,
+					},
+				},
+			},
+			winbar = {
+				lualine_c = { "aerial" },
+			},
+		})
+	end
+
 	-- keep track of the theme names
 	local names = {}
 	-- keep track of their indexes
@@ -37,6 +55,8 @@ return function()
 
 		vim.opt.background = "dark"
 		vim.cmd([[colorscheme everforest]])
+
+		statusline("auto")
 	end
 
 	function themes.rosepine()
@@ -44,55 +64,19 @@ return function()
 			dark_variant = "moon",
 		})
 
-		-- Mini statusline highlight groups
-		local palette = require("rose-pine.palette")
-		local mini = {
-			MiniStatuslineModeNormal = { bg = palette.rose, fg = palette.base, bold = true },
-			MiniStatuslineModeInsert = { bg = palette.foam, fg = palette.base, bold = true },
-			MiniStatuslineModeVisual = { bg = palette.iris, fg = palette.base, bold = true },
-			MiniStatuslineModeReplace = { bg = palette.pine, fg = palette.base, bold = true },
-			MiniStatuslineModeCommand = { bg = palette.love, fg = palette.base, bold = true },
-			MiniStatuslineModeOther = { bg = palette.gold, fg = palette.base, bold = true },
-			MiniStatuslineInactive = { bg = palette.base, fg = palette.muted },
-
-			MiniStatuslineDevinfo = { bg = palette.overlay, fg = palette.text },
-			MiniStatuslineFilename = { bg = palette.base, fg = palette.text },
-			MiniStatuslineFileinfo = { bg = palette.base, fg = palette.muted },
-		}
-
-		for group, spec in pairs(mini) do
-			vim.api.nvim_set_hl(0, group, spec)
-		end
-
 		vim.opt.background = "dark"
 		vim.cmd([[colorscheme rose-pine]])
+
+		statusline("auto")
 	end
 
 	function themes.kanagawa()
-		local palette = require("kanagawa.colors").setup({})
 		require("kanagawa").setup({})
-
-		-- Mini statusline highlight groups
-		local mini = {
-			MiniStatuslineModeNormal = { bg = palette.crystalBlue, fg = palette.sumiInk0, bold = true },
-			MiniStatuslineModeInsert = { bg = palette.autumnGreen, fg = palette.sumiInk0, bold = true },
-			MiniStatuslineModeVisual = { bg = palette.oniViolet, fg = palette.sumiInk0, bold = true },
-			MiniStatuslineModeReplace = { bg = palette.autumnRed, fg = palette.sumiInk0, bold = true },
-			MiniStatuslineModeCommand = { bg = palette.boatYellow2, fg = palette.sumiInk0, bold = true },
-			MiniStatuslineModeOther = { bg = palette.surimiOrange, fg = palette.sumiInk0, bold = true },
-			MiniStatuslineInactive = { bg = palette.sumiInk0, fg = palette.fujiGray },
-
-			MiniStatuslineDevinfo = { bg = palette.sumiInk2, fg = palette.fujiWhite },
-			MiniStatuslineFilename = { bg = palette.sumiInk1, fg = palette.fujiGray },
-			MiniStatuslineFileinfo = { bg = palette.sumiInk2, fg = palette.fujiWhite },
-		}
-
-		for group, spec in pairs(mini) do
-			vim.api.nvim_set_hl(0, group, spec)
-		end
 
 		vim.opt.background = "dark"
 		vim.cmd([[colorscheme kanagawa]])
+
+		statusline("auto")
 	end
 
 	function themes.github()
@@ -100,6 +84,8 @@ return function()
 		require("github-theme").setup({
 			theme_style = "light",
 		})
+
+		statusline("github_light")
 	end
 
 	function themes.github_dark()
@@ -107,6 +93,8 @@ return function()
 		require("github-theme").setup({
 			theme_style = "dark",
 		})
+
+		statusline("github_dark")
 	end
 
 	-- Cycle through the themes, from current to next
