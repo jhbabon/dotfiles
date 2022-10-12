@@ -3,12 +3,8 @@ return function()
 		-- Dirbuf customizations
 		local dirbuf = {
 			sections = {
-				lualine_a = {
-					{
-						"filetype",
-						icons_enabled = false,
-					},
-				},
+				lualine_a = { "mode" },
+				lualine_b = { "branch" },
 				lualine_c = {
 					{
 						"filename",
@@ -16,6 +12,13 @@ return function()
 						path = 1,
 					},
 				},
+				lualine_x = {
+					{
+						"filetype",
+						icons_enabled = false,
+					},
+				},
+				lualine_y = { "progress" },
 				lualine_z = { "location" },
 			},
 			filetypes = { "dirbuf" },
@@ -24,6 +27,7 @@ return function()
 		require("lualine").setup({
 			options = {
 				theme = theme,
+				globalstatus = true,
 				disabled_filetypes = {
 					winbar = {
 						"Trouble",
@@ -31,24 +35,34 @@ return function()
 						"aerial",
 						"fugitive",
 						"gitcommit",
+						"minimap",
 					},
 				},
 			},
 			extensions = { "aerial", "fugitive", dirbuf },
 			sections = {
-				lualine_a = { "branch" },
-				lualine_b = { "diff", "diagnostics" },
-				lualine_c = {
+				lualine_a = { "mode" },
+				lualine_b = { "branch", "diff" },
+				lualine_c = { "diagnostics" },
+			},
+			winbar = {
+				lualine_b = {
 					{
 						"filename",
 						newfile_status = true,
 						path = 1,
 					},
 				},
-			},
-			winbar = {
-				lualine_a = { "mode" },
 				lualine_c = { "aerial" },
+			},
+			inactive_winbar = {
+				lualine_b = {
+					{
+						"filename",
+						newfile_status = true,
+						path = 1,
+					},
+				},
 			},
 		})
 	end
