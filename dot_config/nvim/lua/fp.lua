@@ -8,8 +8,7 @@ function fp.once(fn)
 	local executed = false
 	local result = nil
 
-	local meta = {}
-	function meta.__call()
+	local function proxy()
 		if executed then
 			return result
 		end
@@ -19,9 +18,6 @@ function fp.once(fn)
 
 		return result
 	end
-
-	local proxy = {}
-	setmetatable(proxy, meta)
 
 	return proxy
 end

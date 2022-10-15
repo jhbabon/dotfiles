@@ -1,11 +1,19 @@
 return function()
-	require("FTerm").setup({})
+	require("lazy").load(function()
+		local setup = require("fp").once(function()
+			vim.cmd.packadd("FTerm.nvim")
 
-	local function terminal()
-		return require("FTerm").toggle()
-	end
+			require("FTerm").setup({})
+		end)
 
-	local keychain = require("keychain")
-	keychain.set("n", "<leader>tt", terminal, { hint = { "terminal", "toggle terminal" } })
-	keychain.set("t", "<C-\\>tt", terminal)
+		local function terminal()
+			setup()
+
+			return require("FTerm").toggle()
+		end
+
+		local keychain = require("keychain")
+		keychain.set("n", "<leader>tt", terminal, { hint = { "terminal", "toggle terminal" } })
+		keychain.set("t", "<C-\\>tt", terminal)
+	end)
 end

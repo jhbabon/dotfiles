@@ -1,24 +1,6 @@
 -- Mini plugins
 -- @see https://github.com/echasnovski/mini.nvim
 return function()
-	-- Show indent lines
-	require("mini.indentscope").setup({
-		symbol = [[·]], -- Middle Dot (U+00B7)
-	})
-
-	-- Per line commenting. Replacement of tpope/vim-commentary
-	require("mini.comment").setup({})
-
-	-- Automatic highlighting of word under cursor
-	require("mini.cursorword").setup({})
-
-	-- Minimal and fast module for smarter jumping to a single character
-	require("mini.jump").setup({})
-
-	-- Autopair plugin
-	-- Replaces windwp/nvim-autopairs
-	require("mini.pairs").setup({})
-
 	-- Session management
 	require("mini.sessions").setup({
 		-- local session file
@@ -61,6 +43,26 @@ return function()
 		},
 	})
 
-	-- Surround
-	require("mini.surround").setup({})
+	require("lazy").load(function()
+		-- Show indent lines
+		require("mini.indentscope").setup({
+			symbol = [[·]], -- Middle Dot (U+00B7)
+		})
+
+		-- Per line commenting. Replacement of tpope/vim-commentary
+		require("mini.comment").setup({})
+
+		-- Automatic highlighting of word under cursor
+		require("mini.cursorword").setup({})
+
+		-- Minimal and fast module for smarter jumping to a single character
+		require("mini.jump").setup({})
+
+		-- Autopair plugin
+		-- Replaces windwp/nvim-autopairs
+		require("mini.pairs").setup({})
+
+		-- Surround
+		require("mini.surround").setup({})
+	end)
 end

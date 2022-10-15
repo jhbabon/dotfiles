@@ -35,15 +35,16 @@ local function pkgs(use)
 			require("config-local").setup({ commands_create = false })
 		end,
 	})
-	use({ "tpope/vim-projectionist", setup = require("setup-projectionist") })
-	use({ "wfxr/minimap.vim", setup = require("conf-minimap") })
+	use({ "tpope/vim-projectionist", setup = require("conf-projectionist") })
+	use({ "wfxr/minimap.vim", opt = true, setup = require("conf-minimap") })
 	-- use({ "sidebar-nvim/sidebar.nvim", config = require("conf-sidebar") })
 	use({ "stevearc/aerial.nvim", config = require("conf-aerial") })
 
 	-- File Tree
 	use({
 		"elihunter173/dirbuf.nvim",
-		config = require("conf-explorer"),
+		opt = true,
+		setup = require("conf-explorer"),
 	})
 
 	-- Editing
@@ -56,10 +57,12 @@ local function pkgs(use)
 			"nvim-treesitter/nvim-treesitter",
 		},
 		config = function()
-			require("trevj").setup()
-			require("keychain").set("n", "<leader>ej", function()
-				require("trevj").format_at_cursor()
-			end, { hint = { "edit", "reverse J" } })
+			require("lazy").load(function()
+				require("trevj").setup()
+				require("keychain").set("n", "<leader>ej", function()
+					require("trevj").format_at_cursor()
+				end, { hint = { "edit", "reverse J" } })
+			end)
 		end,
 	})
 
@@ -68,10 +71,12 @@ local function pkgs(use)
 		-- NOTE: neoclip keeps it's own history of yanks, it doesn' use :registers
 		"AckslD/nvim-neoclip.lua",
 		config = function()
-			require("neoclip").setup({
-				enable_persistent_history = false,
-				enable_macro_history = false,
-			})
+			require("lazy").load(function()
+				require("neoclip").setup({
+					enable_persistent_history = false,
+					enable_macro_history = false,
+				})
+			end)
 		end,
 	})
 
@@ -81,12 +86,8 @@ local function pkgs(use)
 		requires = {
 			"nvim-lua/plenary.nvim",
 		},
-		config = function()
-			local undotree = require("undotree")
-			undotree.setup()
-
-			require("keychain").set("n", "<leader>ut", undotree.toggle, { hint = { "undo", "toggle undo tree" } })
-		end,
+		opt = true,
+		setup = require("conf-undo"),
 	})
 
 	-- Snippets
@@ -129,7 +130,9 @@ local function pkgs(use)
 	use({
 		"j-hui/fidget.nvim",
 		config = function()
-			require("fidget").setup({})
+			require("lazy").load(function()
+				require("fidget").setup({})
+			end)
 		end,
 	})
 
@@ -137,7 +140,7 @@ local function pkgs(use)
 	use({
 		"folke/trouble.nvim",
 		requires = {
-			"kyazdani42/nvim-web-devicons",
+			{ "kyazdani42/nvim-web-devicons" },
 		},
 		config = require("conf-trouble"),
 	})
@@ -158,9 +161,13 @@ local function pkgs(use)
 		requires = {
 			"folke/trouble.nvim",
 		},
-		setup = require("setup-grepper"),
+		setup = require("conf-grepper"),
 	})
-	use({ "pechorin/any-jump.vim", setup = require("setup-any-jump") })
+	use({
+		"pechorin/any-jump.vim",
+		opt = true,
+		setup = require("conf-any-jump"),
+	})
 
 	-- Mini plugin
 	use({
@@ -172,7 +179,7 @@ local function pkgs(use)
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = {
-			{ "kyazdani42/nvim-web-devicons", opt = true },
+			{ "kyazdani42/nvim-web-devicons" },
 			"sainnhe/everforest",
 			"rebelot/kanagawa.nvim",
 			{ "rose-pine/neovim", as = "rose-pine", tag = "v1.*" },
@@ -184,20 +191,34 @@ local function pkgs(use)
 	-- Dim inactive portions of the code you're editing
 	use({
 		"folke/twilight.nvim",
-		config = function()
-			require("twilight").setup({
-				context = 15,
-			})
+		opt = true,
+		setup = function()
+			require("lazy").load(function()
+				local setup = require("fp").once(function()
+					vim.cmd.packadd("twilight.nvim")
 
-			local keychain = require("keychain")
-			keychain.set("n", "<leader>uf", [[:Twilight<cr>]], { hint = { "misc", "focus with Twilight" } })
+					require("twilight").setup({
+						context = 15,
+					})
+				end)
+
+				local function toggle()
+					setup()
+
+					require("twilight").toggle()
+				end
+
+				local keychain = require("keychain")
+				keychain.set("n", "<leader>uf", toggle, { hint = { "misc", "focus with Twilight" } })
+			end)
 		end,
 	})
 
 	-- Terminal manipulation
 	use({
 		"numToStr/FTerm.nvim",
-		config = require("conf-terminal"),
+		opt = true,
+		setup = require("conf-terminal"),
 	})
 
 	-- Copy from beyond (SSH)
@@ -220,8 +241,8 @@ return require("packer").startup({
 		compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
 		-- Remove comments to enable profiling
 		-- profile = {
-		--   enable = true,
-		--   threshold = 1, -- the amount in ms that a plugins load time must be over for it to be included in the profile
+		-- 	enable = true,
+		-- 	threshold = 1, -- the amount in ms that a plugins load time must be over for it to be included in the profile
 		-- },
 	},
 })
