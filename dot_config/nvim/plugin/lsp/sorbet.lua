@@ -3,13 +3,16 @@ if vim.g.mylsp_sorbet_loaded then
 end
 vim.g.mylsp_sorbet_loaded = true
 
-local bins = require("conf-lsp.bins")
-if not bins.sorbet then
-  -- It's not present, nothing to do
-  return
-end
+local binaries = require("binaries")
 
-require("lspconfig").sorbet.setup({
-  cmd = { "bin/srb", "tc", "--lsp" },
-  capabilities = require("conf-lsp.capabilities"),
+local srb = binaries.lookups.append(binaries.lookups.local_bin, { "tc", "--lsp" })
+
+require("conf-lsp.servers").setup({
+  name = "sorbet",
+  root_pattern = { "Gemfile", ".git" },
+  pattern = { "ruby" },
+  bin = {
+    spec = { name = "srb" },
+    lookups = { srb },
+  },
 })

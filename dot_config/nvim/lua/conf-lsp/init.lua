@@ -7,18 +7,8 @@ return function()
 	-- This has to run before anything else
 	-- ---------------------------------------------------
 	require("mason").setup({
+		PATH = "skip",
 		ui = { border = "rounded" },
-	})
-	require("mason-lspconfig").setup({
-		-- Only servers configured via nvim-lspconfig will be installed
-		automatic_installation = {
-			exclude = {
-				"tsserver", -- requires npm, which might not be present
-				"yamlls", -- requires npm, which might not be present
-				"sorbet",
-			},
-		},
-		-- ensure_installed = {},
 	})
 
 	-- ---------------------------------------------------

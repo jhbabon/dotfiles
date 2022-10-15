@@ -11,6 +11,8 @@ local function pkgs(use)
 
 	use({ "kyazdani42/nvim-web-devicons" })
 
+	use({ "nvim-lua/plenary.nvim" })
+
 	-- NOTE: some parsers need node installed
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -111,14 +113,14 @@ local function pkgs(use)
 
 	-- LSP
 	use({
-		"neovim/nvim-lspconfig",
+		"jose-elias-alvarez/null-ls.nvim",
 		requires = {
 			"onsails/lspkind-nvim",
 			"folke/trouble.nvim", -- for mappings
 			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
+			-- "williamboman/mason-lspconfig.nvim",
+			-- "neovim/nvim-lspconfig",
 			"nvim-lua/plenary.nvim",
-			"jose-elias-alvarez/null-ls.nvim",
 		},
 		config = require("conf-lsp"),
 	})

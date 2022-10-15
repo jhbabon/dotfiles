@@ -3,6 +3,8 @@ if vim.g.mylsp_marksman_loaded then
 end
 vim.g.mylsp_marksman_loaded = true
 
-require("lspconfig")["marksman"].setup({
-  capabilities = require("conf-lsp.capabilities"),
+require("conf-lsp.servers").setup({
+  name = "marksman",
+  root_pattern = { ".git" },
+  pattern = { "markdown" },
 })
