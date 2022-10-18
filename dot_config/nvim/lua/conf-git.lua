@@ -25,16 +25,36 @@ return function()
 					keychain.set("n", "[c", gitsigns.prev_hunk, { buffer = buffer, hint = { "git", "prev hunk" } })
 				end
 
-				keychain.set("n", "<leader>hs", gitsigns.stage_hunk, { buffer = buffer, hint = { "git", "stage hunk" } })
-				keychain.set("v", "<leader>hs", gitsigns.stage_hunk, { buffer = buffer, hint = { "git", "stage hunk" } })
+				keychain.set(
+					"n",
+					"<leader>hs",
+					gitsigns.stage_hunk,
+					{ buffer = buffer, hint = { "git", "stage hunk" } }
+				)
+				keychain.set(
+					"v",
+					"<leader>hs",
+					gitsigns.stage_hunk,
+					{ buffer = buffer, hint = { "git", "stage hunk" } }
+				)
 				keychain.set(
 					"n",
 					"<leader>hu",
 					gitsigns.undo_stage_hunk,
 					{ buffer = buffer, hint = { "git", "undo stage hunk" } }
 				)
-				keychain.set("n", "<leader>hr", gitsigns.reset_hunk, { buffer = buffer, hint = { "git", "reset hunk" } })
-				keychain.set("v", "<leader>hr", gitsigns.reset_hunk, { buffer = buffer, hint = { "git", "reset hunk" } })
+				keychain.set(
+					"n",
+					"<leader>hr",
+					gitsigns.reset_hunk,
+					{ buffer = buffer, hint = { "git", "reset hunk" } }
+				)
+				keychain.set(
+					"v",
+					"<leader>hr",
+					gitsigns.reset_hunk,
+					{ buffer = buffer, hint = { "git", "reset hunk" } }
+				)
 				keychain.set(
 					"n",
 					"<leader>hR",
