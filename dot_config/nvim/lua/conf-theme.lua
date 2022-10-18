@@ -178,6 +178,7 @@ return function()
 
 	-- Setup theme
 	local default = "github"
-	local theme = vim.env.DOTFILES_NVIM_THEME or default
-	themes[theme]()
+	local name = vim.env.DOTFILES_NVIM_THEME or default
+	local theme = themes[name] or themes[default]
+	theme()
 end
