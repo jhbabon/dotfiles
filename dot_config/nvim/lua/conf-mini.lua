@@ -22,6 +22,20 @@ return function()
 	keychain.set("n", "<leader>cl", load, { hint = { "checkpoint", "load last session" } })
 
 	-- Start screen
+	local theme = function()
+		return {
+			{
+				name = ("Current: %s"):format(vim.g.colors_name),
+				action = "",
+				section = "Theme",
+			},
+			{
+				name = "Tip: you can change it with the env var DOTFILES_NVIM_THEME",
+				action = "",
+				section = "Theme",
+			},
+		}
+	end
 	local starter = require("mini.starter")
 	starter.setup({
 		items = {
@@ -40,6 +54,7 @@ return function()
 			},
 			starter.sections.recent_files(5, false, false),
 			starter.sections.builtin_actions(),
+			theme,
 		},
 	})
 

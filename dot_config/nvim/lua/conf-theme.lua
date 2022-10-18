@@ -98,6 +98,22 @@ return function()
 	local themes = {}
 	setmetatable(themes, proxy)
 
+	-- Cycle through the themes, from current to next
+	local function next_theme()
+		local len = table.maxn(names)
+		local nxt = current + 1
+		if nxt > len then
+			nxt = 1
+		end
+		local name = names[nxt]
+
+		themes[name]()
+	end
+
+	-- NOTE: I'm using the term "palette" because I have already mappings starting with t (theme) or c (colors)
+	require("keychain").set("n", [[<leader>pn]], next_theme, { hint = { "palette", "set next color palette" } })
+
+	-- Define themes
 	function themes.everforest()
 		vim.g.everforest_background = "hard"
 		vim.g.everforest_enable_italic = true
@@ -129,13 +145,26 @@ return function()
 		statusline("kanagawa")
 	end
 
-	function themes.github()
+	function themes.github_light()
 		vim.opt.background = "light"
 		require("github-theme").setup({
 			theme_style = "light",
 		})
 
 		statusline("github_light")
+	end
+
+	function themes.github()
+		themes.github_light()
+	end
+
+	function themes.github_dimmed()
+		vim.opt.background = "dark"
+		require("github-theme").setup({
+			theme_style = "dimmed",
+		})
+
+		statusline("github_dimmed")
 	end
 
 	function themes.github_dark()
@@ -147,21 +176,8 @@ return function()
 		statusline("github_dark")
 	end
 
-	-- Cycle through the themes, from current to next
-	local function next_theme()
-		local len = table.maxn(names)
-		local nxt = current + 1
-		if nxt > len then
-			nxt = 1
-		end
-		local name = names[nxt]
-
-		themes[name]()
-	end
-
-	-- NOTE: I'm using the term "palette" because I have already mappings starting with t (theme) or c (colors)
-	require("keychain").set("n", [[<leader>pn]], next_theme, { hint = { "palette", "set next color palette" } })
-
 	-- Setup theme
-	themes.github()
+	local default = "github"
+	local theme = vim.env.DOTFILES_NVIM_THEME or default
+	themes[theme]()
 end
