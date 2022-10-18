@@ -27,21 +27,20 @@ return function()
 		}
 
 		-- golang
-		tools["golangci-lint"]:and_then(function(lint)
-			diagnostics.golangci_lint.with({ command = lint.cmd.string() })
+		tools["golangci-lint"]:and_then(function(golangci_lint)
+			table.insert(sources, diagnostics.golangci_lint.with({ command = golangci_lint.cmd.string() }))
 		end)
 		tools.goimports:and_then(function(goimports)
-			formatting.goimports.with({ command = goimports.cmd.string() })
+			table.insert(sources, formatting.goimports.with({ command = goimports.cmd.string() }))
 		end)
 
 		-- lua
 		tools.stylua:and_then(function(stylua)
-			formatting.stylua.with({ command = stylua.cmd.string() })
+			table.insert(sources, formatting.stylua.with({ command = stylua.cmd.string() }))
 		end)
 
 		-- ruby
 		tools.rubocop:and_then(function(rubocop)
-			print("found rubocop: ", rubocop.cmd.string())
 			table.insert(sources, diagnostics.rubocop.with({ command = rubocop.cmd.string() }))
 		end)
 
