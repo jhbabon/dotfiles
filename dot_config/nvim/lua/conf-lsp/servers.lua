@@ -30,7 +30,7 @@ function servers.setup(config)
 	local bin = binaries.prepare(spec, lookups)
 
 	local group = vim.api.nvim_create_augroup(("lsp-%s"):format(name), { clear = true })
-	vim.api.nvim_create_autocmd("FileType", {
+	vim.api.nvim_create_autocmd({ "FileType", "BufAdd" }, {
 		group = group,
 		pattern = pattern,
 		callback = function()
