@@ -1,10 +1,9 @@
 if vim.g.mylsp_marksman_loaded then
-  return
+	return
 end
 vim.g.mylsp_marksman_loaded = true
 
 require("conf-lsp.servers").setup({
-  name = "marksman",
-  root_pattern = { ".git" },
-  pattern = { "markdown" },
+	name = "marksman",
+	pattern = { "markdown" },
 })

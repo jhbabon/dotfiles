@@ -114,13 +114,13 @@ local function pkgs(use)
 
 	-- LSP
 	use({
-		"jose-elias-alvarez/null-ls.nvim",
+		"neovim/nvim-lspconfig",
 		requires = {
+			"jose-elias-alvarez/null-ls.nvim",
 			"onsails/lspkind-nvim",
 			"folke/trouble.nvim", -- for mappings
 			"williamboman/mason.nvim",
 			-- "williamboman/mason-lspconfig.nvim",
-			-- "neovim/nvim-lspconfig",
 			"nvim-lua/plenary.nvim",
 		},
 		config = require("conf-lsp"),

@@ -1,4 +1,3 @@
-local fp = require("fp")
 local option = require("option")
 local binaries = require("binaries")
 
@@ -13,15 +12,9 @@ function servers.setup(config)
 	local pattern = config.pattern
 
 	-- Optional
-	local root_pattern = config.root_pattern or { ".git" }
 	local settings = config.settings or {}
 	local capabilities = config.capabilities or require("conf-lsp.capabilities")
 	local on_attach = config.on_attach
-
-	local root_dir = fp.once(function()
-		local path = vim.fs.find(root_pattern, { upward = true })
-		return vim.fs.dirname(path[1])
-	end)
 
 	-- Binary lookups
 	local bin_config = config.bin or {}
@@ -30,19 +23,22 @@ function servers.setup(config)
 	local bin = binaries.prepare(spec, lookups)
 
 	local group = vim.api.nvim_create_augroup(("lsp-%s"):format(name), { clear = true })
-	vim.api.nvim_create_autocmd({ "FileType", "BufAdd" }, {
+	vim.api.nvim_create_autocmd({ "FileType" }, {
+		once = true, -- run only after the first filetype is loaded
 		group = group,
 		pattern = pattern,
 		callback = function()
 			bin:resolve(option.wrap_some(function(exec)
-				vim.lsp.start({
-					name = name,
+				local lspconfig = require("lspconfig")[name]
+				lspconfig.setup({
 					cmd = exec.cmd(),
-					root_dir = root_dir(),
 					capabilities = capabilities,
 					settings = settings,
 					on_attach = on_attach,
 				})
+
+				-- Ensure it's triggered after loading the first file
+				lspconfig.launch()
 			end))
 		end,
 	})

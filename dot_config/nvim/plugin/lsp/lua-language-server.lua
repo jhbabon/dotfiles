@@ -37,9 +37,11 @@ local settings = {
 }
 
 require("conf-lsp.servers").setup({
-	name = "lua-language-server",
-	root_pattern = { ".luarc.json", ".luacheckrc", "stylua.toml", ".git" },
+	name = "sumneko_lua",
 	pattern = { "lua" },
 	capabilities = capabilities,
 	settings = settings,
+	bin = {
+		spec = { name = "lua-language-server" },
+	},
 })
