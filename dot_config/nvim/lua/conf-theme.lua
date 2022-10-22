@@ -145,39 +145,38 @@ return function()
 		statusline("kanagawa")
 	end
 
-	function themes.github_light()
-		vim.opt.background = "light"
+	local function github(style)
+		if style == "light" then
+			vim.opt.background = "light"
+		else
+			vim.opt.background = "dark"
+		end
+
 		require("github-theme").setup({
-			theme_style = "light",
+			theme_style = style,
 		})
 
-		statusline("github_light")
+		statusline(("github_%s"):format(style))
+	end
+
+	function themes.github_light()
+		github("light")
 	end
 
 	function themes.github()
-		themes.github_light()
+		github("light")
 	end
 
 	function themes.github_dimmed()
-		vim.opt.background = "dark"
-		require("github-theme").setup({
-			theme_style = "dimmed",
-		})
-
-		statusline("github_dimmed")
+		github("dimmed")
 	end
 
 	function themes.github_dark()
-		vim.opt.background = "dark"
-		require("github-theme").setup({
-			theme_style = "dark",
-		})
-
-		statusline("github_dark")
+		github("dark")
 	end
 
 	-- Setup theme
-	local default = "github"
+	local default = "github_dimmed"
 	local name = vim.env.DOTFILES_NVIM_THEME or default
 	local theme = themes[name] or themes[default]
 	theme()
