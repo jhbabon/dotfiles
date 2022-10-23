@@ -81,7 +81,6 @@ vim.opt.inccommand = "split"
 -- Prevent text jumping with linters/lsp integrations
 vim.opt.signcolumn = "yes"
 
-vim.opt.lazyredraw = true
 vim.opt.termguicolors = true
 
 -- Autosave
