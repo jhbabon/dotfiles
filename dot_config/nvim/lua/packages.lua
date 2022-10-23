@@ -131,7 +131,11 @@ local function pkgs(use)
 		"j-hui/fidget.nvim",
 		config = function()
 			require("lazy").load(function()
-				require("fidget").setup({})
+				require("fidget").setup({
+					text = {
+						spinner = "dots",
+					},
+				})
 			end)
 		end,
 	})
