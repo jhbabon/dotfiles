@@ -140,6 +140,20 @@ local function pkgs(use)
 		end,
 	})
 
+	-- Notifications
+	use({
+		"rcarriga/nvim-notify",
+		config = function()
+			local notify = require("notify")
+			notify.setup({
+				level = vim.log.levels.INFO,
+			})
+
+			-- Change the main vim.notify function to use this plugin
+			vim.notify = notify
+		end,
+	})
+
 	-- Diagnostics
 	use({
 		"folke/trouble.nvim",

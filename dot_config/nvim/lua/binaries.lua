@@ -121,7 +121,7 @@ end
 -- It prints that the binary was not found and returns option.none
 local function not_found(name)
 	return function()
-		print(("[binaries] not found: %s"):format(name))
+		vim.notify(("binary not found: %s"):format(name), vim.log.levels.DEBUG, { title = "binaries" })
 
 		return option.none()
 	end
