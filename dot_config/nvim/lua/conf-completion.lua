@@ -3,6 +3,18 @@ return function()
 		local lspkind = require("lspkind")
 		local cmp = require("cmp")
 
+		local buffer = {
+			name = "buffer",
+			option = {
+				get_bufnrs = function()
+					-- all buffers
+					-- return vim.api.nvim_list_bufs()
+					-- visible buffers
+					return vim.tbl_map(vim.api.nvim_win_get_buf, vim.api.nvim_list_wins())
+				end,
+			},
+		}
+
 		cmp.setup({
 			formatting = {
 				format = lspkind.cmp_format({}),
@@ -25,14 +37,14 @@ return function()
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
-			}, { { name = "buffer" } }),
+			}, { buffer }),
 		})
 
 		-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 		cmp.setup.cmdline({ "/", "?" }, {
 			mapping = cmp.mapping.preset.cmdline(),
 			sources = {
-				{ name = "buffer" },
+				buffer,
 			},
 		})
 
