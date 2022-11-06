@@ -13,7 +13,6 @@ return function()
 		end
 
 		local keychain = require("keychain")
-		keychain.set("n", "<leader>tt", terminal, { hint = { "terminal", "toggle terminal" } })
-		keychain.set("t", "<C-\\>tt", terminal)
+		keychain.set({ "n", "t" }, [[<C-\>t]], terminal, { hint = { "terminal", "toggle terminal" } })
 	end)
 end
