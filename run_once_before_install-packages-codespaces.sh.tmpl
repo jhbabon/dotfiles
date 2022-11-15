@@ -4,6 +4,7 @@
 set -e
 
 echo "Installing: dependencies ********************"
+sudo apt update -y
 sudo apt install -y ripgrep fd-find tmux busybox jq
 
 echo "Installing: golangci-lint *******************"
