@@ -11,6 +11,9 @@ export VISUAL=$EDITOR
 export PAGER=less
 {{ if (.codespaces) -}}
 export SHELL=/bin/zsh
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+export LANGUAGE="en_US:en"
 {{- end }}
 
 # ---------------------------------------------------------------------------
