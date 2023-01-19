@@ -99,19 +99,6 @@ local function pkgs(use)
 		config = require("conf-snippets"),
 	})
 
-	-- Autocompletion
-	use({
-		"hrsh7th/nvim-cmp",
-		requires = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-cmdline",
-			"saadparwaiz1/cmp_luasnip",
-		},
-		config = require("conf-completion"),
-	})
-
 	-- LSP
 	use({
 		"neovim/nvim-lspconfig",
@@ -190,7 +177,11 @@ local function pkgs(use)
 	-- Mini plugin
 	use({
 		"echasnovski/mini.nvim",
-		config = require("conf-mini"),
+		config = function()
+			require("conf-mini")()
+			-- Autocompletion
+			require("conf-completion")()
+		end,
 	})
 
 	-- Colorschemes and statusline

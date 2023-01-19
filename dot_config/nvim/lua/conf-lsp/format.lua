@@ -43,11 +43,10 @@ return function()
 			-- but we can initialize the server with the desired capabilities
 			-- and recover them here through client.config.capabilites
 			local formatting = client.server_capabilities.documentFormattingProvider
-			if
-				formatting
-				and client.config
-				and client.config.capabilites
-				and client.config.capabilities.documentFormattingProvider ~= nil
+			if formatting
+					and client.config
+					and client.config.capabilites
+					and client.config.capabilities.documentFormattingProvider ~= nil
 			then
 				-- Use the defined configuration
 				formatting = client.config.capabilities.documentFormattingProvider
