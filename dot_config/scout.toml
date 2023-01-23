@@ -1,3 +1,6 @@
+[advanced]
+pool_size = 100000
+
 [prompt]
 symbol = "❯ "
 style_symbol = "bold fg:blue"
