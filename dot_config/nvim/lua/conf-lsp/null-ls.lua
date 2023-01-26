@@ -8,27 +8,32 @@ return function()
 
 	local capabilities = require("conf-lsp.capabilities")
 	local binaries = require("binaries")
+	local lookups = binaries.lookups
 
 	local resolver = binaries.prepare_many({
 		{ { name = "golangci-lint", version = "v1.49.0" } },
 		{ { name = "goimports", version = "latest" } },
-		{ { name = "stylua" } },
-		{ { name = "rubocop" }, { binaries.lookups.local_bin } },
+		{ { name = "stylua" }, { lookups.system, lookups.mason } },
+		{ { name = "rubocop" }, { lookups.local_bin } },
+		{ { name = "eslint_d" }, { lookups.node_module, lookups.system } },
 	})
 
 	resolver:resolve(function(tools)
 		local sources = {
-			-- javascript & typescript
-			formatting.eslint_d,
-			diagnostics.eslint_d,
-			code_actions.eslint_d,
-
 			-- git
 			code_actions.gitsigns,
 
 			-- snippets
 			completion.luasnip,
 		}
+
+		-- javascript & typescript
+		tools["eslint_d"]:and_then(function(eslint_d)
+			local cmd = { command = eslint_d.cmd.string() }
+			table.insert(sources, formatting.eslint_d.with(cmd))
+			table.insert(sources, diagnostics.eslint_d.with(cmd))
+			table.insert(sources, code_actions.eslint_d.with(cmd))
+		end)
 
 		-- golang
 		tools["golangci-lint"]:and_then(function(golangci_lint)
