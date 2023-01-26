@@ -9,14 +9,18 @@ local capabilities = vim.tbl_extend("force", require("conf-lsp.capabilities"), {
 	documentrangeFormattingProvider = false,
 })
 
-require("conf-lsp.servers").setup({
+require("conf-lsp.server").setup({
 	name = "gopls",
 	pattern = { "go" },
-	capabilities = capabilities,
-	settings = {
-		gopls = {
-			-- this prevents GOPROXY=off errors when loading the lsp server
-			allowImplicitNetworkAccess = true,
-		},
-	},
+	hook = function(_)
+		return {
+			capabilities = capabilities,
+			settings = {
+				gopls = {
+					-- this prevents GOPROXY=off errors when loading the lsp server
+					allowImplicitNetworkAccess = true,
+				},
+			},
+		}
+	end,
 })

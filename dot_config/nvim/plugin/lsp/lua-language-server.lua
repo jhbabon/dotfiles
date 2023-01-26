@@ -36,12 +36,16 @@ local settings = {
 	},
 }
 
-require("conf-lsp.servers").setup({
+require("conf-lsp.server").setup({
 	name = "sumneko_lua",
 	pattern = { "lua" },
-	capabilities = capabilities,
-	settings = settings,
 	bin = {
 		spec = { name = "lua-language-server" },
 	},
+	hook = function(_)
+		return {
+			capabilities = capabilities,
+			settings = settings,
+		}
+	end,
 })

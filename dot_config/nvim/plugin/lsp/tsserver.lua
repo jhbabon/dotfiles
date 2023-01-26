@@ -28,11 +28,16 @@ end
 
 local append = binaries.lookups.append
 
-require("conf-lsp.servers").setup({
+require("conf-lsp.server").setup({
 	name = "tsserver",
-	pattern = { "typescript", "javascript" },
-	capabilities = capabilities,
-	on_attach = on_attach,
+	pattern = {
+		"javascript",
+		"javascriptreact",
+		"javascript.jsx",
+		"typescript",
+		"typescriptreact",
+		"typescript.tsx",
+	},
 	bin = {
 		spec = { name = "typescript-language-server" },
 		lookups = {
@@ -41,4 +46,12 @@ require("conf-lsp.servers").setup({
 			append(binaries.lookups.if_exec("npm", binaries.lookups.mason), { "--stdio" }),
 		},
 	},
+	hook = function(_)
+		return {
+			capabilities = capabilities,
+			on_attach = on_attach,
+			-- This prevents it to be loaded along with denols
+			single_file_support = false,
+		}
+	end,
 })

@@ -21,21 +21,25 @@ local function rustup(_)
 	return option.some({ "rustup", "run", "stable", "rust-analyzer" })
 end
 
-require("conf-lsp.servers").setup({
+require("conf-lsp.server").setup({
 	name = "rust_analyzer",
 	pattern = { "rust" },
 	bin = {
 		spec = { name = "rust-analyzer" },
 		lookups = { rustup, binaries.lookups.mason },
 	},
-	settings = {
-		-- to enable rust-analyzer settings visit:
-		-- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-		["rust-analyzer"] = {
-			-- enable clippy on save
-			checkOnSave = {
-				command = "clippy",
+	hook = function(_)
+		return {
+			settings = {
+				-- to enable rust-analyzer settings visit:
+				-- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+				["rust-analyzer"] = {
+					-- enable clippy on save
+					checkOnSave = {
+						command = "clippy",
+					},
+				},
 			},
-		},
-	},
+		}
+	end,
 })

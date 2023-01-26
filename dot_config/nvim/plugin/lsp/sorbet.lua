@@ -7,7 +7,7 @@ local binaries = require("binaries")
 
 local srb = binaries.lookups.append(binaries.lookups.local_bin, { "tc", "--lsp" })
 
-require("conf-lsp.servers").setup({
+require("conf-lsp.server").setup({
 	name = "sorbet",
 	pattern = { "ruby" },
 	bin = {
