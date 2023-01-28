@@ -46,12 +46,13 @@ require("conf-lsp.server").setup({
 			append(binaries.lookups.if_exec("npm", binaries.lookups.mason), { "--stdio" }),
 		},
 	},
-	hook = function(_)
+	hook = function(util)
 		return {
 			capabilities = capabilities,
 			on_attach = on_attach,
 			-- This prevents it to be loaded along with denols
 			single_file_support = false,
+			root_dir = util.root_pattern("package.json", "tsconfig.json"),
 		}
 	end,
 })

@@ -45,7 +45,9 @@ function server.setup(config)
 				lspserver.setup(setup)
 
 				-- Ensure it's triggered after loading the first file
-				lspserver.launch()
+				if setup.autostart ~= false then
+					lspserver.launch()
+				end
 			end))
 		end,
 	})
