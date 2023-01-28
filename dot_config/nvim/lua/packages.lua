@@ -27,6 +27,12 @@ local function pkgs(use)
 		config = require("conf-treesitter"),
 	})
 
+	-- File syntax extensions
+	use({
+		"NoahTheDuke/vim-just", -- regular syntax plugin since the treesitter module doesn't work very well
+		opt = false,
+	})
+
 	-- Projects
 	use({ "tpope/vim-sleuth" })
 	use({
