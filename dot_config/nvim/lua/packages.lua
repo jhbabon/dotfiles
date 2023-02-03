@@ -57,6 +57,7 @@ local function pkgs(use)
 	use({ "tpope/vim-eunuch" })
 	use({ "tpope/vim-vinegar" })
 	use({ "tpope/vim-characterize" })
+	use({ "tpope/vim-abolish" })
 	use({
 		"AckslD/nvim-trevJ.lua",
 		requires = {
