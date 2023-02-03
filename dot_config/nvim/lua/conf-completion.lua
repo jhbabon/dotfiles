@@ -27,11 +27,5 @@ return function()
 				vim.opt_local.completefunc = "v:lua.MiniCompletion.completefunc_lsp"
 			end,
 		})
-		vim.api.nvim_create_autocmd("LspDetach", {
-			group = group,
-			callback = function()
-				vim.opt_local.completefunc = nil
-			end,
-		})
 	end)
 end

@@ -36,7 +36,8 @@ return function()
 		group = group,
 		callback = function(args)
 			local buffer = args.buf
-			local client = vim.lsp.get_client_by_id(args.data.client_id)
+			local data = args.data or {}
+			local client = vim.lsp.get_client_by_id(data.client_id)
 
 			-- This autocmd runs before any on_attach defined in plugin/lsp/*.lua
 			-- that means that removing the server capabilities won't work
@@ -79,7 +80,8 @@ return function()
 					format(buffer)
 				end,
 			})
-			formatters[buffer] = id
+			local key = string.format("%d:%d", buffer, data.client_id)
+			formatters[key] = id
 		end,
 	})
 
@@ -87,9 +89,12 @@ return function()
 		group = group,
 		callback = function(args)
 			local buffer = args.buf
-			local id = formatters[buffer]
+			local data = args.data or {}
+			local key = string.format("%d:%d", buffer, data.client_id)
+			local id = formatters[key]
 			if id then
 				vim.api.nvim_del_autocmd(id)
+				formatters[key] = nil
 			end
 		end,
 	})

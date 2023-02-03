@@ -79,28 +79,4 @@ return function()
 			)
 		end,
 	})
-
-	vim.api.nvim_create_autocmd("LspDetach", {
-		group = mappings,
-		callback = function(args)
-			-- Remove mappings
-			local buffer = args.buf
-			local keychain = require("keychain")
-			keychain.del("n", "]e", { buffer = buffer })
-			keychain.del("n", "[e", { buffer = buffer })
-			keychain.del("n", "<leader>li", { buffer = buffer })
-			keychain.del("n", "<leader>lh", { buffer = buffer })
-			keychain.del("n", "<leader>ls", { buffer = buffer })
-			keychain.del("n", "<leader>ln", { buffer = buffer })
-			keychain.del("n", "<leader>lg", { buffer = buffer })
-			keychain.del("n", "<leader>lc", { buffer = buffer })
-			keychain.del("n", "<leader>lf", { buffer = buffer })
-			keychain.del("n", "<leader>ly", { buffer = buffer })
-			keychain.del("n", "<leader>lm", { buffer = buffer })
-			keychain.del("n", "<leader>lo", { buffer = buffer })
-			keychain.del("n", "<leader>lt", { buffer = buffer })
-			keychain.del("n", "<leader>ld", { buffer = buffer })
-			keychain.del("n", "<leader>lr", { buffer = buffer })
-		end,
-	})
 end
