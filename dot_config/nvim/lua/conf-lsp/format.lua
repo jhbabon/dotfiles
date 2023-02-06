@@ -1,4 +1,7 @@
 return function()
+	local notifications = require("notifications")
+	local format_warning = "[LSP] Format request failed, no matching language servers."
+
 	local function save_marks(bufnr)
 		local marks = {}
 		for _, m in pairs(vim.fn.getmarklist(bufnr)) do
@@ -26,62 +29,33 @@ return function()
 	-- @see https://github.com/jose-elias-alvarez/null-ls.nvim/pull/5/files
 	local function format(bufnr)
 		local marks = save_marks(bufnr)
-		vim.lsp.buf.format()
+		-- Redirect the default format warning message to debug level.
+		-- It's quite noisy and I know there might be servers that can't format
+		-- I don't need to see the message all the time
+		notifications.redirect(format_warning, vim.log.levels.DEBUG, function()
+			vim.lsp.buf.format({ bufnr = bufnr })
+		end)
 		restore_marks(marks, bufnr)
 	end
 
-	local group = vim.api.nvim_create_augroup("lsp-format", { clear = true })
 	local formatters = {}
+	local group = vim.api.nvim_create_augroup("lsp-format", { clear = true })
 	vim.api.nvim_create_autocmd("LspAttach", {
 		group = group,
 		callback = function(args)
 			local buffer = args.buf
-			local data = args.data or {}
-			local client = vim.lsp.get_client_by_id(data.client_id)
-
-			-- This autocmd runs before any on_attach defined in plugin/lsp/*.lua
-			-- that means that removing the server capabilities won't work
-			-- but we can initialize the server with the desired capabilities
-			-- and recover them here through client.config.capabilites
-			local formatting = client.server_capabilities.documentFormattingProvider
-			if formatting
-					and client.config
-					and client.config.capabilites
-					and client.config.capabilities.documentFormattingProvider ~= nil
-			then
-				-- Use the defined configuration
-				formatting = client.config.capabilities.documentFormattingProvider
-			end
-
-			if not formatting then
+			if formatters[buffer] then
 				return
 			end
 
-			-- So, if the client is null-ls we need to make sure that the any of the sources
-			-- can actually format the file. We have to do this because null-ls might attach
-			-- to files with sources with no formatting (i.e: code_actions.gitsigns)
-			-- but it will report the documentFormattingProvider capability as true, which
-			-- is true, kind of, because it really depends on the current available source
-			-- In any case, this checks ensures that there is at least one formatting source
-			-- and if not, returns
-			if client.name == "null-ls" then
-				local methods = require("null-ls.methods")
-				local sources = require("null-ls.sources")
-				local available = sources.get_available(vim.bo.filetype, methods.internal.FORMATTING)
-				-- There are no available sources to format, we can skip
-				if next(available) == nil then
-					return
-				end
-			end
-
 			local id = vim.api.nvim_create_autocmd("BufWritePre", {
+				group = group,
 				buffer = buffer,
 				callback = function()
 					format(buffer)
 				end,
 			})
-			local key = string.format("%d:%d", buffer, data.client_id)
-			formatters[key] = id
+			formatters[buffer] = id
 		end,
 	})
 
@@ -89,12 +63,10 @@ return function()
 		group = group,
 		callback = function(args)
 			local buffer = args.buf
-			local data = args.data or {}
-			local key = string.format("%d:%d", buffer, data.client_id)
-			local id = formatters[key]
+			local id = formatters[buffer]
 			if id then
+				formatters[buffer] = nil
 				vim.api.nvim_del_autocmd(id)
-				formatters[key] = nil
 			end
 		end,
 	})
