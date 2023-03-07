@@ -16,6 +16,11 @@ go install golang.org/x/tools/cmd/goimports@latest
 echo "Installing: starship ********************"
 sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes
 
+if type cargo > /dev/null 2>&1; then
+  echo "Installing scout"
+  cargo install scout
+fi
+
 echo "Installing: nvim ********************"
 pip3 install --user pynvim
 curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage

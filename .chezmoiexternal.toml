@@ -19,10 +19,6 @@
   exact = true
   refreshPeriod = "168h"
 {{ if (.codespaces) }}
-[".local/bin/scout"]
-  type = "file"
-  url = "https://github.com/jhbabon/scout/releases/download/v2.7.0/scout-linux"
-  executable = true
 [".local/bin/exa"]
   type = "file"
   url = "https://github.com/ogham/exa/releases/download/v0.10.1/exa-linux-x86_64-v0.10.1.zip"
