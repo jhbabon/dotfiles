@@ -1,0 +1,12 @@
+{{- if ne .chezmoi.os "darwin" -}}
+#!/usr/bin/env sh
+
+set -e
+
+echo "Installing: kitty terminfo ********************"
+if [ -f "/usr/bin/tic" ]; then
+  /usr/bin/tic -xe xterm-kitty ~/.config/kitty/xterm-kitty.terminfo
+fi
+
+# vim:set ft=sh:
+{{ end -}}

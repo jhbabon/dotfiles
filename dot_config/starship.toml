@@ -35,12 +35,13 @@ disabled = false
 ssh_only = true
 
 [directory]
-read_only = " "
+read_only = " "
 disabled = false
 fish_style_pwd_dir_length = 1
 
 [git_branch]
-symbol = " "
+# symbol = " "
+symbol = " "
 disabled = false
 
 [git_commit]
