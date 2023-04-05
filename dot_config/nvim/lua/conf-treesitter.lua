@@ -26,7 +26,6 @@ return function()
 			"gomod",
 			"gowork",
 			"graphql",
-			"help",
 			"hjson",
 			"html",
 			"http",
