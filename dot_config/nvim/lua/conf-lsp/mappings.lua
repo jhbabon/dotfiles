@@ -7,12 +7,7 @@ return function()
 			local buffer = args.buf
 			local keychain = require("keychain")
 			keychain.set("n", "]e", vim.diagnostic.goto_next, { buffer = buffer, hint = { "lsp", "next diagnostic" } })
-			keychain.set(
-				"n",
-				"[e",
-				vim.diagnostic.goto_prev,
-				{ buffer = buffer, hint = { "lsp", "previous diagnostic" } }
-			)
+			keychain.set("n", "[e", vim.diagnostic.goto_prev, { buffer = buffer, hint = { "lsp", "previous diagnostic" } })
 			keychain.set(
 				"n",
 				"<leader>li",
@@ -20,12 +15,7 @@ return function()
 				{ buffer = buffer, hint = { "lsp", "go to implementation" } }
 			)
 			keychain.set("n", "<leader>lh", vim.lsp.buf.hover, { buffer = buffer, hint = { "lsp", "hover" } })
-			keychain.set(
-				"n",
-				"<leader>ls",
-				vim.lsp.buf.signature_help,
-				{ buffer = buffer, hint = { "lsp", "signature" } }
-			)
+			keychain.set("n", "<leader>ls", vim.lsp.buf.signature_help, { buffer = buffer, hint = { "lsp", "signature" } })
 			keychain.set("n", "<leader>ln", vim.lsp.buf.rename, { buffer = buffer, hint = { "lsp", "rename" } })
 			keychain.set(
 				"n",
@@ -33,12 +23,7 @@ return function()
 				vim.diagnostic.open_float,
 				{ buffer = buffer, hint = { "lsp", "line diagnostic" } }
 			)
-			keychain.set(
-				"n",
-				"<leader>lc",
-				vim.lsp.buf.code_action,
-				{ buffer = buffer, hint = { "lsp", "code action" } }
-			)
+			keychain.set("n", "<leader>lc", vim.lsp.buf.code_action, { buffer = buffer, hint = { "lsp", "code action" } })
 			keychain.set("n", "<leader>lf", vim.lsp.buf.format, { buffer = buffer, hint = { "lsp", "format file" } })
 			keychain.set(
 				"n",
@@ -64,12 +49,7 @@ return function()
 				vim.lsp.buf.type_definition,
 				{ buffer = buffer, hint = { "lsp", "go to type definition" } }
 			)
-			keychain.set(
-				"n",
-				"<leader>ld",
-				vim.lsp.buf.definition,
-				{ buffer = buffer, hint = { "lsp", "go to definition" } }
-			)
+			keychain.set("n", "<leader>ld", vim.lsp.buf.definition, { buffer = buffer, hint = { "lsp", "go to definition" } })
 			-- Use Trouble for references and definitions
 			keychain.set(
 				"n",

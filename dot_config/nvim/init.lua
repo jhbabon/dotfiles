@@ -31,23 +31,23 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
 -- Backups
-vim.opt.backup = false   -- no backup
+vim.opt.backup = false -- no backup
 vim.opt.swapfile = false -- no swap files
 
 -- Behaviors
 vim.opt.modeline = true
-vim.opt.hidden = true      -- don't remove buffers on close
+vim.opt.hidden = true -- don't remove buffers on close
 vim.opt.autoread = true
 vim.opt.joinspaces = false -- put only one space after joining
-vim.opt.mouse = "a"        -- enable all mouse interactions
+vim.opt.mouse = "a" -- enable all mouse interactions
 
 -- Use the system clipboard as the default register
 vim.opt.clipboard = { "unnamed", "unnamedplus" }
 
 -- Indentation
-vim.opt.tabstop = 2      -- number of visual spaces per TAB
-vim.opt.shiftwidth = 0   -- number of spaces to use for each step of (auto)indent. 0 uses tabstop
-vim.opt.softtabstop = 2  -- number of spaces in tab when editing
+vim.opt.tabstop = 2 -- number of visual spaces per TAB
+vim.opt.shiftwidth = 0 -- number of spaces to use for each step of (auto)indent. 0 uses tabstop
+vim.opt.softtabstop = 2 -- number of spaces in tab when editing
 vim.opt.shiftround = true
 vim.opt.expandtab = true -- tabs are spaces
 vim.opt.copyindent = false
@@ -76,11 +76,11 @@ vim.opt.wildmode = "list:longest,full"
 -- Position
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.visualbell = true     -- use visual bell, not sound
-vim.opt.shortmess = "aI"      -- modify the error and info messages
-vim.opt.scrolloff = 3         -- screen lines to keep above and below the cursor
+vim.opt.visualbell = true -- use visual bell, not sound
+vim.opt.shortmess = "aI" -- modify the error and info messages
+vim.opt.scrolloff = 3 -- screen lines to keep above and below the cursor
 vim.opt.virtualedit = "block" -- put the cursor anywhere in visual blocks
-vim.opt.cursorline = true     -- show where you are
+vim.opt.cursorline = true -- show where you are
 vim.opt.inccommand = "split"
 
 -- Prevent text jumping with linters/lsp integrations
@@ -159,11 +159,11 @@ end, { hint = { "registers", "find and paste last yanks" } })
 keychain.imap("jj", "<esc>")
 
 local strip = table.concat({
-	[[:let _s=winsaveview()]],    -- save current cursor position
+	[[:let _s=winsaveview()]], -- save current cursor position
 	[[:keeppatterns %s/\s\+$//e]], -- remove all trailing withespaces
-	[[:call winrestview(_s)]],    -- restore cursor position
-	[[<cr>]],                     -- execute all of the above
-}, "<Bar>")                     -- join all with '|' in one line
+	[[:call winrestview(_s)]], -- restore cursor position
+	[[<cr>]], -- execute all of the above
+}, "<Bar>") -- join all with '|' in one line
 keychain.set("n", "<leader>u<space>", strip, { hint = { "misc", "remove trailing whitespace" } })
 keychain.set("n", "<leader>u;", [[:s/\([^;]\)$/\1;/<cr>:noh<cr>]], { hint = { "misc", "add semicolon (;) at eol" } })
 keychain.set("n", "<leader>u,", [[:s/\([^,]\)$/\1,/<cr>:noh<cr>]], { hint = { "misc", "add comma (,) at eol" } })
