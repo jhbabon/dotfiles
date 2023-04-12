@@ -34,13 +34,6 @@ local function pkgs(use)
 	})
 
 	-- Projects
-	use({ "tpope/vim-sleuth" })
-	use({
-		"klen/nvim-config-local",
-		config = function()
-			require("config-local").setup({ commands_create = false })
-		end,
-	})
 	use({ "tpope/vim-projectionist", setup = require("conf-projectionist") })
 	use({ "wfxr/minimap.vim", opt = true, setup = require("conf-minimap") })
 	-- use({ "sidebar-nvim/sidebar.nvim", config = require("conf-sidebar") })
