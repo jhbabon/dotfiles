@@ -84,7 +84,6 @@ return function()
 			current = indexes[k]
 			return rawget(t, key(k))
 		end,
-
 		__newindex = function(t, k, value)
 			table.insert(names, k)
 			for index, name in ipairs(names) do
@@ -145,38 +144,8 @@ return function()
 		statusline("kanagawa")
 	end
 
-	local function github(style)
-		if style == "light" then
-			vim.opt.background = "light"
-		else
-			vim.opt.background = "dark"
-		end
-
-		require("github-theme").setup({
-			theme_style = style,
-		})
-
-		statusline(("github_%s"):format(style))
-	end
-
-	function themes.github_light()
-		github("light")
-	end
-
-	function themes.github()
-		github("light")
-	end
-
-	function themes.github_dimmed()
-		github("dimmed")
-	end
-
-	function themes.github_dark()
-		github("dark")
-	end
-
 	-- Setup theme
-	local default = "github_dimmed"
+	local default = "rosepine"
 	local name = vim.env.DOTFILES_NVIM_THEME or default
 	local theme = themes[name] or themes[default]
 	theme()

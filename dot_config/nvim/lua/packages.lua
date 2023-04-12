@@ -190,8 +190,12 @@ local function pkgs(use)
 			{ "kyazdani42/nvim-web-devicons" },
 			"sainnhe/everforest",
 			"rebelot/kanagawa.nvim",
-			{ "rose-pine/neovim", as = "rose-pine", tag = "v1.*" },
-			"projekt0n/github-nvim-theme",
+			{
+				"rose-pine/neovim",
+				as = "rose-pine",
+				tag = "v1.*",
+			},
+			-- FIXME: "projekt0n/github-nvim-theme",
 		},
 		config = require("conf-theme"),
 	})
