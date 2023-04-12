@@ -3,20 +3,25 @@
 --   NEOVIM configuration file
 -- =======================================================================
 
--- Load impatient plugin before anything else to speed up lua loading
-local ok, impatient = pcall(require, "impatient")
-if not ok then
-	-- This fails on fresh installs, so define the PackerSync command and exit early
-	-- NOTE: This assumes that packer.nvim is installed in the pack path
-	--
-	-- To bootstrap nvim run this from the command line:
-	--   nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-	vim.cmd([[command! PackerSync lua require('packages').sync()]])
-	return
-end
+if vim.fn.has("nvim-0.9") == 1 then
+	-- new experimental loader
+	vim.loader.enable()
+else
+	-- Load impatient plugin before anything else to speed up lua loading
+	local ok, impatient = pcall(require, "impatient")
+	if not ok then
+		-- This fails on fresh installs, so define the PackerSync command and exit early
+		-- NOTE: This assumes that packer.nvim is installed in the pack path
+		--
+		-- To bootstrap nvim run this from the command line:
+		--   nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+		vim.cmd([[command! PackerSync lua require('packages').sync()]])
+		return
+	end
 
--- Enable profiling for module loading
--- impatient.enable_profile()
+	-- Enable profiling for module loading
+	-- impatient.enable_profile()
+end
 
 local keychain = require("keychain")
 
