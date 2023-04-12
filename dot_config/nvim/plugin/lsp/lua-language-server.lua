@@ -33,7 +33,7 @@ local settings = {
 }
 
 require("conf-lsp.server").setup({
-	name = "sumneko_lua",
+	name = "lua_ls",
 	pattern = { "lua" },
 	bin = {
 		spec = { name = "lua-language-server" },
