@@ -64,6 +64,7 @@ return function()
 			"typescript",
 			"vala",
 			"vim",
+			"vimdoc",
 			"vue",
 			"yaml",
 			"zig",
