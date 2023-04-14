@@ -134,6 +134,7 @@ return function()
 				htmlItalic = { italic = true },
 				mkdCode = { fg = "foam", italic = true },
 				["@text.emphasis"] = { italic = true },
+				["@parameter"] = { fg = "iris", italic = true },
 			},
 		})
 
