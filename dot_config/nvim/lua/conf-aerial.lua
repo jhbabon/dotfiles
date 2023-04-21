@@ -2,7 +2,7 @@ return function()
 	require("lazy").load(function()
 		require("aerial").setup({
 			layout = {
-				default_direction = "prefer_left",
+				default_direction = "float",
 			},
 		})
 

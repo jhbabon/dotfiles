@@ -27,7 +27,38 @@ return function()
 			local hl = "DiagnosticSign" .. type
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 		end
-		require("lspkind").init({})
+
+		require("lspkind").init({
+			symbol_map = {
+				File = " ",
+				Module = " ",
+				Namespace = "󰦮 ",
+				Package = " ",
+				Class = " ",
+				Method = " ",
+				Property = " ",
+				Field = " ",
+				Constructor = " ",
+				Enum = " ",
+				Interface = " ",
+				Function = " ",
+				Variable = "α",
+				Constant = " ",
+				String = " ",
+				Number = " ",
+				Boolean = "◩ ",
+				Array = " ",
+				Object = " ",
+				Key = " ",
+				Null = "󰟢",
+				EnumMember = " ",
+				Struct = " ",
+				Event = " ",
+				Operator = " ",
+				TypeParameter = " ",
+				Macro = " ",
+			},
+		})
 
 		-- ---------------------------------------------------
 		-- General callbacks for attached/detached servers
