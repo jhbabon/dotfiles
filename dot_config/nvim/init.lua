@@ -16,6 +16,7 @@ else
 		-- To bootstrap nvim run this from the command line:
 		--   nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 		vim.cmd([[command! PackerSync lua require('packages').sync()]])
+		vim.opt.loadplugins = false -- skip plugins
 		return
 	end
 
@@ -98,7 +99,18 @@ vim.opt.exrc = true
 keychain.set("n", "<leader>w", [[:w<cr>]], { hint = { "save", "save file" } })
 
 -- Packages
-require("packer_compiled")
+local ok, _ = pcall(require, "packer_compiled")
+if not ok then
+	-- This fails on fresh installs, so define the PackerSync command and exit early
+	-- NOTE: This assumes that packer.nvim is installed in the pack path
+	--
+	-- To bootstrap nvim run this from the command line:
+	--   nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+	vim.cmd([[command! PackerSync lua require('packages').sync()]])
+	vim.opt.loadplugins = false -- skip plugins
+	return
+end
+
 -- redefine packer commands to lazy load it through the custom packages module
 vim.cmd([[command! PackerInstall lua require('packages').install()]])
 vim.cmd([[command! PackerUpdate lua require('packages').update()]])
