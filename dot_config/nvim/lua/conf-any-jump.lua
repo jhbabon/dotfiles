@@ -1,7 +1,7 @@
 return function()
-	vim.g.any_jump_disable_default_keybindings = true
 	require("lazy").load(function()
 		local setup = require("fp").once(function()
+			vim.g.any_jump_disable_default_keybindings = true
 			vim.cmd.packadd("any-jump.vim")
 		end)
 

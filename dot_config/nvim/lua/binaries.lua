@@ -96,7 +96,8 @@ end
 
 binaries.lookups = lookups
 
-local noop = function() end
+local noop = function()
+end
 
 -- Convert a found command (a string[]) into an executable table
 local function executable(found, spec)

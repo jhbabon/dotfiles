@@ -34,7 +34,8 @@ local function tempfile(contents, callback)
 	end)
 end
 
-local function noop() end
+local function noop()
+end
 
 local function build_list_cmd(cfg, callback)
 	if u.is_present(cfg.list_cmd) then

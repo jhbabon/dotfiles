@@ -13,10 +13,12 @@ return function()
 		},
 	}
 
-	local utils = require("utils")
 	-- the transformation has to be set as a vim lambda, hence the exec command
-	utils.multi_exec({
-		[[let g:projectionist_transformations = {}]],
-		[[let g:projectionist_transformations.rspec = {i -> v:lua.require("projectionist-transformers").rspec(i)}]],
-	})
+	vim.api.nvim_exec2(
+		[[
+		let g:projectionist_transformations = {}
+		let g:projectionist_transformations.rspec = {i -> v:lua.require("projectionist-transformers").rspec(i)}
+	]],
+		{ output = false }
+	)
 end

@@ -36,7 +36,6 @@ local function pkgs(use)
 	-- Projects
 	use({ "tpope/vim-projectionist", setup = require("conf-projectionist") })
 	use({ "wfxr/minimap.vim", opt = true, setup = require("conf-minimap") })
-	-- use({ "sidebar-nvim/sidebar.nvim", config = require("conf-sidebar") })
 	use({ "stevearc/aerial.nvim", config = require("conf-aerial") })
 
 	-- File Tree
@@ -47,10 +46,10 @@ local function pkgs(use)
 	})
 
 	-- Editing
-	use({ "tpope/vim-eunuch" })
-	use({ "tpope/vim-vinegar" })
-	use({ "tpope/vim-characterize" })
-	use({ "tpope/vim-abolish" })
+	use({ "tpope/vim-eunuch" })      -- Vim sugar for the UNIX shell commands that need it the most (ex: :Delete)
+	use({ "tpope/vim-vinegar" })     -- Enhance netrw project tree
+	use({ "tpope/vim-characterize" }) -- Show Unicode character metadata pressing `ga`
+	use({ "tpope/vim-abolish" })     -- Work with several variants of a word at once
 	use({
 		"AckslD/nvim-trevJ.lua",
 		requires = {
