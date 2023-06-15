@@ -115,6 +115,7 @@ local function pkgs(use)
 	-- Show LSP progress information
 	use({
 		"j-hui/fidget.nvim",
+		tag = "legacy",
 		config = function()
 			require("lazy").load(function()
 				require("fidget").setup({
