@@ -9,7 +9,7 @@ return function()
 
 		-- Gitsigns
 		-- remove default keymaps
-		require("gitsigns").setup({ keymaps = {} })
+		require("gitsigns").setup({})
 
 		-- add custom keymaps
 		local group = vim.api.nvim_create_augroup("gitsigns-mappings", { clear = true })
