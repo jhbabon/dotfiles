@@ -4,73 +4,53 @@
 add_newline = true
 scan_timeout = 10
 
-format = """\
-    $username\
-    $hostname\
-    $directory\
-    $git_branch\
-    $git_commit\
-    $git_state\
-    $git_status\
-    $hg_branch\
-    $fill\
-    $kubernetes\
-    $elixir\
-    $erlang\
-    $golang\
-    $java\
-    $julia\
-    $nodejs\
-    $python\
-    $ruby\
-    $rust\
-    $zig\
-    $line_break\
-    $jobs\
-    $character\
-    """
-
-[hostname]
-disabled = false
-ssh_only = true
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$cmd_duration\
+$fill\
+$golang\
+$nodejs\
+$ruby\
+$rust\
+$line_break\
+$jobs\
+$character"""
 
 [directory]
-read_only = " "
-disabled = false
-fish_style_pwd_dir_length = 1
+style = "blue"
+
+[character]
+success_symbol = "[❯](purple)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"
 
 [git_branch]
-# symbol = " "
-symbol = " "
-disabled = false
-
-[git_commit]
-only_detached = false
-disabled = false
-
-[git_state]
-disabled = false
+format = "[$branch]($style)"
+style = "bright-black"
 
 [git_status]
-disabled = false
-untracked = "[?](bold yellow)"
-staged = "[+](bold green)"
-stashed = "[\\$](bold purple)"
+format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
+style = "cyan"
+conflicted = "​"
+untracked = "​"
+modified = "​"
+staged = "​"
+renamed = "​"
+deleted = "​"
+stashed = "≡"
 
-[kubernetes]
-disabled = false
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bright-black"
 
-[fill]
-symbol = " "
+[cmd_duration]
+format = "[$duration]($style) "
+style = "yellow"
 
-[nodejs]
-symbol = " "
-
-[ruby]
-symbol = " "
-
-[rust]
-symbol = " "
-
-[golang]
-symbol = " "
+[jobs]
+style = "bright-black"
