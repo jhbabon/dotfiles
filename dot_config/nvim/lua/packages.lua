@@ -18,13 +18,17 @@ local function pkgs(use)
 		"nvim-treesitter/nvim-treesitter",
 		requires = {
 			"nvim-treesitter/nvim-treesitter-textobjects",
-			"andymass/vim-matchup",
 		},
 		run = ":TSUpdate",
+		config = require("conf-treesitter"),
+	})
+
+	use({
+		"andymass/vim-matchup",
 		setup = function()
 			vim.g.loaded_matchit = 1
+			vim.g.matchup_matchparen_offscreen = { method = "popup" }
 		end,
-		config = require("conf-treesitter"),
 	})
 
 	-- File syntax extensions

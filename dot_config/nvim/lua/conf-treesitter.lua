@@ -80,9 +80,6 @@ return function()
 		indent = {
 			enable = true,
 		},
-		matchup = {
-			enable = true,
-		},
 		textobjects = {
 			enable = true,
 			swap = {
