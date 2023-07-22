@@ -24,6 +24,9 @@ $character"""
 [directory]
 style = "blue"
 
+[fill]
+symbol = ' '
+
 [character]
 success_symbol = "[❯](purple)"
 error_symbol = "[❯](red)"
