@@ -1,5 +1,5 @@
---- Extra projectionist transformers
--- @module transformers
+---Extra projectionist transformers
+---@module transformers
 local transformers = {}
 
 function transformers.rspec(input)

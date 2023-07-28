@@ -1,13 +1,13 @@
 ## My dotfiles
 
-This collection of dotfiles is managed by [chezmoi][chezmoi].
+This collection of dotfiles is managed by [chezmoi].
 
 ### Usage
 
-Once you have installed [chezmoi][chezmoi], run:
+Once you have installed [chezmoi], run:
 
-```
-$ chezmoi init https://github.com/jhbabon/dotfiles.git
+```sh
+chezmoi init https://github.com/jhbabon/dotfiles.git
 ```
 
 [chezmoi]: https://www.chezmoi.io
