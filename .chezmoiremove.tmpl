@@ -1,0 +1,3 @@
+{{ range $name, $pkg := .nvim.graveyard }}
+.local/share/nvim-next/site/pack/chezmoi/opt/{{$name}}
+{{ end }}

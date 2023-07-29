@@ -3,3 +3,32 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 [data]
   codespaces = {{ $codespaces }}
+
+# Manage Neovim plugins within chezmoi
+# First define packages in the data.nvim.packages table
+#
+# The name of the package will be the name of the entry on the table,
+# like `data.nvim.packages."plug.nvim"` for the package `plug.nvim`.
+# A package will have the following attributes:
+# - github: the GitHub path. Example: someone/plug.nvim
+#
+# Note that the name of a package with dots and other symbols
+# needs to be within quotes. This name will be used as the dir name.
+#
+# All the packages defined in the `data.nvim.packages` will
+# be used in the .chezmoiexternal.toml file that defines how to install
+# them in the system.
+#
+# Example: plenary.nvim
+# [data.nvim.packages."plenary.nvim"]
+#   github = "nvim-lua/plenary.nvim"
+[data.nvim.packages]
+[data.nvim.packages."plenary.nvim"]
+  github = "nvim-lua/plenary.nvim"
+
+# After removing a package, add it's name to the `data.nvim.graveyard`
+# table so it can be removed by chezmoi using the .chezmoiremove file
+#
+# Example:
+# [data.nvim.graveyard."plug.nvim"]
+[data.nvim.graveyard]
