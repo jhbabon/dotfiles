@@ -38,7 +38,7 @@
 # Neovim packages installation
 # FIXME: install them inside .local/share/nvim after migrating configs
 {{ range $name, $pkg := .nvim.packages }}
-[".local/share/nvim-next/site/pack/chezmoi/opt/{{$name}}"]
+[".local/share/nvim-next/site/pack/chezmoi/{{and (hasKey $pkg "type") $pkg.type | default "opt"}}/{{$name}}"]
   type = "git-repo"
   url = "https://github.com/{{$pkg.github}}.git"
   refreshPeriod = "168h"
