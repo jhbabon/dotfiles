@@ -70,10 +70,7 @@ vim.opt.termguicolors = true
 -- Load local config files
 vim.opt.exrc = true
 
--- FIXME: Move to a utils/ui/mappings module so it can be reused
-local function desc(description)
-	return string.format("%s -> %s", unpack(description))
-end
+local tools = require("tools")
 
 -- Mappings
 vim.keymap.set("i", "jj", "<esc>")
@@ -85,23 +82,23 @@ vim.keymap.set("n", "<leader>u<space>", function()
 	vim.cmd([[:keeppatterns %s/\s\+$//e]])
 	-- restore cursor positionn
 	vim.fn.winrestview(s)
-end, { desc = desc({ "misc", "remove trailing whitespace" }) })
+end, { desc = tools.desc({ "misc", "remove trailing whitespace" }) })
 vim.keymap.set(
 	"n",
 	"<leader>u;",
 	[[:s/\([^;]\)$/\1;/<cr>:noh<cr>]],
-	{ desc = desc({ "misc", "add semicolon (;) at eol" }) }
+	{ desc = tools.desc({ "misc", "add semicolon (;) at eol" }) }
 )
 vim.keymap.set(
 	"n",
 	"<leader>u,",
 	[[:s/\([^,]\)$/\1,/<cr>:noh<cr>]],
-	{ desc = desc({ "misc", "add comma (,) at eol" }) }
+	{ desc = tools.desc({ "misc", "add comma (,) at eol" }) }
 )
 vim.keymap.set("n", "<leader>fp", function()
 	vim.fn.setreg("+", vim.fn.expand("%"))
-end, { desc = desc({ "files", "copy path" }) })
-vim.keymap.set("n", "<leader>sc", [[:nohl<cr>]], { desc = desc({ "search", "clear current highlight" }) })
+end, { desc = tools.desc({ "files", "copy path" }) })
+vim.keymap.set("n", "<leader>sc", [[:nohl<cr>]], { desc = tools.desc({ "search", "clear current highlight" }) })
 
 vim.api.nvim_create_autocmd("User", {
 	pattern = "Bootstrap",

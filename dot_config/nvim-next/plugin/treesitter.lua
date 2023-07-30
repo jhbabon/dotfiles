@@ -1,4 +1,4 @@
--- nvim-treesitter configuration
+-- Nvim Treesitter configuration
 
 if vim.g.__treesitter_plugin__ then
 	return

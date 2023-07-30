@@ -34,6 +34,17 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 [data.nvim.packages."nvim-treesitter"]
   type = "start"
   github = "nvim-treesitter/nvim-treesitter"
+[data.nvim.packages."nvim-web-devicons"]
+  type = "start"
+  github = "kyazdani42/nvim-web-devicons"
+
+[data.nvim.packages.lualine]
+  github = "nvim-lualine/lualine.nvim"
+[data.nvim.packages."rose-pine"]
+  github = "rose-pine/neovim"
+
+[data.nvim.packages.dirbuf]
+  github = "elihunter173/dirbuf.nvim"
 
 # After removing a package, add its name to the `data.nvim.graveyard`
 # table so it can be removed by chezmoi using the .chezmoiremove file
@@ -42,5 +53,6 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 # [data.nvim.graveyard."plug.nvim"]
 #   type = "start" # defaults to "opt" if missing
 [data.nvim.graveyard]
+[data.nvim.graveyard."neogit"]
 
 # vim:set ft=toml:
