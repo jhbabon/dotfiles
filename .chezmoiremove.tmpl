@@ -1,3 +1,5 @@
 {{ range $name, $pkg := .nvim.graveyard }}
 .local/share/nvim-next/site/pack/chezmoi/{{and (hasKey $pkg "type") $pkg.type | default "opt"}}/{{$name}}
 {{ end }}
+
+# vim:set ft=toml:

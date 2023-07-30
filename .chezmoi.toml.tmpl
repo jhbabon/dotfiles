@@ -29,7 +29,11 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 #   github = "nvim-lua/plenary.nvim"
 [data.nvim.packages]
 [data.nvim.packages."plenary.nvim"]
+  type = "start"
   github = "nvim-lua/plenary.nvim"
+[data.nvim.packages."nvim-treesitter"]
+  type = "start"
+  github = "nvim-treesitter/nvim-treesitter"
 
 # After removing a package, add its name to the `data.nvim.graveyard`
 # table so it can be removed by chezmoi using the .chezmoiremove file
@@ -38,3 +42,5 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 # [data.nvim.graveyard."plug.nvim"]
 #   type = "start" # defaults to "opt" if missing
 [data.nvim.graveyard]
+
+# vim:set ft=toml:

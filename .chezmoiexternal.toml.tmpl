@@ -35,15 +35,16 @@
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "code-minimap-v0.6.4-x86_64-unknown-linux-gnu/code-minimap"]
 {{ end }}
 
-# Neovim packages installation
-# FIXME: install them inside .local/share/nvim after migrating configs
 {{ range $name, $pkg := .nvim.packages }}
-[".local/share/nvim-next/site/pack/chezmoi/{{and (hasKey $pkg "type") $pkg.type | default "opt"}}/{{$name}}"]
+{{ $type := and (hasKey $pkg "type") $pkg.type | default "opt" }}
+[".local/share/nvim-next/site/pack/chezmoi/{{$type}}/{{$name}}"]
   type = "git-repo"
   url = "https://github.com/{{$pkg.github}}.git"
   refreshPeriod = "168h"
-  [".local/share/nvim-next/site/pack/chezmoi/opt/plenary.nvim".clone]
+  [".local/share/nvim-next/site/pack/chezmoi/{{$type}}/{{$name}}".clone]
     args = ["--depth=1", "--recurse-submodules", "--shallow-submodules"]
-  [".local/share/nvim-next/site/pack/chezmoi/opt/plenary.nvim".pull]
+  [".local/share/nvim-next/site/pack/chezmoi/{{$type}}/{{$name}}".pull]
     args = ["--recurse-submodules", "--update-shallow"]
 {{ end }}
+
+# vim:set ft=toml:
