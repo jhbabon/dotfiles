@@ -1,8 +1,8 @@
+local pattern = "JITSetupPre"
+
 -- JITS: Just In Time Setup
--- Execute once the setup of a module/plugin just before an action is required
-
-local pattern = "JITSLoad"
-
+-- Execute the setup of a module/plugin once just before an action is required
+-- TODO: Better docs
 local function jits(options)
 	local name = options.name
 	assert(name, "module name is missing")
@@ -19,27 +19,15 @@ local function jits(options)
 		once = true,
 		callback = setup,
 	})
-	-- Register a User's event that executes the given action/fn
-	vim.api.nvim_create_autocmd("User", {
-		group = group,
-		pattern = pattern,
-		callback = function(event)
-			if event.data.fn then
-				event.data.fn()
-			end
-		end,
-	})
 
 	-- This wrapper will wrap a function so it is executed
 	-- under the defined User's commands, that way the setup it's
 	-- executed the first time.
 	return function(fn)
 		return function()
-			vim.api.nvim_exec_autocmds("User", {
-				group = group,
-				pattern = pattern,
-				data = { fn = fn },
-			})
+			vim.api.nvim_exec_autocmds("User", { group = group, pattern = pattern })
+
+			fn()
 		end
 	end
 end

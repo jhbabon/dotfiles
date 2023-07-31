@@ -46,6 +46,22 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 [data.nvim.packages.dirbuf]
   github = "elihunter173/dirbuf.nvim"
 
+[data.nvim.packages."vim-just"]
+  type = "start"
+  github = "NoahTheDuke/vim-just"
+
+[data.nvim.packages."vim-projectionist"]
+  github = "tpope/vim-projectionist"
+[data.nvim.packages."vim-eunuch"]
+  type = "start"
+  github = "tpope/vim-eunuch"
+[data.nvim.packages."vim-characterize"]
+  type = "start"
+  github = "tpope/vim-characterize"
+[data.nvim.packages."vim-abolish"]
+  type = "start"
+  github = "tpope/vim-abolish"
+
 # After removing a package, add its name to the `data.nvim.graveyard`
 # table so it can be removed by chezmoi using the .chezmoiremove file
 #
@@ -53,6 +69,5 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 # [data.nvim.graveyard."plug.nvim"]
 #   type = "start" # defaults to "opt" if missing
 [data.nvim.graveyard]
-[data.nvim.graveyard."neogit"]
 
 # vim:set ft=toml:
