@@ -14,9 +14,9 @@ require("offload")(function()
 		})
 	end
 
-	local jit = require("jits")({ name = "dirbuf", setup = setup })
+	local wrap = require("jits")({ name = "dirbuf", setup = setup })
 
-	local dirbuf = jit(function()
+	local dirbuf = wrap(function()
 		if vim.bo.filetype == "dirbuf" then
 			require("dirbuf").quit()
 		else
@@ -24,5 +24,5 @@ require("offload")(function()
 		end
 	end)
 
-	vim.keymap.set("n", "<leader>ft", dirbuf, { desc = require("tools").desc({ "files", "explore files with Dirbuf" }) })
+	vim.keymap.set("n", "<leader>ft", dirbuf, { desc = _G.desc({ "files", "explore files with Dirbuf" }) })
 end)

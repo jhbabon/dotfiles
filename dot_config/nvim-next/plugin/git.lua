@@ -7,8 +7,6 @@ require("offload")(function()
 	vim.cmd([[packadd neogit]])
 	require("neogit").setup({})
 
-	local tools = require("tools")
-
 	local function open()
 		require("neogit").open()
 	end
@@ -17,6 +15,6 @@ require("offload")(function()
 		require("neogit").open({ "commit" })
 	end
 
-	vim.keymap.set("n", "<leader>gs", open, { desc = tools.desc({ "git", "status" }) })
-	vim.keymap.set("n", "<leader>gc", commit, { desc = tools.desc({ "git", "commit" }) })
+	vim.keymap.set("n", "<leader>gs", open, { desc = _G.desc({ "git", "status" }) })
+	vim.keymap.set("n", "<leader>gc", commit, { desc = _G.desc({ "git", "commit" }) })
 end)
