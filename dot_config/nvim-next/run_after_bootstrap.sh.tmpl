@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
-# TODO: Be able to close on BootstrapDone event
-# TODO: --headless
-NVIM_APPNAME=nvim-next nvim -c 'doautocmd User Bootstrap'
+# Bootstrap nvim after updating plugins
+NVIM_APPNAME=nvim-next nvim --headless -c 'doautocmd User Bootstrap' -c 'quitall'
 
 # vim:set ft=sh:
