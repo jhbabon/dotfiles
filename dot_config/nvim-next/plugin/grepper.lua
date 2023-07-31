@@ -32,6 +32,7 @@ vim.keymap.set(
 vim.keymap.set("n", "<leader>sgq", [[:GrepperGrep<space>]], { desc = tools.desc({ "search", "query with grep" }) })
 
 vim.g.grepper = {
+	open = false,
 	tools = { "rg", "git", "grep" },
 }
 
