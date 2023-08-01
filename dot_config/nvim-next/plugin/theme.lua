@@ -56,14 +56,12 @@ require("lualine").setup({
 			winbar = {
 				"Trouble",
 				"dirbuf",
-				"aerial",
-				"fugitive",
 				"gitcommit",
 				"minimap",
 			},
 		},
 	},
-	extensions = { "aerial", "fugitive", dirbuf },
+	extensions = { dirbuf },
 	sections = {
 		lualine_a = { "mode" },
 		lualine_b = { "branch", "diff" },
@@ -77,7 +75,6 @@ require("lualine").setup({
 				path = 1,
 			},
 		},
-		lualine_c = { "aerial" },
 	},
 	inactive_winbar = {
 		lualine_b = {
@@ -89,3 +86,8 @@ require("lualine").setup({
 		},
 	},
 })
+
+require("offload")(function()
+	vim.cmd([[packadd tint.nvim]])
+	require("tint").setup({})
+end)
