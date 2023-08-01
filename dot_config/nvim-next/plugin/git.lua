@@ -4,17 +4,12 @@ end
 vim.g.__git_plugin__ = true
 
 require("offload")(function()
-	vim.cmd([[packadd neogit]])
-	require("neogit").setup({})
+	vim.cmd([[packadd fugitive]])
+	vim.cmd([[packadd diffview]])
 
-	local function open()
-		require("neogit").open()
-	end
+	require("diffview").setup({})
 
-	local function commit()
-		require("neogit").open({ "commit" })
-	end
-
-	vim.keymap.set("n", "<leader>gs", open, { desc = _G.desc({ "git", "status" }) })
-	vim.keymap.set("n", "<leader>gc", commit, { desc = _G.desc({ "git", "commit" }) })
+	vim.keymap.set("n", "<leader>gs", [[:Git<cr>]], { desc = _G.desc({ "git", "status" }) })
+	vim.keymap.set("n", "<leader>gc", [[:Git commit<cr>]], { desc = _G.desc({ "git", "commit" }) })
+	vim.keymap.set("n", "<leader>gd", [[:DiffviewOpen<cr>]], { desc = _G.desc({ "git", "commit" }) })
 end)

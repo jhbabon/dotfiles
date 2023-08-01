@@ -73,8 +73,10 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 [data.nvim.packages."flash.nvim"]
   github = "folke/flash.nvim"
 
-[data.nvim.packages.neogit]
-  github = "NeogitOrg/neogit"
+[data.nvim.packages.fugitive]
+  github = "tpope/vim-fugitive"
+[data.nvim.packages.diffview]
+  github = "sindrets/diffview.nvim"
 
 # After removing a package, add its name to the `data.nvim.graveyard`
 # table so it can be removed by chezmoi using the .chezmoiremove file
