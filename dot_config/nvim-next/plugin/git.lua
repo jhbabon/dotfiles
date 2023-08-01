@@ -11,5 +11,5 @@ require("offload")(function()
 
 	vim.keymap.set("n", "<leader>gs", [[:Git<cr>]], { desc = _G.desc({ "git", "status" }) })
 	vim.keymap.set("n", "<leader>gc", [[:Git commit<cr>]], { desc = _G.desc({ "git", "commit" }) })
-	vim.keymap.set("n", "<leader>gd", [[:DiffviewOpen<cr>]], { desc = _G.desc({ "git", "commit" }) })
+	vim.keymap.set("n", "<leader>gd", [[:DiffviewOpen<cr>]], { desc = _G.desc({ "git", "diff" }) })
 end)
