@@ -58,10 +58,12 @@ require("lualine").setup({
 				"dirbuf",
 				"gitcommit",
 				"minimap",
+				"DiffviewFiles",
+				"fugitive",
 			},
 		},
 	},
-	extensions = { dirbuf },
+	extensions = { "trouble", "fugitive", dirbuf },
 	sections = {
 		lualine_a = { "mode" },
 		lualine_b = { "branch", "diff" },
@@ -86,8 +88,3 @@ require("lualine").setup({
 		},
 	},
 })
-
-require("offload")(function()
-	vim.cmd([[packadd tint.nvim]])
-	require("tint").setup({})
-end)
