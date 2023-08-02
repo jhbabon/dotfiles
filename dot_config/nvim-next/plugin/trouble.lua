@@ -4,7 +4,6 @@ end
 vim.g.__trouble_plugin__ = true
 
 require("offload")(function()
-	vim.cmd([[packadd trouble.nvim]])
 	require("trouble").setup({})
 
 	-- Grepper integration

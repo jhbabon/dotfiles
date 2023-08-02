@@ -4,8 +4,6 @@ end
 vim.g.__flash_plugin__ = true
 
 require("offload")(function()
-	vim.cmd([[packadd flash.nvim]])
-
 	require("flash").setup({})
 
 	local function jump()

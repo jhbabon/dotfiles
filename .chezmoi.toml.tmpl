@@ -19,27 +19,23 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 #
 # Each package entry has the following attributes:
 # - github: the GitHub path. Example: someone/plug.nvim
-# - type: opt or start package type. Defaults to opt
+# - type: opt or start package type. Defaults to "start"
 #
 # These package definitions are used inside the `.chezmoiexternal` file
 #
 # Example: plenary.nvim
 # [data.nvim.packages."plenary.nvim"]
-#   type = "start"
+#   type = "opt"
 #   github = "nvim-lua/plenary.nvim"
 [data.nvim.packages]
 [data.nvim.packages."plenary.nvim"]
-  type = "start"
   github = "nvim-lua/plenary.nvim"
 [data.nvim.packages."nvim-treesitter"]
-  type = "start"
   github = "nvim-treesitter/nvim-treesitter"
 [data.nvim.packages.iswap]
-  type = "start"
   github = "mizlan/iswap.nvim"
 
 [data.nvim.packages."nvim-web-devicons"]
-  type = "start"
   github = "kyazdani42/nvim-web-devicons"
 
 [data.nvim.packages.lualine]
@@ -51,22 +47,20 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
   github = "elihunter173/dirbuf.nvim"
 
 [data.nvim.packages."vim-just"]
-  type = "start"
   github = "NoahTheDuke/vim-just"
 
 [data.nvim.packages."vim-projectionist"]
+  type = "opt"
   github = "tpope/vim-projectionist"
 [data.nvim.packages."vim-eunuch"]
-  type = "start"
   github = "tpope/vim-eunuch"
 [data.nvim.packages."vim-characterize"]
-  type = "start"
   github = "tpope/vim-characterize"
 [data.nvim.packages."vim-abolish"]
-  type = "start"
   github = "tpope/vim-abolish"
 
 [data.nvim.packages."vim-grepper"]
+  type = "opt"
   github = "mhinz/vim-grepper"
 
 [data.nvim.packages."trouble.nvim"]
@@ -84,7 +78,7 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 #
 # Example:
 # [data.nvim.graveyard."plug.nvim"]
-#   type = "start" # defaults to "opt" if missing
+#   type = "opt" # defaults to "start" if missing
 [data.nvim.graveyard]
 
 # vim:set ft=toml:

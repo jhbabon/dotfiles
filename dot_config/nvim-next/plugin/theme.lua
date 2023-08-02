@@ -5,9 +5,6 @@ if vim.g.__theme_plugin__ then
 end
 vim.g.__theme_plugin__ = true
 
-vim.cmd([[packadd rose-pine]])
-vim.cmd([[packadd lualine]])
-
 require("rose-pine").setup({
 	dark_variant = "moon",
 	disable_italics = true,

@@ -7,8 +7,6 @@ vim.g.__explorer_plugin__ = true
 
 require("offload")(function()
 	local function setup()
-		vim.cmd([[packadd dirbuf]])
-
 		require("dirbuf").setup({
 			write_cmd = "DirbufSync -confirm",
 		})

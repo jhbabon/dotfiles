@@ -36,7 +36,7 @@
 {{ end }}
 
 {{ range $name, $pkg := .nvim.packages }}
-{{ $type := and (hasKey $pkg "type") $pkg.type | default "opt" }}
+{{ $type := and (hasKey $pkg "type") $pkg.type | default "start" }}
 [".local/share/nvim-next/site/pack/chezmoi/{{$type}}/{{$name}}"]
   type = "git-repo"
   url = "https://github.com/{{$pkg.github}}.git"

@@ -4,9 +4,6 @@ end
 vim.g.__git_plugin__ = true
 
 require("offload")(function()
-	vim.cmd([[packadd fugitive]])
-	vim.cmd([[packadd diffview]])
-
 	require("diffview").setup({})
 
 	vim.keymap.set("n", "<leader>gs", [[:Git<cr>]], { desc = _G.desc({ "git", "status" }) })
