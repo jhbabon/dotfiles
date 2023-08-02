@@ -24,10 +24,10 @@ local function jits(options)
 	-- under the defined User's commands, that way the setup it's
 	-- executed the first time.
 	return function(fn)
-		return function()
+		return function(...)
 			vim.api.nvim_exec_autocmds("User", { group = group, pattern = pattern })
 
-			fn()
+			fn(...)
 		end
 	end
 end
