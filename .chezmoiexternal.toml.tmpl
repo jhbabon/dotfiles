@@ -42,7 +42,11 @@
   url = "https://github.com/{{$pkg.github}}.git"
   refreshPeriod = "168h"
   [".local/share/nvim-next/site/pack/chezmoi/{{$type}}/{{$name}}".clone]
-    args = ["--depth=1", "--recurse-submodules", "--shallow-submodules"]
+    {{ if (hasKey $pkg "branch") }}
+      args = ["--depth=1", "--branch={{$pkg.branch}}", "--recurse-submodules", "--shallow-submodules"]
+    {{ else }}
+      args = ["--depth=1", "--recurse-submodules", "--shallow-submodules"]
+    {{ end }}
   [".local/share/nvim-next/site/pack/chezmoi/{{$type}}/{{$name}}".pull]
     args = ["--recurse-submodules", "--update-shallow"]
 {{ end }}

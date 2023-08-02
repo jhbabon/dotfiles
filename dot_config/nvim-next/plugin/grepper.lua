@@ -1,5 +1,6 @@
 -- Grepper configuration
 
+-- TODO: With telescope I don't think I need this anymore
 if vim.g.__grepper_plugin__ then
 	return
 end

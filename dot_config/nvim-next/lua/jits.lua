@@ -17,17 +17,31 @@ local function jits(options)
 		group = group,
 		pattern = pattern,
 		once = true,
-		callback = setup,
+		callback = function(event)
+			-- Run the setup, this will be done only once
+			setup()
+
+			-- Register a new autcmd for this pattern and group
+			vim.api.nvim_create_autocmd("User", {
+				group = event.group,
+				pattern = pattern,
+				callback = function(event)
+					-- Execute the event's function
+					event.data.fn()
+				end,
+			})
+
+			-- Act normal
+			event.data.fn()
+		end,
 	})
 
 	-- This wrapper will wrap a function so it is executed
 	-- under the defined User's commands, that way the setup it's
 	-- executed the first time.
 	return function(fn)
-		return function(...)
-			vim.api.nvim_exec_autocmds("User", { group = group, pattern = pattern })
-
-			fn(...)
+		return function()
+			vim.api.nvim_exec_autocmds("User", { group = group, pattern = pattern, data = { fn = fn } })
 		end
 	end
 end

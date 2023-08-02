@@ -77,6 +77,12 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
   type = "opt"
   github = "pechorin/any-jump.vim"
 
+[data.nvim.packages."telescope.nvim"]
+  github = "nvim-telescope/telescope.nvim"
+  branch = "0.1.x"
+[data.nvim.packages."mini.fuzzy"]
+  github = "echasnovski/mini.fuzzy"
+
 # After removing a package, add its name to the `data.nvim.graveyard`
 # table so it can be removed by chezmoi using the .chezmoiremove file
 #
