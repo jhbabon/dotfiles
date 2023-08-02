@@ -11,13 +11,34 @@ require("offload")(function()
 		defaults = {
 			generic_sorter = fz.get_telescope_sorter,
 		},
+		pickers = {
+			find_files = {
+				find_command = {
+					"rg",
+					"--files",
+					"--hidden",
+					"--ignore",
+					"--follow",
+					"--glob=!**/.git/*",
+					"--glob=!**/node_modules/*",
+				},
+			},
+		},
 	})
+
+	local function themed(fn)
+		return function()
+			fn(require("telescope.themes").get_ivy())
+		end
+	end
 
 	-- TODO: Review more builtin pickers
 	local builtin = require("telescope.builtin")
-	vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = _G.desc({ "find", "files" }) })
-	vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = _G.desc({ "find", "live grep" }) })
-	vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = _G.desc({ "find", "buffers" }) })
-	vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = _G.desc({ "find", "help tags" }) })
-	vim.keymap.set("n", "<leader>fm", builtin.keymaps, { desc = _G.desc({ "find", "help tags" }) })
+	vim.keymap.set("n", "<leader>ff", themed(builtin.find_files), { desc = _G.desc({ "find", "files" }) })
+	vim.keymap.set("n", "<leader>fb", themed(builtin.buffers), { desc = _G.desc({ "find", "buffers" }) })
+	vim.keymap.set("n", "<leader>fh", themed(builtin.help_tags), { desc = _G.desc({ "find", "help tags" }) })
+	vim.keymap.set("n", "<leader>fm", themed(builtin.keymaps), { desc = _G.desc({ "find", "keymaps" }) })
+
+	vim.keymap.set("n", "<leader>sw", themed(builtin.grep_string), { desc = _G.desc({ "search", "current word" }) })
+	vim.keymap.set("n", "<leader>sq", themed(builtin.live_grep), { desc = _G.desc({ "search", "live query" }) })
 end)
