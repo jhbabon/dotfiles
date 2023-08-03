@@ -17,7 +17,7 @@ local function jits(options)
 		group = group,
 		pattern = pattern,
 		once = true,
-		callback = function(event)
+		callback = vim.schedule_wrap(function(event)
 			-- Run the setup, this will be done only once
 			setup()
 
@@ -33,7 +33,7 @@ local function jits(options)
 
 			-- Act normal
 			event.data.fn()
-		end,
+		end),
 	})
 
 	-- This wrapper will wrap a function so it is executed
