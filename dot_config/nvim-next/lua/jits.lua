@@ -25,9 +25,9 @@ local function jits(options)
 			vim.api.nvim_create_autocmd("User", {
 				group = event.group,
 				pattern = pattern,
-				callback = function(event)
+				callback = function(ev)
 					-- Execute the event's function
-					event.data.fn()
+					ev.data.fn()
 				end,
 			})
 

@@ -79,6 +79,12 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 [data.nvim.packages."mini.fuzzy"]
   github = "echasnovski/mini.fuzzy"
 
+# LSP
+[data.nvim.packages.mason]
+  github = "williamboman/mason.nvim"
+[data.nvim.packages.lspconfig]
+  github = "neovim/nvim-lspconfig"
+
 # After removing a package, add its name to the `data.nvim.graveyard`
 # table so it can be removed by chezmoi using the .chezmoiremove file
 #

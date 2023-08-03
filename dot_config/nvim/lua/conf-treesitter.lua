@@ -125,9 +125,4 @@ return function()
 			},
 		},
 	})
-
-	-- Use treesitter's folding module
-	vim.opt.foldlevel = 5
-	vim.opt.foldmethod = "expr"
-	vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 end
