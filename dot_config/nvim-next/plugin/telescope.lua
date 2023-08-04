@@ -28,7 +28,7 @@ require("offload")(function()
 
 	local function themed(fn)
 		return function()
-			fn(require("telescope.themes").get_ivy())
+			fn(require("telescope.themes").get_dropdown())
 		end
 	end
 
