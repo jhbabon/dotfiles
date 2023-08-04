@@ -4,6 +4,7 @@ end
 vim.g.__format_plugin__ = true
 
 -- TODO: Review User events' names
+-- TODO: If EFM goes well I won't need this
 
 require("formatter").setup({
 	logging = true,

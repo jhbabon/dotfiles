@@ -78,15 +78,22 @@ function lookups.mason(spec)
 	registry.refresh(function()
 		local pkg = registry.get_package(spec.name)
 
+		-- in mason, the name of a package doesn't mean is going to map to
+		-- one binary, a package can include more than one
+		-- the option { mason = { link_name = "something" } } indicates
+		-- which binary from mason to use
+		local msn = spec.mason or {}
+		local link_name = msn.link_name or spec.name
+
 		if pkg:is_installed() then
-			return sender({ path.bin_prefix(pkg.name) })
+			return sender({ path.bin_prefix(link_name) })
 		end
 
 		pkg:install({ version = spec.version }):once(
 			"closed",
 			vim.schedule_wrap(function()
 				if pkg:is_installed() then
-					sender({ path.bin_prefix(pkg.name) })
+					sender({ path.bin_prefix(link_name) })
 				end
 			end)
 		)
@@ -97,8 +104,7 @@ end
 
 binaries.lookups = lookups
 
-local noop = function()
-end
+local noop = function() end
 
 -- Convert a found command (a string[]) into an executable table
 local function executable(found, spec)
@@ -111,6 +117,9 @@ local function executable(found, spec)
 		__call = function(_)
 			return found
 		end,
+		__tostring = function(_)
+			return table.concat(found, " ")
+		end
 	})
 
 	return {
@@ -182,6 +191,11 @@ function binaries.prepare(spec, looks)
 		end)
 	end
 
+	-- FIXME: better name?
+	function bin:resolve_ok(callback)
+		self:resolve(option.wrap_some(callback))
+	end
+
 	return bin
 end
 
@@ -191,11 +205,21 @@ end
 function binaries.prepare_many(specs)
 	local channels = {}
 	local bins = {}
-	for index, spec in ipairs(specs) do
+	local refs = {}
+	local index = 0
+	for ref, spec in pairs(specs) do
+		index = index + 1
+		table.insert(refs, index, ref)
+
 		local sender, receiver = async.control.channel.oneshot()
 		table.insert(channels, index, receiver)
 
-		local bin = binaries.prepare(spec[1], spec[2])
+		local bin
+		if type(spec) == "string" then
+			bin = binaries.prepare(spec)
+		else
+			bin = binaries.prepare(spec[1], spec[2])
+		end
 		table.insert(bins, index, { bin, sender })
 	end
 
@@ -203,6 +227,7 @@ function binaries.prepare_many(specs)
 		specs = specs,
 		channels = channels,
 		bins = bins,
+		refs = refs,
 	}
 
 	function collection:resolve(callback)
@@ -222,8 +247,7 @@ function binaries.prepare_many(specs)
 				local results = {}
 				for index, receiver in ipairs(self.channels) do
 					local result = receiver()
-					local spec = self.specs[index][1]
-					results[spec.name] = result
+					results[self.refs[index]] = result
 				end
 
 				return results
