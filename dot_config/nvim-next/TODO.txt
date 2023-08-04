@@ -1,0 +1,13 @@
+TODO:
+
+* [x] install plugins in "/start" as default
+* [x] any-jump
+* [x] lsp shenanigans
+* [ ] lsp: rust, go, ruby, etc
+* [ ] https://github.com/nvim-pack/nvim-spectre
+* [ ] revisit https://github.com/echasnovski/mini.nvim
+* [?] https://github.com/mhartington/formatter.nvim (or similar)
+* [ ] https://github.com/mfussenegger/nvim-lint (or similar)
+* [x] ~scout~ or maybe telescope?
+* [ ] autocompletion
+* [ ] snippets
