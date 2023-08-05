@@ -40,21 +40,22 @@ local function mason(name, options)
 		local pkg = mason_registry.get_package(options.name)
 
 		if pkg:is_installed() then
-			return sender({ mason_path.bin_prefix(bin) })
+			return sender(option.some({ mason_path.bin_prefix(bin) }))
 		end
 
-		-- FIXME: If Mason fails with an error this coroutine gets blocked
 		pkg:install({ version = options.version }):once(
 			"closed",
 			vim.schedule_wrap(function()
 				if pkg:is_installed() then
-					sender({ mason_path.bin_prefix(bin) })
+					sender(option.some({ mason_path.bin_prefix(bin) }))
+				else
+					sender(option.none())
 				end
 			end)
 		)
 	end)
 
-	return option.some(receiver())
+	return receiver()
 end
 
 local mason_proxy = {}
