@@ -116,7 +116,7 @@ end
 
 -- Efm filetypes must be defined on first setup because it is used by lspconfig to
 -- setup FileType events that attach buffers to the client, or to launch it the first time.
-local efm_filetypes = { "lua" }
+local efm_filetypes = { "lua", "go" }
 local efm_init_options = {
 	documentFormatting = true,
 }

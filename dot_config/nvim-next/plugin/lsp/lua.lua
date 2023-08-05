@@ -57,6 +57,7 @@ lazy_lsp.efm.setup({ pattern = { "lua" } }, function(exec)
 						rootMarkers = { "stylua.toml", ".stylua.toml" },
 					},
 					{
+						prefix = "luacheck",
 						lintCommand = luacheck,
 						lintIgnoreExitCode = true,
 						lintStdin = true,
