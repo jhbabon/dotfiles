@@ -62,8 +62,8 @@ local function resolve_config(name, fn)
 	local ok, result = pcall(fn, exec)
 	if not ok then
 		vim.notify(
-			("Error seting up the LSP server '%s': %s"):format(name, result),
-			vim.log.levels.ERROR,
+			("Error setting up the LSP server '%s': %s"):format(name, result),
+			vim.log.levels.WARN,
 			{ title = "LSP config" }
 		)
 	end
@@ -116,7 +116,7 @@ end
 
 -- Efm filetypes must be defined on first setup because it is used by lspconfig to
 -- setup FileType events that attach buffers to the client, or to launch it the first time.
-local efm_filetypes = { "lua", "go" }
+local efm_filetypes = { "lua", "go", "ruby" }
 local efm_init_options = {
 	documentFormatting = true,
 }
