@@ -8,5 +8,4 @@ function fun.tap(value, fn)
 	return value
 end
 
-
 return fun
