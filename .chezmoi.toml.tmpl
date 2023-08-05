@@ -85,9 +85,6 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 [data.nvim.packages.lspconfig]
   github = "neovim/nvim-lspconfig"
 
-[data.nvim.packages.formatter]
-  github = "mhartington/formatter.nvim"
-
 # After removing a package, add its name to the `data.nvim.graveyard`
 # table so it can be removed by chezmoi using the .chezmoiremove file
 #
@@ -95,5 +92,6 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 # [data.nvim.graveyard."plug.nvim"]
 #   type = "opt" # defaults to "start" if missing
 [data.nvim.graveyard]
+[data.nvim.graveyard.formatter]
 
 # vim:set ft=toml:

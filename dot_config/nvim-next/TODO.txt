@@ -3,6 +3,8 @@ TODO:
 * [x] install plugins in "/start" as default
 * [x] any-jump
 * [x] lsp shenanigans
+* [x] new execs module to replace binaries
+* [x] fancier async lazy-lsp
 * [ ] lsp: rust, go, ruby, etc
 * [ ] https://github.com/nvim-pack/nvim-spectre
 * [ ] revisit https://github.com/echasnovski/mini.nvim
@@ -11,3 +13,5 @@ TODO:
 * [x] ~scout~ or maybe telescope?
 * [ ] autocompletion
 * [ ] snippets
+* [x] configure luacheck
+* [ ] clean up docs

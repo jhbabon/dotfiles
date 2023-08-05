@@ -1,26 +1,27 @@
--- Lazyly setup LSP servers only when matching filetypes are loaded
--- By default it will try to install the server using Mason if is not
--- present in the system or managed by Mason already.
---
--- It is used like `lspconfig`, but with a few extra config options:
--- - config.lazy.pattern: the list of filetypes to match, like `{ "lua" }`
--- - config.lazy.bin: a bin instance, @see binaries.prepare
---
--- @example:
---	require("lazy-lsp").lua_ls.setup({
---		lazy = {
---			pattern = { "lua" },
---			bin = binaries.prepare("lua-language-server", my_lookup),
---		}
---	})
-local binaries = require("binaries")
+---Setup LSP servers only when a buffer of the specified filetype is loaded
+-- This module also uses the 'execs' module to find and optionally install executables
+-- for LSP servers and other tools on demand
 
--- More aliases can be found here:
--- https://github.com/williamboman/mason-lspconfig.nvim/blob/e86a4c84ff35240639643ffed56ee1c4d55f538e/lua/mason-lspconfig/mappings/server.lua
-local aliases = {
-	lua_ls = "lua-language-server",
+---@usage
+--	require("lazy-lsp").lua_ls.setup({ pattern = { "lua" } }, function(exec)
+--		return {
+--			cmd = exec("lua-language-server").cmd, -- this is option, it will be done by lazy-setup if not present
+--			settings = {}
+--		}
+--	end)
+
+local async = require("plenary.async")
+local execs = require("execs")
+local scopes = require("execs.scopes")
+
+---@module 'lazy_lsp'
+local lazy_lsp = {}
+
+local executables = {
+	lua_ls = { "lua-language-server" },
+	efm = { "efm-langserver", scopes = { scopes.system, scopes.mason.pkg({ name = "efm" }) } },
 }
-setmetatable(aliases, {
+setmetatable(executables, {
 	__index = function(_, key)
 		return key
 	end,
@@ -28,8 +29,8 @@ setmetatable(aliases, {
 
 local group = vim.api.nvim_create_augroup("LazyLSP", { clear = true })
 
--- Delay everything on FileType event
-local function delay(options, callback)
+---Execute a callback in a FileType event, but only once
+local function on_filetype(options, callback)
 	local pattern = options.pattern
 	assert(pattern, "the option `pattern` must be present and match a list of filetypes")
 
@@ -41,57 +42,93 @@ local function delay(options, callback)
 	})
 end
 
-local function default_setup(name, options, fn)
-	local specs = options.bins or { [name] = aliases[name] }
-	local bins = binaries.prepare_many(specs)
-	bins:resolve(function(results)
-		local placeholders = {}
-		-- check the lsp server binary
-		for key, option in pairs(results) do
-			option:and_then(function(exec)
-				placeholders[key] = exec
-			end)
+---Get the executable from the system and other scopes
+local function exec(spec)
+	local async_resolve = async.wrap(execs.resolve, 2)
+	local opt = async_resolve(spec)
+	if opt:is_some() then
+		local res = opt:unwrap()
+		return res
+	else
+		if type(spec) == "string" then
+			spec = { spec }
 		end
+		error(("executable %s not found"):format(spec[1]))
+	end
+end
 
-		if placeholders[name] == nil then
-			vim.notify(("LSP binary not found: %s"):format(name), vim.log.levels.ERROR, { title = "LSP config" })
-			return
-		end
+-- TODO: Add Result type?
+local function resolve_config(name, fn)
+	local ok, result = pcall(fn, exec)
+	if not ok then
+		vim.notify(
+			("Error seting up the LSP server '%s': %s"):format(name, result),
+			vim.log.levels.ERROR,
+			{ title = "LSP config" }
+		)
+	end
 
-		local config = fn(placeholders)
-		require("lspconfig")[name].setup(config)
+	return ok, result
+end
 
-		-- this will trigger the FileType event again, which
-		-- in turn will ensure that the lsp server starts
-		-- and the current file is attached to it
-		vim.cmd([[filetype detect]])
+local function setup(name, fn)
+	vim.schedule(function()
+		async.run(function()
+			local ok, result = resolve_config(name, fn)
+			if not ok then
+				return
+			end
+
+			if result.cmd == nil then
+				local status, res = resolve_config(name, function(ex)
+					return {
+						cmd = ex(executables[name]).cmd,
+					}
+				end)
+
+				if not status then
+					return
+				end
+
+				result = vim.tbl_deep_extend("force", result, res)
+			end
+
+			require("lspconfig")[name].setup(result)
+
+			-- This wil retrigger FileType events, which in turn will
+			-- trigger the events defined by lspconfig. These events
+			-- will ensure that the LSP server is initialized and attached
+			-- to the current buffer
+			vim.cmd([[filetype detect]])
+		end)
 	end)
 end
 
-local function build(name)
-	-- TODO: Does the order of arguments make sense?
-	-- TODO: Better names for the whole binaries handling, it's a mess between bin, exec, spec, etc
-	local function setup(fn, options)
-		delay(options, function()
-			default_setup(name, options, fn)
+local function builder(name)
+	local function default(options, fn)
+		on_filetype(options, function()
+			setup(name, fn)
 		end)
 	end
 
-	return { setup = setup }
+	return { setup = default }
 end
 
 -- Efm filetypes must be defined on first setup because it is used by lspconfig to
 -- setup FileType events that attach buffers to the client, or to launch it the first time.
 local efm_filetypes = { "lua" }
+local efm_init_options = {
+	documentFormatting = true,
+}
 local efm = {}
 
--- Efm setup is special. Efm works with multiple filetype, which means it can be called
+-- Efm setup is special. Efm works with multiple filetypes, which means it can be called
 -- from different filetype definitions.
 -- The idea is as follows:
 -- - The first time is called, it will setup the efm langserver normally
 -- - If it is called more than once, it will update the existing server with
 --   a 'workspace/didChangeConfiguration' message, adding new language and tools configurations
-function efm.setup(fn, options)
+function efm.setup(options, fn)
 	local pattern = options.pattern or {}
 	local lookup = {}
 	for _, ft in ipairs(efm_filetypes) do
@@ -109,52 +146,43 @@ function efm.setup(fn, options)
 		end
 	end
 
-	delay(options, function()
+	on_filetype(options, function()
 		local clients = vim.lsp.get_active_clients({ name = "efm" })
 		if #clients == 0 then
-			local chain = function(bins)
-				local config = fn(bins)
-				config = vim.tbl_extend("force", config, { filetypes = efm_filetypes })
+			local configurator = function(ex)
+				local config = fn(ex)
+				local defaults = { filetypes = efm_filetypes, init_options = efm_init_options }
+
+				config = vim.tbl_extend("force", config, defaults)
 
 				return config
 			end
 
-			local bins = options.bins or {}
-			if bins.efm == nil then
-				bins.efm = { { name = "efm", mason = { link_name = "efm-langserver" } } }
-			end
-			options.bins = bins
-
-			return default_setup("efm", options, chain)
+			return setup("efm", configurator)
 		else
-			local specs = options.bins or {}
-			options.bins.efm = nil -- no need to look for efm binary
-			local bins = binaries.prepare_many(specs)
-			bins:resolve(function(results)
-				local placeholders = {}
-				for key, option in pairs(results) do
-					option:and_then(function(exec)
-						placeholders[key] = exec
-					end)
-				end
-
-				local config = fn(placeholders)
-
-				for _, client in ipairs(clients) do
-					if config.settings then
-						client.notify("workspace/didChangeConfiguration", { settings = config.settings })
+			vim.schedule(function()
+				async.run(function()
+					local ok, config = resolve_config("efm", fn)
+					if not ok then
+						return
 					end
-				end
+
+					if config.settings then
+						for _, client in ipairs(clients) do
+							client.notify("workspace/didChangeConfiguration", { settings = config.settings })
+						end
+					end
+				end)
 			end)
 		end
 	end)
 end
 
-local lazy_lsp = { efm = efm }
+lazy_lsp.efm = efm
 
 setmetatable(lazy_lsp, {
 	__index = function(_, key)
-		return build(key)
+		return builder(key)
 	end,
 })
 

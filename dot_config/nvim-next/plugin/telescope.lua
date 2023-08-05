@@ -37,8 +37,9 @@ require("offload")(function()
 	vim.keymap.set("n", "<leader>ff", themed(builtin.find_files), { desc = _G.desc({ "find", "files" }) })
 	vim.keymap.set("n", "<leader>fb", themed(builtin.buffers), { desc = _G.desc({ "find", "buffers" }) })
 	vim.keymap.set("n", "<leader>fh", themed(builtin.help_tags), { desc = _G.desc({ "find", "help tags" }) })
-	vim.keymap.set("n", "<leader>fm", themed(builtin.keymaps), { desc = _G.desc({ "find", "keymaps" }) })
+	vim.keymap.set("n", "<leader>km", themed(builtin.keymaps), { desc = _G.desc({ "find", "keymaps" }) })
 
+	-- TODO: maybe bring back grepper? it offers more options
 	vim.keymap.set("n", "<leader>sw", themed(builtin.grep_string), { desc = _G.desc({ "search", "current word" }) })
 	vim.keymap.set("n", "<leader>sq", themed(builtin.live_grep), { desc = _G.desc({ "search", "live query" }) })
 end)
