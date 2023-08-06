@@ -8,11 +8,11 @@ TODO:
 * [x] lsp: rust, go, ruby, etc
 * [x] lsp: efm-langserver
 * [ ] https://github.com/nvim-pack/nvim-spectre
-* [ ] revisit https://github.com/echasnovski/mini.nvim
+* [x] revisit https://github.com/echasnovski/mini.nvim
 * [-] https://github.com/mhartington/formatter.nvim (or similar): I'm using efm
 * [-] https://github.com/mfussenegger/nvim-lint (or similar): I'm using efm
 * [x] ~scout~ or maybe telescope?
-* [ ] autocompletion
+* [x] autocompletion
 * [ ] snippets
 * [x] configure luacheck
 * [ ] clean up docs
