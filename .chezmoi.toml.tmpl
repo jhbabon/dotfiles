@@ -95,6 +95,10 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 [data.nvim.packages."vim-snippets"]
   github = "honza/vim-snippets"
 
+# Terminal
+[data.nvim.packages.toggleterm]
+  github = "akinsho/toggleterm.nvim"
+
 # After removing a package, add its name to the `data.nvim.graveyard`
 # table so it can be removed by chezmoi using the .chezmoiremove file
 #
