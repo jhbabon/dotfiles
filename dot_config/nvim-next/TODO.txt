@@ -13,7 +13,7 @@ TODO:
 * [-] https://github.com/mfussenegger/nvim-lint (or similar): I'm using efm
 * [x] ~scout~ or maybe telescope?
 * [x] autocompletion
-* [ ] snippets
+* [x] snippets
 * [x] configure luacheck
 * [ ] clean up docs
 * [ ] terminal plugin
