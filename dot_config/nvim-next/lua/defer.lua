@@ -25,19 +25,18 @@ end
 --
 ---@usage
 ---	local setup = function() vim.cmd.packadd("any-jump") end -- setup the module
----	local wrapper = require("defer").jits({ name = "any-jump", setup = setup })
+---	local wrapper = require("defer").jits.any_jump(setup)
 ---	local jump = wrapper(function()
 ---		vim.cmd([[AnyJump]])
 ---	end)
 ---	jump() -- the first time it will trigger the setup before running
 ---	jump() -- the second time it will run normally
 --
----@param options table A table with the name (string) and setup function
+---@param name string name of the module to lazy load
+---@param setup fun() setup function
 ---@return fun(callback: fun()): fun()
-function defer.jits(options)
-	local name = options.name
+local function _jits(name, setup)
 	assert(name, "module name is missing")
-	local setup = options.setup
 	assert(setup, "module setup function is missing")
 
 	local pattern = "JITSetupPre"
@@ -78,5 +77,22 @@ function defer.jits(options)
 		end
 	end
 end
+
+local jits = {}
+setmetatable(jits, {
+	__index = function(_, key)
+		local function setup(callback)
+			return _jits(key, callback)
+		end
+
+		return setup
+	end,
+
+	__call = function(_, ...)
+		return _jits(...)
+	end
+})
+
+defer.jits = jits
 
 return defer

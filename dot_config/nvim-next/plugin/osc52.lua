@@ -13,7 +13,7 @@ defer.offload(function()
 		require("osc52").setup({})
 	end
 
-	local wrap = defer.jits({ name = "osc52", setup = setup })
+	local wrap = defer.jits.osc52(setup)
 
 	local copy_operator = wrap(function()
 		require("osc52").copy_operator()

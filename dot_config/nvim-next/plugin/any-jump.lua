@@ -14,7 +14,7 @@ defer.offload(function()
 		vim.cmd.packadd("any-jump")
 	end
 
-	local wrap = defer.jits({ name = "any-jump", setup = setup })
+	local wrap = defer.jits.any_jump(setup)
 
 	local jump = wrap(function()
 		vim.cmd([[AnyJump]])

@@ -13,7 +13,7 @@ defer.offload(function()
 		require("spectre").setup()
 	end
 
-	local wrap = defer.jits({ name = "spectre", setup = setup })
+	local wrap = defer.jits.spectre(setup)
 
 	local open = wrap(function()
 		require("spectre").open({})

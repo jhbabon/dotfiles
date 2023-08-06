@@ -16,7 +16,7 @@ defer.offload(function()
 		})
 	end
 
-	local wrap = defer.jits({ name = "dirbuf", setup = setup })
+	local wrap = defer.jits("dirbuf", setup)
 
 	-- toggle dirbuf window
 	local dirbuf = wrap(function()
