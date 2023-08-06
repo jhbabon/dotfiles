@@ -80,8 +80,8 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 [data.nvim.packages."telescope.nvim"]
   github = "nvim-telescope/telescope.nvim"
   branch = "0.1.x"
-[data.nvim.packages."mini.fuzzy"]
-  github = "echasnovski/mini.fuzzy"
+[data.nvim.packages.mini]
+  github = "echasnovski/mini.nvim"
 
 # LSP
 [data.nvim.packages.mason]
@@ -96,6 +96,6 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 # [data.nvim.graveyard."plug.nvim"]
 #   type = "opt" # defaults to "start" if missing
 [data.nvim.graveyard]
-[data.nvim.graveyard.formatter]
+[data.nvim.graveyard."mini.fuzzy"]
 
 # vim:set ft=toml:
