@@ -1,3 +1,6 @@
+---Configure telescope plugin: https://github.com/nvim-telescope/telescope.nvim
+-- Find, Filter, Preview, Pick. All lua, all the time
+-----------------------------------------------------------------------
 if vim.g.__telescope_plugin__ then
 	return
 end

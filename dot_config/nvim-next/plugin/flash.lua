@@ -1,3 +1,7 @@
+---Configure flash.nvim plugin: https://github.com/folke/flash.nvim
+-- Navigate your code with search labels, enhanced character motions
+-- and Treesitter integration
+-----------------------------------------------------------------------
 if vim.g.__flash_plugin__ then
 	return
 end

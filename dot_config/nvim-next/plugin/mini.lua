@@ -1,3 +1,7 @@
+---Configure several mini plugins: https://github.com/echasnovski/mini.nvim
+-- Library of 30+ independent Lua modules improving overall
+-- Neovim experience with minimal effort
+-----------------------------------------------------------------------
 if vim.g.__mini_plugin__ then
 	return true
 end

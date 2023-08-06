@@ -1,3 +1,5 @@
+---Configure sorbet and efm for ruby files
+-----------------------------------------------------------------------
 if vim.g.__lsp_ruby_plugin__ then
 	return
 end

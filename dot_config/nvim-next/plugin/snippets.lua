@@ -1,3 +1,6 @@
+---Configure snippy plugin: https://github.com/dcampos/nvim-snippy
+-- Snippet plugin for Neovim written in Lua
+-----------------------------------------------------------------------
 if vim.g.__snippets_plugin__ then
 	return
 end

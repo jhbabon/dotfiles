@@ -1,3 +1,6 @@
+---Configure toggleterm plugin: https://github.com/akinsho/toggleterm.nvim
+-- A neovim lua plugin to help easily manage multiple terminal windows
+-----------------------------------------------------------------------
 if vim.g.__terminal_plugin__ then
 	return true
 end

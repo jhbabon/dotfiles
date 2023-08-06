@@ -1,3 +1,6 @@
+---Configure spectre plugin: https://github.com/nvim-pack/nvim-spectre
+-- A search panel for neovim
+-----------------------------------------------------------------------
 if vim.g.__spectre_plugin__ then
 	return true
 end

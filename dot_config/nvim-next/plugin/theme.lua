@@ -1,5 +1,9 @@
--- Theme: Statusline and Colorscheme configurations
-
+---Configure statusline and colorscheme
+-- Statusline is set with lualine: https://github.com/nvim-lualine/lualine.nvim
+--   A blazing fast and easy to configure neovim statusline plugin written in pure lua
+-- Colorscheme is set with rose-pine: https://github.com/rose-pine/neovim
+--   Soho vibes for Neovim
+-----------------------------------------------------------------------
 if vim.g.__theme_plugin__ then
 	return
 end

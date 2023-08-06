@@ -1,18 +1,15 @@
 ---Bring Rust's Option enum to lua, more or less
 ---@module 'option'
 
----@alias T any
----@alias R any
-
----@class Option<T>
+---@class Option<any>
 ---@field is_some fun(): boolean
 ---@field is_none fun(): boolean
 ---@field unwrap fun(): nil|any
----@field _and fun(opt: Option<T>): Option<T>
----@field _or fun(opt: Option<T>): Option<T>
----@field and_then fun(callback: fun(value: any): Option<T>): Option<T>
----@field or_else fun(callback: fun(): Option<T>): Option<T>
----@field map fun(fn: fun(value: T): R): Option<R>
+---@field _and fun(opt: Option<any>): Option<any>
+---@field _or fun(opt: Option<any>): Option<any>
+---@field and_then fun(callback: fun(value: any): Option<any>): Option<any>
+---@field or_else fun(callback: fun(): Option<any>): Option<any>
+---@field map fun(fn: fun(value: any): any): Option<any>
 
 local option = {}
 

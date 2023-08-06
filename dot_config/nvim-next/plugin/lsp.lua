@@ -1,3 +1,5 @@
+---Configure main LSP keymaps
+-----------------------------------------------------------------------
 if vim.g.__lsp_plugin__ then
 	return true
 end

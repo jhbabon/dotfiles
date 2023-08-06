@@ -4,8 +4,9 @@
 
 ---@usage
 --	require("lazy-lsp").lua_ls.setup({ pattern = { "lua" } }, function(exec)
+--		-- return normal 'lspconfig' settings
 --		return {
---			cmd = exec("lua-language-server").cmd, -- this is option, it will be done by lazy-setup if not present
+--			cmd = exec("lua-language-server").cmd, -- this is optional, it will be done by lazy-setup if not present
 --			settings = {}
 --		}
 --	end)
@@ -17,13 +18,16 @@ local scopes = require("execs.scopes")
 ---@module 'lazy_lsp'
 local lazy_lsp = {}
 
+local function noop() end
+
+-- executables' specifications for some LSP servers
 local executables = {
 	lua_ls = { "lua-language-server" },
 	efm = { "efm-langserver", scopes = { scopes.system, scopes.mason.pkg({ name = "efm" }) } },
 }
 setmetatable(executables, {
 	__index = function(_, key)
-		return key
+		return { key }
 	end,
 })
 
@@ -43,6 +47,7 @@ local function on_filetype(options, callback)
 end
 
 ---Get the executable from the system and other scopes
+---@param spec ExecSpec
 local function exec(spec)
 	local async_resolve = async.wrap(execs.resolve, 2)
 	local opt = async_resolve(spec)
@@ -71,6 +76,10 @@ local function resolve_config(name, fn)
 	return ok, result
 end
 
+---Default LSP setup function
+-- This will get the configuration from the callback with
+-- all the executables resolved asynchronously.
+-- It will then setup the server with lspconfig
 local function setup(name, fn)
 	vim.schedule(function()
 		async.run(function()
@@ -100,14 +109,17 @@ local function setup(name, fn)
 			-- will ensure that the LSP server is initialized and attached
 			-- to the current buffer
 			vim.cmd([[filetype detect]])
-		end)
+		end, noop)
 	end)
 end
 
+---Build a default setup function that works with most LSP servers in lspconfig
+---@param name string the server name, like "lua_ls", etc
+---@return table with a setup function
 local function builder(name)
-	local function default(options, fn)
+	local function default(options, callback)
 		on_filetype(options, function()
-			setup(name, fn)
+			setup(name, callback)
 		end)
 	end
 
@@ -128,7 +140,7 @@ local efm = {}
 -- - The first time is called, it will setup the efm langserver normally
 -- - If it is called more than once, it will update the existing server with
 --   a 'workspace/didChangeConfiguration' message, adding new language and tools configurations
-function efm.setup(options, fn)
+function efm.setup(options, callback)
 	local pattern = options.pattern or {}
 	local lookup = {}
 	for _, ft in ipairs(efm_filetypes) do
@@ -150,7 +162,7 @@ function efm.setup(options, fn)
 		local clients = vim.lsp.get_active_clients({ name = "efm" })
 		if #clients == 0 then
 			local configurator = function(ex)
-				local config = fn(ex)
+				local config = callback(ex)
 				local defaults = { filetypes = efm_filetypes, init_options = efm_init_options }
 
 				config = vim.tbl_extend("force", config, defaults)
@@ -160,9 +172,10 @@ function efm.setup(options, fn)
 
 			return setup("efm", configurator)
 		else
+			-- the client exists, we only need to update it with 'workspace/didChangeConfiguration'
 			vim.schedule(function()
 				async.run(function()
-					local ok, config = resolve_config("efm", fn)
+					local ok, config = resolve_config("efm", callback)
 					if not ok then
 						return
 					end
@@ -172,7 +185,7 @@ function efm.setup(options, fn)
 							client.notify("workspace/didChangeConfiguration", { settings = config.settings })
 						end
 					end
-				end)
+				end, noop)
 			end)
 		end
 	end)

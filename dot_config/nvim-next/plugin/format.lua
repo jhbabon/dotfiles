@@ -1,3 +1,6 @@
+---Configure file formatting
+-- Use LSP formatting by default
+-----------------------------------------------------------------------
 if vim.g.__format_plugin__ then
 	return
 end

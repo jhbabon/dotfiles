@@ -1,3 +1,5 @@
+---Configure marksman for markdown files
+-----------------------------------------------------------------------
 if vim.g.__lsp_markdown_plugin__ then
 	return
 end

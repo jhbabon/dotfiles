@@ -1,3 +1,6 @@
+---Configure mini.completion plugin: https://github.com/echasnovski/mini.nvim
+-- Completion and signature help
+-----------------------------------------------------------------------
 if vim.g.__completion_plugin__ then
 	return true
 end

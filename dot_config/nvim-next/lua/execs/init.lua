@@ -1,21 +1,23 @@
---- Find executables in different scopes and build commands with them
--- @usage
--- local scopes = require("execs.scopes")
--- local spec = {
---	"efm-langserver",
---	scopes = {
---		scopes.system,
---		-- scopes.mason, -- default definition
---		scopes.mason.pkg({ version = "v1", name = "efm", bin = "efm-langserver" }),
---	},
--- }
--- requier("execs").resolve(spec, function(opt)
---	if opt:is_some() then
---		print("found %s":format(opt:unwrap()))
---	else
---		print("not found %s":format(spec.name))
---	end
--- end)
+---Find executables in different scopes and build commands with them
+-- Note that this module uses async code (from plenary), so it needs
+-- to be executed -inside an async context, like with `vim.schedule()`
+--
+---@usage
+---	local scopes = require("execs.scopes")
+---	local spec = {
+---		"efm-langserver",
+---		scopes = {
+---			scopes.system,
+---			scopes.mason.pkg({ name = "efm" }),
+---		},
+---	}
+---	require("execs").resolve(spec, function(opt)
+---		if opt:is_some() then
+---			print("found %s":format(opt:unwrap()))
+---		else
+---			print("not found %s":format(spec.name))
+---		end
+---	end)
 
 local async = require("plenary.async")
 local option = require("option")
@@ -29,7 +31,7 @@ local cache = {}
 
 ---@class ExecSpec
 ---@field [1] string the name of the executable
----@field scopes table<Scope>? list of scope functions
+---@field scopes? table<Scope> list of scope functions
 
 ---@class Exec
 ---@field scpe ExecSpec

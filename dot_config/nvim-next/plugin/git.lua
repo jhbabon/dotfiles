@@ -1,3 +1,10 @@
+---Configure fugitive plugin: https://github.com/tpope/vim-fugitive
+-- A Git wrapper so awesome, it should be illegal
+--
+---Configure diffview plugin: https://github.com/sindrets/diffview.nvim
+-- Single tabpage interface for easily cycling through diffs
+-- for all modified files for any git rev.
+-----------------------------------------------------------------------
 if vim.g.__git_plugin__ then
 	return
 end

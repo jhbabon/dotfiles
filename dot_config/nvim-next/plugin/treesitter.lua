@@ -1,5 +1,6 @@
--- Nvim Treesitter configuration
-
+---Configure treesitter plugin: https://github.com/nvim-treesitter/nvim-treesitter
+-- Nvim Treesitter configurations and abstraction layer
+-----------------------------------------------------------------------
 if vim.g.__treesitter_plugin__ then
 	return
 end

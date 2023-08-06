@@ -1,4 +1,5 @@
--- Javascript AND Typescript
+---Configure denols javascript and typescript files
+-----------------------------------------------------------------------
 if vim.g.__lsp_javascript_plugin__ then
 	return
 end

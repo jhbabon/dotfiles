@@ -1,3 +1,6 @@
+---Configure any-jump plugin: https://github.com/pechorin/any-jump.vim
+-- Jump to any definition and references
+-----------------------------------------------------------------------
 if vim.g.__anyjump_plugin__ then
 	return
 end

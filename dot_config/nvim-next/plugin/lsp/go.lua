@@ -1,3 +1,5 @@
+---Configure gopls and efm for go files
+-----------------------------------------------------------------------
 if vim.g.__lsp_go_plugin__ then
 	return
 end

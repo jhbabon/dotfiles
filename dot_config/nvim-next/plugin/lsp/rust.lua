@@ -1,3 +1,5 @@
+---Configure rust-analyzer for rust files
+-----------------------------------------------------------------------
 if vim.g.__lsp_rust_plugin__ then
 	return
 end

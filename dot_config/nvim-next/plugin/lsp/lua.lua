@@ -1,3 +1,5 @@
+---Configure lua_ls and efm for lua files
+-----------------------------------------------------------------------
 if vim.g.__lsp_lua_plugin__ then
 	return
 end
