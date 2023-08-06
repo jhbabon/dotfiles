@@ -3,7 +3,7 @@ if vim.g.__telescope_plugin__ then
 end
 vim.g.__telescope_plugin__ = true
 
-require("offload")(function()
+require("defer").offload(function()
 	local fz = require("mini.fuzzy")
 	fz.setup({})
 

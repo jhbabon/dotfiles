@@ -3,7 +3,7 @@ if vim.g.__flash_plugin__ then
 end
 vim.g.__flash_plugin__ = true
 
-require("offload")(function()
+require("defer").offload(function()
 	require("flash").setup({})
 
 	local function jump()

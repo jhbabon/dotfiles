@@ -3,7 +3,7 @@ if vim.g.__trouble_plugin__ then
 end
 vim.g.__trouble_plugin__ = true
 
-require("offload")(function()
+require("defer").offload(function()
 	require("trouble").setup({})
 
 	-- Grepper integration

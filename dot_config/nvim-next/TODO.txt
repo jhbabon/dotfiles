@@ -16,3 +16,4 @@ TODO:
 * [ ] snippets
 * [x] configure luacheck
 * [ ] clean up docs
+* [ ] terminal plugin

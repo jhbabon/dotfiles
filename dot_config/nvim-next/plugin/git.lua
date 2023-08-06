@@ -3,7 +3,7 @@ if vim.g.__git_plugin__ then
 end
 vim.g.__git_plugin__ = true
 
-require("offload")(function()
+require("defer").offload(function()
 	require("diffview").setup({})
 
 	vim.keymap.set("n", "<leader>gs", [[:Git<cr>]], { desc = _G.desc({ "git", "status" }) })

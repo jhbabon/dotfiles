@@ -3,13 +3,15 @@ if vim.g.__anyjump_plugin__ then
 end
 vim.g.__anyjump_plugin__ = true
 
-require("offload")(function()
+local defer = require("defer")
+
+defer.offload(function()
 	local function setup()
 		vim.g.any_jump_disable_default_keybindings = true
 		vim.cmd.packadd("any-jump")
 	end
 
-	local wrap = require("jits")({ name = "any-jump", setup = setup })
+	local wrap = defer.jits({ name = "any-jump", setup = setup })
 
 	local jump = wrap(function()
 		vim.cmd([[AnyJump]])

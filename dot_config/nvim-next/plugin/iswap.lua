@@ -3,6 +3,6 @@ if vim.g.__iswap_plugin__ then
 end
 vim.g.__iswap_plugin__ = true
 
-require("offload")(function()
+require("defer").offload(function()
 	require("iswap").setup({})
 end)

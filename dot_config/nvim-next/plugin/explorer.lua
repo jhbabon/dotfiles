@@ -5,14 +5,16 @@ if vim.g.__explorer_plugin__ then
 end
 vim.g.__explorer_plugin__ = true
 
-require("offload")(function()
+local defer = require("defer")
+
+defer.offload(function()
 	local function setup()
 		require("dirbuf").setup({
 			write_cmd = "DirbufSync -confirm",
 		})
 	end
 
-	local wrap = require("jits")({ name = "dirbuf", setup = setup })
+	local wrap = defer.jits({ name = "dirbuf", setup = setup })
 
 	local dirbuf = wrap(function()
 		if vim.bo.filetype == "dirbuf" then
