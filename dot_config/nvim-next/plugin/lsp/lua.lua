@@ -5,6 +5,8 @@ vim.g.__lsp_lua_plugin__ = true
 
 local path = vim.api.nvim_get_runtime_file("", true)
 table.remove(path, 1) -- remove ~/.config/$nvim since it collides with chezmoi files
+table.insert(path, "lua/?.lua")
+table.insert(path, "lua/?/init.lua")
 
 local lazy_lsp = require("lazy-lsp")
 
