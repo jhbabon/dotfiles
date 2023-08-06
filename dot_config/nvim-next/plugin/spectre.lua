@@ -10,6 +10,7 @@ local defer = require("defer")
 
 defer.offload(function()
 	local function setup()
+		vim.cmd([[packadd nvim-spectre]])
 		require("spectre").setup()
 	end
 
