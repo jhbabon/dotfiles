@@ -1,5 +1,5 @@
 {{ range $name, $pkg := .nvim.graveyard }}
-.local/share/nvim-next/site/pack/chezmoi/{{and (hasKey $pkg "type") $pkg.type | default "start"}}/{{$name}}
+.local/share/nvim/site/pack/chezmoi/{{and (hasKey $pkg "type") $pkg.type | default "start"}}/{{$name}}
 {{ end }}
 
 # vim:set ft=toml:

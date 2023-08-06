@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+set -e
+
+echo "Bootstraping NeoVim ********************"
+# Bootstrap nvim after updating plugins
+{{ if (eq .chezmoi.os "darwin") -}}
+nvim --headless -c 'doautocmd User Bootstrap' -c 'quitall'
+{{ end }}
+{{ if (.codespaces) -}}
+$HOME/.local/bin/nvim --headless -c 'doautocmd User Bootstrap' -c 'quitall'
+{{ end -}}
+
+# vim:set ft=sh:

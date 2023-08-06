@@ -2,10 +2,6 @@
   type = "git-repo"
   url = "https://github.com/zsh-users/zsh-autosuggestions.git"
   refreshPeriod = "168h"
-[".local/share/nvim/site/pack/packer/opt/packer.nvim"]
-  type = "git-repo"
-  url = "https://github.com/wbthomason/packer.nvim.git"
-  refreshPeriod = "168h"
 [".local/share/terminfo.src"]
   type = "file"
   url = "https://invisible-island.net/datafiles/current/terminfo.src.gz"
@@ -26,28 +22,21 @@
     [".local/bin/exa".filter]
       command = "busybox"
       args = ["unzip", "-", "bin/exa", "-p"]
-[".local/bin/code-minimap"]
-  type = "file"
-  url = "https://github.com/wfxr/code-minimap/releases/download/v0.6.4/code-minimap-v0.6.4-x86_64-unknown-linux-gnu.tar.gz"
-  executable = true
-  [".local/bin/code-minimap".filter]
-    command = "tar"
-    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "code-minimap-v0.6.4-x86_64-unknown-linux-gnu/code-minimap"]
 {{ end }}
 
 {{ range $name, $pkg := .nvim.packages }}
 {{ $type := and (hasKey $pkg "type") $pkg.type | default "start" }}
-[".local/share/nvim-next/site/pack/chezmoi/{{$type}}/{{$name}}"]
+[".local/share/nvim/site/pack/chezmoi/{{$type}}/{{$name}}"]
   type = "git-repo"
   url = "https://github.com/{{$pkg.github}}.git"
-  refreshPeriod = "168h"
-  [".local/share/nvim-next/site/pack/chezmoi/{{$type}}/{{$name}}".clone]
+  refreshPeriod = "72h"
+  [".local/share/nvim/site/pack/chezmoi/{{$type}}/{{$name}}".clone]
     {{ if (hasKey $pkg "branch") }}
       args = ["--depth=1", "--branch={{$pkg.branch}}", "--recurse-submodules", "--shallow-submodules"]
     {{ else }}
       args = ["--depth=1", "--recurse-submodules", "--shallow-submodules"]
     {{ end }}
-  [".local/share/nvim-next/site/pack/chezmoi/{{$type}}/{{$name}}".pull]
+  [".local/share/nvim/site/pack/chezmoi/{{$type}}/{{$name}}".pull]
     args = ["--recurse-submodules", "--update-shallow"]
 {{ end }}
 

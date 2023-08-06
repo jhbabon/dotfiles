@@ -1,8 +1,20 @@
--- Bring Rust's Option enum to lua, more or less
+---Bring Rust's Option enum to lua, more or less
 ---@module 'option'
+
+---@class Option<any>
+---@field is_some fun(): boolean
+---@field is_none fun(): boolean
+---@field unwrap fun(): nil|any
+---@field _and fun(opt: Option<any>): Option<any>
+---@field _or fun(opt: Option<any>): Option<any>
+---@field and_then fun(callback: fun(value: any): Option<any>): Option<any>
+---@field or_else fun(callback: fun(): Option<any>): Option<any>
+---@field map fun(fn: fun(value: any): any): Option<any>
 
 local option = {}
 
+---@param val any
+---@return Option<any> Some(val)
 function option.some(val)
 	local some = {
 		__val = val,
@@ -36,6 +48,10 @@ function option.some(val)
 		return self
 	end
 
+	function some:map(fn)
+		return option.some(fn(self.__val))
+	end
+
 	return some
 end
 
@@ -45,6 +61,7 @@ function option.wrap_some(fn)
 	end
 end
 
+---@return Option<any> None
 function option.none()
 	local none = {}
 
@@ -75,6 +92,10 @@ function option.none()
 
 	function none:or_else(fn)
 		return fn()
+	end
+
+	function none:map(_)
+		return self
 	end
 
 	return none
