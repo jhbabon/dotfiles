@@ -24,7 +24,7 @@ end
 --   the setup the first time
 --
 ---@usage
----	local setup = function() vim.cmd.packadd("any-jump") end -- setup the module
+---	local setup = function() vim.cmd.packadd("any-jump.vim") end -- setup the module
 ---	local wrapper = require("defer").jits.any_jump(setup)
 ---	local jump = wrapper(function()
 ---		vim.cmd([[AnyJump]])

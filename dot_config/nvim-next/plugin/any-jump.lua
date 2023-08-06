@@ -11,7 +11,7 @@ local defer = require("defer")
 defer.offload(function()
 	local function setup()
 		vim.g.any_jump_disable_default_keybindings = true
-		vim.cmd.packadd("any-jump")
+		vim.cmd([[packadd any-jump.vim]])
 	end
 
 	local wrap = defer.jits.any_jump(setup)

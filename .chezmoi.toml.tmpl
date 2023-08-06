@@ -4,7 +4,7 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 [data]
   codespaces = {{ $codespaces }}
 
-# Manage Neovim plugins using chezmoi
+# Manage Neovim plugins usign chezmoi
 #
 # We can use chezmoi to install all Neovim packages.
 # Chezmoi will ensure that the repositories are cloned and up
@@ -13,13 +13,14 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 # Here we define the packages we want to install under the
 # `data.nvim.packages` table.
 #
-# To add a new package, add a new entry with the package's name.
-# The name will be used as the directory under `*/nvim/site/pack/chezmoi/{opt/start}`. If the name has a dot, use quotes to ensure it's not
-# split into attributes.
+# To add a new package add a new entry with the package's name.
+# The name will be used as the directory under `*/nvim/site/pack/chezmoi/{opt/start}`.
+# If the name has a dot use quotes to ensure it's not split into attributes.
 #
 # Each package entry has the following attributes:
 # - github: the GitHub path. Example: someone/plug.nvim
 # - type: opt or start package type. Defaults to "start"
+# - branch: the branch to clone. Optional
 #
 # These package definitions are used inside the `.chezmoiexternal` file
 #
@@ -28,30 +29,39 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 #   type = "opt"
 #   github = "nvim-lua/plenary.nvim"
 [data.nvim.packages]
+
+# Main dependencies
 [data.nvim.packages."plenary.nvim"]
   github = "nvim-lua/plenary.nvim"
-[data.nvim.packages."nvim-treesitter"]
-  github = "nvim-treesitter/nvim-treesitter"
-[data.nvim.packages.iswap]
-  github = "mizlan/iswap.nvim"
-
 [data.nvim.packages."nvim-web-devicons"]
   github = "kyazdani42/nvim-web-devicons"
 
-[data.nvim.packages.lualine]
+# Treesitter
+[data.nvim.packages."nvim-treesitter"]
+  github = "nvim-treesitter/nvim-treesitter"
+[data.nvim.packages."iswap.nvim"]
+  github = "mizlan/iswap.nvim"
+
+# Theme
+[data.nvim.packages."lualine.nvim"]
   github = "nvim-lualine/lualine.nvim"
 [data.nvim.packages."rose-pine"]
   github = "rose-pine/neovim"
 
-[data.nvim.packages.dirbuf]
+# File explorer
+[data.nvim.packages."dirbuf.nvim"]
   github = "elihunter173/dirbuf.nvim"
 
+# Filetypes
 [data.nvim.packages."vim-just"]
   github = "NoahTheDuke/vim-just"
 
+# Project management
 [data.nvim.packages."vim-projectionist"]
   type = "opt"
   github = "tpope/vim-projectionist"
+
+# Mix tools
 [data.nvim.packages."vim-eunuch"]
   github = "tpope/vim-eunuch"
 [data.nvim.packages."vim-characterize"]
@@ -59,34 +69,44 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 [data.nvim.packages."vim-abolish"]
   github = "tpope/vim-abolish"
 
+# Diagnostics
 [data.nvim.packages."trouble.nvim"]
   github = "folke/trouble.nvim"
+
+# Quick movement
 [data.nvim.packages."flash.nvim"]
   github = "folke/flash.nvim"
 
-[data.nvim.packages.fugitive]
+# Git
+[data.nvim.packages."vim-fugitive"]
   github = "tpope/vim-fugitive"
-[data.nvim.packages.diffview]
+[data.nvim.packages."diffview.nvim"]
   github = "sindrets/diffview.nvim"
 
-[data.nvim.packages.any-jump]
+# Search
+[data.nvim.packages."any-jump.vim"]
   type = "opt"
   github = "pechorin/any-jump.vim"
-
 [data.nvim.packages."vim-grepper"]
   type = "opt"
   github = "mhinz/vim-grepper"
+[data.nvim.packages."nvim-spectre"]
+  type = "opt"
+  github = "nvim-pack/nvim-spectre"
 
+# Fuzzy picker
 [data.nvim.packages."telescope.nvim"]
   github = "nvim-telescope/telescope.nvim"
   branch = "0.1.x"
-[data.nvim.packages.mini]
+
+# Mixed tools from mini.nvim
+[data.nvim.packages."mini.nvim"]
   github = "echasnovski/mini.nvim"
 
 # LSP
-[data.nvim.packages.mason]
+[data.nvim.packages."mason.nvim"]
   github = "williamboman/mason.nvim"
-[data.nvim.packages.lspconfig]
+[data.nvim.packages."nvim-lspconfig"]
   github = "neovim/nvim-lspconfig"
 
 # Snippets
@@ -96,14 +116,11 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
   github = "honza/vim-snippets"
 
 # Terminal
-[data.nvim.packages.toggleterm]
+[data.nvim.packages."toggleterm.nvim"]
   github = "akinsho/toggleterm.nvim"
 
-[data.nvim.packages."nvim-spectre"]
-  type = "opt"
-  github = "nvim-pack/nvim-spectre"
-
-[data.nvim.packages.osc52]
+# Copy text from remote hots
+[data.nvim.packages."nvim-osc52"]
   github = "ojroques/nvim-osc52"
 
 # After removing a package, add its name to the `data.nvim.graveyard`
