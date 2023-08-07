@@ -22,7 +22,6 @@ vim.opt.joinspaces = false -- put only one space after joining
 vim.opt.mouse = "a" -- enable all mouse interactions
 
 -- Use the system clipboard as the default register
--- TODO: Check https://github.com/ojroques/nvim-osc52 for ssh copy&paste
 vim.opt.clipboard = { "unnamed", "unnamedplus" }
 
 -- Indentation
