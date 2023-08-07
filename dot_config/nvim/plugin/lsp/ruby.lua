@@ -25,18 +25,20 @@ lazy_lsp.sorbet.setup({ pattern = { "ruby" } }, function(exec)
 end)
 
 lazy_lsp.efm.setup({ pattern = { "ruby" } }, function(exec)
-	local rubocop = ("%s --lint --format emacs --stdin ${INPUT}"):format(exec({ "rubocop", scopes = { local_bin } }))
+	local rubocop = ("%s --format emacs --stdin ${INPUT}"):format(exec({ "rubocop", scopes = { local_bin } }))
 
 	return {
 		settings = {
 			rootMarkers = { ".git/" },
 			languages = {
 				ruby = {
-					prefix = "rubocop",
-					lintCommand = rubocop,
-					lintStdin = true,
-					lintFormats = { "%f:%l:%c: %t: %m" },
-					rootMarkers = {},
+					{
+						prefix = "rubocop",
+						lintCommand = rubocop,
+						lintStdin = true,
+						lintFormats = { "%f:%l:%c: %t: %m" },
+						rootMarkers = {},
+					},
 				},
 			},
 		},
