@@ -20,6 +20,13 @@ function scopes.system(name)
 	return option.some({ name })
 end
 
+---Find an executable in the local bin directory
+---@param name string the name of the executable
+---@return Option<string[]> a table of strings that form the command to execute
+function scopes.local_bin(name)
+	return scopes.system(("bin/%s"):format(name))
+end
+
 ---@class PkgOptions
 ---@field name string the name of the package in Mason
 ---@field version? string the version to use with Mason
