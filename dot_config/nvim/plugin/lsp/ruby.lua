@@ -9,7 +9,7 @@ local layers = require("layers")
 
 layers.set("lsp.ruby.sorbet", function()
 	local function srb(_)
-		return require("execs.scopes"):map(function(cmd)
+		return require("execs.scopes").local_bin("srb"):map(function(cmd)
 			return { cmd[1], "tc", "--lsp" }
 		end)
 	end
@@ -22,9 +22,22 @@ layers.set("lsp.ruby.sorbet", function()
 end)
 
 layers.set("lsp.ruby.efm", function()
+	local option = require("option")
+
+	local function bundle(name)
+		vim.fn.system(("bundle exec %s --version"):format(name))
+
+		-- Bundler or the gem are not installed
+		if vim.v.shell_error ~= 0 then
+			return option.none()
+		end
+
+		return option.some({ "bundle", "exec", name })
+	end
+
 	require("lazy-lsp").efm.setup({ pattern = { "ruby" } }, function(exec)
 		local rubocop = ("%s --format emacs --stdin ${INPUT}"):format(
-			exec({ "rubocop", scopes = { require("execs.scopes").local_bin } })
+			exec({ "rubocop", scopes = { require("execs.scopes").local_bin, bundle } })
 		)
 
 		return {
