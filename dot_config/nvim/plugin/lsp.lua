@@ -89,3 +89,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		)
 	end,
 })
+
+require("defer").offload(function()
+	require("fidget").setup({
+		text = {
+			spinner = "dots",
+		},
+	})
+end)
