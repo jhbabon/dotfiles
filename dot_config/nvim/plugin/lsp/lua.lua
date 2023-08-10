@@ -10,8 +10,6 @@ local layers = require("layers")
 layers.set("lsp.lua.lua_ls", function()
 	local path = vim.api.nvim_get_runtime_file("", true)
 	table.remove(path, 1) -- remove ~/.config/$nvim since it collides with chezmoi files
-	table.insert(path, "lua/?.lua")
-	table.insert(path, "lua/?/init.lua")
 
 	require("lazy-lsp").lua_ls.setup({ pattern = { "lua" } }, function(_)
 		return {
@@ -23,7 +21,6 @@ layers.set("lsp.lua.lua_ls", function()
 					runtime = {
 						-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
 						version = "LuaJIT",
-						path = path,
 					},
 					diagnostics = {
 						-- Get the language server to recognize the `vim` global
