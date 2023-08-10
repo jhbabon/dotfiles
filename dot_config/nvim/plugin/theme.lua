@@ -49,6 +49,22 @@ local dirbuf = {
 	filetypes = { "dirbuf" },
 }
 
+---Display attached LSP client names
+local function lsp()
+	local bufnr = vim.api.nvim_get_current_buf()
+	local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+	if #clients == 0 then
+		return ""
+	end
+
+	local names = {}
+	for _, client in ipairs(clients) do
+		table.insert(names, client.name)
+	end
+
+	return table.concat(names, [[ · ]])
+end
+
 require("lualine").setup({
 	options = {
 		theme = "rose-pine",
@@ -64,11 +80,17 @@ require("lualine").setup({
 			},
 		},
 	},
-	extensions = { "trouble", "fugitive", dirbuf },
+	extensions = { "toggleterm", "trouble", "fugitive", dirbuf },
 	sections = {
 		lualine_a = { "mode" },
 		lualine_b = { "branch", "diff" },
 		lualine_c = { "diagnostics" },
+		lualine_x = {
+			lsp,
+			"encoding",
+			"fileformat",
+			"filetype",
+		},
 	},
 	winbar = {
 		lualine_b = {
