@@ -48,50 +48,102 @@ starter.setup({
 	},
 })
 
+-- Move
+require("mini.move").setup({
+	mappings = {
+		left = "<Leader>mh",
+		right = "<Leader>ml",
+		down = "<Leader>mj",
+		up = "<Leader>mk",
+		line_left = "<Leader>mh",
+		line_right = "<Leader>ml",
+		line_down = "<Leader>mj",
+		line_up = "<Leader>mk",
+	},
+})
+
+-- Bracketed
+require("mini.bracketed").setup()
+
 -- Clue
-local miniclue = require('mini.clue')
+local miniclue = require("mini.clue")
 miniclue.setup({
-  triggers = {
-    -- Leader triggers
-    { mode = 'n', keys = '<Leader>' },
-    { mode = 'x', keys = '<Leader>' },
+	triggers = {
+		-- Leader triggers
+		{ mode = "n", keys = "<Leader>" },
+		{ mode = "x", keys = "<Leader>" },
 
-    -- Built-in completion
-    { mode = 'i', keys = '<C-x>' },
+		-- Built-in completion
+		{ mode = "i", keys = "<C-x>" },
 
-    -- `g` key
-    { mode = 'n', keys = 'g' },
-    { mode = 'x', keys = 'g' },
+		-- `g` key
+		{ mode = "n", keys = "g" },
+		{ mode = "x", keys = "g" },
 
-    -- Marks
-    { mode = 'n', keys = "'" },
-    { mode = 'n', keys = '`' },
-    { mode = 'x', keys = "'" },
-    { mode = 'x', keys = '`' },
+		-- Marks
+		{ mode = "n", keys = "'" },
+		{ mode = "n", keys = "`" },
+		{ mode = "x", keys = "'" },
+		{ mode = "x", keys = "`" },
 
-    -- Registers
-    { mode = 'n', keys = '"' },
-    { mode = 'x', keys = '"' },
-    { mode = 'i', keys = '<C-r>' },
-    { mode = 'c', keys = '<C-r>' },
+		-- Registers
+		{ mode = "n", keys = '"' },
+		{ mode = "x", keys = '"' },
+		{ mode = "i", keys = "<C-r>" },
+		{ mode = "c", keys = "<C-r>" },
 
-    -- Window commands
-    { mode = 'n', keys = '<C-w>' },
+		-- Window commands
+		{ mode = "n", keys = "<C-w>" },
 
-    -- `z` key
-    { mode = 'n', keys = 'z' },
-    { mode = 'x', keys = 'z' },
-  },
+		-- `z` key
+		{ mode = "n", keys = "z" },
+		{ mode = "x", keys = "z" },
 
-  clues = {
-    -- Enhance this by adding descriptions for <Leader> mapping groups
-    miniclue.gen_clues.builtin_completion(),
-    miniclue.gen_clues.g(),
-    miniclue.gen_clues.marks(),
-    miniclue.gen_clues.registers(),
-    miniclue.gen_clues.windows(),
-    miniclue.gen_clues.z(),
-  },
+		-- Move
+		{ mode = "n", keys = "<Leader>m" },
+		{ mode = "x", keys = "<Leader>m" },
+
+		-- bracketed
+		{ mode = "n", keys = "]" },
+		{ mode = "n", keys = "[" },
+	},
+
+	clues = {
+		-- Move submode
+		{ mode = "n", keys = "<Leader>mh", postkeys = "<Leader>m" },
+		{ mode = "n", keys = "<Leader>mj", postkeys = "<Leader>m" },
+		{ mode = "n", keys = "<Leader>mk", postkeys = "<Leader>m" },
+		{ mode = "n", keys = "<Leader>ml", postkeys = "<Leader>m" },
+		{ mode = "x", keys = "<Leader>mh", postkeys = "<Leader>m" },
+		{ mode = "x", keys = "<Leader>mj", postkeys = "<Leader>m" },
+		{ mode = "x", keys = "<Leader>mk", postkeys = "<Leader>m" },
+		{ mode = "x", keys = "<Leader>ml", postkeys = "<Leader>m" },
+
+		-- Bracketed submode: buffers
+		{ mode = "n", keys = "]b",         postkeys = "]" },
+		{ mode = "n", keys = "[b",         postkeys = "[" },
+
+		-- Bracketed submode: windows
+		{ mode = "n", keys = "]w",         postkeys = "]" },
+		{ mode = "n", keys = "[w",         postkeys = "[" },
+
+		-- Enhance this by adding descriptions for <Leader> mapping groups
+		miniclue.gen_clues.builtin_completion(),
+		miniclue.gen_clues.g(),
+		miniclue.gen_clues.marks(),
+		miniclue.gen_clues.registers(),
+		miniclue.gen_clues.windows({
+			submode_move = true,
+			submode_resize = true,
+		}),
+		miniclue.gen_clues.z(),
+	},
+
+	window = {
+		config = {
+			width = "auto",
+		},
+	},
 })
 
 require("defer").offload(function()
