@@ -48,23 +48,6 @@ starter.setup({
 	},
 })
 
--- Move
-require("mini.move").setup({
-	mappings = {
-		left = "<Leader>mh",
-		right = "<Leader>ml",
-		down = "<Leader>mj",
-		up = "<Leader>mk",
-		line_left = "<Leader>mh",
-		line_right = "<Leader>ml",
-		line_down = "<Leader>mj",
-		line_up = "<Leader>mk",
-	},
-})
-
--- Bracketed
-require("mini.bracketed").setup()
-
 -- Clue
 local miniclue = require("mini.clue")
 miniclue.setup({
@@ -164,4 +147,21 @@ require("defer").offload(function()
 
 	-- Surround
 	require("mini.surround").setup({})
+
+	-- Move
+	require("mini.move").setup({
+		mappings = {
+			left = "<Leader>mh",
+			right = "<Leader>ml",
+			down = "<Leader>mj",
+			up = "<Leader>mk",
+			line_left = "<Leader>mh",
+			line_right = "<Leader>ml",
+			line_down = "<Leader>mj",
+			line_up = "<Leader>mk",
+		},
+	})
+
+	-- Bracketed
+	require("mini.bracketed").setup()
 end)
