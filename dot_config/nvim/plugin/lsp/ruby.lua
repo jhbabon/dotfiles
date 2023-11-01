@@ -10,7 +10,7 @@ local layers = require("layers")
 layers.set("lsp.ruby.sorbet", function()
 	local function srb(_)
 		return require("execs.scopes").local_bin("srb"):map(function(cmd)
-			return { cmd[1], "tc", "--lsp" }
+			return { cmd[1], "tc", "--lsp", "--disable-watchman" }
 		end)
 	end
 
