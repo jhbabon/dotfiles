@@ -8,7 +8,13 @@ end
 vim.g.__flash_plugin__ = true
 
 require("defer").offload(function()
-	require("flash").setup({})
+	require("flash").setup({
+		modes = {
+			search = {
+				enabled = false,
+			}
+		}
+	})
 
 	local function jump()
 		require("flash").jump()
