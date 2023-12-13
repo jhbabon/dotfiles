@@ -33,6 +33,29 @@ setmetatable(executables, {
 
 local group = vim.api.nvim_create_augroup("LazyLSP", { clear = true })
 
+---Preserve buffer settings
+local function sync_buffer(callback)
+	return function()
+		-- Keep a reference to the current editorconfig settings
+		local bufnr = vim.api.nvim_get_current_buf()
+		local editorconfig = vim.b[bufnr].editorconfig
+
+		callback()
+
+		-- This will retrigger FileType events, which in turn will
+		-- trigger the events defined by lspconfig. These events
+		-- will ensure that the LSP server is initialized and attached
+		-- to the current buffer
+		vim.cmd([[filetype detect]])
+
+		-- Reapply editorconfig settings in case the LSP server (like Rust) overrides them
+		-- after calling "filetype detect"
+		if editorconfig ~= nil then
+			require("editorconfig").config(bufnr)
+		end
+	end
+end
+
 ---Execute a callback in a FileType event, but only once
 local function on_filetype(options, callback)
 	local pattern = options.pattern
@@ -82,34 +105,31 @@ end
 -- It will then setup the server with lspconfig
 local function setup(name, fn)
 	vim.schedule(function()
-		async.run(function()
-			local ok, result = resolve_config(name, fn)
-			if not ok then
-				return
-			end
-
-			if result.cmd == nil then
-				local status, res = resolve_config(name, function(ex)
-					return {
-						cmd = ex(executables[name]).cmd,
-					}
-				end)
-
-				if not status then
+		async.run(
+			sync_buffer(function()
+				local ok, result = resolve_config(name, fn)
+				if not ok then
 					return
 				end
 
-				result = vim.tbl_deep_extend("force", result, res)
-			end
+				if result.cmd == nil then
+					local status, res = resolve_config(name, function(ex)
+						return {
+							cmd = ex(executables[name]).cmd,
+						}
+					end)
 
-			require("lspconfig")[name].setup(result)
+					if not status then
+						return
+					end
 
-			-- This wil retrigger FileType events, which in turn will
-			-- trigger the events defined by lspconfig. These events
-			-- will ensure that the LSP server is initialized and attached
-			-- to the current buffer
-			vim.cmd([[filetype detect]])
-		end, noop)
+					result = vim.tbl_deep_extend("force", result, res)
+				end
+
+				require("lspconfig")[name].setup(result)
+			end),
+			noop
+		)
 	end)
 end
 
