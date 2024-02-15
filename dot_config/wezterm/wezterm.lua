@@ -67,6 +67,6 @@ config.font_rules = {
 
 config.font_size = 14.0
 
-config.color_scheme = "Snazzy"
+config.color_scheme = "Kanagawa (Gogh)"
 
 return config
