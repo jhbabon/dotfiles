@@ -9,6 +9,13 @@ if vim.g.__theme_plugin__ then
 end
 vim.g.__theme_plugin__ = true
 
+vim.api.nvim_create_autocmd("User", {
+	pattern = "Bootstrap",
+	callback = function()
+		vim.cmd([[silent! KanagawaCompile]])
+	end,
+})
+
 require("rose-pine").setup({
 	dark_variant = "moon",
 	disable_italics = true,
@@ -22,8 +29,13 @@ require("rose-pine").setup({
 	},
 })
 
+require("kanagawa").setup({
+	compile = true,
+	dimInactive = true,
+})
+
 vim.opt.background = "dark"
-vim.cmd([[colorscheme rose-pine]])
+vim.cmd([[colorscheme kanagawa]])
 
 -- Dirbuf customizations
 local dirbuf = {
@@ -67,7 +79,7 @@ end
 
 require("lualine").setup({
 	options = {
-		theme = "rose-pine",
+		theme = "kanagawa",
 		globalstatus = true,
 		disabled_filetypes = {
 			winbar = {
