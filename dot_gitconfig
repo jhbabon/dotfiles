@@ -1,3 +1,6 @@
+[init]
+  defaultBranch = main
+
 [user]
   editor = nvim
 
@@ -75,5 +78,8 @@
 
 [include]
   path = .gitconfiglocal.inc
+
+[rerere]
+  enabled = true
 
 # vim:set ft=gitconfig:
