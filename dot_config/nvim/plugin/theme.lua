@@ -34,8 +34,8 @@ require("kanagawa").setup({
 	dimInactive = true,
 })
 
-vim.opt.background = "dark"
-vim.cmd([[colorscheme kanagawa]])
+vim.opt.background = "light"
+vim.cmd([[colorscheme PaperColorSlim]])
 
 -- Dirbuf customizations
 local dirbuf = {
@@ -79,7 +79,7 @@ end
 
 require("lualine").setup({
 	options = {
-		theme = "kanagawa",
+		theme = "PaperColor",
 		globalstatus = true,
 		disabled_filetypes = {
 			winbar = {
