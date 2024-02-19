@@ -25,7 +25,7 @@ $character"""
 style = "blue"
 
 [fill]
-symbol = ' '
+symbol = " "
 
 [character]
 success_symbol = "[❯](purple)"
@@ -39,12 +39,14 @@ style = "bright-black"
 [git_status]
 format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
 style = "cyan"
-conflicted = "​"
-untracked = "​"
-modified = "​"
-staged = "​"
-renamed = "​"
-deleted = "​"
+# replace all instances of zero-width characters, "​", with space + backspace character
+# see: https://github.com/starship/starship/issues/4927
+conflicted = " \b" # "​"
+untracked = " \b" # "​"
+modified = " \b" # "​"
+staged = " \b" # "​"
+renamed = " \b" # "​"
+deleted = " \b" # "​"
 stashed = "≡"
 
 [git_state]
