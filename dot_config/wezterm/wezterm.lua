@@ -67,6 +67,6 @@ config.font_rules = {
 
 config.font_size = 14.0
 
-config.color_scheme = "Kanagawa (Gogh)"
+config.color_scheme = "Papercolor Light (Gogh)"
 
 return config
