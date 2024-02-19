@@ -9,14 +9,18 @@ $username\
 $hostname\
 $directory\
 $git_branch\
+{{ if (not .starship_simple) -}}
 $git_state\
 $git_status\
+{{- end }}
 $cmd_duration\
+{{ if (not .starship_simple) -}}
 $fill\
 $golang\
 $nodejs\
 $ruby\
 $rust\
+{{- end }}
 $line_break\
 $jobs\
 $character"""
@@ -33,7 +37,11 @@ error_symbol = "[❯](red)"
 vimcmd_symbol = "[❮](green)"
 
 [git_branch]
+{{ if (not .starship_simple) -}}
 format = "[$branch]($style)"
+{{- else -}}
+format = "[$branch]($style) "
+{{- end }}
 style = "bright-black"
 
 [git_status]

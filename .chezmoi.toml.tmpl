@@ -1,8 +1,10 @@
 {{- $codespaces:= env "CODESPACES" | not | not -}}
+{{- $starship_simple:= env "DOTS_STARSHIP_PROMPT_SIMPLE" | not | not -}}
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 [data]
   codespaces = {{ $codespaces }}
+  starship_simple = {{ $starship_simple }}
 
 # Manage Neovim plugins usign chezmoi
 #
