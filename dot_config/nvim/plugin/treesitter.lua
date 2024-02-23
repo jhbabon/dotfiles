@@ -16,9 +16,10 @@ vim.api.nvim_create_autocmd("User", {
 })
 
 require("nvim-treesitter.configs").setup({
-	auto_install = true, -- only install languages on demand
+	auto_install = false,
 	-- list of languages https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
 	ensure_installed = {},
+	ignore_install = {},
 	sync_install = false,
 	highlight = {
 		enable = true,
@@ -30,4 +31,29 @@ require("nvim-treesitter.configs").setup({
 	indent = {
 		enable = true,
 	},
+})
+
+-- Nvim-Treesitter has an auto installer setup, but it can try to install a parser several
+-- times if a file is loaded more than once quickly, and this happens when loading LSP configurations.
+-- To avoid that issue I'm using my own auto installer that does the same, but it is only triggered
+-- once per file type
+local parsers = require("nvim-treesitter.parsers")
+local group = vim.api.nvim_create_augroup("CustomTreesitterAutoInstaller", { clear = true })
+local done = {}
+vim.api.nvim_create_autocmd("FileType", {
+	group = group,
+	pattern = { "*" },
+	callback = vim.schedule_wrap(function(ev)
+		-- NOTE: For the FileType event, the field "match" has the filetype value
+		local lang = parsers.ft_to_lang(ev.match)
+
+		if done[lang] then
+			return
+		end
+		done[lang] = true
+
+		if parsers.list[lang] and not parsers.has_parser(lang) then
+			vim.cmd(([[TSInstall! %s]]):format(lang))
+		end
+	end),
 })
