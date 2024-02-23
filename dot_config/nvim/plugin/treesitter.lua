@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd("User", {
 require("nvim-treesitter.configs").setup({
 	auto_install = false,
 	-- list of languages https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
-	ensure_installed = {},
+	ensure_installed = { "lua" },
 	ignore_install = {},
 	sync_install = false,
 	highlight = {
