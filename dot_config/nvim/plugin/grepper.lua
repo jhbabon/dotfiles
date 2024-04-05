@@ -7,24 +7,29 @@ end
 vim.g.__grepper_plugin__ = true
 
 require("defer").offload(function()
-	vim.keymap.set("n", "<leader>sw", [[:Grepper -noprompt -cword<cr>]], { desc = _G.desc({ "search", "current word" }) })
-	vim.keymap.set("n", "<leader>sq", [[:GrepperRg<space>]], { silent = false, desc = _G.desc({ "search", "query" }) })
+	local clue = require("clue")
 
+	clue("n", "<leader>s", "search")
+	vim.keymap.set("n", "<leader>sw", [[:Grepper -noprompt -cword<cr>]], { desc = "search current word" })
+	vim.keymap.set("n", "<leader>sq", [[:GrepperRg<space>]], { silent = false, desc = "search query" })
+
+	clue("n", "<leader>si", "search with git")
 	vim.keymap.set(
 		"n",
 		"<leader>siw",
 		[[:Grepper -tool git -noprompt -cword<cr>]],
-		{ desc = _G.desc({ "search", "current word with git" }) }
+		{ desc = "search current word with git" }
 	)
-	vim.keymap.set("n", "<leader>siq", [[:GrepperGit<space>]], { desc = _G.desc({ "search", "query with git" }) })
+	vim.keymap.set("n", "<leader>siq", [[:GrepperGit<space>]], { desc = "search query with git" })
 
+	clue("n", "<leader>sg", "search with grep")
 	vim.keymap.set(
 		"n",
 		"<leader>sgw",
 		[[:Grepper -tool grep -noprompt -cword<cr>]],
-		{ desc = _G.desc({ "search", "current word with grep" }) }
+		{ desc = "search current word with grep" }
 	)
-	vim.keymap.set("n", "<leader>sgq", [[:GrepperGrep<space>]], { desc = _G.desc({ "search", "query with grep" }) })
+	vim.keymap.set("n", "<leader>sgq", [[:GrepperGrep<space>]], { desc = "search query with grep" })
 
 	vim.g.grepper = {
 		open = false,

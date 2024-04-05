@@ -34,17 +34,20 @@ require("defer").offload(function()
 		require("trouble").toggle()
 	end
 
+	local clue = require("clue")
+
+	clue("n", "<leader>d", "diagnostics")
 	vim.keymap.set("n", "<leader>dw", function()
 		require("trouble").open("workspace_diagnostics")
-	end, { desc = _G.desc({ "diagnostics", "workspace diagnostics" }) })
-
+	end, { desc = "workspace diagnostics" })
 	vim.keymap.set("n", "<leader>dd", function()
 		require("trouble").open("document_diagnostics")
-	end, { desc = _G.desc({ "diagnostics", "document diagnostics" }) })
+	end, { desc = "document diagnostics" })
 
-	vim.keymap.set("n", "<leader>qf", quickfix, { desc = _G.desc({ "list", "quickfix" }) })
+	clue("n", "<leader>q", "list")
+	vim.keymap.set("n", "<leader>qf", quickfix, { desc = "quickfix" })
+	vim.keymap.set("n", "<leader>ql", loclist, { desc = "loclist" })
 
-	vim.keymap.set("n", "<leader>ql", loclist, { desc = _G.desc({ "list", "loclist" }) })
-
-	vim.keymap.set("n", "<leader>qt", toggle, { desc = _G.desc({ "trouble", "toggle" }) })
+	clue("n", "<leader>q", "trouble")
+	vim.keymap.set("n", "<leader>qt", toggle, { desc = "toggle trouble" })
 end)

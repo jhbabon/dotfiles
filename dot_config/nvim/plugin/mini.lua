@@ -23,8 +23,9 @@ local function load()
 	require("mini.sessions").read("Session.vim", {})
 end
 
-vim.keymap.set("n", "<leader>cs", save, { desc = _G.desc({ "checkpoint", "save current session" }) })
-vim.keymap.set("n", "<leader>cl", load, { desc = _G.desc({ "checkpoint", "load last session" }) })
+require("clue")("n", "<leader>c", "checkpoint")
+vim.keymap.set("n", "<leader>cs", save, { desc = "save current session" })
+vim.keymap.set("n", "<leader>cl", load, { desc = "load last session" })
 
 -- Start screen
 local starter = require("mini.starter")
@@ -45,87 +46,6 @@ starter.setup({
 		},
 		starter.sections.recent_files(5, false, false),
 		starter.sections.builtin_actions(),
-	},
-})
-
--- Clue
-local miniclue = require("mini.clue")
-miniclue.setup({
-	triggers = {
-		-- Leader triggers
-		{ mode = "n", keys = "<Leader>" },
-		{ mode = "x", keys = "<Leader>" },
-
-		-- Built-in completion
-		{ mode = "i", keys = "<C-x>" },
-
-		-- `g` key
-		{ mode = "n", keys = "g" },
-		{ mode = "x", keys = "g" },
-
-		-- Marks
-		{ mode = "n", keys = "'" },
-		{ mode = "n", keys = "`" },
-		{ mode = "x", keys = "'" },
-		{ mode = "x", keys = "`" },
-
-		-- Registers
-		{ mode = "n", keys = '"' },
-		{ mode = "x", keys = '"' },
-		{ mode = "i", keys = "<C-r>" },
-		{ mode = "c", keys = "<C-r>" },
-
-		-- Window commands
-		{ mode = "n", keys = "<C-w>" },
-
-		-- `z` key
-		{ mode = "n", keys = "z" },
-		{ mode = "x", keys = "z" },
-
-		-- Move
-		{ mode = "n", keys = "<Leader>m" },
-		{ mode = "x", keys = "<Leader>m" },
-
-		-- bracketed
-		{ mode = "n", keys = "]" },
-		{ mode = "n", keys = "[" },
-	},
-
-	clues = {
-		-- Move submode
-		{ mode = "n", keys = "<Leader>mh", postkeys = "<Leader>m" },
-		{ mode = "n", keys = "<Leader>mj", postkeys = "<Leader>m" },
-		{ mode = "n", keys = "<Leader>mk", postkeys = "<Leader>m" },
-		{ mode = "n", keys = "<Leader>ml", postkeys = "<Leader>m" },
-		{ mode = "x", keys = "<Leader>mh", postkeys = "<Leader>m" },
-		{ mode = "x", keys = "<Leader>mj", postkeys = "<Leader>m" },
-		{ mode = "x", keys = "<Leader>mk", postkeys = "<Leader>m" },
-		{ mode = "x", keys = "<Leader>ml", postkeys = "<Leader>m" },
-
-		-- Bracketed submode: buffers
-		{ mode = "n", keys = "]b",         postkeys = "]" },
-		{ mode = "n", keys = "[b",         postkeys = "[" },
-
-		-- Bracketed submode: windows
-		{ mode = "n", keys = "]w",         postkeys = "]" },
-		{ mode = "n", keys = "[w",         postkeys = "[" },
-
-		-- Enhance this by adding descriptions for <Leader> mapping groups
-		miniclue.gen_clues.builtin_completion(),
-		miniclue.gen_clues.g(),
-		miniclue.gen_clues.marks(),
-		miniclue.gen_clues.registers(),
-		miniclue.gen_clues.windows({
-			submode_move = true,
-			submode_resize = true,
-		}),
-		miniclue.gen_clues.z(),
-	},
-
-	window = {
-		config = {
-			width = "auto",
-		},
 	},
 })
 

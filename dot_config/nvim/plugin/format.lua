@@ -13,4 +13,5 @@ end
 
 vim.api.nvim_create_user_command("Format", format, {})
 
-vim.keymap.set("n", "<leader>fm", format, { desc = _G.desc({ "format", "current file" }) })
+require("clue")("n", "<leader>f", "format")
+vim.keymap.set("n", "<leader>fm", format, { desc = "format current file" })

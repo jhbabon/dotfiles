@@ -20,5 +20,6 @@ defer.offload(function()
 		require("spectre").open({})
 	end)
 
-	vim.keymap.set("n", "<leader>sp", open, { desc = _G.desc({ "spectre", "open" }) })
+	require("clue")("n", "<leader>s", "spectre")
+	vim.keymap.set("n", "<leader>sp", open, { desc = "open spectre" })
 end)
