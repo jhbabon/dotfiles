@@ -10,15 +10,16 @@ vim.g.__treesitter_plugin__ = true
 vim.api.nvim_create_autocmd("User", {
 	pattern = "Bootstrap",
 	callback = function()
-		local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-		ts_update()
+		-- List of syntax files that are needed
+		vim.cmd([[TSInstallSync! lua c query vim vimdoc]])
+		vim.cmd([[TSUpdateSync]])
 	end,
 })
 
 require("nvim-treesitter.configs").setup({
 	auto_install = false,
 	-- list of languages https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
-	ensure_installed = { "lua", "c", "query", "vim", "vimdoc" },
+	ensure_installed = {},
 	ignore_install = {},
 	sync_install = false,
 	highlight = {
