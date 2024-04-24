@@ -7,6 +7,9 @@ echo "Installing: dependencies ********************"
 sudo apt update -y
 sudo apt install -y ripgrep fd-find tmux busybox jq
 
+echo "Setting up zsh ******************************"
+sudo chsh -s /bin/zsh $(whoami)
+
 echo "Installing: starship ********************"
 sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes
 
@@ -22,7 +25,4 @@ chmod u+x nvim.appimage
 ./nvim.appimage --appimage-extract
 ./squashfs-root/AppRun --version
 sudo mv squashfs-root / && ln -s /squashfs-root/AppRun $HOME/.local/bin/nvim
-
-echo "Setting up zsh ******************************"
-sudo chsh -s /bin/zsh $(whoami)
 {{end -}}
