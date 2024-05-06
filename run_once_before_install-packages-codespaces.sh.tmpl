@@ -18,11 +18,18 @@ if type cargo > /dev/null 2>&1; then
   cargo install scout
 fi
 
-echo "Installing: nvim ********************"
-pip3 install --user pynvim
-curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-chmod u+x nvim.appimage
-./nvim.appimage --appimage-extract
-./squashfs-root/AppRun --version
-sudo mv squashfs-root / && ln -s /squashfs-root/AppRun $HOME/.local/bin/nvim
+if type nvim > /dev/null 2>&1; then
+  echo "Found nvim in the system, nothing to do"
+else
+  echo "Installing: nvim ********************"
+  pip3 install --user pynvim
+  curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+  chmod u+x nvim.appimage
+  ./nvim.appimage --appimage-extract
+  ./squashfs-root/AppRun --version
+  mkdir -p $HOME/.local/nvim
+  mv squashfs-root $HOME/.local/nvim/ && ln -s $HOME/.local/nvim/squashfs-root/AppRun $HOME/.local/bin/nvim
+fi
 {{end -}}
+
+# vim:set ft=sh:
