@@ -58,3 +58,6 @@ vim.api.nvim_create_autocmd("FileType", {
 		end
 	end),
 })
+
+-- Use tree-sitter to find pairs: https://github.com/yorickpeterse/nvim-tree-pairs
+require("tree-pairs").setup()
