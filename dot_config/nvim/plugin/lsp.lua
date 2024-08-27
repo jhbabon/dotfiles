@@ -82,11 +82,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.lsp.buf.definition,
 			{ buffer = buffer, desc = "LSP: go to definition" }
 		)
-		-- Use Trouble for references and definitions
 		vim.keymap.set(
 			"n",
 			"<leader>lr",
-			[[<cmd>Trouble lsp_references<cr>]],
+			vim.lsp.buf.references,
 			{ buffer = buffer, desc = "LSP: references" }
 		)
 	end,

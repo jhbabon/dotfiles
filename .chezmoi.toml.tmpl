@@ -82,12 +82,8 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
   github = "andymass/vim-matchup"
 
 # Diagnostics
-[data.nvim.packages."trouble.nvim"]
-  github = "folke/trouble.nvim"
 
 # Quick movement
-[data.nvim.packages."flash.nvim"]
-  github = "folke/flash.nvim"
 [data.nvim.packages."precognition.nvim"]
   type = "opt"
   github = "tris203/precognition.nvim"
@@ -152,5 +148,7 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 # [data.nvim.graveyard."plug.nvim"]
 #   type = "opt" # defaults to "start" if missing
 [data.nvim.graveyard]
+[data.nvim.graveyard."trouble.nvim"]
+[data.nvim.graveyard."flash.nvim"]
 
 # vim:set ft=toml:
