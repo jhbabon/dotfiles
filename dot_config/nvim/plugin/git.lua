@@ -13,8 +13,8 @@ vim.g.__git_plugin__ = true
 require("defer").offload(function()
 	require("diffview").setup({})
 
-	require("clue")("n", "<leader>g", "git")
-	vim.keymap.set("n", "<leader>gs", [[:Git<cr>]], { desc = "git status" })
-	vim.keymap.set("n", "<leader>gc", [[:Git commit<cr>]], { desc = "git commit" })
-	vim.keymap.set("n", "<leader>gd", [[:DiffviewOpen<cr>]], { desc = "git diff" })
+	local _g = require("clue")("n", "<leader>g", "git")
+	vim.keymap.set("n", _g.s, [[:Git<cr>]], { desc = "git status" })
+	vim.keymap.set("n", _g.c, [[:Git commit<cr>]], { desc = "git commit" })
+	vim.keymap.set("n", _g.d, [[:DiffviewOpen<cr>]], { desc = "git diff" })
 end)

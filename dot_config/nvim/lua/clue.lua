@@ -23,11 +23,28 @@ function clue.mini()
 		table.insert(mini_clue, {
 			mode = item.mode,
 			keys = item.keys,
-			desc = table.concat(vim.tbl_keys(item.desc), " | ")
+			desc = table.concat(vim.tbl_keys(item.desc), " | "),
 		})
 	end
 
 	return mini_clue
+end
+
+local function seq(prefix)
+	local sequence = {}
+
+	local meta = {
+		__call = function(_, keys)
+			return ("%s%s"):format(prefix, keys)
+		end,
+		__index = function(tbl, keys)
+			return tbl(keys)
+		end,
+	}
+
+	setmetatable(sequence, meta)
+
+	return sequence
 end
 
 local function set(tbl, mode, keys, desc)
@@ -41,6 +58,8 @@ local function set(tbl, mode, keys, desc)
 	local descriptions = {}
 	descriptions[desc] = true
 	table.insert(tbl._list, { mode = mode, keys = keys, desc = descriptions })
+
+	return seq(keys)
 end
 
 local meta = {
@@ -52,6 +71,8 @@ local meta = {
 		for _, mod in pairs(mode) do
 			set(tbl, mod, keys, desc)
 		end
+
+		return seq(keys)
 	end,
 }
 

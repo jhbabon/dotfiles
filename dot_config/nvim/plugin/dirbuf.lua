@@ -27,6 +27,6 @@ defer.offload(function()
 		end
 	end)
 
-	require("clue")("n", "<leader>f", "files")
-	vim.keymap.set("n", "<leader>ft", dirbuf, { desc = "explore files with Dirbuf" })
+	local _f = require("clue")("n", "<leader>f", "files")
+	vim.keymap.set("n", _f.t, dirbuf, { desc = "explore files with Dirbuf" })
 end)

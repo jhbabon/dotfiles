@@ -10,7 +10,7 @@ vim.g.__iswap_plugin__ = true
 require("defer").offload(function()
 	require("iswap").setup({})
 
-	require("clue")("n", "cx", "iswap")
-	vim.keymap.set("n", "cxp", [[:ISwap<cr>]], { desc = "exchange params" })
-	vim.keymap.set("n", "cxn", [[:ISwapNode<cr>]], { desc = "exchange nodes" })
+	local cx = require("clue")("n", "cx", "iswap")
+	vim.keymap.set("n", cx.p, [[:ISwap<cr>]], { desc = "exchange params" })
+	vim.keymap.set("n", cx.n, [[:ISwapNode<cr>]], { desc = "exchange nodes" })
 end)

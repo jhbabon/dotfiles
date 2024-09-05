@@ -23,9 +23,9 @@ local function load()
 	require("mini.sessions").read("Session.vim", {})
 end
 
-require("clue")("n", "<leader>c", "checkpoint")
-vim.keymap.set("n", "<leader>cs", save, { desc = "save current session" })
-vim.keymap.set("n", "<leader>cl", load, { desc = "load last session" })
+local _c = require("clue")("n", "<leader>c", "checkpoint")
+vim.keymap.set("n", _c.s, save, { desc = "save current session" })
+vim.keymap.set("n", _c.l, load, { desc = "load last session" })
 
 -- Start screen
 local starter = require("mini.starter")

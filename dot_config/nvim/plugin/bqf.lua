@@ -9,8 +9,8 @@ vim.g.__bqf_plugin__ = true
 require("defer").offload(function()
 	require("bqf").setup({})
 
-	require("clue")("n", "<leader>q", "quicklist")
-	vim.keymap.set("n", "<leader>qt", function()
+	local _q = require("clue")("n", "<leader>q", "quicklist")
+	vim.keymap.set("n", _q.t, function()
 		for _, win in pairs(vim.fn.getwininfo()) do
 			if win["quickfix"] == 1 then
 				vim.cmd([[cclose]])
@@ -23,7 +23,7 @@ require("defer").offload(function()
 		end
 	end, { desc = "toggle quicklist" })
 
-	vim.keymap.set("n", "<leader>ql", function()
+	vim.keymap.set("n", _q.l, function()
 		for _, win in pairs(vim.fn.getwininfo()) do
 			if win["loclist"] == 1 then
 				vim.cmd([[lclose]])

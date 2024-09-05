@@ -23,6 +23,6 @@ defer.offload(function()
 		require("precognition").toggle()
 	end)
 
-	require("clue")("n", "<leader>p", "precognition")
-	vim.keymap.set("n", "<leader>pt", toggle, { desc = "toggle precognition" })
+	local _p = require("clue")("n", "<leader>p", "precognition")
+	vim.keymap.set("n", _p.t, toggle, { desc = "toggle precognition" })
 end)
