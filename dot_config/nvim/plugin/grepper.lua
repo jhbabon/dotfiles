@@ -32,7 +32,8 @@ require("defer").offload(function()
 	vim.keymap.set("n", "<leader>sgq", [[:GrepperGrep<space>]], { desc = "search query with grep" })
 
 	vim.g.grepper = {
-		open = false,
+		open = true,
+		quickfix = true,
 		tools = { "rg", "git", "grep" },
 	}
 
