@@ -1,0 +1,15 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+echo "Installing: go bins ******************************"
+brew bundle --no-lock --file=/dev/stdin <<EOF
+brew "go"
+brew "gopls"
+brew "golangci-lint"
+EOF
+
+echo "Installing: goimports ****************************"
+go install golang.org/x/tools/cmd/goimports@latest
+
+# vim:set ft=sh:
+{{ end -}}
