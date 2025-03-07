@@ -35,7 +35,7 @@ require("kanagawa").setup({
 })
 
 vim.opt.background = "light"
-vim.cmd([[colorscheme PaperColorSlim]])
+vim.cmd([[colorscheme rose-pine]])
 
 -- Dirbuf customizations
 local dirbuf = {
@@ -79,7 +79,7 @@ end
 
 require("lualine").setup({
 	options = {
-		theme = "PaperColor",
+		theme = "rose-pine",
 		globalstatus = true,
 		disabled_filetypes = {
 			winbar = {
