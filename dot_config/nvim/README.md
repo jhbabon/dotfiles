@@ -22,6 +22,16 @@ Since Neovim `0.9` there is a lua loader that does exactly that: [`vim.loader`][
 
 Since Neovim `0.11` LSP configurations can be defined inside `~/.config/nvim/lsp/<servername>.lua` and they also can be in `plugin` files, `init.lua` and local `.nvim.lua` files. This means a configuration can be changed as needed per project if needed. For more info check `:h lsp`.
 
+To override a configuration in a project, it can be redefined inside a local `.nvim.lua` file. For example, to override `sorbet` in a ruby project:
+
+```lua
+-- .nvim.lua
+-- Keep all sorbet options but change the main command
+vim.lsp.config('sorbet', {
+  cmd = { "bundle", "exec", "srb", "tc", "--lsp", "--disable-watchman" },
+})
+```
+
 ### Packages management
 
 #### Adding new packages
