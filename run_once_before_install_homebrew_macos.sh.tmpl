@@ -2,12 +2,13 @@
 #!/bin/bash
 
 echo "Installing: homebrew packages ********************"
-brew bundle --no-lock --file=/dev/stdin <<EOF
+brew bundle install --file=/dev/stdin <<EOF
 brew "coreutils"
 brew "git"
 brew "bat"
 brew "eza"
 brew "ripgrep"
+brew "ast-grep"
 brew "starship"
 brew "code-minimap"
 brew "neovim"
@@ -15,8 +16,10 @@ brew "tmux"
 brew "direnv"
 brew "fd"
 brew "fnm"
-brew "frum"
+brew "rbenv"
+brew "lua-language-server"
 brew "stylua"
+brew "luacheck"
 brew "gh"
 brew "jq"
 brew "go"
@@ -24,14 +27,11 @@ brew "gopls"
 brew "golangci-lint"
 brew "jhbabon/tap/scout"
 brew "sqlite"
+brew "efm-langserver"
+brew "marksman"
+brew "deno"
 
 EOF
-
-echo "Installing: goimports ****************************"
-go install golang.org/x/tools/cmd/goimports@latest
-
-echo "Installing: rustup *******************************"
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path -c rust-analysis -c clippy -c rust-analyzer
 
 # vim:set ft=sh:
 {{ end -}}

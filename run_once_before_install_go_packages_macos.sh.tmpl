@@ -1,0 +1,8 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+echo "Installing: goimports ****************************"
+go install golang.org/x/tools/cmd/goimports@latest
+
+# vim:set ft=sh:
+{{ end -}}
