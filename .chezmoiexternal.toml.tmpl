@@ -14,15 +14,6 @@
   url = "https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info"
   exact = true
   refreshPeriod = "168h"
-{{ if (.codespaces) }}
-[".local/bin/exa"]
-  type = "file"
-  url = "https://github.com/ogham/exa/releases/download/v0.10.1/exa-linux-x86_64-v0.10.1.zip"
-  executable = true
-    [".local/bin/exa".filter]
-      command = "busybox"
-      args = ["unzip", "-", "bin/exa", "-p"]
-{{ end }}
 
 {{ range $name, $pkg := .nvim.packages }}
 {{ $type := and (hasKey $pkg "type") $pkg.type | default "start" }}

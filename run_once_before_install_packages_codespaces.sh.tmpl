@@ -1,0 +1,35 @@
+{{- if (.codespaces) -}}
+#!/bin/sh
+
+set -e
+
+echo "Installing: dependencies ********************"
+sudo apt update -y
+sudo apt install -y ripgrep fd-find tmux busybox jq
+
+echo "Setting up zsh ******************************"
+sudo chsh -s /bin/zsh $(whoami)
+
+echo "Installing: starship ********************"
+sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes
+
+if type cargo > /dev/null 2>&1; then
+  echo "Installing rust tools"
+  cargo install scout
+  cargo install eza
+fi
+
+if type go > /dev/null 2>&1; then
+  go install github.com/mattn/efm-langserver@latest
+fi
+
+if [ ! -d "$HOME/.local/share/nvim-linux-x86_64" ]; then
+  mkdir -p "$HOME/.local/bin"
+  curl -L -o "$HOME/.local/share/nvim-linux-x86_64.tar.gz" https://github.com/neovim/neovim-releases/releases/download/stable/nvim-linux-x86_64.tar.gz
+  tar xvf "$HOME/.local/share/nvim-linux-x86_64.tar.gz" --directory="$HOME/.local/share"
+
+  ln -s "$HOME/.local/share/nvim-linux-x86_64/bin/nvim" "$HOME/.local/bin/nvim"
+fi
+
+# vim:set ft=sh:
+{{end -}}
