@@ -6,7 +6,7 @@ if vim.g.__grepper_plugin__ then
 end
 vim.g.__grepper_plugin__ = true
 
-require("defer").offload(function()
+require("defer").very_lazy(function()
 	local clue = require("clue")
 
 	local _s = clue("n", "<leader>s", "search")

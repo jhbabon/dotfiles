@@ -9,13 +9,6 @@ if vim.g.__theme_plugin__ then
 end
 vim.g.__theme_plugin__ = true
 
-vim.api.nvim_create_autocmd("User", {
-	pattern = "Bootstrap",
-	callback = function()
-		vim.cmd([[silent! KanagawaCompile]])
-	end,
-})
-
 require("rose-pine").setup({
 	dark_variant = "moon",
 	disable_italics = true,
@@ -27,11 +20,6 @@ require("rose-pine").setup({
 		["@text.emphasis"] = { italic = true },
 		["@parameter"] = { fg = "iris", italic = true },
 	},
-})
-
-require("kanagawa").setup({
-	compile = true,
-	dimInactive = true,
 })
 
 vim.opt.background = "light"
@@ -64,7 +52,7 @@ local dirbuf = {
 ---Display attached LSP client names
 local function lsp()
 	local bufnr = vim.api.nvim_get_current_buf()
-	local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+	local clients = vim.lsp.get_clients({ bufnr = bufnr })
 	if #clients == 0 then
 		return ""
 	end

@@ -1,5 +1,4 @@
----Configure markdown.nvim plugin: https://github.com/MeanderingProgrammer/markdown.nvim
--- Plugin to improve viewing Markdown files in Neovim
+---Setup markdown environment
 -----------------------------------------------------------------------
 if vim.g.__markdown_plugin__ then
 	return
@@ -13,7 +12,3 @@ vim.api.nvim_create_autocmd("User", {
 		vim.cmd([[TSInstallSync! markdown markdown_inline]])
 	end,
 })
-
-require("defer").offload(function()
-	require("render-markdown").setup({})
-end)

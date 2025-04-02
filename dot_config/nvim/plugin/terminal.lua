@@ -6,7 +6,8 @@ if vim.g.__terminal_plugin__ then
 end
 vim.g.__terminal_plugin__ = true
 
-require("defer").offload(function()
+require("defer").lazy(function()
+	vim.cmd([[packadd toggleterm.nvim]])
 	require("toggleterm").setup({
 		open_mapping = [[<c-t>]],
 		shade_terminals = false,

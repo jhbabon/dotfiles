@@ -6,7 +6,7 @@ if vim.g.__projectionist_plugin__ then
 end
 vim.g.__projectionist_plugin__ = true
 
-require("defer").offload(function()
+require("defer").very_lazy(function()
 	vim.g.projectionist_heuristics = {
 		["Gemfile|*.gemspec"] = {
 			["*_spec.rb"] = {

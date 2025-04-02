@@ -49,17 +49,20 @@ starter.setup({
 	},
 })
 
-require("defer").offload(function()
+local defer = require("defer")
+defer.lazy(function()
 	-- Show indent lines
 	require("mini.indentscope").setup({
 		symbol = [[·]], -- Middle Dot (U+00B7)
 	})
 
-	-- Per line commenting. Replacement of tpope/vim-commentary
-	require("mini.comment").setup({})
-
 	-- Automatic highlighting of word under cursor
 	require("mini.cursorword").setup({})
+end)
+
+defer.very_lazy(function()
+	-- Per line commenting. Replacement of tpope/vim-commentary
+	require("mini.comment").setup({})
 
 	-- Autopair plugin
 	-- Replaces windwp/nvim-autopairs
@@ -71,14 +74,14 @@ require("defer").offload(function()
 	-- Move
 	require("mini.move").setup({
 		mappings = {
-			left = "<Leader>mh",
-			right = "<Leader>ml",
-			down = "<Leader>mj",
-			up = "<Leader>mk",
-			line_left = "<Leader>mh",
-			line_right = "<Leader>ml",
-			line_down = "<Leader>mj",
-			line_up = "<Leader>mk",
+			left = "<leader>mh",
+			right = "<leader>ml",
+			down = "<leader>mj",
+			up = "<leader>mk",
+			line_left = "<leader>mh",
+			line_right = "<leader>ml",
+			line_down = "<leader>mj",
+			line_up = "<leader>mk",
 		},
 	})
 

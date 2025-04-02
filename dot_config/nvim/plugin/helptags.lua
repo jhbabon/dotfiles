@@ -1,3 +1,5 @@
+---Ensure helptags are up to date
+-----------------------------------------------------------------------
 if vim.g.__helptags_plugin__ then
 	return
 end

@@ -7,10 +7,23 @@ if vim.g.__iswap_plugin__ then
 end
 vim.g.__iswap_plugin__ = true
 
-require("defer").offload(function()
-	require("iswap").setup({})
+local defer = require("defer")
+defer.very_lazy(function()
+	local function setup()
+		vim.cmd([[packadd iswap.nvim]])
+		require("iswap").setup({})
+	end
+
+	local wrap = defer.jits.iswap(setup)
+
+	local swap_params = wrap(function()
+		vim.cmd([[ISwap]])
+	end)
+	local swap_nodes = wrap(function()
+		vim.cmd([[ISwapNode]])
+	end)
 
 	local cx = require("clue")("n", "cx", "iswap")
-	vim.keymap.set("n", cx.p, [[:ISwap<cr>]], { desc = "exchange params" })
-	vim.keymap.set("n", cx.n, [[:ISwapNode<cr>]], { desc = "exchange nodes" })
+	vim.keymap.set("n", cx.p, swap_params, { desc = "exchange params" })
+	vim.keymap.set("n", cx.n, swap_nodes, { desc = "exchange nodes" })
 end)

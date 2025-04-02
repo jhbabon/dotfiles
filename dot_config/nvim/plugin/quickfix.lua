@@ -1,12 +1,13 @@
 ---Configure bqf plugin: kevinhwang91/nvim-bqf
 -- Better quickfix window in Neovim, polish old quickfix window.
 -----------------------------------------------------------------------
-if vim.g.__bqf_plugin__ then
+if vim.g.__quickfix_plugin__ then
 	return
 end
-vim.g.__bqf_plugin__ = true
+vim.g.__quickfix_plugin__ = true
 
-require("defer").offload(function()
+require("defer").very_lazy(function()
+	vim.cmd([[packadd nvim-bqf]])
 	require("bqf").setup({})
 
 	local _q = require("clue")("n", "<leader>q", "quicklist")

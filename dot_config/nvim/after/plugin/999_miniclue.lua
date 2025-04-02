@@ -2,7 +2,7 @@
 -- This setup is done in an after plugin and in an offload
 -- block to delay it as much as possible. The name of the file
 -- should help loading this as the last plugin, enqueueing
--- the offload block (VimEnter event) the last one.
+-- the offload block (UIEnter event) the last one.
 -- This way we can get all the "clues" from all the plugins.
 -----------------------------------------------------------------------
 if vim.g.__miniclue_plugin__ then
@@ -10,7 +10,7 @@ if vim.g.__miniclue_plugin__ then
 end
 vim.g.__miniclue_plugin__ = true
 
-require("defer").offload(function()
+require("defer").very_lazy(function()
 	local miniclue = require("mini.clue")
 	miniclue.setup({
 		triggers = {

@@ -5,14 +5,26 @@ local defer = {}
 
 local group = vim.api.nvim_create_augroup("__defer__", { clear = true })
 
----Offload the execution of a function until VimEnter has been triggered
+---@class OffloadSpec
+---@field event string the name of the vim event
+
+---Offload the execution of a function until the given event has been triggered. By default is VimEnter
 ---@param callback fun()
-function defer.offload(callback)
-	vim.api.nvim_create_autocmd("VimEnter", {
+---@param options OffloadSpec|nil
+function defer.lazy(callback, options)
+	options = options or {}
+	local event = options.event or "VimEnter"
+	vim.api.nvim_create_autocmd(event, {
 		group = group,
 		pattern = { "*" },
 		callback = vim.schedule_wrap(callback),
 	})
+end
+
+---Offload the execution of a function until UIEnter has been triggered
+---@param callback fun()
+function defer.very_lazy(callback)
+	defer.lazy(callback, { event = "UIEnter" })
 end
 
 ---JITS: Just In Time Setup
@@ -90,7 +102,7 @@ setmetatable(jits, {
 
 	__call = function(_, ...)
 		return _jits(...)
-	end
+	end,
 })
 
 defer.jits = jits

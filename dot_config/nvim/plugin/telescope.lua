@@ -6,7 +6,9 @@ if vim.g.__telescope_plugin__ then
 end
 vim.g.__telescope_plugin__ = true
 
-require("defer").offload(function()
+require("defer").lazy(function()
+	vim.cmd([[packadd telescope.nvim]])
+
 	local fz = require("mini.fuzzy")
 	fz.setup({})
 

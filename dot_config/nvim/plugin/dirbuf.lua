@@ -9,8 +9,9 @@ vim.g.__dirbuf_plugin__ = true
 
 local defer = require("defer")
 
-defer.offload(function()
+defer.very_lazy(function()
 	local function setup()
+		vim.cmd([[packadd dirbuf.nvim]])
 		require("dirbuf").setup({
 			write_cmd = "DirbufSync -confirm",
 		})

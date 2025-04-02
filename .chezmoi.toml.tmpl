@@ -42,8 +42,10 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 [data.nvim.packages."nvim-treesitter"]
   github = "nvim-treesitter/nvim-treesitter"
 [data.nvim.packages."iswap.nvim"]
+  type = "opt"
   github = "mizlan/iswap.nvim"
 [data.nvim.packages."nvim-tree-pairs"]
+  type = "opt"
   github = "yorickpeterse/nvim-tree-pairs"
 
 # Theme
@@ -51,20 +53,13 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
   github = "nvim-lualine/lualine.nvim"
 [data.nvim.packages."rose-pine"]
   github = "rose-pine/neovim"
-[data.nvim.packages."kanagawa.nvim"]
-  github = "rebelot/kanagawa.nvim"
 [data.nvim.packages."vim-paper"]
   github = "yorickpeterse/vim-paper"
-[data.nvim.packages."papercolor-theme-slim"]
-  github = "pappasam/papercolor-theme-slim"
 
 # File explorer
 [data.nvim.packages."dirbuf.nvim"]
+  type = "opt"
   github = "elihunter173/dirbuf.nvim"
-
-# Filetypes
-[data.nvim.packages."vim-just"]
-  github = "NoahTheDuke/vim-just"
 
 # Project management
 [data.nvim.packages."vim-projectionist"]
@@ -78,11 +73,10 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
   github = "tpope/vim-characterize"
 [data.nvim.packages."vim-abolish"]
   github = "tpope/vim-abolish"
-[data.nvim.packages."vim-matchup"]
-  github = "andymass/vim-matchup"
 
 # Quicklist
 [data.nvim.packages."nvim-bqf"]
+  type = "opt"
   github = "kevinhwang91/nvim-bqf"
 
 # Quick movement
@@ -92,8 +86,10 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 # Git
 [data.nvim.packages."vim-fugitive"]
+  type = "opt"
   github = "tpope/vim-fugitive"
 [data.nvim.packages."diffview.nvim"]
+  type = "opt"
   github = "sindrets/diffview.nvim"
 
 # Search
@@ -103,12 +99,13 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 [data.nvim.packages."vim-grepper"]
   type = "opt"
   github = "mhinz/vim-grepper"
-[data.nvim.packages."nvim-spectre"]
+[data.nvim.packages."grug-far.nvim"]
   type = "opt"
-  github = "nvim-pack/nvim-spectre"
+  github = "MagicDuck/grug-far.nvim"
 
 # Fuzzy picker
 [data.nvim.packages."telescope.nvim"]
+  type = "opt"
   github = "nvim-telescope/telescope.nvim"
   branch = "0.1.x"
 
@@ -117,31 +114,15 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
   github = "echasnovski/mini.nvim"
 
 # LSP
-[data.nvim.packages."mason.nvim"]
-  github = "williamboman/mason.nvim"
-[data.nvim.packages."nvim-lspconfig"]
-  github = "neovim/nvim-lspconfig"
 [data.nvim.packages."fidget.nvim"]
+  type = "opt"
   github = "j-hui/fidget.nvim"
-  branch = "legacy"
-
-# Snippets
-[data.nvim.packages."nvim-snippy"]
-  github = "dcampos/nvim-snippy"
-[data.nvim.packages."vim-snippets"]
-  github = "honza/vim-snippets"
+  branch = "v1.6.1"
 
 # Terminal
 [data.nvim.packages."toggleterm.nvim"]
+  type = "opt"
   github = "akinsho/toggleterm.nvim"
-
-# Copy text from remote hots
-[data.nvim.packages."nvim-osc52"]
-  github = "ojroques/nvim-osc52"
-
-# Small Markdown preview
-[data.nvim.packages."markdown.nvim"]
-  github = "MeanderingProgrammer/markdown.nvim"
 
 # After removing a package, add its name to the `data.nvim.graveyard`
 # table so it can be removed by chezmoi using the .chezmoiremove file
@@ -150,8 +131,6 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
 # [data.nvim.graveyard."plug.nvim"]
 #   type = "opt" # defaults to "start" if missing
 [data.nvim.graveyard]
-[data.nvim.graveyard."trouble.nvim"]
-[data.nvim.graveyard."flash.nvim"]
-[data.nvim.graveyard."quicker.nvim"]
+
 
 # vim:set ft=toml:

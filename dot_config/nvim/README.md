@@ -16,7 +16,11 @@ Since Neovim `0.9` there is a lua loader that does exactly that: [`vim.loader`][
 
 ### But what about lazy loading?
 
-(Neo)vim has this amazing thing called events, and every plugin that lazy loads pretty much uses them. I don't need get too carried away[^1] thinking about lazy loading, I just need to make sure I put heavy things inside `VimEnter` events or even load things only when they are used. I think it's fine.
+(Neo)vim has this amazing thing called events, and every plugin that lazy loads pretty much uses them. I don't need get too carried away thinking about lazy loading, I just need to make sure I put heavy things inside `VimEnter` or `UIEnter` events or even load things only when they are used. I think it's fine.
+
+### But what about LSP configurations?
+
+Since Neovim `0.11` LSP configurations can be defined inside `~/.config/nvim/lsp/<servername>.lua` and they also can be in `plugin` files, `init.lua` and local `.nvim.lua` files. This means a configuration can be changed as needed per project if needed. For more info check `:h lsp`.
 
 ### Packages management
 
@@ -46,10 +50,8 @@ Chezmoi is not very good at removing things from the destination directory. The 
 
 ```sh
 rm -fr ~/.config/nvim
-chezmoi apply
+chezmoi init && chezmoi apply
 ```
-
-[^1]: Ok, maybe I got a bit carried away with my LSP configurations, since they are as lazy as possible, but I was inspired.
 
 [chezmoi]: https://www.chezmoi.io
 [vim-loader]: https://neovim.io/doc/user/lua.html#vim.loader

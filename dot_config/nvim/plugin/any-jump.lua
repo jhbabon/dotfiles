@@ -8,7 +8,7 @@ vim.g.__anyjump_plugin__ = true
 
 local defer = require("defer")
 
-defer.offload(function()
+defer.very_lazy(function()
 	local function setup()
 		vim.g.any_jump_disable_default_keybindings = true
 		vim.cmd([[packadd any-jump.vim]])

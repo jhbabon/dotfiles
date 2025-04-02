@@ -12,7 +12,12 @@ vim.opt.backup = false   -- no backup
 vim.opt.swapfile = false -- no swap files
 
 -- Plugins
-vim.g.loaded_matchit = 1 -- do not load built in matchit
+-- Disable built-in plugins
+vim.g.loaded_matchit = 1
+vim.g.loaded_matchparen = 1
+vim.g.loaded_gzip = 1
+vim.g.loaded_zipPlugin = 1
+vim.g.loaded_tarPlugin = 1
 
 -- Behaviors
 vim.opt.modeline = true    -- allow modelines in files
@@ -21,7 +26,7 @@ vim.opt.autoread = true    -- automatically read changes done outside vim
 vim.opt.joinspaces = false -- put only one space after joining
 vim.opt.mouse = "a"        -- enable all mouse interactions
 
--- Use the system clipboard as the default register
+-- Use System's clipboard integration
 vim.opt.clipboard = { "unnamed", "unnamedplus" }
 
 -- Indentation
@@ -73,10 +78,9 @@ vim.opt.termguicolors = true
 vim.opt.exrc = true
 
 -- Mappings
-local clue = require("clue")
-
 vim.keymap.set("i", "jj", "<esc>")
 
+local clue = require("clue")
 local _u = clue("n", "<leader>u", "misc")
 vim.keymap.set("n", _u("<space>"), function()
 	-- save current cursor positionn

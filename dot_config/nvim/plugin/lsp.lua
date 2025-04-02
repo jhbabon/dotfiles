@@ -12,6 +12,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	group = mappings,
 	callback = function(args)
 		-- Set mappings
+		local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 		local buffer = args.buf
 		vim.keymap.set("n", "]e", vim.diagnostic.goto_next, { buffer = buffer, desc = "LSP: next diagnostic" })
 		vim.keymap.set("n", "[e", vim.diagnostic.goto_prev, { buffer = buffer, desc = "LSP: previous diagnostic" })
@@ -28,13 +29,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", _l.t, vim.lsp.buf.type_definition, { buffer = buffer, desc = "LSP: go to type definition" })
 		vim.keymap.set("n", _l.d, vim.lsp.buf.definition, { buffer = buffer, desc = "LSP: go to definition" })
 		vim.keymap.set("n", _l.r, vim.lsp.buf.references, { buffer = buffer, desc = "LSP: references" })
+
+		-- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
+		if client:supports_method("textDocument/completion") then
+			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = false })
+		end
 	end,
 })
 
-require("defer").offload(function()
-	require("fidget").setup({
-		text = {
-			spinner = "dots",
-		},
-	})
+require("defer").lazy(function()
+	vim.cmd([[packadd fidget.nvim]])
+	require("fidget").setup({})
 end)

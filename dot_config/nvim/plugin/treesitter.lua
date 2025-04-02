@@ -59,5 +59,9 @@ vim.api.nvim_create_autocmd("FileType", {
 	end),
 })
 
--- Use tree-sitter to find pairs: https://github.com/yorickpeterse/nvim-tree-pairs
-require("tree-pairs").setup()
+local defer = require("defer")
+defer.very_lazy(function()
+	-- Use tree-sitter to find pairs: https://github.com/yorickpeterse/nvim-tree-pairs
+	vim.cmd([[packadd nvim-tree-pairs]])
+	require("tree-pairs").setup()
+end)
