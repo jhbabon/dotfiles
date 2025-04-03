@@ -3,4 +3,4 @@ if vim.g.__rust_ftplugin__ then
 end
 vim.g.__rust_ftplugin__ = true
 
-require("lsp").enable("rust_analyzer")
+require("lsp").enable("rust-analyzer")
