@@ -32,10 +32,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		-- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
 		if client:supports_method("textDocument/completion") then
-			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = false })
+			vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
 		end
 	end,
 })
+
+-- Do not select by default when autocomplete is enabled
+vim.cmd([[set completeopt+=noselect]])
 
 require("defer").lazy(function()
 	vim.cmd([[packadd fidget.nvim]])
