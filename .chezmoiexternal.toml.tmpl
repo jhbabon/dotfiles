@@ -19,7 +19,11 @@
 {{ $type := and (hasKey $pkg "type") $pkg.type | default "start" }}
 [".local/share/nvim/site/pack/chezmoi/{{$type}}/{{$name}}"]
   type = "git-repo"
+  {{ if (hasKey $pkg "github") }}
   url = "https://github.com/{{$pkg.github}}.git"
+  {{ else }}
+  url = "{{$pkg.gitrepo}}"
+  {{ end }}
   refreshPeriod = "72h"
   [".local/share/nvim/site/pack/chezmoi/{{$type}}/{{$name}}".clone]
     {{ if (hasKey $pkg "branch") }}

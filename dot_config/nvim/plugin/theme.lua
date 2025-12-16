@@ -1,8 +1,6 @@
 ---Configure statusline and colorscheme
 -- Statusline is set with lualine: https://github.com/nvim-lualine/lualine.nvim
 --   A blazing fast and easy to configure neovim statusline plugin written in pure lua
--- Colorscheme is set with rose-pine: https://github.com/rose-pine/neovim
---   Soho vibes for Neovim
 -----------------------------------------------------------------------
 if vim.g.__theme_plugin__ then
 	return
@@ -22,8 +20,22 @@ require("rose-pine").setup({
 	},
 })
 
+vim.api.nvim_create_autocmd("Colorscheme", {
+	pattern = { "alabaster" },
+	callback = vim.schedule_wrap(function()
+		-- Alabaster modifications
+		vim.cmd([[highlight Comment cterm=italic gui=italic]])
+		vim.cmd([[highlight Keyword cterm=italic gui=italic]])
+		vim.cmd([[highlight @keyword cterm=italic gui=italic]])
+		vim.cmd([[highlight htmlItalic cterm=italic gui=italic]])
+		vim.cmd([[highlight mkdCode cterm=italic gui=italic]])
+		vim.cmd([[highlight @text.emphasis cterm=italic gui=italic]])
+		vim.cmd([[highlight @parameter cterm=italic gui=italic]])
+	end),
+})
+
 vim.opt.background = "light"
-vim.cmd([[colorscheme rose-pine]])
+vim.cmd([[colorscheme alabaster]])
 
 -- Dirbuf customizations
 local dirbuf = {
@@ -67,7 +79,7 @@ end
 
 require("lualine").setup({
 	options = {
-		theme = "rose-pine",
+		theme = "auto",
 		globalstatus = true,
 		disabled_filetypes = {
 			winbar = {
