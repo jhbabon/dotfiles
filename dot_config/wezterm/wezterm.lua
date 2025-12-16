@@ -68,9 +68,11 @@ config.font_rules = {
 config.font_size = 14.0
 
 -- rose-pine theme. Variants: dawn (light), moon, main
-local rose_pine = wezterm.plugin.require('https://github.com/neapsix/wezterm').dawn
-config.colors = rose_pine.colors()
-config.window_frame = rose_pine.window_frame()
+-- local rose_pine = wezterm.plugin.require('https://github.com/neapsix/wezterm').dawn
+-- config.colors = rose_pine.colors()
+-- config.window_frame = rose_pine.window_frame()
+
+config.color_scheme = "Alabaster"
 
 wezterm.on("gui-startup", function()
 	local screen = wezterm.gui.screens().active
