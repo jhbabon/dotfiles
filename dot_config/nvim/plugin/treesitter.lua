@@ -45,10 +45,10 @@ vim.api.nvim_create_autocmd("FileType", {
 
 		local installed = require("nvim-treesitter.config").get_installed()
 		if not vim.list_contains(installed, lang) then
-			require("nvim-treesitter").install({ lang }):wait(30000)
+			require("nvim-treesitter").install({ lang }):await(enable_treesitter)
+		else
+			enable_treesitter()
 		end
-
-		enable_treesitter()
 	end),
 })
 
