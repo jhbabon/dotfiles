@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd("Colorscheme", {
 })
 
 vim.opt.background = "light"
-vim.cmd([[colorscheme alabaster]])
+vim.cmd([[colorscheme rose-pine]])
 
 -- Dirbuf customizations
 local dirbuf = {
