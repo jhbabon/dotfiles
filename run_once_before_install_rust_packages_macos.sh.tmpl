@@ -4,5 +4,8 @@
 echo "Installing: rustup *******************************"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path -c rust-analysis -c clippy -c rust-analyzer
 
+echo "Installing: cargo packages ***********************"
+cargo install tree-sitter-cli
+
 # vim:set ft=sh:
 {{ end -}}

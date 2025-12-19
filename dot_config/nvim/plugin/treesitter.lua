@@ -11,51 +11,44 @@ vim.api.nvim_create_autocmd("User", {
 	pattern = "Bootstrap",
 	callback = function()
 		-- List of syntax files that are needed
-		vim.cmd([[TSInstallSync! lua c query vim vimdoc]])
-		vim.cmd([[TSUpdateSync]])
+		require("nvim-treesitter").install({ "lua", "c", "query", "vim", "vimdoc" }):wait(30000)
+		require("nvim-treesitter").update():wait(30000)
 	end,
 })
 
-require("nvim-treesitter.configs").setup({
-	auto_install = false,
-	-- list of languages https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
-	ensure_installed = {},
-	ignore_install = {},
-	sync_install = false,
-	highlight = {
-		enable = true,
-		additional_vim_regex_highlighting = false,
-	},
-	incremental_selection = {
-		enable = true,
-	},
-	indent = {
-		enable = true,
-	},
-})
+local function enable_treesitter()
+	-- Highlight
+	vim.treesitter.start()
 
--- Nvim-Treesitter has an auto installer setup, but it can try to install a parser several
--- times if a file is loaded more than once quickly, and this happens when loading LSP configurations.
--- To avoid that issue I'm using my own auto installer that does the same, but it is only triggered
--- once per file type
-local parsers = require("nvim-treesitter.parsers")
+	-- Folds
+	vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+	vim.wo[0][0].foldmethod = "expr"
+	vim.wo[0][0].foldlevel = 20
+
+	-- Indentation
+	vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+end
+
+-- Install tree-sitter parsers and enable them on demand
 local group = vim.api.nvim_create_augroup("CustomTreesitterAutoInstaller", { clear = true })
-local done = {}
 vim.api.nvim_create_autocmd("FileType", {
 	group = group,
 	pattern = { "*" },
 	callback = vim.schedule_wrap(function(ev)
 		-- NOTE: For the FileType event, the field "match" has the filetype value
-		local lang = parsers.ft_to_lang(ev.match)
+		local lang = vim.treesitter.language.get_lang(ev.match)
 
-		if done[lang] then
+		local available = require("nvim-treesitter.config").get_available()
+		if not vim.list_contains(available, lang) then
 			return
 		end
-		done[lang] = true
 
-		if parsers.list[lang] and not parsers.has_parser(lang) then
-			vim.cmd(([[TSInstall! %s]]):format(lang))
+		local installed = require("nvim-treesitter.config").get_installed()
+		if not vim.list_contains(installed, lang) then
+			require("nvim-treesitter").install({ lang }):wait(30000)
 		end
+
+		enable_treesitter()
 	end),
 })
 

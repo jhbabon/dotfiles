@@ -9,6 +9,6 @@ vim.api.nvim_create_autocmd("User", {
 	pattern = "Bootstrap",
 	callback = function()
 		-- Ensure treesitter syntax is installed
-		vim.cmd([[TSInstallSync! markdown markdown_inline]])
+		require("nvim-treesitter").install({ "markdown", "markdown_inline" }):wait(30000)
 	end,
 })
