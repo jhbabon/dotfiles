@@ -30,27 +30,46 @@ local function enable_treesitter()
 end
 
 -- Install tree-sitter parsers and enable them on demand
-local group = vim.api.nvim_create_augroup("CustomTreesitterAutoInstaller", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-	group = group,
-	pattern = { "*" },
-	callback = vim.schedule_wrap(function(ev)
-		-- NOTE: For the FileType event, the field "match" has the filetype value
-		local lang = vim.treesitter.language.get_lang(ev.match)
+local treesitter_config = require("nvim-treesitter.config")
+local installer_group = vim.api.nvim_create_augroup("CustomTreesitterAutoInstaller", { clear = true })
+local enabler_group = vim.api.nvim_create_augroup("CustomTreesitterAutoEnabler", { clear = true })
 
-		local available = require("nvim-treesitter.config").get_available()
-		if not vim.list_contains(available, lang) then
-			return
-		end
+local missing = treesitter_config.norm_languages("all", { installed = true, unsupported = true })
+local installed = treesitter_config.norm_languages("all", { missing = true, unsupported = true })
 
-		local installed = require("nvim-treesitter.config").get_installed()
-		if not vim.list_contains(installed, lang) then
-			require("nvim-treesitter").install({ lang }):await(enable_treesitter)
-		else
+for _, lang in ipairs(missing) do
+	local filetypes = vim.treesitter.language.get_filetypes(lang)
+	vim.api.nvim_create_autocmd("FileType", {
+		group = installer_group,
+		pattern = filetypes,
+		once = true,
+		callback = vim.schedule_wrap(function(ev)
+			local language = vim.treesitter.language.get_lang(ev.match)
+			require("nvim-treesitter").install({ language }):await(function()
+				vim.api.nvim_create_autocmd("FileType", {
+					group = enabler_group,
+					pattern = filetypes,
+					callback = vim.schedule_wrap(function()
+						enable_treesitter()
+					end),
+				})
+
+				enable_treesitter()
+			end)
+		end),
+	})
+end
+
+for _, lang in ipairs(installed) do
+	local filetypes = vim.treesitter.language.get_filetypes(lang)
+	vim.api.nvim_create_autocmd("FileType", {
+		group = enabler_group,
+		pattern = filetypes,
+		callback = vim.schedule_wrap(function()
 			enable_treesitter()
-		end
-	end),
-})
+		end),
+	})
+end
 
 local defer = require("defer")
 defer.very_lazy(function()
