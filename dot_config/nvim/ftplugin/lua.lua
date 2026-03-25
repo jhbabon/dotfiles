@@ -11,6 +11,7 @@ vim.lsp.config("efm", {
 		languages = {
 			lua = {
 				{
+					-- FIXME: Stylua can run as a lsp server, I can use that
 					formatCommand = stylua,
 					formatCanRange = true,
 					formatStdin = true,

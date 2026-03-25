@@ -3,4 +3,4 @@ if vim.g.__yaml_ftplugin__ then
 end
 vim.g.__yaml_ftplugin__ = true
 
-require("lsp").enable("yamlls")
+require("lsp").enable({ "yamlls" })
